@@ -1,0 +1,83 @@
+<!--{"title": "Deploy", "key": "page.deploy", "tab": "deploy", "description": "Deploy Material Moodle with Docker Compose on any machine, publish it with a Cloudflare tunnel, or use the desktop deployer."}-->
+<header class="page-head rise">
+  <h1 data-i18n="deploy.h1">Deploy</h1>
+  <p class="lead" data-i18n="deploy.lead">Run the Docker stack on any machine, put it online with a Cloudflare tunnel, or let the desktop deployer do it over SSH.</p>
+</header>
+
+<section class="section tight" aria-labelledby="run-with-docker">
+  <h2 id="run-with-docker" data-i18n="deploy.docker">Run with Docker</h2>
+  <ol class="steps">
+    <li><strong data-i18n="deploy.s1">Get the code</strong><span data-i18n="deploy.s1b">Clone the repository on a machine with Docker and Docker Compose.</span></li>
+    <li><strong data-i18n="deploy.s2">Set two passwords</strong><span data-i18n="deploy.s2b">Copy .env.example to .env and set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD.</span></li>
+    <li><strong data-i18n="deploy.s3">Start the stack</strong><span data-i18n="deploy.s3b">The first start installs Moodle and applies the Material defaults. It takes a few minutes.</span></li>
+    <li><strong data-i18n="deploy.s4">Sign in</strong><span data-i18n="deploy.s4b">Open http://localhost:8080 and sign in as the administrator from .env.</span></li>
+  </ol>
+  <pre aria-label="Run with Docker"><code>git clone https://github.com/Ding-Ding-Projects/material-moodle
+cd material-moodle/material/docker
+cp .env.example .env
+# Edit .env: set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD
+docker compose up -d --build
+docker compose logs -f moodle   # wait for MATERIAL_MOODLE_INSTALLED</code></pre>
+  <p data-i18n="deploy.image">Without --build, Compose uses the published image ghcr.io/ding-ding-projects/material-moodle:latest when it is available.</p>
+</section>
+
+<section class="section tight" aria-labelledby="put-it-online">
+  <h2 id="put-it-online" data-i18n="deploy.online">Put it online</h2>
+  <div class="grid">
+    <div class="card c1"><h3 data-i18n="deploy.quick">Quick link</h3><p data-i18n="deploy.quickB">No account. You get a random address that changes when the tunnel restarts. Set MOODLE_WWWROOT=auto first.</p></div>
+    <div class="card c2"><h3 data-i18n="deploy.named">Your own domain</h3><p data-i18n="deploy.namedB">A permanent address on a domain in your Cloudflare account, using a tunnel token from the dashboard.</p></div>
+  </div>
+  <pre aria-label="Quick tunnel"><code># Quick link (temporary trycloudflare.com address)
+docker compose --profile quicktunnel up -d
+docker compose logs quicktunnel | grep -o 'https://[a-z0-9-]*\.trycloudflare\.com'</code></pre>
+  <pre aria-label="Named tunnel"><code># Your own domain: put these in .env, then start the tunnel profile
+CLOUDFLARE_TUNNEL_TOKEN=&lt;token from the Cloudflare dashboard&gt;
+MOODLE_WWWROOT=https://moodle.example.org
+docker compose --profile tunnel up -d</code></pre>
+  <p><a href="{{root}}features/cloudflare-tunnel.html" data-i18n="deploy.tunnelMore">Read the Cloudflare tunnel article</a></p>
+</section>
+
+<section class="section tight" aria-labelledby="environment-variables">
+  <h2 id="environment-variables" data-i18n="deploy.env">Environment variables</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>MOODLE_ADMIN_PASSWORD</code></td><td>none</td><td>First administrator password, required at first start</td></tr>
+      <tr><td><code>MOODLE_DB_PASSWORD</code></td><td>none</td><td>Database password, required</td></tr>
+      <tr><td><code>MOODLE_SITE_NAME</code></td><td>Material Moodle</td><td>Site name at first install</td></tr>
+      <tr><td><code>MOODLE_ADMIN_USER</code></td><td>admin</td><td>First administrator user name</td></tr>
+      <tr><td><code>MOODLE_WWWROOT</code></td><td>http://localhost:8080</td><td>Public address, or <code>auto</code> for quick tunnels</td></tr>
+      <tr><td><code>MOODLE_TRUSTED_HOSTS</code></td><td>localhost, *.trycloudflare.com</td><td>Host names accepted when the address is <code>auto</code></td></tr>
+      <tr><td><code>MOODLE_PORT</code></td><td>8080</td><td>Port on the host</td></tr>
+      <tr><td><code>MATERIAL_SEED_COLOR</code></td><td>#8B5000</td><td>Seed colour applied at first start</td></tr>
+      <tr><td><code>MATERIAL_ENABLE_PASSKEYS</code></td><td>1</td><td>Enable passkey sign-in at first start</td></tr>
+      <tr><td><code>CLOUDFLARE_TUNNEL_TOKEN</code></td><td>empty</td><td>Token for the named tunnel profile</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="section tight" aria-labelledby="updating">
+  <h2 id="updating" data-i18n="deploy.update">Updating</h2>
+  <p data-i18n="deploy.updateB">Back up both volumes, then pull the new image or rebuild from a newer checkout. Moodle's upgrade runs when the container starts.</p>
+  <pre aria-label="Update"><code>git pull
+docker compose up -d --build</code></pre>
+</section>
+
+<section class="section tight" aria-labelledby="desktop-deployer">
+  <h2 id="desktop-deployer" data-i18n="deploy.app">Desktop deployer</h2>
+  <div class="split">
+    <div>
+      <p data-i18n="deploy.appB">Material Moodle Deployer will deploy the stack to any Linux server you can reach over SSH, install Docker if it is missing, and set up a Cloudflare tunnel with a guided sign-in. It is still being built, so there is no installer yet.</p>
+      <p><span class="badge p" data-i18n="ui.inProgress">In progress</span></p>
+    </div>
+    <div class="vis" aria-label="Planned deploy steps">
+      <div class="status-row"><span data-i18n="deploy.st1">Connect over SSH</span><span class="badge">1</span></div>
+      <div class="status-row"><span data-i18n="deploy.st2">Install Docker if missing</span><span class="badge">2</span></div>
+      <div class="status-row"><span data-i18n="deploy.st3">Upload the stack</span><span class="badge">3</span></div>
+      <div class="status-row"><span data-i18n="deploy.st4">Build and start containers</span><span class="badge">4</span></div>
+      <div class="status-row"><span data-i18n="deploy.st5">Install Moodle and theme</span><span class="badge">5</span></div>
+      <div class="status-row"><span data-i18n="deploy.st6">Health check</span><span class="badge">6</span></div>
+    </div>
+  </div>
+  <p><a href="{{root}}features/desktop-deployer.html" data-i18n="deploy.appMore">Read the desktop deployer article</a></p>
+</section>

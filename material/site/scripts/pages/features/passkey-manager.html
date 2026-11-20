@@ -1,0 +1,26 @@
+<!--{"title": "Passkey manager", "key": "art.manager", "tab": "features", "doc": "passkey-manager.md", "description": "Every signed-in person adds, renames and removes their own passkeys from Preferences."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.manager">Passkey manager</h1>
+  <p class="lead" data-i18n="feat.managerB">Each person adds, renames and removes their own passkeys from their preferences.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">auth_passkey</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-does" data-i18n="art.whatItDoes">What it does</h2>
+    <p>The page is linked as <strong>Passkeys</strong> from each person's Preferences page.</p>
+    <ul>
+      <li><strong>Add a passkey</strong>: optionally name it, for example "My phone", then follow the device prompt. The same authenticator cannot be registered twice.</li>
+      <li>Each passkey shows its name, when it was added and when it was last used.</li>
+      <li><strong>Rename</strong> changes the name; <strong>Remove</strong> asks for confirmation first.</li>
+    </ul>
+    <div class="vis" aria-label="Passkey list example">
+      <div class="status-row"><span>My phone</span><span class="badge">Last used: today</span></div>
+      <div class="status-row"><span>Security key</span><span class="badge">Never</span></div>
+    </div>
+    <p>If passkey sign-in is not enabled for the site, the page says so: passkeys can be added but not used until an administrator enables the plugin.</p>
+    <h2 id="limits" data-i18n="art.limits">Limits</h2>
+    <p>People manage only their own passkeys. There is no administrator view of another person's passkeys yet, and no notification is sent when a passkey is added or removed.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="passkey-sign-in.html">Passkey sign-in</a></li></ul></aside>
+</div>

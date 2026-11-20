@@ -1,0 +1,50 @@
+<!--{"title": "Material 3 theme", "key": "art.theme", "tab": "features", "doc": "theme-look-and-colours.md", "description": "theme_material restyles every Moodle page in Material 3. One seed colour generates the light and dark palette."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.theme">Material 3 theme</h1>
+  <p class="lead" data-i18n="feat.themeB">One seed colour builds the full light and dark palette, with rounded shapes, density and motion levels.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">theme_material</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-does" data-i18n="art.whatItDoes">What it does</h2>
+    <p>Material is a child theme of Boost that restyles every Moodle page in Material 3: tonal colour roles, rounded shapes, Material type, elevated surfaces, filled and tonal buttons, outlined fields, menus, dialogs, alerts, tabs, tables and code blocks.</p>
+    <div class="vis" aria-label="Tonal palette from seed #8B5000">
+      <div class="swatches">
+        <span class="swatch" style="background:#8B5000;color:#fff">P 40</span>
+        <span class="swatch" style="background:#E8DCCC;color:#382000">PC 90</span>
+        <span class="swatch" style="background:#F8DEC6;color:#291806">SC</span>
+        <span class="swatch" style="background:#DCE8B4;color:#161E01">TC</span>
+        <span class="swatch" style="background:#CBB08C;color:#21160A">P 80</span>
+        <span class="swatch" style="background:#533000;color:#EAE0D1">PC 30</span>
+        <span class="swatch" style="background:#18120D;color:#EDE0D9">Dark</span>
+      </div>
+      <p>This website uses the same palette, generated from the default seed <code>#8B5000</code>.</p>
+    </div>
+    <h2 id="one-seed-colour" data-i18n="art.seed">One seed colour</h2>
+    <p><code>classes/palette.php</code> turns the seed into the Material 3 role table (primary, secondary, tertiary, error, success, the surface container ladder, outline, inverse roles and scrim). Primary sits at tone 40 in light mode and tone 80 in dark mode. The roles are written as CSS custom properties such as <code>--md-sys-color-primary</code>, and Bootstrap's variables are mapped onto them, so core Moodle components follow the palette.</p>
+    <p>Tones are approximated in HSL so the generator has no dependencies. Colours are close to, but not identical with, the reference Material Color Utilities output.</p>
+    <h2 id="light-and-dark-mode" data-i18n="art.lightDark">Light and dark mode</h2>
+    <p>Turn on <strong>Colour modes</strong> in the Boost settings. People then choose light, dark or automatic from the user menu and the Material palette follows. The Docker first run turns colour modes on for you.</p>
+    <h2 id="fonts" data-i18n="art.fonts">Fonts</h2>
+    <p>Roboto Flex (default), Inter, Atkinson Hyperlegible Next or the device font. All fonts ship with the theme, so no font is loaded from another website. Roboto Mono is used for code.</p>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Setting</th><th>Name</th><th>Default</th></tr></thead>
+      <tbody>
+        <tr><td>Seed colour</td><td><code>theme_material | seedcolor</code></td><td><code>#8B5000</code></td></tr>
+        <tr><td>Font</td><td><code>theme_material | font</code></td><td>Roboto Flex</td></tr>
+        <tr><td>Corner roundness</td><td><code>theme_material | radius</code></td><td>24 px</td></tr>
+        <tr><td>Density</td><td><code>theme_material | density</code></td><td>Comfortable</td></tr>
+        <tr><td>Motion</td><td><code>theme_material | motion</code></td><td>Expressive</td></tr>
+      </tbody>
+    </table></div>
+    <p>Find them under Site administration › Appearance › Themes › Material. Saving any of them purges the theme cache.</p>
+    <h2 id="good-to-know" data-i18n="art.goodToKnow">Good to know</h2>
+    <ul>
+      <li>The generator clamps saturation but does not check contrast. Pick a seed with mid lightness.</li>
+      <li>Three-digit colours such as <code>#abc</code> are expanded; anything that is not a hex colour falls back to <code>#8B5000</code>.</li>
+    </ul>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="motion.html">Motion and reduced motion</a></li><li><a href="sign-in-page.html">Sign-in page</a></li><li><a href="{{root}}demo.html">Demo</a></li></ul></aside>
+</div>

@@ -1,0 +1,24 @@
+<!--{"title": "Celebrations", "key": "art.celebrate", "tab": "features", "doc": "celebrations.md", "description": "Success messages burst with confetti and error messages shake and flash so they are not missed."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.celebrate">Celebrations</h1>
+  <p class="lead" data-i18n="feat.celebrateB">Success messages burst with confetti; errors shake and flash so they are not missed.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">theme_material</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="success-and-error" data-i18n="art.successError">Success and error</h2>
+    <ul>
+      <li><strong>Success</strong> messages bounce and confetti in the palette colours bursts from them. At the Dramatic level 64 pieces fly and two rings expand; at Normal, 28 pieces and no rings.</li>
+      <li><strong>Error</strong> messages shake. At the Dramatic level the window also flashes red briefly.</li>
+    </ul>
+    <p>Each message is celebrated once. Passkey sign-in, passkey registration and vocabulary uploads use the same effects.</p>
+    <h2 id="levels" data-i18n="art.levels">Levels</h2>
+    <p><strong>Celebration level</strong> (<code>theme_material | celebrationlevel</code>) is Subtle, Normal or Dramatic (default). Subtle keeps the error shake and skips confetti. Celebrations never run when motion is calm or off, or when the device asks for reduced motion.</p>
+    <h2 id="accessibility" data-i18n="art.a11y">Accessibility</h2>
+    <p>The effects are decoration only and hidden from assistive technology; the message itself stays an ordinary Moodle alert with its text and role.</p>
+    <h2 id="see-it" data-i18n="art.seeIt">See it</h2>
+    <p>The <a href="{{root}}demo.html#celebration">demo</a> plays the deploy success celebration and the error screen.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="motion.html">Motion and reduced motion</a></li></ul></aside>
+</div>

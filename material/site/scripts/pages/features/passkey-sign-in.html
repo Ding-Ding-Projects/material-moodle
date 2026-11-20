@@ -1,0 +1,38 @@
+<!--{"title": "Passkey sign-in", "key": "art.passkey", "tab": "features", "doc": "passkey-sign-in.md", "description": "auth_passkey lets people sign in to Moodle with a fingerprint, face, screen lock or security key. Passwords keep working."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.passkey">Passkey sign-in</h1>
+  <p class="lead" data-i18n="feat.passkeyB">Sign in with a fingerprint, face, screen lock or security key. Passwords keep working.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">auth_passkey</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-does" data-i18n="art.whatItDoes">What it does</h2>
+    <p>The plugin adds a sign-in route to accounts of any authentication method; it never owns accounts, so a manual account keeps its password as a fallback. The sign-in page shows a large <strong>Sign in with a passkey</strong> button. Browsers without WebAuthn support do not get the button.</p>
+    <h2 id="how-a-sign-in-works" data-i18n="art.howSignIn">How a sign-in works</h2>
+    <ol>
+      <li>The browser asks the site for options. The server creates a single-use challenge and keeps it in the session.</li>
+      <li>The device offers a passkey for this site. Nobody types a username.</li>
+      <li>The server verifies the signature, origin, challenge and user verification with the bundled <code>lbuchs/webauthn</code> library.</li>
+      <li>The account must be active and its authentication method enabled. Moodle's normal sign-in then runs.</li>
+    </ol>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Setting</th><th>Default</th></tr></thead>
+      <tbody>
+        <tr><td>Name shown by the device</td><td>The site name</td></tr>
+        <tr><td>User verification</td><td>Required (Preferred also accepts security keys without a PIN)</td></tr>
+        <tr><td>Prompt timeout</td><td>120 seconds</td></tr>
+        <tr><td>Offer a passkey to new accounts</td><td>On</td></tr>
+      </tbody>
+    </table></div>
+    <h2 id="security" data-i18n="art.security">Security</h2>
+    <ul>
+      <li>Only the public key, credential id, signature counter, authenticator model, name and dates are stored. Biometric data never leaves the device.</li>
+      <li>The user handle sent to devices is a hash, not the Moodle user id.</li>
+      <li>Every action needs Moodle's session key; challenges are single-use.</li>
+    </ul>
+    <div class="note warn">Passkeys belong to one host name. Use a fixed address (a named tunnel or your own domain) before people add passkeys; a quick tunnel address changes on every restart.</div>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="passkey-manager.html">Passkey manager</a></li><li><a href="first-sign-in.html">First sign-in</a></li><li><a href="{{root}}passkeys.html">Passkeys overview</a></li></ul></aside>
+</div>

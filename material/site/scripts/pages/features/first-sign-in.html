@@ -1,0 +1,23 @@
+<!--{"title": "Forced password change and optional passkey", "key": "art.first", "tab": "features", "doc": "first-sign-in.md", "description": "New students choose their own password at first sign-in, then may add a passkey. The passkey step is optional."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.first">Forced password change and optional passkey</h1>
+  <p class="lead" data-i18n="feat.firstB">New students choose their own password, then may add a passkey. The passkey step can be skipped.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">local_materialtools</span><span class="badge">auth_passkey</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="three-steps" data-i18n="art.threeSteps">Three steps</h2>
+    <ol class="steps">
+      <li><strong>New password</strong><span>Moodle asks for a new password right after the first sign-in with the temporary one.</span></li>
+      <li><strong>Passkey (optional)</strong><span>"Faster sign-in next time?" with Add a passkey and Not now.</span></li>
+      <li><strong>Done</strong><span>The student continues to the page they wanted, or the dashboard.</span></li>
+    </ol>
+    <p>The passkey step appears once. Adding a passkey anywhere, or choosing Not now, clears the offer. It never interrupts AJAX requests, "log in as" sessions or a pending password change.</p>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <p><strong>Offer a passkey to new accounts</strong> (<code>auth_passkey | offeronfirstlogin</code>), on by default.</p>
+    <h2 id="limits" data-i18n="art.limits">Limits</h2>
+    <p>Only accounts created with Add a student get the passkey offer. Accounts from upload or self-registration do not.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="add-a-student.html">Add a student</a></li><li><a href="passkey-manager.html">Passkey manager</a></li></ul></aside>
+</div>

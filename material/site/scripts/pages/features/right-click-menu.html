@@ -1,0 +1,28 @@
+<!--{"title": "Right-click menu", "key": "art.ctx", "tab": "features", "doc": "right-click-menu.md", "description": "A Material right-click menu with working shortcuts for links, images, code, selected text and the page."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.ctx">Right-click menu</h1>
+  <p class="lead" data-i18n="feat.ctxB">A Material menu with shortcuts for links, images, code, selected text and the page itself.</p>
+  <div class="status"><span class="badge p" data-i18n="ui.inProgress">In progress</span><span class="badge">theme_material</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-is-in-the-menu" data-i18n="art.inMenu">What is in the menu</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Right-click on</th><th>Actions</th></tr></thead>
+      <tbody>
+        <tr><td>Selected text</td><td>Copy (Ctrl+C), Search for "…"</td></tr>
+        <tr><td>A link</td><td>Open (Enter), Open in new tab (Ctrl+Click), Copy link address</td></tr>
+        <tr><td>An image</td><td>Open image in new tab, Copy image address</td></tr>
+        <tr><td>Code</td><td>Copy code</td></tr>
+        <tr><td>Anywhere</td><td>Search (Ctrl+Shift+F), Back (Alt+Left), Reload (F5), Copy page address, Print (Ctrl+P), Back to top (Home)</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Shift + right-click</strong> always opens the browser's own menu, and text fields, editors and selects keep the browser menu so spelling suggestions and paste still work.</p>
+    <h2 id="accessibility" data-i18n="art.a11y">Accessibility</h2>
+    <p>The menu is a <code>role="menu"</code> of menu items, kept inside the window and focused when it opens. Up and Down move, Escape or Tab close it and return focus.</p>
+    <h2 id="status" data-i18n="art.status">Status</h2>
+    <div class="note">The module <code>theme_material/contextmenu</code> is written but not loaded by the theme yet, and its labels are not in the language file. This website has a working version: right-click anywhere on this page.</div>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="copy-buttons.html">Copy buttons on code</a></li><li><a href="command-palette.html">Command palette</a></li></ul></aside>
+</div>

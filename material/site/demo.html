@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-root="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo · Material Moodle</title>
+<meta name="description" content="Try the Material Moodle theme in your browser: the sign-in page with the passkey button, the command palette with its regex builder, a celebration and an error screen.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFF8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18120D" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ding-ding-projects.github.io/material-moodle/demo.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Material Moodle">
+<meta property="og:title" content="Demo · Material Moodle">
+<meta property="og:description" content="Try the Material Moodle theme in your browser: the sign-in page with the passkey button, the command palette with its regex builder, a celebration and an error screen.">
+<meta property="og:url" content="https://ding-ding-projects.github.io/material-moodle/demo.html">
+<meta property="og:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Material Moodle: Moodle, redesigned in Material 3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Demo · Material Moodle">
+<meta name="twitter:description" content="Try the Material Moodle theme in your browser: the sign-in page with the passkey button, the command palette with its regex builder, a celebration and an error screen.">
+<meta name="twitter:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<link rel="preload" href="assets/fonts/roboto-flex-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script>(function(){try{var p=JSON.parse(localStorage.getItem('mm.prefs')||'{}');var d=document.documentElement;if(p.theme==='light'||p.theme==='dark'){d.dataset.theme=p.theme;}if(p.motion){d.dataset.motion=p.motion;}}catch(e){}})();</script>
+<script src="assets/js/search-index.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/demo.js" defer></script>
+</head>
+<body data-page="page.demo" data-tab="demo">
+<a class="skip" href="#main" data-i18n="ui.skip">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><span class="brand-name">Material Moodle</span></a>
+  <span class="build"><span class="chip-version" title="Current release">v1.0.0</span><span class="updated"><span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></span>
+  <span class="spacer"></span>
+  <button type="button" class="search-btn" data-action="palette" aria-keyshortcuts="Control+Shift+F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-btn-text" data-i18n="ui.search">Search</span><kbd>Ctrl Shift F</kbd></button>
+  <button type="button" class="icon-btn" data-action="theme" aria-label="Switch colour mode" data-i18n-attr="aria-label:ui.switchMode" title="Switch colour mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+  <button type="button" class="icon-btn" data-action="settings" aria-expanded="false" aria-controls="settings-panel" aria-label="Display settings" data-i18n-attr="aria-label:ui.settings" title="Display settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></button>
+  <div class="panel" id="settings-panel" hidden role="dialog" aria-label="Display settings">
+    <h2 class="panel-title" data-i18n="ui.settings">Display settings</h2>
+    <div class="setting" id="set-theme" tabindex="-1"><span class="setting-label" data-i18n="set.theme">Colour mode</span><div class="segmented" role="group" aria-label="Colour mode"><button type="button" data-set="theme" data-value="auto" aria-pressed="false" data-i18n="set.auto">Automatic</button><button type="button" data-set="theme" data-value="light" aria-pressed="false" data-i18n="set.light">Light</button><button type="button" data-set="theme" data-value="dark" aria-pressed="false" data-i18n="set.dark">Dark</button></div></div>
+    <div class="setting" id="set-motion" tabindex="-1"><span class="setting-label" data-i18n="set.motion">Motion</span><div class="segmented" role="group" aria-label="Motion"><button type="button" data-set="motion" data-value="expressive" aria-pressed="false" data-i18n="set.expressive">Expressive</button><button type="button" data-set="motion" data-value="calm" aria-pressed="false" data-i18n="set.calm">Calm</button><button type="button" data-set="motion" data-value="off" aria-pressed="false" data-i18n="set.off">Off</button></div></div>
+    <div class="setting" id="set-lang" tabindex="-1"><span class="setting-label" data-i18n="set.lang">Language</span><div class="segmented" role="group" aria-label="Language"><button type="button" data-set="lang" data-value="en" aria-pressed="false">English</button><button type="button" data-set="lang" data-value="yue" aria-pressed="false">廣東話</button><button type="button" data-set="lang" data-value="bi" aria-pressed="false" data-i18n="set.bi">Bilingual</button></div></div>
+    <p class="panel-note" data-i18n="set.reducedNote">Devices that ask for reduced motion always get the calm version.</p>
+  </div>
+</header>
+<nav class="tabstrip" aria-label="Pages" data-i18n-attr="aria-label:ui.pages">
+  <ul class="tabs"><li class="tab" data-tab="home"><a href="index.html"><span data-i18n="tab.home">Home</span></a><button type="button" class="tab-close" data-close-tab="home" aria-label="Close Home tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Home"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="features"><a href="features.html"><span data-i18n="tab.features">Features</span></a><button type="button" class="tab-close" data-close-tab="features" aria-label="Close Features tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Features"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="deploy"><a href="deploy.html"><span data-i18n="tab.deploy">Deploy</span></a><button type="button" class="tab-close" data-close-tab="deploy" aria-label="Close Deploy tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Deploy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="passkeys"><a href="passkeys.html"><span data-i18n="tab.passkeys">Passkeys</span></a><button type="button" class="tab-close" data-close-tab="passkeys" aria-label="Close Passkeys tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Passkeys"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="students"><a href="students.html"><span data-i18n="tab.students">Students</span></a><button type="button" class="tab-close" data-close-tab="students" aria-label="Close Students tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Students"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="vocabulary"><a href="vocabulary.html"><span data-i18n="tab.vocabulary">Vocabulary</span></a><button type="button" class="tab-close" data-close-tab="vocabulary" aria-label="Close Vocabulary tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Vocabulary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="docs"><a href="docs.html"><span data-i18n="tab.docs">Docs</span></a><button type="button" class="tab-close" data-close-tab="docs" aria-label="Close Docs tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Docs"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab is-current" data-tab="demo"><a href="demo.html" aria-current="page"><span data-i18n="tab.demo">Demo</span></a><button type="button" class="tab-close" data-close-tab="demo" aria-label="Close Demo tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Demo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="changelog"><a href="changelog.html"><span data-i18n="tab.changelog">Changelog</span></a><button type="button" class="tab-close" data-close-tab="changelog" aria-label="Close Changelog tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Changelog"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="download"><a href="download.html"><span data-i18n="tab.download">Download</span></a><button type="button" class="tab-close" data-close-tab="download" aria-label="Close Download tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Download"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li></ul>
+  <button type="button" class="tab-new" data-action="catalog" aria-expanded="false" aria-controls="tab-catalog" aria-label="New tab: open a page" data-i18n-attr="aria-label:tab.catalog" title="New tab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+  <div class="panel catalog" id="tab-catalog" hidden>
+    <h2 class="panel-title" data-i18n="tab.catalogTitle">Open a page in a tab</h2>
+    <ul class="catalog-list"></ul>
+    <button type="button" class="btn-tonal" data-action="open-all" data-i18n="tab.openAll">Open every tab</button>
+  </div>
+  <button type="button" class="btn-text open-all" data-action="open-all" hidden data-i18n="tab.openAll">Open every tab</button>
+</nav>
+<div class="sitesearch" role="search" aria-label="Search this site" data-i18n-attr="aria-label:ui.searchSite"></div>
+<main id="main" tabindex="-1">
+<header class="page-head rise">
+  <h1 data-i18n="demo.h1">Demo</h1>
+  <p class="lead" data-i18n="demo.lead">Four pieces of the Material theme, running in your browser with sample data. Nothing is sent anywhere.</p>
+  <p class="note" data-i18n="demo.motionNote">Animations follow the Motion setting in the display settings menu at the top of the page. Calm and Off skip the confetti, as the theme does.</p>
+</header>
+
+<section class="section tight" aria-labelledby="sign-in-page">
+  <h2 id="sign-in-page" data-i18n="demo.signin">Sign-in page</h2>
+  <p data-i18n="demo.signinB">Select Sign in with a passkey to watch the device prompt and the welcome message. Sign in with an empty password to see the error shake.</p>
+  <div class="demo-stage signin" id="demo-signin">
+    <div class="signin-side">
+      <span class="blob" aria-hidden="true"></span>
+      <span class="blob two" aria-hidden="true"></span>
+      <div style="position:relative;display:flex;align-items:center;gap:12px"><span class="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><strong style="font-size:20px" data-i18n="demo.siteName">Your Moodle site</strong></div>
+      <div><h3 data-i18n="demo.signinHeading" id="learning-in-full-colour">Learning, in full colour.</h3><p data-i18n="demo.signinText">Sign in with your fingerprint, face or security key, or with your username and password.</p></div>
+      <div class="chips"><span data-i18n="demo.chip1">Passkeys</span><span data-i18n="demo.chip2">Dark mode</span><span data-i18n="demo.chip3">Material 3</span></div>
+    </div>
+    <div class="signin-main">
+      <form class="signin-card" id="demo-form" novalidate>
+        <h3 data-i18n="demo.signinTitle" id="sign-in">Sign in</h3>
+        <button type="button" class="pk-btn" id="demo-passkey"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 11a2 2 0 0 0-2 2c0 3-1 5-2 6"/><path d="M14 13c0 3-.5 5.5-1.5 7.5"/><path d="M6.5 16.5C7 15 7 14 7 13a5 5 0 0 1 10 0c0 1 0 2.5-.3 4"/><path d="M4.5 9.5A8.5 8.5 0 0 1 19.5 9.5"/></svg><span id="demo-passkey-label" data-i18n="demo.pk">Sign in with a passkey</span></button>
+        <div id="demo-msg" role="status" aria-live="polite"></div>
+        <div class="or" data-i18n="demo.or">or use your username</div>
+        <label class="field"><span data-i18n="demo.username">Username</span><input type="text" name="username" autocomplete="off" value="alex.student"></label>
+        <label class="field"><span data-i18n="demo.password">Password</span><input type="password" name="password" autocomplete="off"></label>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <a href="#sign-in-page" data-i18n="demo.lost">Lost password?</a>
+          <button type="submit" class="btn-tonal" data-i18n="demo.signinBtn">Sign in</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="command-palette">
+  <h2 id="command-palette" data-i18n="demo.palette">Command palette</h2>
+  <p data-i18n="demo.paletteB">Sample courses, activities and settings from a Moodle site. Add blocks to build a pattern: try Starts with, then type Intro. Type ( alone to see the invalid state.</p>
+  <div class="demo-palette" id="demo-palette"></div>
+  <p><button type="button" class="btn-text" data-action="palette" data-i18n="demo.realPalette">Open this website's palette (Ctrl+Shift+F)</button></p>
+</section>
+
+<section class="section tight" aria-labelledby="celebration">
+  <h2 id="celebration" data-i18n="demo.celebrate">Celebration</h2>
+  <p data-i18n="demo.celebrateB">What the deployer shows when a site goes live. Moodle success messages get the same confetti.</p>
+  <div class="celebrate" id="demo-celebrate">
+    <div class="fx" aria-hidden="true"></div>
+    <div class="celebrate-inner">
+      <div class="badge-big" aria-hidden="true"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+      <h3 data-i18n="demo.live" id="your-site-is-live">Your site is live</h3>
+      <p data-i18n="demo.liveB">Moodle is installed on your server, the Material theme is active and the secure tunnel is connected.</p>
+      <div class="chips"><span data-i18n="demo.c1">Containers healthy</span><span data-i18n="demo.c2">Tunnel connected</span><span data-i18n="demo.c3">Admin account ready</span></div>
+      <div class="actions"><button type="button" class="btn" id="demo-replay" data-i18n="demo.replay">Replay</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="error-screen">
+  <h2 id="error-screen" data-i18n="demo.error">Error screen</h2>
+  <p data-i18n="demo.errorB">When something fails, the screen shakes once, explains what happened and offers the next step.</p>
+  <div class="error-screen" id="demo-error">
+    <span class="error-flash" aria-hidden="true"></span>
+    <div class="error-head">
+      <div class="error-icon" aria-hidden="true"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+      <div style="flex:1 1 280px;min-width:0"><p class="error-kicker" data-i18n="demo.errKicker">Deploy stopped at step 4 of 6</p><h3 data-i18n="demo.errTitle" id="the-tunnel-could-not-start">The tunnel could not start</h3></div>
+    </div>
+    <div class="error-body">
+      <p data-i18n="demo.errText">Everything before this step is kept. Your server still runs Moodle on port 8080; only the public link is missing.</p>
+      <div class="error-box">
+        <h4 data-i18n="demo.errWhat">What happened</h4>
+        <pre aria-label="Error output"><code>cloudflared: error parsing tunnel credentials
+exit status 1</code></pre>
+        <h4 data-i18n="demo.errFix">How to fix it</h4>
+        <ol><li data-i18n="demo.fix1">Run the guided login again so the tunnel certificate is refreshed.</li><li data-i18n="demo.fix2">Or switch to a quick tunnel, which needs no account.</li></ol>
+      </div>
+      <div id="demo-error-msg" role="status" aria-live="polite"></div>
+      <div class="actions">
+        <button type="button" class="btn small" id="demo-retry" data-i18n="demo.retry">Retry from step 4</button>
+        <button type="button" class="btn-outline" style="height:48px;border-radius:18px;font-size:15px" id="demo-quick" data-i18n="demo.quick">Use a quick tunnel</button>
+        <button type="button" class="btn-text" id="demo-shake" data-i18n="demo.again">Show the error again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><strong>Material Moodle</strong><br><span>v1.0.0 · <span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></div></div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle" data-i18n="ui.source">Source code on GitHub</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/releases/latest" data-i18n="ui.releases">Latest release</a></li>
+    <li><a href="changelog.html" data-i18n="tab.changelog">Changelog</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/COPYING.txt" data-i18n="ui.license">Licence: GNU GPL v3 or later</a></li>
+  </ul>
+  <p class="footer-note" data-i18n="ui.trademark">Material Moodle is an independent, community-made distribution. Moodle is a registered trademark of Moodle Pty Ltd; this project is not affiliated with or endorsed by Moodle Pty Ltd.</p>
+</footer>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

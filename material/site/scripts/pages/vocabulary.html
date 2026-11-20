@@ -1,0 +1,49 @@
+<!--{"title": "Vocabulary", "key": "page.vocabulary", "tab": "vocabulary", "description": "Rename Teacher, Student and Assignment for everyone, label single activities, or upload a custom vocabulary pack for chosen students."}-->
+<header class="page-head rise">
+  <h1 data-i18n="vo.h1">Vocabulary</h1>
+  <p class="lead" data-i18n="vo.lead">Use the words your school uses. Three tools, from the whole site down to one activity.</p>
+</header>
+
+<section class="section tight" aria-labelledby="three-tools">
+  <h2 id="three-tools" data-i18n="vo.tools">Three tools</h2>
+  <div class="grid">
+    <a class="card c1" href="{{root}}features/site-wording.html"><h3 data-i18n="feat.wording">Site wording</h3><p data-i18n="vo.t1">For everyone: rename Teacher, Student and Assignment on every page.</p><span class="go" data-i18n="ui.readArticle">Read the article</span></a>
+    <a class="card c2" href="{{root}}features/vocabulary-pack.html"><h3 data-i18n="feat.vocab">Custom vocabulary pack</h3><p data-i18n="vo.t2">For chosen people: a JSON file of replacement words, shown only after sign-in.</p><span class="go" data-i18n="ui.readArticle">Read the article</span></a>
+    <a class="card c3" href="{{root}}features/activity-type-labels.html"><h3 data-i18n="feat.labels">Activity type labels</h3><p data-i18n="vo.t3">For one activity: show an assignment as a "Dropbox". In progress.</p><span class="go" data-i18n="ui.readArticle">Read the article</span></a>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="pack-file-format">
+  <h2 id="pack-file-format" data-i18n="vo.format">Pack file format</h2>
+  <p data-i18n="vo.formatB">A pack is a UTF-8 JSON object with schemaVersion 1 and an entries object of original words and replacements.</p>
+  <pre aria-label="Example vocabulary pack"><code>{
+  "schemaVersion": 1,
+  "name": "Our school words",
+  "entries": {
+    "submission": "hand-in",
+    "assignment": "task"
+  }
+}</code></pre>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rule</th><th>Limit</th></tr></thead>
+    <tbody>
+      <tr><td>File size</td><td>At most 256 KB</td></tr>
+      <tr><td>Keys</td><td>1 to 160 characters</td></tr>
+      <tr><td>Values</td><td>Text of 1 to 1,000 characters</td></tr>
+      <tr><td>Nesting</td><td>At most 8 levels deep</td></tr>
+      <tr><td>Duplicate keys</td><td>Rejected</td></tr>
+      <tr><td><code>name</code></td><td>Optional, shown as the headline when the pack is applied</td></tr>
+    </tbody>
+  </table></div>
+  <p data-i18n="vo.strict">Any failed rule rejects the whole file with a specific message, and the previous pack stays in place.</p>
+</section>
+
+<section class="section tight" aria-labelledby="upload-and-audience">
+  <h2 id="upload-and-audience" data-i18n="vo.upload">Upload and audience</h2>
+  <ul class="prose">
+    <li data-i18n="vo.u1">Choose a file on Site administration › Users › Material tools › Custom vocabulary, or drop a .json file anywhere on the site as a manager.</li>
+    <li data-i18n="vo.u2">Pick who sees it: nobody, everyone signed in, or selected students and cohorts (the default).</li>
+    <li data-i18n="vo.u3">Tick Custom vocabulary on Add a student to choose a new student straight away.</li>
+    <li data-i18n="vo.u4">Signed-out pages, guests and people outside the audience always see the original wording.</li>
+  </ul>
+</section>

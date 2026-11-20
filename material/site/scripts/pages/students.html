@@ -1,0 +1,65 @@
+<!--{"title": "Students", "key": "page.students", "tab": "students", "description": "Add a student in one form and paste their credentials straight into Discord, with the username and password in separate code blocks."}-->
+<header class="page-head rise">
+  <h1 data-i18n="st.h1">Students</h1>
+  <p class="lead" data-i18n="st.lead">Add a student in one form and paste their sign-in details straight into Discord. Username and password each sit in their own code block, so one tap copies each.</p>
+</header>
+
+<section class="section tight" aria-labelledby="the-flow">
+  <h2 id="the-flow" data-i18n="st.flow">The flow</h2>
+  <ol class="steps">
+    <li><strong data-i18n="st.f1">Fill in the name</strong><span data-i18n="st.f1b">The username is made from the name if you leave it empty. Email is optional.</span></li>
+    <li><strong data-i18n="st.f2">Create student</strong><span data-i18n="st.f2b">A temporary password is generated, for example two words and a number.</span></li>
+    <li><strong data-i18n="st.f3">Copy for Discord</strong><span data-i18n="st.f3b">One button copies the whole message. Send it as a direct message.</span></li>
+    <li><strong data-i18n="st.f4">First sign-in</strong><span data-i18n="st.f4b">The student must choose a new password, then may add a passkey.</span></li>
+  </ol>
+</section>
+
+<section class="section tight" aria-labelledby="ready-to-paste-in-discord">
+  <h2 id="ready-to-paste-in-discord" data-i18n="st.paste">Ready to paste in Discord</h2>
+  <div class="split">
+    <div>
+      <p data-i18n="st.pasteB">This is the default message for a student called Alex Student. Try the copy buttons: the whole message, the username alone, or the password alone.</p>
+      <p data-i18n="st.secret">Treat the message as a secret. The password is shown only once and the student must change it.</p>
+    </div>
+    <div class="vis" id="discord-example">
+      <div class="status-row"><span data-i18n="st.msg">Credentials message</span><button type="button" class="btn-tonal" data-copy-target="discord-text" data-i18n="st.copyAll">Copy for Discord</button></div>
+      <div class="discord" id="discord-text">**Material Moodle** sign-in for Alex Student
+https://moodle.example.org/login/index.php
+Username:
+```
+alex.student
+```
+Password:
+```
+Maple-Otter-7342
+```
+You will choose a new password the first time you sign in. After that you can add a passkey for faster sign-in.</div>
+      <span class="setting-label" data-i18n="st.user">Username</span>
+      <div class="cred"><code id="cred-user">alex.student</code><button type="button" data-copy-target="cred-user" data-i18n="ui.copy">Copy</button></div>
+      <span class="setting-label" data-i18n="st.pass">Temporary password</span>
+      <div class="cred"><code id="cred-pass">Maple-Otter-7342</code><button type="button" data-copy-target="cred-pass" data-i18n="ui.copy">Copy</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="account-settings">
+  <h2 id="account-settings" data-i18n="st.settings">Account settings</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Setting</th><th>Default</th></tr></thead>
+    <tbody>
+      <tr><td>Credentials message</td><td>The template above, with placeholders for the site, name, username and password</td></tr>
+      <tr><td>Temporary password style</td><td>Two words and a number (or random characters)</td></tr>
+      <tr><td>Random password length</td><td>14 (at least 10)</td></tr>
+      <tr><td>Role when enrolling</td><td>Student</td></tr>
+    </tbody>
+  </table></div>
+  <p><a href="{{root}}features/add-a-student.html" data-i18n="st.more">Read the Add a student article</a> · <a href="{{root}}features/first-sign-in.html" data-i18n="st.more2">Read about the first sign-in</a></p>
+</section>
+<script>
+document.addEventListener('click', function(e) {
+  var b = e.target.closest('[data-copy-target]');
+  if (!b || !window.MM) { return; }
+  var text = document.getElementById(b.getAttribute('data-copy-target')).textContent;
+  window.MM.copyText(text).then(function() { window.MM.toast(window.MM.t('ui.copiedToast', 'Copied to the clipboard')); });
+});
+</script>

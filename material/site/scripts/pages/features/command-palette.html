@@ -1,0 +1,49 @@
+<!--{"title": "Command palette and regex builder", "key": "art.palette", "tab": "features", "doc": "command-palette.md", "description": "Ctrl+Shift+F opens a search dialog for courses, page links and site settings, with a visual regex builder."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.palette">Command palette and regex builder</h1>
+  <p class="lead" data-i18n="feat.paletteB">Ctrl+Shift+F searches courses, page links and settings. Pattern blocks build a regular expression for you.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">theme_material</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-finds" data-i18n="art.whatItFinds">What it finds</h2>
+    <p>Press <kbd>Ctrl Shift F</kbd> (<kbd>Cmd Shift F</kbd> on a Mac), or select the Search button in the top bar.</p>
+    <ul>
+      <li><strong>Courses</strong> the signed-in person is enrolled in.</li>
+      <li><strong>Pages</strong> linked from the current page: navigation, course index, user menu, drawers, breadcrumbs and footer.</li>
+      <li><strong>Search all courses for "…"</strong>, which opens Moodle's course search.</li>
+      <li><strong>Search site settings for "…"</strong>, for people who can configure the site.</li>
+    </ul>
+    <h2 id="the-regex-builder" data-i18n="art.builder">The regex builder</h2>
+    <p>Under the search field, pattern blocks append a piece of a regular expression, so nobody has to remember the syntax.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Block</th><th>Pattern</th></tr></thead>
+      <tbody>
+        <tr><td>Starts with / Ends with</td><td><code>^</code> / <code>$</code></td></tr>
+        <tr><td>Anything</td><td><code>.*</code></td></tr>
+        <tr><td>Digit / Letter / Space</td><td><code>\d</code> / <code>[A-Za-z]</code> / <code>\s</code></td></tr>
+        <tr><td>Word edge</td><td><code>\b</code></td></tr>
+        <tr><td>One or more / Optional / Either</td><td><code>+</code> / <code>?</code> / <code>|</code></td></tr>
+        <tr><td>Group start / Group end</td><td><code>(</code> / <code>)</code></td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Regex</strong> switches between a regular expression and a plain text search; <strong>Ignore case</strong> is on by default. Both are remembered in the browser. While a pattern does not compile, the status reads "Pattern is incomplete" and no results are listed.</p>
+    <h2 id="keyboard" data-i18n="art.keyboard">Keyboard</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Key</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>Ctrl Shift F</kbd></td><td>Open, or close when open</td></tr>
+        <tr><td><kbd>Up</kbd> / <kbd>Down</kbd></td><td>Move through results</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Open the highlighted result</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Close and return focus to where it was</td></tr>
+      </tbody>
+    </table></div>
+    <p>The dialog is modal, the field is a combobox that controls a listbox, and the match count is announced politely to screen readers.</p>
+    <h2 id="try-it" data-i18n="art.tryIt">Try it</h2>
+    <p>This website has its own command palette built the same way. Press <kbd>Ctrl Shift F</kbd> now, or open the <a href="{{root}}demo.html#command-palette">demo</a> to search sample Moodle courses.</p>
+    <h2 id="limits" data-i18n="art.limits">Limits</h2>
+    <p>In Moodle the palette does not yet list every site setting or every activity in a course, and a result opens its page rather than highlighting one element.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="search-boxes.html">Regex on every search box</a></li><li><a href="right-click-menu.html">Right-click menu</a></li></ul></aside>
+</div>

@@ -1,0 +1,45 @@
+<!--{"title": "Passkeys", "key": "page.passkeys", "tab": "passkeys", "description": "Passkey sign-in for Moodle: fingerprint, face, screen lock or security key, with a personal passkey manager and an optional step after first sign-in."}-->
+<header class="page-head rise">
+  <h1 data-i18n="pk.h1">Passkeys</h1>
+  <p class="lead" data-i18n="pk.lead">Sign in once with your face, fingerprint or security key. No password to remember, and nothing to phish.</p>
+</header>
+
+<section class="section tight" aria-labelledby="why-passkeys">
+  <h2 id="why-passkeys" data-i18n="pk.why">Why passkeys</h2>
+  <div class="grid">
+    <div class="card c1"><h3 data-i18n="pk.w1">Cannot be phished</h3><p data-i18n="pk.w1b">A passkey only works on the site it was made for, so a fake sign-in page gets nothing.</p></div>
+    <div class="card c2"><h3 data-i18n="pk.w2">Nothing to type</h3><p data-i18n="pk.w2b">The device offers the passkey. Students do not type a username or a password.</p></div>
+    <div class="card c3"><h3 data-i18n="pk.w3">Passwords still work</h3><p data-i18n="pk.w3b">Passkeys are added to existing accounts. The password stays as a fallback.</p></div>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="turn-it-on">
+  <h2 id="turn-it-on" data-i18n="pk.on">Turn it on</h2>
+  <ol class="steps">
+    <li><strong data-i18n="pk.on1">Enable the plugin</strong><span data-i18n="pk.on1b">Site administration › Plugins › Authentication › Manage authentication › Passkeys. The Docker first run does this for you.</span></li>
+    <li><strong data-i18n="pk.on2">Use a fixed address</strong><span data-i18n="pk.on2b">Passkeys belong to one host name. Use your own domain or a named tunnel before people add them.</span></li>
+    <li><strong data-i18n="pk.on3">People add passkeys</strong><span data-i18n="pk.on3b">From Preferences › Passkeys, or from the optional step after a new account's first sign-in.</span></li>
+  </ol>
+</section>
+
+<section class="section tight" aria-labelledby="the-passkey-manager">
+  <h2 id="the-passkey-manager" data-i18n="pk.manager">The passkey manager</h2>
+  <div class="split">
+    <div><p data-i18n="pk.managerB">Everyone manages their own passkeys: add one with a name such as "My phone", see when each was last used, rename or remove it. Keep at least two passkeys on different devices.</p></div>
+    <div class="vis" aria-label="Passkey manager example">
+      <div class="status-row"><span>My phone</span><span class="badge ok">Last used: today</span></div>
+      <div class="status-row"><span>Laptop fingerprint</span><span class="badge">Added 3 Nov</span></div>
+      <div class="status-row"><span>Security key</span><span class="badge">Never used</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="read-more">
+  <h2 id="read-more" data-i18n="ui.readMore">Read more</h2>
+  <div class="grid">
+    <a class="card" href="{{root}}features/passkey-sign-in.html"><h3 data-i18n="feat.passkey">Passkey sign-in</h3><p data-i18n="pk.more1">How a sign-in works, settings and security.</p></a>
+    <a class="card" href="{{root}}features/passkey-manager.html"><h3 data-i18n="feat.manager">Passkey manager</h3><p data-i18n="pk.more2">Adding, renaming and removing passkeys.</p></a>
+    <a class="card" href="{{root}}features/first-sign-in.html"><h3 data-i18n="feat.first">Forced password change and optional passkey</h3><p data-i18n="pk.more3">The three-step first sign-in for new students.</p></a>
+    <a class="card" href="{{root}}demo.html#sign-in-page"><h3 data-i18n="pk.more4t">Try the sign-in page</h3><p data-i18n="pk.more4">A working copy of the passkey button in the demo.</p></a>
+  </div>
+</section>

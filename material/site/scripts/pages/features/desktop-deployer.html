@@ -1,0 +1,22 @@
+<!--{"title": "Desktop deployer", "key": "art.deployer", "tab": "features", "doc": "desktop-deployer.md", "description": "Material Moodle Deployer is a desktop app that deploys the stack to any Linux server over SSH and sets up a Cloudflare tunnel."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.deployer">Desktop deployer</h1>
+  <p class="lead" data-i18n="feat.deployerB">One click deploys the stack to any Linux server you can reach over SSH.</p>
+  <div class="status"><span class="badge p" data-i18n="ui.inProgress">In progress</span><span class="badge">material/deployer</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="intended-behaviour" data-i18n="art.intended">Intended behaviour</h2>
+    <p>Material Moodle Deployer is a desktop app for Windows, macOS and Linux. It puts the Docker stack on a server and publishes it through a Cloudflare tunnel, without a terminal.</p>
+    <ol class="steps">
+      <li><strong>Connect</strong><span>Server address, user and a password or SSH key. The host key fingerprint must be accepted the first time.</span></li>
+      <li><strong>Deploy</strong><span>Docker is checked, the stack is uploaded, <code>.env</code> is written with generated passwords and the containers start.</span></li>
+      <li><strong>Publish</strong><span>A quick tunnel, a named tunnel with guided Cloudflare sign-in, or a pasted tunnel token.</span></li>
+    </ol>
+    <p>Each job is a list of steps with live status and logs; a failed step can be retried without starting over. Secrets are kept in the operating system's protected storage.</p>
+    <h2 id="status" data-i18n="art.status">Status</h2>
+    <div class="note">The deployment engine is being written and the user interface does not exist yet, so there is no installer to download today. Use the <a href="docker-stack.html">Docker stack</a> directly in the meantime.</div>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="{{root}}deploy.html">Deploy</a></li><li><a href="cloudflare-tunnel.html">Cloudflare tunnel</a></li></ul></aside>
+</div>

@@ -1,0 +1,21 @@
+<!--{"title": "Copy buttons on code", "key": "art.copy", "tab": "features", "doc": "copy-buttons.md", "description": "Every code block in Moodle gets a Copy button that confirms when the text is on the clipboard."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.copy">Copy buttons on code</h1>
+  <p class="lead" data-i18n="feat.copyB">Every code block gets a Copy button that confirms when the text is on the clipboard.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">theme_material</span><span class="badge">local_materialtools</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-does" data-i18n="art.whatItDoes">What it does</h2>
+    <p>Every <code>&lt;pre&gt;</code> block gets a <strong>Copy</strong> button in its top corner. It copies the text without a trailing newline and reads <strong>Copied</strong> for 1.5 seconds. Code blocks added later, such as a forum reply loaded by JavaScript, get a button too.</p>
+    <pre aria-label="Example code block"><code>php admin/cli/purge_caches.php</code></pre>
+    <h2 id="for-plugin-authors" data-i18n="art.forAuthors">For plugin authors</h2>
+    <p>Any element with <code>data-md-copy</code> becomes a copy button. <code>data-md-copy="some-id"</code> copies the text of the element with that id; an empty <code>data-md-copy</code> with <code>data-md-copy-text</code> copies that text. Mark a block <code>data-md-no-copy</code> to leave it alone.</p>
+    <pre aria-label="HTML example"><code>&lt;code id="username"&gt;alex.student&lt;/code&gt;
+&lt;button type="button" data-md-copy="username"&gt;Copy&lt;/button&gt;</code></pre>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <p><strong>Copy buttons on code</strong> (<code>theme_material | copybuttons</code>), on by default. Copying uses the Clipboard API on HTTPS and localhost and falls back to a hidden text area elsewhere.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="add-a-student.html">Add a student</a></li></ul></aside>
+</div>

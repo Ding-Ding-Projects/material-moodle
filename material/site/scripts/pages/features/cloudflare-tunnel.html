@@ -1,0 +1,30 @@
+<!--{"title": "Cloudflare tunnel", "key": "art.tunnel", "tab": "features", "doc": "cloudflare-tunnels.md", "description": "Publish Moodle over HTTPS with a free Cloudflare quick tunnel or a named tunnel on your own domain, without opening ports."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.tunnel">Cloudflare tunnel</h1>
+  <p class="lead" data-i18n="feat.tunnelB">A free quick link with no account, or a named tunnel on your own domain.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.availableDocker">Available in the Docker stack</span><span class="badge p" data-i18n="ui.guidedInProgress">Guided sign-in in progress</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="quick-tunnel" data-i18n="art.quick">Quick tunnel</h2>
+    <p>No Cloudflare account needed. Good for trying the site from another device. Set <code>MOODLE_WWWROOT=auto</code> in <code>.env</code>, then:</p>
+    <pre aria-label="Start a quick tunnel"><code>docker compose --profile quicktunnel up -d
+docker compose logs quicktunnel | grep -o 'https://[a-z0-9-]*\.trycloudflare\.com'</code></pre>
+    <div class="note warn">The address changes every time the tunnel restarts, and passkeys added on one address do not work on the next. Do not use a quick tunnel for a site people rely on.</div>
+    <h2 id="named-tunnel" data-i18n="art.named">Named tunnel</h2>
+    <ol>
+      <li>In the Cloudflare dashboard, create a tunnel and copy its token.</li>
+      <li>Add a public host name for the tunnel with service <code>http://moodle:80</code>.</li>
+      <li>Set the token and the address in <code>.env</code> and start the profile.</li>
+    </ol>
+    <pre aria-label="Named tunnel settings"><code>CLOUDFLARE_TUNNEL_TOKEN=&lt;token&gt;
+MOODLE_WWWROOT=https://moodle.example.org
+docker compose --profile tunnel up -d</code></pre>
+    <h2 id="guided-sign-in" data-i18n="art.guided">Guided sign-in</h2>
+    <p>The desktop deployer will set up a named tunnel without the dashboard: it shows the Cloudflare sign-in link, waits for your approval, creates the tunnel and the DNS record, and restarts the stack. This part is in progress.</p>
+    <h2 id="security" data-i18n="art.security">Security</h2>
+    <p>Only the Moodle service is exposed through the tunnel; PostgreSQL stays on the private network. Keep the tunnel token in <code>.env</code>, never in the repository or a support message.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="docker-stack.html">Docker stack</a></li><li><a href="passkey-sign-in.html">Passkey sign-in</a></li></ul></aside>
+</div>

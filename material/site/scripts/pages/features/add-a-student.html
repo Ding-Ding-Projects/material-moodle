@@ -1,0 +1,37 @@
+<!--{"title": "Add a student", "key": "art.student", "tab": "features", "doc": "add-a-student.md", "description": "Create a student account and a Discord-ready message where the username and the temporary password each sit in their own code block."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.student">Add a student</h1>
+  <p class="lead" data-i18n="feat.studentB">Creates the account and a Discord message with the username and password in separate code blocks.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">local_materialtools</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="the-form" data-i18n="art.form">The form</h2>
+    <p>Site administration › Users › Material tools › Add a student.</p>
+    <ul>
+      <li><strong>First and last name</strong> are required.</li>
+      <li><strong>Username</strong> is optional: empty means <code>firstname.lastname</code> in lower case, with a number added when it is taken.</li>
+      <li><strong>Email</strong> is optional. Without one, email is switched off for the account so Moodle does not ask the student to complete a profile.</li>
+      <li><strong>Temporary password</strong>: generate one (two words and a number by default) or type your own. Both follow the site password policy.</li>
+      <li>Optional <strong>cohort</strong>, <strong>course enrolment</strong> and <strong>custom vocabulary</strong>.</li>
+    </ul>
+    <h2 id="the-credentials-message" data-i18n="art.message">The credentials message</h2>
+    <p>After <strong>Create student</strong>, the page shows the password once and a message with <strong>Copy for Discord</strong>. Discord renders each fenced block with its own copy button, so the student copies the username and the password separately.</p>
+    <pre aria-label="Default credentials message template"><code>**{sitename}** sign-in for {fullname}
+{siteurl}
+Username:
+```
+{username}
+```
+Password:
+```
+{password}
+```
+You will choose a new password the first time you sign in. After that you can add a passkey for faster sign-in.</code></pre>
+    <p>The template is editable under Student account settings, with the placeholders <code>{sitename}</code>, <code>{siteurl}</code>, <code>{fullname}</code>, <code>{firstname}</code>, <code>{username}</code> and <code>{password}</code>.</p>
+    <h2 id="security" data-i18n="art.security">Security</h2>
+    <p>The temporary password is shown once and never stored in plain text, and the student must change it at first sign-in. Send the message in a direct message, not a public channel. The tool needs the <code>local/materialtools:createstudents</code> capability (managers by default).</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="first-sign-in.html">First sign-in</a></li><li><a href="{{root}}students.html">Students overview</a></li></ul></aside>
+</div>

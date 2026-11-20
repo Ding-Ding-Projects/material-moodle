@@ -1,0 +1,36 @@
+<!--{"title": "Docker stack", "key": "art.docker", "tab": "features", "doc": "docker-stack.md", "description": "PostgreSQL, Moodle and cron containers that install Moodle and apply the Material defaults on first start."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.docker">Docker stack</h1>
+  <p class="lead" data-i18n="feat.dockerB">PostgreSQL, Moodle and cron containers that install Moodle and apply the Material defaults on first start.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">material/docker</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="services" data-i18n="art.services">Services</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Service</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>db</code></td><td>PostgreSQL 17 with a health check</td></tr>
+        <tr><td><code>moodle</code></td><td>Apache and PHP 8.3 serving Moodle on port 8080</td></tr>
+        <tr><td><code>cron</code></td><td>Runs Moodle's scheduled tasks every minute</td></tr>
+        <tr><td><code>quicktunnel</code></td><td>Optional profile: a temporary <code>trycloudflare.com</code> address</td></tr>
+        <tr><td><code>tunnel</code></td><td>Optional profile: a named Cloudflare tunnel</td></tr>
+      </tbody>
+    </table></div>
+    <h2 id="first-start" data-i18n="art.firstStart">First start</h2>
+    <p>The entrypoint waits for PostgreSQL, installs Moodle with the site name and administrator from <code>.env</code>, then selects the Material theme, turns on colour modes, applies <code>MATERIAL_SEED_COLOR</code> and enables passkey sign-in. The log prints <code>MATERIAL_MOODLE_INSTALLED</code> when it is done. Later starts run Moodle's upgrade and keep settings you changed.</p>
+    <pre aria-label="Start the stack"><code>cd material/docker
+cp .env.example .env
+docker compose up -d --build
+docker compose logs -f moodle</code></pre>
+    <p>The <a href="{{root}}deploy.html#run-with-docker">Deploy page</a> lists every command and the environment variables.</p>
+    <h2 id="security" data-i18n="art.security">Security</h2>
+    <ul>
+      <li><code>.env</code> holds passwords and the tunnel token; keep it out of version control.</li>
+      <li>PostgreSQL is not published on a host port.</li>
+      <li>Change the example passwords before the first start.</li>
+    </ul>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="cloudflare-tunnel.html">Cloudflare tunnel</a></li><li><a href="desktop-deployer.html">Desktop deployer</a></li></ul></aside>
+</div>

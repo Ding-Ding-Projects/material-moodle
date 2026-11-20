@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desktop deployer · Material Moodle</title>
+<meta name="description" content="Material Moodle Deployer is a desktop app that deploys the stack to any Linux server over SSH and sets up a Cloudflare tunnel.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFF8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18120D" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ding-ding-projects.github.io/material-moodle/features/desktop-deployer.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Material Moodle">
+<meta property="og:title" content="Desktop deployer · Material Moodle">
+<meta property="og:description" content="Material Moodle Deployer is a desktop app that deploys the stack to any Linux server over SSH and sets up a Cloudflare tunnel.">
+<meta property="og:url" content="https://ding-ding-projects.github.io/material-moodle/features/desktop-deployer.html">
+<meta property="og:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Material Moodle: Moodle, redesigned in Material 3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Desktop deployer · Material Moodle">
+<meta name="twitter:description" content="Material Moodle Deployer is a desktop app that deploys the stack to any Linux server over SSH and sets up a Cloudflare tunnel.">
+<meta name="twitter:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<link rel="preload" href="../assets/fonts/roboto-flex-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(){try{var p=JSON.parse(localStorage.getItem('mm.prefs')||'{}');var d=document.documentElement;if(p.theme==='light'||p.theme==='dark'){d.dataset.theme=p.theme;}if(p.motion){d.dataset.motion=p.motion;}}catch(e){}})();</script>
+<script src="../assets/js/search-index.js" defer></script>
+<script src="../assets/js/site.js" defer></script>
+
+</head>
+<body data-page="art.deployer" data-tab="features">
+<a class="skip" href="#main" data-i18n="ui.skip">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><span class="brand-name">Material Moodle</span></a>
+  <span class="build"><span class="chip-version" title="Current release">v1.0.0</span><span class="updated"><span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></span>
+  <span class="spacer"></span>
+  <button type="button" class="search-btn" data-action="palette" aria-keyshortcuts="Control+Shift+F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-btn-text" data-i18n="ui.search">Search</span><kbd>Ctrl Shift F</kbd></button>
+  <button type="button" class="icon-btn" data-action="theme" aria-label="Switch colour mode" data-i18n-attr="aria-label:ui.switchMode" title="Switch colour mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+  <button type="button" class="icon-btn" data-action="settings" aria-expanded="false" aria-controls="settings-panel" aria-label="Display settings" data-i18n-attr="aria-label:ui.settings" title="Display settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></button>
+  <div class="panel" id="settings-panel" hidden role="dialog" aria-label="Display settings">
+    <h2 class="panel-title" data-i18n="ui.settings">Display settings</h2>
+    <div class="setting" id="set-theme" tabindex="-1"><span class="setting-label" data-i18n="set.theme">Colour mode</span><div class="segmented" role="group" aria-label="Colour mode"><button type="button" data-set="theme" data-value="auto" aria-pressed="false" data-i18n="set.auto">Automatic</button><button type="button" data-set="theme" data-value="light" aria-pressed="false" data-i18n="set.light">Light</button><button type="button" data-set="theme" data-value="dark" aria-pressed="false" data-i18n="set.dark">Dark</button></div></div>
+    <div class="setting" id="set-motion" tabindex="-1"><span class="setting-label" data-i18n="set.motion">Motion</span><div class="segmented" role="group" aria-label="Motion"><button type="button" data-set="motion" data-value="expressive" aria-pressed="false" data-i18n="set.expressive">Expressive</button><button type="button" data-set="motion" data-value="calm" aria-pressed="false" data-i18n="set.calm">Calm</button><button type="button" data-set="motion" data-value="off" aria-pressed="false" data-i18n="set.off">Off</button></div></div>
+    <div class="setting" id="set-lang" tabindex="-1"><span class="setting-label" data-i18n="set.lang">Language</span><div class="segmented" role="group" aria-label="Language"><button type="button" data-set="lang" data-value="en" aria-pressed="false">English</button><button type="button" data-set="lang" data-value="yue" aria-pressed="false">廣東話</button><button type="button" data-set="lang" data-value="bi" aria-pressed="false" data-i18n="set.bi">Bilingual</button></div></div>
+    <p class="panel-note" data-i18n="set.reducedNote">Devices that ask for reduced motion always get the calm version.</p>
+  </div>
+</header>
+<nav class="tabstrip" aria-label="Pages" data-i18n-attr="aria-label:ui.pages">
+  <ul class="tabs"><li class="tab" data-tab="home"><a href="../index.html"><span data-i18n="tab.home">Home</span></a><button type="button" class="tab-close" data-close-tab="home" aria-label="Close Home tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Home"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab is-current" data-tab="features"><a href="../features.html" aria-current="page"><span data-i18n="tab.features">Features</span></a><button type="button" class="tab-close" data-close-tab="features" aria-label="Close Features tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Features"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="deploy"><a href="../deploy.html"><span data-i18n="tab.deploy">Deploy</span></a><button type="button" class="tab-close" data-close-tab="deploy" aria-label="Close Deploy tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Deploy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="passkeys"><a href="../passkeys.html"><span data-i18n="tab.passkeys">Passkeys</span></a><button type="button" class="tab-close" data-close-tab="passkeys" aria-label="Close Passkeys tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Passkeys"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="students"><a href="../students.html"><span data-i18n="tab.students">Students</span></a><button type="button" class="tab-close" data-close-tab="students" aria-label="Close Students tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Students"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="vocabulary"><a href="../vocabulary.html"><span data-i18n="tab.vocabulary">Vocabulary</span></a><button type="button" class="tab-close" data-close-tab="vocabulary" aria-label="Close Vocabulary tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Vocabulary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="docs"><a href="../docs.html"><span data-i18n="tab.docs">Docs</span></a><button type="button" class="tab-close" data-close-tab="docs" aria-label="Close Docs tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Docs"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="demo"><a href="../demo.html"><span data-i18n="tab.demo">Demo</span></a><button type="button" class="tab-close" data-close-tab="demo" aria-label="Close Demo tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Demo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="changelog"><a href="../changelog.html"><span data-i18n="tab.changelog">Changelog</span></a><button type="button" class="tab-close" data-close-tab="changelog" aria-label="Close Changelog tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Changelog"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="download"><a href="../download.html"><span data-i18n="tab.download">Download</span></a><button type="button" class="tab-close" data-close-tab="download" aria-label="Close Download tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Download"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li></ul>
+  <button type="button" class="tab-new" data-action="catalog" aria-expanded="false" aria-controls="tab-catalog" aria-label="New tab: open a page" data-i18n-attr="aria-label:tab.catalog" title="New tab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+  <div class="panel catalog" id="tab-catalog" hidden>
+    <h2 class="panel-title" data-i18n="tab.catalogTitle">Open a page in a tab</h2>
+    <ul class="catalog-list"></ul>
+    <button type="button" class="btn-tonal" data-action="open-all" data-i18n="tab.openAll">Open every tab</button>
+  </div>
+  <button type="button" class="btn-text open-all" data-action="open-all" hidden data-i18n="tab.openAll">Open every tab</button>
+</nav>
+<div class="sitesearch" role="search" aria-label="Search this site" data-i18n-attr="aria-label:ui.searchSite"></div>
+<main id="main" tabindex="-1">
+<header class="page-head rise">
+  <p class="crumbs"><a href="../features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.deployer">Desktop deployer</h1>
+  <p class="lead" data-i18n="feat.deployerB">One click deploys the stack to any Linux server you can reach over SSH.</p>
+  <div class="status"><span class="badge p" data-i18n="ui.inProgress">In progress</span><span class="badge">material/deployer</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="intended-behaviour" data-i18n="art.intended">Intended behaviour</h2>
+    <p>Material Moodle Deployer is a desktop app for Windows, macOS and Linux. It puts the Docker stack on a server and publishes it through a Cloudflare tunnel, without a terminal.</p>
+    <ol class="steps">
+      <li><strong>Connect</strong><span>Server address, user and a password or SSH key. The host key fingerprint must be accepted the first time.</span></li>
+      <li><strong>Deploy</strong><span>Docker is checked, the stack is uploaded, <code>.env</code> is written with generated passwords and the containers start.</span></li>
+      <li><strong>Publish</strong><span>A quick tunnel, a named tunnel with guided Cloudflare sign-in, or a pasted tunnel token.</span></li>
+    </ol>
+    <p>Each job is a list of steps with live status and logs; a failed step can be retried without starting over. Secrets are kept in the operating system's protected storage.</p>
+    <h2 id="status" data-i18n="art.status">Status</h2>
+    <div class="note">The deployment engine is being written and the user interface does not exist yet, so there is no installer to download today. Use the <a href="docker-stack.html">Docker stack</a> directly in the meantime.</div>
+  </div>
+  <aside><p class="aside-title" data-i18n="ui.onThisPage">On this page</p><ul><li><a href="#intended-behaviour">Intended behaviour</a></li><li><a href="#status">Status</a></li></ul><p class="aside-title" data-i18n="ui.fullDocs">Full documentation</p><ul><li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/material/docs/desktop-deployer.md">material/docs/desktop-deployer.md</a></li></ul><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="../deploy.html">Deploy</a></li><li><a href="cloudflare-tunnel.html">Cloudflare tunnel</a></li></ul></aside>
+</div>
+
+</main>
+<footer class="footer">
+  <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><strong>Material Moodle</strong><br><span>v1.0.0 · <span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></div></div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle" data-i18n="ui.source">Source code on GitHub</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/releases/latest" data-i18n="ui.releases">Latest release</a></li>
+    <li><a href="../changelog.html" data-i18n="tab.changelog">Changelog</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/COPYING.txt" data-i18n="ui.license">Licence: GNU GPL v3 or later</a></li>
+  </ul>
+  <p class="footer-note" data-i18n="ui.trademark">Material Moodle is an independent, community-made distribution. Moodle is a registered trademark of Moodle Pty Ltd; this project is not affiliated with or endorsed by Moodle Pty Ltd.</p>
+</footer>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

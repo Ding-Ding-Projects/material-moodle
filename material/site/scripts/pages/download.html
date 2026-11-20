@@ -1,0 +1,23 @@
+<!--{"title": "Download", "key": "page.download", "tab": "download", "description": "Download Material Moodle from GitHub releases: the Docker stack bundle, the plugin packages and, once ready, the desktop deployer."}-->
+<header class="page-head rise">
+  <h1 data-i18n="dl.h1">Download</h1>
+  <p class="lead" data-i18n="dl.lead">Every release is published on GitHub with its files and notes.</p>
+  <div class="actions"><a class="btn" href="https://github.com/Ding-Ding-Projects/material-moodle/releases/latest" data-i18n="dl.latest">Get the latest release</a><a class="btn-outline" href="https://github.com/Ding-Ding-Projects/material-moodle" data-i18n="dl.source">View the source</a></div>
+</header>
+<section class="section tight" aria-labelledby="what-a-release-contains">
+  <h2 id="what-a-release-contains" data-i18n="dl.contains">What a release contains</h2>
+  <div class="dl-grid">
+    <div class="card c1"><h3 data-i18n="dl.stack">Docker stack bundle</h3><p data-i18n="dl.stackB">material-moodle-stack-&lt;version&gt;.zip with the Compose file and .env.example.</p></div>
+    <div class="card c2"><h3 data-i18n="dl.plugins">Plugin packages</h3><p data-i18n="dl.pluginsB">The theme, passkey and Material tools plugins as zips for an existing Moodle 6 site.</p></div>
+    <div class="card c3"><h3 data-i18n="dl.image">Container image</h3><p data-i18n="dl.imageB">ghcr.io/ding-ding-projects/material-moodle, tagged latest and per release.</p></div>
+    <div class="card"><h3 data-i18n="dl.deployer">Desktop deployer</h3><p data-i18n="dl.deployerB">Installers for Windows, macOS and Linux will be attached once the app is finished. They are not code signed, so your system may warn before opening them.</p><span class="tag" data-i18n="ui.inProgress">In progress</span></div>
+  </div>
+  <p data-i18n="dl.tags">Release tags look like material-v1.0.0-42: the version, then the build number, so every build has a unique tag. Each release also has a dim sum code name.</p>
+</section>
+<section class="section tight" aria-labelledby="install-the-plugins-on-an-existing-site">
+  <h2 id="install-the-plugins-on-an-existing-site" data-i18n="dl.existing">Install the plugins on an existing site</h2>
+  <p data-i18n="dl.existingB">The plugins require Moodle 6. Unzip each package into its folder, then visit Site administration to finish the upgrade.</p>
+  <pre aria-label="Plugin folders"><code>public/theme/material
+public/auth/passkey
+public/local/materialtools</code></pre>
+</section>

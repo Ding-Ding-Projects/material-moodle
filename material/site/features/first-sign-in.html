@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forced password change and optional passkey · Material Moodle</title>
+<meta name="description" content="New students choose their own password at first sign-in, then may add a passkey. The passkey step is optional.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFF8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18120D" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ding-ding-projects.github.io/material-moodle/features/first-sign-in.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Material Moodle">
+<meta property="og:title" content="Forced password change and optional passkey · Material Moodle">
+<meta property="og:description" content="New students choose their own password at first sign-in, then may add a passkey. The passkey step is optional.">
+<meta property="og:url" content="https://ding-ding-projects.github.io/material-moodle/features/first-sign-in.html">
+<meta property="og:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Material Moodle: Moodle, redesigned in Material 3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Forced password change and optional passkey · Material Moodle">
+<meta name="twitter:description" content="New students choose their own password at first sign-in, then may add a passkey. The passkey step is optional.">
+<meta name="twitter:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<link rel="preload" href="../assets/fonts/roboto-flex-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(){try{var p=JSON.parse(localStorage.getItem('mm.prefs')||'{}');var d=document.documentElement;if(p.theme==='light'||p.theme==='dark'){d.dataset.theme=p.theme;}if(p.motion){d.dataset.motion=p.motion;}}catch(e){}})();</script>
+<script src="../assets/js/search-index.js" defer></script>
+<script src="../assets/js/site.js" defer></script>
+
+</head>
+<body data-page="art.first" data-tab="features">
+<a class="skip" href="#main" data-i18n="ui.skip">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><span class="brand-name">Material Moodle</span></a>
+  <span class="build"><span class="chip-version" title="Current release">v1.0.0</span><span class="updated"><span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></span>
+  <span class="spacer"></span>
+  <button type="button" class="search-btn" data-action="palette" aria-keyshortcuts="Control+Shift+F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-btn-text" data-i18n="ui.search">Search</span><kbd>Ctrl Shift F</kbd></button>
+  <button type="button" class="icon-btn" data-action="theme" aria-label="Switch colour mode" data-i18n-attr="aria-label:ui.switchMode" title="Switch colour mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+  <button type="button" class="icon-btn" data-action="settings" aria-expanded="false" aria-controls="settings-panel" aria-label="Display settings" data-i18n-attr="aria-label:ui.settings" title="Display settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></button>
+  <div class="panel" id="settings-panel" hidden role="dialog" aria-label="Display settings">
+    <h2 class="panel-title" data-i18n="ui.settings">Display settings</h2>
+    <div class="setting" id="set-theme" tabindex="-1"><span class="setting-label" data-i18n="set.theme">Colour mode</span><div class="segmented" role="group" aria-label="Colour mode"><button type="button" data-set="theme" data-value="auto" aria-pressed="false" data-i18n="set.auto">Automatic</button><button type="button" data-set="theme" data-value="light" aria-pressed="false" data-i18n="set.light">Light</button><button type="button" data-set="theme" data-value="dark" aria-pressed="false" data-i18n="set.dark">Dark</button></div></div>
+    <div class="setting" id="set-motion" tabindex="-1"><span class="setting-label" data-i18n="set.motion">Motion</span><div class="segmented" role="group" aria-label="Motion"><button type="button" data-set="motion" data-value="expressive" aria-pressed="false" data-i18n="set.expressive">Expressive</button><button type="button" data-set="motion" data-value="calm" aria-pressed="false" data-i18n="set.calm">Calm</button><button type="button" data-set="motion" data-value="off" aria-pressed="false" data-i18n="set.off">Off</button></div></div>
+    <div class="setting" id="set-lang" tabindex="-1"><span class="setting-label" data-i18n="set.lang">Language</span><div class="segmented" role="group" aria-label="Language"><button type="button" data-set="lang" data-value="en" aria-pressed="false">English</button><button type="button" data-set="lang" data-value="yue" aria-pressed="false">廣東話</button><button type="button" data-set="lang" data-value="bi" aria-pressed="false" data-i18n="set.bi">Bilingual</button></div></div>
+    <p class="panel-note" data-i18n="set.reducedNote">Devices that ask for reduced motion always get the calm version.</p>
+  </div>
+</header>
+<nav class="tabstrip" aria-label="Pages" data-i18n-attr="aria-label:ui.pages">
+  <ul class="tabs"><li class="tab" data-tab="home"><a href="../index.html"><span data-i18n="tab.home">Home</span></a><button type="button" class="tab-close" data-close-tab="home" aria-label="Close Home tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Home"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab is-current" data-tab="features"><a href="../features.html" aria-current="page"><span data-i18n="tab.features">Features</span></a><button type="button" class="tab-close" data-close-tab="features" aria-label="Close Features tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Features"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="deploy"><a href="../deploy.html"><span data-i18n="tab.deploy">Deploy</span></a><button type="button" class="tab-close" data-close-tab="deploy" aria-label="Close Deploy tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Deploy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="passkeys"><a href="../passkeys.html"><span data-i18n="tab.passkeys">Passkeys</span></a><button type="button" class="tab-close" data-close-tab="passkeys" aria-label="Close Passkeys tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Passkeys"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="students"><a href="../students.html"><span data-i18n="tab.students">Students</span></a><button type="button" class="tab-close" data-close-tab="students" aria-label="Close Students tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Students"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="vocabulary"><a href="../vocabulary.html"><span data-i18n="tab.vocabulary">Vocabulary</span></a><button type="button" class="tab-close" data-close-tab="vocabulary" aria-label="Close Vocabulary tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Vocabulary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="docs"><a href="../docs.html"><span data-i18n="tab.docs">Docs</span></a><button type="button" class="tab-close" data-close-tab="docs" aria-label="Close Docs tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Docs"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="demo"><a href="../demo.html"><span data-i18n="tab.demo">Demo</span></a><button type="button" class="tab-close" data-close-tab="demo" aria-label="Close Demo tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Demo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="changelog"><a href="../changelog.html"><span data-i18n="tab.changelog">Changelog</span></a><button type="button" class="tab-close" data-close-tab="changelog" aria-label="Close Changelog tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Changelog"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="download"><a href="../download.html"><span data-i18n="tab.download">Download</span></a><button type="button" class="tab-close" data-close-tab="download" aria-label="Close Download tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Download"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li></ul>
+  <button type="button" class="tab-new" data-action="catalog" aria-expanded="false" aria-controls="tab-catalog" aria-label="New tab: open a page" data-i18n-attr="aria-label:tab.catalog" title="New tab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+  <div class="panel catalog" id="tab-catalog" hidden>
+    <h2 class="panel-title" data-i18n="tab.catalogTitle">Open a page in a tab</h2>
+    <ul class="catalog-list"></ul>
+    <button type="button" class="btn-tonal" data-action="open-all" data-i18n="tab.openAll">Open every tab</button>
+  </div>
+  <button type="button" class="btn-text open-all" data-action="open-all" hidden data-i18n="tab.openAll">Open every tab</button>
+</nav>
+<div class="sitesearch" role="search" aria-label="Search this site" data-i18n-attr="aria-label:ui.searchSite"></div>
+<main id="main" tabindex="-1">
+<header class="page-head rise">
+  <p class="crumbs"><a href="../features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.first">Forced password change and optional passkey</h1>
+  <p class="lead" data-i18n="feat.firstB">New students choose their own password, then may add a passkey. The passkey step can be skipped.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">local_materialtools</span><span class="badge">auth_passkey</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="three-steps" data-i18n="art.threeSteps">Three steps</h2>
+    <ol class="steps">
+      <li><strong>New password</strong><span>Moodle asks for a new password right after the first sign-in with the temporary one.</span></li>
+      <li><strong>Passkey (optional)</strong><span>"Faster sign-in next time?" with Add a passkey and Not now.</span></li>
+      <li><strong>Done</strong><span>The student continues to the page they wanted, or the dashboard.</span></li>
+    </ol>
+    <p>The passkey step appears once. Adding a passkey anywhere, or choosing Not now, clears the offer. It never interrupts AJAX requests, "log in as" sessions or a pending password change.</p>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <p><strong>Offer a passkey to new accounts</strong> (<code>auth_passkey | offeronfirstlogin</code>), on by default.</p>
+    <h2 id="limits" data-i18n="art.limits">Limits</h2>
+    <p>Only accounts created with Add a student get the passkey offer. Accounts from upload or self-registration do not.</p>
+  </div>
+  <aside><p class="aside-title" data-i18n="ui.onThisPage">On this page</p><ul><li><a href="#three-steps">Three steps</a></li><li><a href="#settings">Settings</a></li><li><a href="#limits">Limits</a></li></ul><p class="aside-title" data-i18n="ui.fullDocs">Full documentation</p><ul><li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/material/docs/first-sign-in.md">material/docs/first-sign-in.md</a></li></ul><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="add-a-student.html">Add a student</a></li><li><a href="passkey-manager.html">Passkey manager</a></li></ul></aside>
+</div>
+
+</main>
+<footer class="footer">
+  <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><strong>Material Moodle</strong><br><span>v1.0.0 · <span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></div></div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle" data-i18n="ui.source">Source code on GitHub</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/releases/latest" data-i18n="ui.releases">Latest release</a></li>
+    <li><a href="../changelog.html" data-i18n="tab.changelog">Changelog</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/COPYING.txt" data-i18n="ui.license">Licence: GNU GPL v3 or later</a></li>
+  </ul>
+  <p class="footer-note" data-i18n="ui.trademark">Material Moodle is an independent, community-made distribution. Moodle is a registered trademark of Moodle Pty Ltd; this project is not affiliated with or endorsed by Moodle Pty Ltd.</p>
+</footer>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

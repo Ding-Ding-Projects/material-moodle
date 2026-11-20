@@ -1,0 +1,33 @@
+<!--{"title": "Motion and reduced motion", "key": "art.motion", "tab": "features", "doc": "motion-and-reduced-motion.md", "description": "Expressive, calm or no motion in the Material theme, and what happens when a device asks for reduced motion."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.motion">Motion and reduced motion</h1>
+  <p class="lead" data-i18n="feat.motionB">Expressive, calm or off. Devices that ask for reduced motion always get the calm version.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">theme_material</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-moves" data-i18n="art.whatMoves">What moves</h2>
+    <p>The theme animates with Material's emphasized easing: content rises in when a page opens, menus and dialogs scale in, buttons show a touch ripple where they are pressed, and the sign-in page has slowly morphing shapes in the palette colours.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Level</th><th>What moves</th></tr></thead>
+      <tbody>
+        <tr><td><code>expressive</code> (default)</td><td>Everything: page rise, ripples, menu and dialog motion, sign-in shapes, confetti and rings.</td></tr>
+        <tr><td><code>calm</code></td><td>Short fades only. Shapes and ripples stop and celebrations are skipped.</td></tr>
+        <tr><td><code>off</code></td><td>No animations or transitions at all.</td></tr>
+      </tbody>
+    </table></div>
+    <p>The level is written to the <code>&lt;html&gt;</code> element as <code>data-md-motion</code> before the first paint, so CSS follows it without waiting for JavaScript.</p>
+    <h2 id="reduced-motion" data-i18n="art.reduced">Reduced motion</h2>
+    <p>When the device asks for reduced motion, CSS cuts every animation and transition to almost nothing, and JavaScript does not start page transitions, ripples or celebrations, whatever the site setting says. Nothing that carries meaning depends on motion.</p>
+    <p>This website follows the same rules. Try the Motion setting in the display settings menu at the top of any page.</p>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <ul>
+      <li><strong>Motion</strong> (<code>theme_material | motion</code>): expressive, calm or off.</li>
+      <li><strong>Page transitions</strong> (<code>theme_material | pagetransitions</code>): on by default.</li>
+      <li><strong>Touch ripples</strong> (<code>theme_material | ripples</code>): on by default, used only when motion is expressive.</li>
+    </ul>
+    <p>Motion is a site-wide setting; there is no per-person motion preference in Moodle yet.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="celebrations.html">Celebrations</a></li><li><a href="material-theme.html">Material 3 theme</a></li></ul></aside>
+</div>

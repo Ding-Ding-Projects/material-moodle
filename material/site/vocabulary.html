@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-root="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vocabulary · Material Moodle</title>
+<meta name="description" content="Rename Teacher, Student and Assignment for everyone, label single activities, or upload a custom vocabulary pack for chosen students.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFF8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18120D" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ding-ding-projects.github.io/material-moodle/vocabulary.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Material Moodle">
+<meta property="og:title" content="Vocabulary · Material Moodle">
+<meta property="og:description" content="Rename Teacher, Student and Assignment for everyone, label single activities, or upload a custom vocabulary pack for chosen students.">
+<meta property="og:url" content="https://ding-ding-projects.github.io/material-moodle/vocabulary.html">
+<meta property="og:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Material Moodle: Moodle, redesigned in Material 3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vocabulary · Material Moodle">
+<meta name="twitter:description" content="Rename Teacher, Student and Assignment for everyone, label single activities, or upload a custom vocabulary pack for chosen students.">
+<meta name="twitter:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
+<link rel="preload" href="assets/fonts/roboto-flex-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script>(function(){try{var p=JSON.parse(localStorage.getItem('mm.prefs')||'{}');var d=document.documentElement;if(p.theme==='light'||p.theme==='dark'){d.dataset.theme=p.theme;}if(p.motion){d.dataset.motion=p.motion;}}catch(e){}})();</script>
+<script src="assets/js/search-index.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+
+</head>
+<body data-page="page.vocabulary" data-tab="vocabulary">
+<a class="skip" href="#main" data-i18n="ui.skip">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><span class="brand-name">Material Moodle</span></a>
+  <span class="build"><span class="chip-version" title="Current release">v1.0.0</span><span class="updated"><span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></span>
+  <span class="spacer"></span>
+  <button type="button" class="search-btn" data-action="palette" aria-keyshortcuts="Control+Shift+F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-btn-text" data-i18n="ui.search">Search</span><kbd>Ctrl Shift F</kbd></button>
+  <button type="button" class="icon-btn" data-action="theme" aria-label="Switch colour mode" data-i18n-attr="aria-label:ui.switchMode" title="Switch colour mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+  <button type="button" class="icon-btn" data-action="settings" aria-expanded="false" aria-controls="settings-panel" aria-label="Display settings" data-i18n-attr="aria-label:ui.settings" title="Display settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></button>
+  <div class="panel" id="settings-panel" hidden role="dialog" aria-label="Display settings">
+    <h2 class="panel-title" data-i18n="ui.settings">Display settings</h2>
+    <div class="setting" id="set-theme" tabindex="-1"><span class="setting-label" data-i18n="set.theme">Colour mode</span><div class="segmented" role="group" aria-label="Colour mode"><button type="button" data-set="theme" data-value="auto" aria-pressed="false" data-i18n="set.auto">Automatic</button><button type="button" data-set="theme" data-value="light" aria-pressed="false" data-i18n="set.light">Light</button><button type="button" data-set="theme" data-value="dark" aria-pressed="false" data-i18n="set.dark">Dark</button></div></div>
+    <div class="setting" id="set-motion" tabindex="-1"><span class="setting-label" data-i18n="set.motion">Motion</span><div class="segmented" role="group" aria-label="Motion"><button type="button" data-set="motion" data-value="expressive" aria-pressed="false" data-i18n="set.expressive">Expressive</button><button type="button" data-set="motion" data-value="calm" aria-pressed="false" data-i18n="set.calm">Calm</button><button type="button" data-set="motion" data-value="off" aria-pressed="false" data-i18n="set.off">Off</button></div></div>
+    <div class="setting" id="set-lang" tabindex="-1"><span class="setting-label" data-i18n="set.lang">Language</span><div class="segmented" role="group" aria-label="Language"><button type="button" data-set="lang" data-value="en" aria-pressed="false">English</button><button type="button" data-set="lang" data-value="yue" aria-pressed="false">廣東話</button><button type="button" data-set="lang" data-value="bi" aria-pressed="false" data-i18n="set.bi">Bilingual</button></div></div>
+    <p class="panel-note" data-i18n="set.reducedNote">Devices that ask for reduced motion always get the calm version.</p>
+  </div>
+</header>
+<nav class="tabstrip" aria-label="Pages" data-i18n-attr="aria-label:ui.pages">
+  <ul class="tabs"><li class="tab" data-tab="home"><a href="index.html"><span data-i18n="tab.home">Home</span></a><button type="button" class="tab-close" data-close-tab="home" aria-label="Close Home tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Home"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="features"><a href="features.html"><span data-i18n="tab.features">Features</span></a><button type="button" class="tab-close" data-close-tab="features" aria-label="Close Features tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Features"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="deploy"><a href="deploy.html"><span data-i18n="tab.deploy">Deploy</span></a><button type="button" class="tab-close" data-close-tab="deploy" aria-label="Close Deploy tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Deploy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="passkeys"><a href="passkeys.html"><span data-i18n="tab.passkeys">Passkeys</span></a><button type="button" class="tab-close" data-close-tab="passkeys" aria-label="Close Passkeys tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Passkeys"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="students"><a href="students.html"><span data-i18n="tab.students">Students</span></a><button type="button" class="tab-close" data-close-tab="students" aria-label="Close Students tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Students"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab is-current" data-tab="vocabulary"><a href="vocabulary.html" aria-current="page"><span data-i18n="tab.vocabulary">Vocabulary</span></a><button type="button" class="tab-close" data-close-tab="vocabulary" aria-label="Close Vocabulary tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Vocabulary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="docs"><a href="docs.html"><span data-i18n="tab.docs">Docs</span></a><button type="button" class="tab-close" data-close-tab="docs" aria-label="Close Docs tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Docs"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="demo"><a href="demo.html"><span data-i18n="tab.demo">Demo</span></a><button type="button" class="tab-close" data-close-tab="demo" aria-label="Close Demo tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Demo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="changelog"><a href="changelog.html"><span data-i18n="tab.changelog">Changelog</span></a><button type="button" class="tab-close" data-close-tab="changelog" aria-label="Close Changelog tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Changelog"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li><li class="tab" data-tab="download"><a href="download.html"><span data-i18n="tab.download">Download</span></a><button type="button" class="tab-close" data-close-tab="download" aria-label="Close Download tab" data-i18n-attr="aria-label:tab.closeLabel" data-i18n-arg="Download"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></li></ul>
+  <button type="button" class="tab-new" data-action="catalog" aria-expanded="false" aria-controls="tab-catalog" aria-label="New tab: open a page" data-i18n-attr="aria-label:tab.catalog" title="New tab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+  <div class="panel catalog" id="tab-catalog" hidden>
+    <h2 class="panel-title" data-i18n="tab.catalogTitle">Open a page in a tab</h2>
+    <ul class="catalog-list"></ul>
+    <button type="button" class="btn-tonal" data-action="open-all" data-i18n="tab.openAll">Open every tab</button>
+  </div>
+  <button type="button" class="btn-text open-all" data-action="open-all" hidden data-i18n="tab.openAll">Open every tab</button>
+</nav>
+<div class="sitesearch" role="search" aria-label="Search this site" data-i18n-attr="aria-label:ui.searchSite"></div>
+<main id="main" tabindex="-1">
+<header class="page-head rise">
+  <h1 data-i18n="vo.h1">Vocabulary</h1>
+  <p class="lead" data-i18n="vo.lead">Use the words your school uses. Three tools, from the whole site down to one activity.</p>
+</header>
+
+<section class="section tight" aria-labelledby="three-tools">
+  <h2 id="three-tools" data-i18n="vo.tools">Three tools</h2>
+  <div class="grid">
+    <a class="card c1" href="features/site-wording.html"><h3 data-i18n="feat.wording" id="site-wording">Site wording</h3><p data-i18n="vo.t1">For everyone: rename Teacher, Student and Assignment on every page.</p><span class="go" data-i18n="ui.readArticle">Read the article</span></a>
+    <a class="card c2" href="features/vocabulary-pack.html"><h3 data-i18n="feat.vocab" id="custom-vocabulary-pack">Custom vocabulary pack</h3><p data-i18n="vo.t2">For chosen people: a JSON file of replacement words, shown only after sign-in.</p><span class="go" data-i18n="ui.readArticle">Read the article</span></a>
+    <a class="card c3" href="features/activity-type-labels.html"><h3 data-i18n="feat.labels" id="activity-type-labels">Activity type labels</h3><p data-i18n="vo.t3">For one activity: show an assignment as a "Dropbox". In progress.</p><span class="go" data-i18n="ui.readArticle">Read the article</span></a>
+  </div>
+</section>
+
+<section class="section tight" aria-labelledby="pack-file-format">
+  <h2 id="pack-file-format" data-i18n="vo.format">Pack file format</h2>
+  <p data-i18n="vo.formatB">A pack is a UTF-8 JSON object with schemaVersion 1 and an entries object of original words and replacements.</p>
+  <pre aria-label="Example vocabulary pack"><code>{
+  "schemaVersion": 1,
+  "name": "Our school words",
+  "entries": {
+    "submission": "hand-in",
+    "assignment": "task"
+  }
+}</code></pre>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rule</th><th>Limit</th></tr></thead>
+    <tbody>
+      <tr><td>File size</td><td>At most 256 KB</td></tr>
+      <tr><td>Keys</td><td>1 to 160 characters</td></tr>
+      <tr><td>Values</td><td>Text of 1 to 1,000 characters</td></tr>
+      <tr><td>Nesting</td><td>At most 8 levels deep</td></tr>
+      <tr><td>Duplicate keys</td><td>Rejected</td></tr>
+      <tr><td><code>name</code></td><td>Optional, shown as the headline when the pack is applied</td></tr>
+    </tbody>
+  </table></div>
+  <p data-i18n="vo.strict">Any failed rule rejects the whole file with a specific message, and the previous pack stays in place.</p>
+</section>
+
+<section class="section tight" aria-labelledby="upload-and-audience">
+  <h2 id="upload-and-audience" data-i18n="vo.upload">Upload and audience</h2>
+  <ul class="prose">
+    <li data-i18n="vo.u1">Choose a file on Site administration › Users › Material tools › Custom vocabulary, or drop a .json file anywhere on the site as a manager.</li>
+    <li data-i18n="vo.u2">Pick who sees it: nobody, everyone signed in, or selected students and cohorts (the default).</li>
+    <li data-i18n="vo.u3">Tick Custom vocabulary on Add a student to choose a new student straight away.</li>
+    <li data-i18n="vo.u4">Signed-out pages, guests and people outside the audience always see the original wording.</li>
+  </ul>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><strong>Material Moodle</strong><br><span>v1.0.0 · <span data-i18n="ui.updated">Updated</span> <time datetime="2026-11-20">20 November 2026</time></span></div></div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle" data-i18n="ui.source">Source code on GitHub</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/releases/latest" data-i18n="ui.releases">Latest release</a></li>
+    <li><a href="changelog.html" data-i18n="tab.changelog">Changelog</a></li>
+    <li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/COPYING.txt" data-i18n="ui.license">Licence: GNU GPL v3 or later</a></li>
+  </ul>
+  <p class="footer-note" data-i18n="ui.trademark">Material Moodle is an independent, community-made distribution. Moodle is a registered trademark of Moodle Pty Ltd; this project is not affiliated with or endorsed by Moodle Pty Ltd.</p>
+</footer>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

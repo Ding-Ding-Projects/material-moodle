@@ -1,0 +1,23 @@
+<!--{"title": "Custom vocabulary pack", "key": "art.vocab", "tab": "features", "doc": "custom-vocabulary-pack.md", "description": "Upload a JSON file of replacement words, shown only to the signed-in students and cohorts you choose."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.vocab">Custom vocabulary pack</h1>
+  <p class="lead" data-i18n="feat.vocabB">Upload a JSON file of replacement words, shown only to the students and cohorts you choose.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">local_materialtools</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-does" data-i18n="art.whatItDoes">What it does</h2>
+    <p>A vocabulary pack replaces interface words with your own words, for the signed-in people you choose. For example, "Hand-in" wherever the interface says "Submission". Signed-out pages always keep the original wording. Matching is whole-word and case-insensitive, and code, form fields and editors are never changed.</p>
+    <p>The <a href="{{root}}vocabulary.html">Vocabulary page</a> covers the file format, upload and audiences in full.</p>
+    <h2 id="who-sees-it" data-i18n="art.whoSees">Who sees it</h2>
+    <ul>
+      <li><strong>Nobody</strong>: the pack stays stored but unused.</li>
+      <li><strong>Everyone signed in</strong>.</li>
+      <li><strong>Selected students and cohorts</strong> (default): people chosen on the page or on Add a student, plus members of chosen cohorts.</li>
+    </ul>
+    <h2 id="security" data-i18n="art.security">Security</h2>
+    <p>The file is validated in full before anything is stored, so a rejected file never applies partially. Values are inserted as text, never as HTML, and the pack is only sent to eligible signed-in people.</p>
+  </div>
+  <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="site-wording.html">Site wording</a></li><li><a href="{{root}}vocabulary.html">Vocabulary</a></li></ul></aside>
+</div>

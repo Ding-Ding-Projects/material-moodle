@@ -37,6 +37,7 @@ function theme_material_get_main_scss_content($theme): string {
     $scss = file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/material.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/expressive.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/pages.scss');
     return $scss;
 }
 
