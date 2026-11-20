@@ -1,0 +1,72 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template auth_passkey/manage
+
+    The passkey manager.
+
+    Example context (json):
+    {
+        "enabled": true,
+        "haskeys": true,
+        "items": [{"id": 1, "name": "Laptop", "created": "3 Sep 2026", "lastused": "Today", "renameurl": "#", "deleteurl": "#", "sesskey": "x"}]
+    }
+}}
+<div class="auth-passkey-manage" data-region="auth-passkey-manage">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <p class="lead mb-0" style="max-width: 46rem;">{{#str}}managepasskeys_desc, auth_passkey{{/str}}</p>
+        <div class="d-flex flex-column gap-2 align-items-stretch">
+            <label class="visually-hidden" for="auth-passkey-name">{{#str}}passkeyname, auth_passkey{{/str}}</label>
+            <input type="text" id="auth-passkey-name" class="form-control" maxlength="255" placeholder="{{#str}}passkeyname_placeholder, auth_passkey{{/str}}">
+            <button type="button" class="btn btn-secondary btn-lg" data-action="auth-passkey-add">{{#str}}addpasskey, auth_passkey{{/str}}</button>
+        </div>
+    </div>
+    {{^enabled}}
+        <div class="alert alert-warning">{{#str}}notenabled, auth_passkey{{/str}}</div>
+    {{/enabled}}
+    <div data-region="auth-passkey-status" aria-live="polite"></div>
+    {{#haskeys}}
+    <ul class="list-unstyled d-flex flex-column gap-3">
+        {{#items}}
+        <li class="card">
+            <div class="card-body d-flex flex-wrap align-items-center gap-3">
+                <span class="auth-passkey-icon" aria-hidden="true">{{#pix}}i/passkey, auth_passkey{{/pix}}</span>
+                <div class="flex-grow-1" style="min-width: 14rem;">
+                    <h2 class="h5 mb-1">{{name}}</h2>
+                    <p class="mb-0 text-muted small">{{#str}}addedon, auth_passkey, {{created}}{{/str}} · {{#str}}lastused, auth_passkey, {{lastused}}{{/str}}</p>
+                </div>
+                <form method="post" action="{{renameurl}}" class="d-flex gap-2 align-items-center">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}">
+                    <input type="hidden" name="action" value="rename">
+                    <input type="hidden" name="id" value="{{id}}">
+                    <label class="visually-hidden" for="auth-passkey-rename-{{id}}">{{#str}}rename, auth_passkey{{/str}}</label>
+                    <input type="text" class="form-control" id="auth-passkey-rename-{{id}}" name="name" value="{{name}}" maxlength="255">
+                    <button type="submit" class="btn btn-outline-secondary">{{#str}}rename, auth_passkey{{/str}}</button>
+                </form>
+                <a class="btn btn-danger" href="{{deleteurl}}">{{#str}}remove, auth_passkey{{/str}}</a>
+            </div>
+        </li>
+        {{/items}}
+    </ul>
+    {{/haskeys}}
+    {{^haskeys}}
+        <div class="card"><div class="card-body text-center py-5">
+            <p class="h5">{{#str}}nopasskeys, auth_passkey{{/str}}</p>
+            <p class="text-muted mb-0">{{#str}}nopasskeys_desc, auth_passkey{{/str}}</p>
+        </div></div>
+    {{/haskeys}}
+</div>

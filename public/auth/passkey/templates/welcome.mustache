@@ -1,0 +1,40 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template auth_passkey/welcome
+
+    Optional passkey step after the first sign-in.
+
+    Example context (json):
+    {
+        "skipurl": "#",
+        "firstname": "Alex"
+    }
+}}
+<div class="auth-passkey-welcome loginform" data-region="auth-passkey-welcome">
+    <ol class="auth-passkey-steps list-unstyled d-flex gap-2 mb-4" aria-label="{{#str}}setupsteps, auth_passkey{{/str}}">
+        <li class="flex-fill"><span class="auth-passkey-step is-done"></span><span class="small fw-semibold">{{#str}}stepnewpassword, auth_passkey{{/str}}</span></li>
+        <li class="flex-fill" aria-current="step"><span class="auth-passkey-step is-done"></span><span class="small fw-semibold">{{#str}}steppasskey, auth_passkey{{/str}}</span></li>
+        <li class="flex-fill"><span class="auth-passkey-step" data-region="auth-passkey-final-step"></span><span class="small text-muted">{{#str}}stepdone, auth_passkey{{/str}}</span></li>
+    </ol>
+    <div class="auth-passkey-hero mb-3" aria-hidden="true">{{#pix}}i/passkey, auth_passkey{{/pix}}</div>
+    <h1 class="h2">{{#str}}welcometitle, auth_passkey{{/str}}</h1>
+    <p class="text-muted mb-4">{{#str}}welcometext, auth_passkey, {{firstname}}{{/str}}</p>
+    <div data-region="auth-passkey-status" aria-live="polite"></div>
+    <button type="button" class="md-passkey-btn mb-3" data-action="auth-passkey-add">{{#str}}addpasskey, auth_passkey{{/str}}</button>
+    <a class="btn btn-link w-100" href="{{skipurl}}" data-action="auth-passkey-skip">{{#str}}notnow, auth_passkey{{/str}}</a>
+</div>

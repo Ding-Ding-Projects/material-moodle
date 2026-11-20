@@ -1,0 +1,4 @@
+docker/.env
+deployer/node_modules/
+deployer/dist/
+site/node_modules/

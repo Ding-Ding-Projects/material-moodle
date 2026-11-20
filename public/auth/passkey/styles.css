@@ -1,0 +1,32 @@
+.auth-passkey-steps .auth-passkey-step {
+    display: block;
+    height: 6px;
+    border-radius: 99px;
+    margin-bottom: .5rem;
+    background: var(--md-sys-color-surface-container-highest, #e3e3e3);
+    transition: background-color .4s ease;
+}
+.auth-passkey-steps .auth-passkey-step.is-done {
+    background: var(--md-sys-color-primary, #0f6cbf);
+}
+.auth-passkey-hero {
+    width: 72px;
+    height: 72px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-sys-color-primary-container, #dbe7f5);
+}
+.auth-passkey-hero .icon {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+.auth-passkey-icon .icon {
+    width: 32px;
+    height: 32px;
+}
+.md-passkey-btn svg {
+    flex: none;
+}

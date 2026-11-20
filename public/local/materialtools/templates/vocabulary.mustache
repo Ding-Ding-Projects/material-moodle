@@ -1,0 +1,112 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_materialtools/vocabulary
+
+    Vocabulary pack manager.
+
+    Example context (json):
+    {
+        "present": true, "count": 120, "updated": "Today", "sesskey": "x", "actionurl": "#",
+        "audiences": [{"value": "selected", "label": "Selected students", "checked": true}],
+        "cohorts": [], "hascohorts": false, "users": [], "hasusers": false, "usersform": ""
+    }
+}}
+<div class="local-materialtools-vocab d-flex flex-column gap-4">
+    <p class="lead mb-0">{{#str}}vocab_desc, local_materialtools{{/str}}</p>
+
+    <section class="card"><div class="card-body d-flex flex-column gap-3">
+        <h2 class="h4 mb-0">{{#str}}vocabfile, local_materialtools{{/str}}</h2>
+        <form method="post" action="{{actionurl}}" enctype="multipart/form-data" class="local-materialtools-drop" data-region="vocab-drop">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="upload">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <div class="flex-grow-1" style="min-width: 14rem;">
+                    {{#present}}
+                        <div class="fw-bold">{{#str}}vocabstatusloaded, local_materialtools, {{count}}{{/str}}</div>
+                        <div class="small text-muted">{{#str}}vocabupdated, local_materialtools, {{updated}}{{/str}}</div>
+                    {{/present}}
+                    {{^present}}
+                        <div class="fw-bold">{{#str}}vocabstatusnone, local_materialtools{{/str}}</div>
+                        <div class="small text-muted">{{#str}}vocabdrophint, local_materialtools{{/str}}</div>
+                    {{/present}}
+                </div>
+                <label class="btn btn-secondary mb-0">
+                    {{#present}}{{#str}}vocabreplace, local_materialtools{{/str}}{{/present}}{{^present}}{{#str}}vocabchoose, local_materialtools{{/str}}{{/present}}
+                    <input type="file" name="vocabfile" accept=".json,application/json" class="visually-hidden" data-region="vocab-file">
+                </label>
+            </div>
+            <div data-region="vocab-status" aria-live="polite" class="mt-3"></div>
+        </form>
+        {{#present}}
+        <form method="post" action="{{actionurl}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="clear">
+            <button type="submit" class="btn btn-outline-secondary">{{#str}}vocabclear, local_materialtools{{/str}}</button>
+        </form>
+        {{/present}}
+    </div></section>
+
+    <section class="card"><div class="card-body">
+        <h2 class="h4">{{#str}}vocabwho, local_materialtools{{/str}}</h2>
+        <p class="text-muted">{{#str}}vocabwho_desc, local_materialtools{{/str}}</p>
+        <form method="post" action="{{actionurl}}" class="d-flex flex-column gap-3">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="audience">
+            <fieldset class="d-flex flex-wrap gap-3">
+                <legend class="visually-hidden">{{#str}}vocabwho, local_materialtools{{/str}}</legend>
+                {{#audiences}}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="audience" id="vocab-audience-{{value}}" value="{{value}}" {{#checked}}checked{{/checked}}>
+                    <label class="form-check-label" for="vocab-audience-{{value}}">{{label}}</label>
+                </div>
+                {{/audiences}}
+            </fieldset>
+            {{#hascohorts}}
+            <div>
+                <label for="vocab-cohorts" class="form-label">{{#str}}vocabcohorts, local_materialtools{{/str}}</label>
+                <select multiple class="form-select" id="vocab-cohorts" name="cohorts[]" size="5">
+                    {{#cohorts}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>{{/cohorts}}
+                </select>
+            </div>
+            {{/hascohorts}}
+            <div><button type="submit" class="btn btn-primary">{{#str}}savechanges{{/str}}</button></div>
+        </form>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+        <h2 class="h4">{{#str}}vocabchosen, local_materialtools{{/str}}</h2>
+        {{#hasusers}}
+        <ul class="list-unstyled d-flex flex-wrap gap-2">
+            {{#users}}
+            <li>
+                <form method="post" action="{{actionurl}}" class="d-inline">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}">
+                    <input type="hidden" name="action" value="removeuser">
+                    <input type="hidden" name="userid" value="{{id}}">
+                    <span class="badge bg-secondary-subtle text-secondary-emphasis fs-6 d-inline-flex align-items-center gap-2">{{fullname}} <span class="small opacity-75">{{username}}</span>
+                        <button type="submit" class="btn btn-sm btn-link p-0" aria-label="{{#str}}removeuser, local_materialtools, {{fullname}}{{/str}}">×</button>
+                    </span>
+                </form>
+            </li>
+            {{/users}}
+        </ul>
+        {{/hasusers}}
+        {{^hasusers}}<p class="text-muted">{{#str}}vocabnochosen, local_materialtools{{/str}}</p>{{/hasusers}}
+        {{{usersform}}}
+    </div></section>
+</div>

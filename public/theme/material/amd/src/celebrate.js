@@ -1,0 +1,179 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Success and error moments: confetti and rings for success, a shake and a red flash for errors.
+ *
+ * @module     theme_material/celebrate
+ * @copyright  2026 Ding Ding Projects
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+define([], function() {
+    var settings = {level: 'dramatic', motion: 'expressive'};
+
+    /**
+     * True when the device or the site asks for less motion.
+     *
+     * @returns {boolean}
+     */
+    function calm() {
+        return settings.motion !== 'expressive' ||
+            (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+
+    /**
+     * A temporary full-window layer.
+     *
+     * @returns {HTMLElement}
+     */
+    function layer() {
+        var el = document.createElement('div');
+        el.className = 'md-celebrate';
+        el.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(el);
+        setTimeout(function() {
+            el.remove();
+        }, 2200);
+        return el;
+    }
+
+    /**
+     * Confetti from a point.
+     *
+     * @param {number} x
+     * @param {number} y
+     */
+    function success(x, y) {
+        if (calm() || settings.level === 'subtle') {
+            return;
+        }
+        var el = layer();
+        var css = getComputedStyle(document.documentElement);
+        var colours = ['primary', 'tertiary', 'success', 'secondary-container', 'error', 'primary-container']
+            .map(function(role) {
+                return css.getPropertyValue('--md-sys-color-' + role).trim() || '#8B5000';
+            });
+        var count = settings.level === 'dramatic' ? 64 : 28;
+        for (var i = 0; i < count; i++) {
+            var bit = document.createElement('span');
+            var angle = (i / count) * Math.PI * 2 + Math.random() * 0.4;
+            var dist = 180 + Math.random() * 320;
+            bit.className = 'md-confetti';
+            bit.style.left = x + 'px';
+            bit.style.top = y + 'px';
+            bit.style.width = (6 + Math.random() * 8) + 'px';
+            bit.style.height = (i % 2 ? 16 : 9) + 'px';
+            bit.style.borderRadius = i % 3 === 0 ? '50%' : '3px';
+            bit.style.background = colours[i % colours.length];
+            bit.style.setProperty('--dx', Math.round(Math.cos(angle) * dist) + 'px');
+            bit.style.setProperty('--dy', Math.round(Math.sin(angle) * dist + 180) + 'px');
+            bit.style.setProperty('--r', Math.round(Math.random() * 720) + 'deg');
+            bit.style.animationDelay = (Math.random() * 0.15) + 's';
+            el.appendChild(bit);
+        }
+        if (settings.level === 'dramatic') {
+            [0, 0.22].forEach(function(delay) {
+                var ring = document.createElement('span');
+                ring.className = 'md-ring';
+                ring.style.left = x + 'px';
+                ring.style.top = y + 'px';
+                ring.style.animationDelay = delay + 's';
+                el.appendChild(ring);
+            });
+        }
+    }
+
+    /**
+     * Shake the element and flash the window red.
+     *
+     * @param {HTMLElement|null} target
+     */
+    function failure(target) {
+        if (calm()) {
+            return;
+        }
+        if (target) {
+            target.classList.remove('md-shake');
+            void target.offsetWidth;
+            target.classList.add('md-shake');
+        }
+        if (settings.level === 'dramatic') {
+            layer().appendChild(Object.assign(document.createElement('span'), {className: 'md-flash'}));
+        }
+    }
+
+    /**
+     * Celebrate an element by its kind.
+     *
+     * @param {HTMLElement} node
+     */
+    function consider(node) {
+        if (!node || node.dataset.mdCelebrated) {
+            return;
+        }
+        var good = node.matches('.alert-success, .toast.bg-success, [data-md-celebrate="success"]');
+        var bad = node.matches('.alert-danger, .alert-error, .toast.bg-danger, [data-md-celebrate="error"]');
+        if (!good && !bad) {
+            return;
+        }
+        node.dataset.mdCelebrated = '1';
+        var rect = node.getBoundingClientRect();
+        if (good) {
+            node.classList.add('md-bounce');
+            success(rect.left + rect.width / 2, Math.max(40, rect.top + rect.height / 2));
+        } else {
+            failure(node);
+        }
+    }
+
+    var selector = '.alert-success, .alert-danger, .alert-error, .toast, [data-md-celebrate]';
+
+    return {
+        /**
+         * Watch the page for messages.
+         *
+         * @param {Object} config
+         */
+        watch: function(config) {
+            settings.level = config.celebrationlevel || settings.level;
+            settings.motion = config.motion || settings.motion;
+            document.querySelectorAll(selector).forEach(consider);
+            new MutationObserver(function(records) {
+                records.forEach(function(r) {
+                    r.addedNodes.forEach(function(n) {
+                        if (n.nodeType !== 1) {
+                            return;
+                        }
+                        if (n.matches(selector)) {
+                            consider(n);
+                        }
+                        n.querySelectorAll(selector).forEach(consider);
+                    });
+                });
+            }).observe(document.body, {childList: true, subtree: true});
+        },
+        success: success,
+        failure: failure,
+        /**
+         * Celebrate success from the centre of an element (or the window).
+         *
+         * @param {HTMLElement} [el]
+         */
+        burst: function(el) {
+            var r = el ? el.getBoundingClientRect() : {left: 0, top: 0, width: window.innerWidth, height: window.innerHeight};
+            success(r.left + r.width / 2, r.top + r.height / 2);
+        }
+    };
+});

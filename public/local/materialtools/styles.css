@@ -1,0 +1,64 @@
+.local-materialtools-drop {
+    border: 2px dashed var(--md-sys-color-outline, #8a8a8a);
+    border-radius: 20px;
+    padding: 1.25rem;
+    transition: background-color .2s ease, border-color .2s ease;
+}
+.local-materialtools-drop.is-over {
+    border-color: var(--md-sys-color-primary, #0f6cbf);
+    background: var(--md-sys-color-primary-container, #e7f0fa);
+}
+.local-materialtools-levelup {
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    z-index: 1101;
+    transform: translate(-50%, -50%);
+    max-width: min(90vw, 760px);
+    padding: 1.5rem 2.25rem;
+    border-radius: 32px;
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-weight: 800;
+    text-align: center;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, .3);
+    animation: local-materialtools-in .6s cubic-bezier(.2, 0, 0, 1.35) both;
+}
+.local-materialtools-levelup.is-good {
+    background: var(--md-sys-color-primary-container, #e7f0fa);
+    color: var(--md-sys-color-on-primary-container, #0b2944);
+}
+.local-materialtools-levelup.is-bad {
+    background: var(--md-sys-color-error-container, #ffdad6);
+    color: var(--md-sys-color-on-error-container, #410002);
+}
+.local-materialtools-levelup.is-leaving {
+    animation: local-materialtools-out .5s ease both;
+}
+@keyframes local-materialtools-in {
+    from { opacity: 0; transform: translate(-50%, -30%) scale(.8); }
+}
+@keyframes local-materialtools-out {
+    to { opacity: 0; transform: translate(-50%, -70%) scale(.95); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .local-materialtools-levelup, .local-materialtools-levelup.is-leaving { animation: none; }
+}
+.md-type-chip,
+.md-title-chip {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 .4rem;
+    padding: .1rem .6rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    vertical-align: middle;
+    background: var(--md-sys-color-tertiary-container, #e6eef9);
+    color: var(--md-sys-color-on-tertiary-container, #10233d);
+}
+.md-quick-posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
