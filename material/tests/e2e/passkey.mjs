@@ -1,0 +1,20 @@
+import { chromium } from 'playwright';
+const B=process.env.MOODLE_URL || 'http://localhost:8080', OUT=new URL('../../screenshots/', import.meta.url).pathname;
+const b=await chromium.launch(); const ctx=await b.newContext({viewport:{width:1440,height:900}}); const p=await ctx.newPage();
+const cdp=await ctx.newCDPSession(p); await cdp.send('WebAuthn.enable');
+await cdp.send('WebAuthn.addVirtualAuthenticator',{options:{protocol:'ctap2',transport:'internal',hasResidentKey:true,hasUserVerification:true,isUserVerified:true,automaticPresenceSimulation:true}});
+const errs=[]; p.on('pageerror',e=>errs.push(String(e)));
+await p.goto(B+'/login/index.php'); await p.waitForLoadState('networkidle'); await p.fill('#username','admin'); await p.fill('#password',process.env.MOODLE_ADMIN_PASSWORD); await p.click('#loginbtn'); await p.waitForTimeout(2500);
+await p.goto(B+'/auth/passkey/manage.php'); await p.waitForLoadState('networkidle');
+await p.fill('#auth-passkey-name','Laptop fingerprint reader'); await p.click('[data-action="auth-passkey-add"]'); await p.waitForTimeout(800);
+await p.screenshot({path:OUT+'passkey-added.png'});
+await p.waitForTimeout(2500); await p.screenshot({path:OUT+'passkeys.png'});
+console.log('status:', await p.textContent('[data-region="auth-passkey-status"]').catch(()=>''), 'list:', await p.locator('.auth-passkey-manage h2').allTextContents());
+// log out
+const sk=await p.evaluate(()=>M.cfg.sesskey); await p.goto(B+'/login/logout.php?sesskey='+sk); await p.waitForTimeout(1500);
+await p.goto(B+'/login/index.php'); await p.waitForLoadState('networkidle');
+await p.click('.md-passkey-btn'); await p.waitForTimeout(4000);
+console.log('after passkey sign-in:', p.url(), await p.title());
+await p.screenshot({path:OUT+'passkey-signed-in.png'});
+console.log(errs);
+await b.close();
