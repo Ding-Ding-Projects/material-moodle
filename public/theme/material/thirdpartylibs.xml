@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>fonts</location>
+    <name>Roboto Flex, Roboto Mono, Inter, Atkinson Hyperlegible Next (Fontsource builds)</name>
+    <description>Vendored web fonts so no font is loaded from another website.</description>
+    <license>OFL</license>
+    <licenseversion>1.1</licenseversion>
+    <version>5</version>
+    <repository>https://github.com/fontsource/font-files</repository>
+    <copyrights>
+      <copyright>The Roboto Flex Project Authors</copyright>
+      <copyright>The Roboto Mono Project Authors</copyright>
+      <copyright>The Inter Project Authors</copyright>
+      <copyright>Braille Institute of America, Inc.</copyright>
+    </copyrights>
+  </library>
+</libraries>
