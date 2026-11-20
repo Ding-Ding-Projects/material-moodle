@@ -4,7 +4,7 @@
 set -euo pipefail
 shopt -s nullglob
 root="$(cd "$(dirname "$0")/../.." && pwd)/public"
-for plugin in theme/material auth/passkey local/materialtools; do
+for plugin in theme/material auth/passkey local/materialtools local/meetups local/groupchats; do
   component="$(basename "$(dirname "$plugin")")_$(basename "$plugin")"
   [ "$plugin" = "theme/material" ] && component="theme_material"
   src="$root/$plugin/amd/src"; out="$root/$plugin/amd/build"

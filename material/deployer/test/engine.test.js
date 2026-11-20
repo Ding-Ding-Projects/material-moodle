@@ -19,6 +19,12 @@ async function setup(extraEnv = {}) {
   fs.copyFileSync(path.join(__dirname, 'fixtures', 'fake-docker.sh'), path.join(bin, 'docker'));
   fs.chmodSync(path.join(bin, 'docker'), 0o755);
   fs.writeFileSync(path.join(bin, 'curl'), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
+  if (process.getuid && process.getuid() !== 0) {
+    // On a real server the helper runs as root inside a container. A test runner that is not root records the
+    // ownership change instead of making it.
+    fs.writeFileSync(path.join(bin, 'chown'), '#!/bin/sh\necho "chown $*" >> "$HOME/chown-calls.log"\nexit 0\n',
+      { mode: 0o755 });
+  }
   const log = path.join(home, 'docker-calls.log');
   fs.writeFileSync(log, '');
   const env = { HOME: home, PATH: bin + ':' + process.env.PATH, FAKE_DOCKER_LOG: log, ...extraEnv };
@@ -167,7 +173,11 @@ test('quick link, guided named tunnel and token tunnel all complete', async () =
     assert.match(config, /tunnel: 6ff42ae2-765d-4adf-8112-31c55c1551ef/);
     assert.match(config, /hostname: learn.example.org/);
     assert.ok(fs.existsSync(path.join(dir, 'namedtunnel.override.yml')));
-    assert.equal(fs.statSync(path.join(dir, 'cloudflared')).uid, 65532);
+    if (process.getuid && process.getuid() === 0) {
+      assert.equal(fs.statSync(path.join(dir, 'cloudflared')).uid, 65532);
+    } else {
+      assert.match(fs.readFileSync(path.join(dir, '..', 'chown-calls.log'), 'utf8'), /chown 65532:65532/);
+    }
     e = envToObject(fs.readFileSync(path.join(dir, '.env'), 'utf8'));
     assert.equal(e.MOODLE_WWWROOT, 'https://learn.example.org');
     assert.ok(e.MOODLE_TRUSTED_HOSTS.split(',').includes('learn.example.org'));
