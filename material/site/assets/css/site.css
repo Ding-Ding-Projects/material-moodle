@@ -461,3 +461,10 @@ pre code { background: transparent; padding: 0; font-size: inherit; color: inher
 @media print {
   .topbar, .tabstrip, .sitesearch, .footer, .copy-btn { display: none !important; }
 }
+
+/* Real screenshots of the running Moodle site */
+.shot { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.shot img { display: block; width: 100%; height: auto; border-radius: 20px; border: 1px solid var(--ov); background: var(--c); box-shadow: 0 10px 28px rgba(0, 0, 0, .08); }
+.shot figcaption { font-size: 14px; color: var(--onv); }
+.shot.phone img { max-width: 300px; }
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start; }

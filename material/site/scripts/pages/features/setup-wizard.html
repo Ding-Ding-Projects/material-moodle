@@ -1,0 +1,34 @@
+<!--{"title": "First-run setup wizard", "key": "art.wizard", "tab": "features", "description": "A six-step setup wizard for administrators: colour and motion, sign-in page, passkeys, vocabulary and wording, with Back, Next, Skip and resume."}-->
+<header class="page-head rise">
+  <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
+  <h1 data-i18n="feat.wizard">First-run setup wizard</h1>
+  <p class="lead" data-i18n="feat.wizardB">Colour, sign-in page, passkeys, vocabulary and wording in six guided steps, with Back, Next, Skip and resume.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">local_materialtools</span></div>
+</header>
+<div class="article">
+  <div class="prose">
+    <h2 id="what-it-does" data-i18n="art.whatItDoes">What it does</h2>
+    <p>After a fresh install with the Docker stack, the first administrator who signs in is taken once to <strong>Set up Material Moodle</strong>. It is also always available under Site administration › Users › Material tools.</p>
+    <figure class="shot"><img src="{{root}}assets/shots/onboarding-colour.png" alt="Set up Material Moodle, step one: Pick your colour, with colour swatches and motion choices" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Step one: pick your colour and motion level.</figcaption></figure>
+    <h2 id="the-steps" data-i18n="art.wizardSteps">The steps</h2>
+    <ol class="steps">
+      <li><strong>Colour</strong><span>Pick a seed colour (or any colour) and the motion level. The whole palette changes at once.</span></li>
+      <li><strong>Sign-in page</strong><span>Write the heading and text people see on the coloured side of the sign-in page.</span></li>
+      <li><strong>Passkeys</strong><span>Show "Sign in with a passkey" and choose whether new accounts are offered a passkey.</span></li>
+      <li><strong>Vocabulary</strong><span>See whether a vocabulary pack is loaded and open the vocabulary page.</span></li>
+      <li><strong>Wording</strong><span>Rename Teacher, Student and Assignment for the whole site.</span></li>
+      <li><strong>Done</strong><span>Add your first student or go to the dashboard.</span></li>
+    </ol>
+    <h2 id="moving-around" data-i18n="art.moving">Moving around</h2>
+    <ul>
+      <li><strong>Next</strong> saves the step; <strong>Back</strong> returns without losing anything.</li>
+      <li>Optional steps have <strong>Skip for now</strong>.</li>
+      <li>The wizard remembers the last step, so leaving and coming back resumes where you stopped.</li>
+      <li>Every choice stays editable later in the normal settings pages.</li>
+    </ul>
+    <figure class="shot"><img src="{{root}}assets/shots/onboarding-done.png" alt="Set up Material Moodle, final step: All set" width="1440" height="900" loading="lazy" decoding="async"><figcaption>The last step.</figcaption></figure>
+    <h2 id="permissions" data-i18n="art.permissions">Permissions</h2>
+    <p>The wizard needs <code>moodle/site:config</code>. The one-time redirect only happens for site administrators, never during AJAX or command-line requests or while logged in as another user.</p>
+  </div>
+  <aside><!--toc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="material-theme.html">Material 3 theme</a></li><li><a href="site-wording.html">Site wording</a></li><li><a href="docker-stack.html">Docker stack</a></li></ul></aside>
+</div>

@@ -3,15 +3,16 @@
   <p class="crumbs"><a href="{{root}}features.html" data-i18n="tab.features">Features</a> ›</p>
   <h1 data-i18n="feat.searchboxes">Regex on every search box</h1>
   <p class="lead" data-i18n="feat.searchboxesB">Filter boxes across Moodle get the same Regex and Ignore case switches and the same blocks.</p>
-  <div class="status"><span class="badge p" data-i18n="ui.inProgress">In progress</span><span class="badge">theme_material</span></div>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">theme_material</span></div>
 </header>
 <div class="article">
   <div class="prose">
     <h2 id="how-it-works" data-i18n="art.howItWorks">How it works</h2>
     <p>A small <code>.*</code> button appears beside every search field on a page: <code>input[type=search]</code>, Moodle's simple search forms, and fields named <code>search</code>, <code>q</code> or <code>query</code>. It opens a pop-over with the Regex and Ignore case switches and the same pattern blocks as the command palette.</p>
+    <figure class="shot"><img src="{{root}}assets/shots/personal-titles.png" alt="Moodle administration page with the .* regex button beside the administration search box" width="1440" height="944" loading="lazy" decoding="async"><figcaption>The .* button beside a Moodle search box.</figcaption></figure>
     <p>In regex mode, the visible lists and tables in the main region (table rows, list items, activities, course cards, forum posts) are filtered live. Pressing Enter still runs Moodle's own search with the text as typed. Search boxes added to the page later are picked up automatically.</p>
-    <h2 id="status" data-i18n="art.status">Status</h2>
-    <div class="note">The module <code>theme_material/searchbars</code> is written but not loaded by the theme yet. The regex builder is available today inside the <a href="command-palette.html">command palette</a>.</div>
+    <h2 id="settings" data-i18n="art.settings">Settings</h2>
+    <p>The <strong>Regex builder</strong> setting (<code>theme_material | regexbuilder</code>, on by default) controls both the palette blocks and the search box button. The Regex and Ignore case switches are remembered in the browser.</p>
     <h2 id="on-this-website" data-i18n="art.onThisSite">On this website</h2>
     <p>Every page of this website has a search bar under the tabs. Select <strong>Regex builder</strong> beside it to show the blocks.</p>
   </div>

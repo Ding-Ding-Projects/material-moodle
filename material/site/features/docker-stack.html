@@ -81,7 +81,7 @@
       </tbody>
     </table></div>
     <h2 id="first-start" data-i18n="art.firstStart">First start</h2>
-    <p>The entrypoint waits for PostgreSQL, installs Moodle with the site name and administrator from <code>.env</code>, then selects the Material theme, turns on colour modes, applies <code>MATERIAL_SEED_COLOR</code> and enables passkey sign-in. The log prints <code>MATERIAL_MOODLE_INSTALLED</code> when it is done. Later starts run Moodle's upgrade and keep settings you changed.</p>
+    <p>The entrypoint waits for PostgreSQL, installs Moodle with the site name and administrator from <code>.env</code>, then selects the Material theme, turns on colour modes, applies <code>MATERIAL_SEED_COLOR</code> and enables passkey sign-in. The log prints <code>MATERIAL_MOODLE_INSTALLED</code> when it is done, and the first administrator to sign in is taken to the <a href="setup-wizard.html">setup wizard</a>. Later starts run Moodle's upgrade and keep settings you changed.</p>
     <pre aria-label="Start the stack"><code>cd material/docker
 cp .env.example .env
 docker compose up -d --build

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Activity type labels · Material Moodle</title>
-<meta name="description" content="Give one assignment its own type label, such as Dropbox, while it stays an ordinary assignment.">
+<title>Activity type names and personal titles · Material Moodle</title>
+<meta name="description" content="Give one assignment its own type name, such as Dropbox, with Post a new Dropbox buttons, and give people personal titles that keep their role.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#18120D" media="(prefers-color-scheme: dark)">
@@ -14,16 +14,16 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Material Moodle">
-<meta property="og:title" content="Activity type labels · Material Moodle">
-<meta property="og:description" content="Give one assignment its own type label, such as Dropbox, while it stays an ordinary assignment.">
+<meta property="og:title" content="Activity type names and personal titles · Material Moodle">
+<meta property="og:description" content="Give one assignment its own type name, such as Dropbox, with Post a new Dropbox buttons, and give people personal titles that keep their role.">
 <meta property="og:url" content="https://ding-ding-projects.github.io/material-moodle/features/activity-type-labels.html">
 <meta property="og:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Material Moodle: Moodle, redesigned in Material 3">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Activity type labels · Material Moodle">
-<meta name="twitter:description" content="Give one assignment its own type label, such as Dropbox, while it stays an ordinary assignment.">
+<meta name="twitter:title" content="Activity type names and personal titles · Material Moodle">
+<meta name="twitter:description" content="Give one assignment its own type name, such as Dropbox, with Post a new Dropbox buttons, and give people personal titles that keep their role.">
 <meta name="twitter:image" content="https://ding-ding-projects.github.io/material-moodle/assets/og.png">
 <link rel="preload" href="../assets/fonts/roboto-flex-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/site.css">
@@ -63,24 +63,25 @@
 <main id="main" tabindex="-1">
 <header class="page-head rise">
   <p class="crumbs"><a href="../features.html" data-i18n="tab.features">Features</a> ›</p>
-  <h1 data-i18n="feat.labels">Activity type labels</h1>
-  <p class="lead" data-i18n="feat.labelsB">Give one assignment its own type label, such as "Dropbox", without renaming every assignment.</p>
-  <div class="status"><span class="badge p" data-i18n="ui.inProgress">In progress</span><span class="badge">local_materialtools</span></div>
+  <h1 data-i18n="feat.labels">Activity type names and personal titles</h1>
+  <p class="lead" data-i18n="feat.labelsB">Show one assignment as a "Dropbox", add Post a new Dropbox buttons, and give people titles that keep their role.</p>
+  <div class="status"><span class="badge ok" data-i18n="ui.available">Available</span><span class="badge">local_materialtools</span></div>
 </header>
 <div class="article">
   <div class="prose">
-    <h2 id="intended-behaviour" data-i18n="art.intended">Intended behaviour</h2>
-    <p>Each activity can show its own type name without changing what it is. One assignment can appear as a <strong>Dropbox</strong>, another as a <strong>Lab report</strong>, while both stay ordinary assignments with the same permissions, grading and reports.</p>
-    <ul>
-      <li><strong>Type label per activity</strong>, up to 100 characters. An empty label brings back the standard name.</li>
-      <li><strong>Quick post buttons</strong> such as <strong>Post a new Dropbox</strong>, defined one <code>Label|modname</code> per line, for example <code>Dropbox|assign</code>.</li>
-      <li><strong>Personal titles</strong> such as "Coach" for the whole site or one course. Roles are unchanged.</li>
-    </ul>
-    <p>Labels and titles never change roles, capabilities or module types; they are display names only.</p>
-    <h2 id="status" data-i18n="art.status">Status</h2>
-    <div class="note">Storage, the database tables and parts of the course page display are in the repository. The editing interface, the upgrade step, privacy coverage and backup support are still being built.</div>
+    <h2 id="type-names" data-i18n="art.typeNames">Type names for one activity</h2>
+    <p>Every activity's settings form has an optional <strong>Type name</strong> field. One assignment can appear as a <strong>Dropbox</strong>, another as a <strong>Lab report</strong>, while both stay ordinary assignments with the same permissions, grading and reports. Leave the field empty to bring back the standard name.</p>
+    <h2 id="quick-post-buttons" data-i18n="art.quickPosts">Quick post buttons</h2>
+    <p>In editing mode, teachers see buttons such as <strong>Post a new Dropbox</strong> at the top of the course. Each creates an activity of the right type and gives it the type name in one step.</p>
+    <p>The buttons come from the <strong>Quick post buttons</strong> setting, one <code>Name|activity</code> per line:</p>
+    <pre aria-label="Quick post buttons setting"><code>Dropbox|assign
+Reading check|quiz</code></pre>
+    <h2 id="personal-titles" data-i18n="art.titles">Personal titles</h2>
+    <p>Give one teacher or student their own title, such as "Coach" or "Intern", shown instead of their role name, for the whole site or for one course. A course title wins over a site title. Their role and permissions stay exactly the same.</p>
+    <figure class="shot"><img src="../assets/shots/personal-titles.png" alt="Personal titles page with a person given the title Intern for the whole site" width="1440" height="944" loading="lazy" decoding="async"><figcaption>Personal titles: the role stays the same.</figcaption></figure>
+    <p>Type names and titles are display names only: they never change roles, capabilities or activity types.</p>
   </div>
-  <aside><p class="aside-title" data-i18n="ui.onThisPage">On this page</p><ul><li><a href="#intended-behaviour">Intended behaviour</a></li><li><a href="#status">Status</a></li></ul><p class="aside-title" data-i18n="ui.fullDocs">Full documentation</p><ul><li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/material/docs/assignment-type-labels.md">material/docs/assignment-type-labels.md</a></li></ul><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="site-wording.html">Site wording</a></li></ul></aside>
+  <aside><p class="aside-title" data-i18n="ui.onThisPage">On this page</p><ul><li><a href="#type-names">Type names for one activity</a></li><li><a href="#quick-post-buttons">Quick post buttons</a></li><li><a href="#personal-titles">Personal titles</a></li></ul><p class="aside-title" data-i18n="ui.fullDocs">Full documentation</p><ul><li><a href="https://github.com/Ding-Ding-Projects/material-moodle/blob/main/material/docs/assignment-type-labels.md">material/docs/assignment-type-labels.md</a></li></ul><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="site-wording.html">Site wording</a></li></ul></aside>
 </div>
 
 </main>
