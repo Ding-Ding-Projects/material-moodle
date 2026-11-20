@@ -1,0 +1,36 @@
+# Shared helpers for the Material Moodle appliance scripts.
+# shellcheck shell=bash
+STATE=/var/lib/material
+STACK=/opt/material-moodle
+mkdir -p "$STATE" 2>/dev/null || true
+
+lan_ip() { ip -4 route get 1.1.1.1 2>/dev/null | awk '{for (i = 1; i < NF; i++) if ($i == "src") print $(i + 1)}' | head -1; }
+
+site_link() {
+  local url=""
+  if [ -f "$STACK/.env" ]; then
+    url="$(grep -E '^MOODLE_WWWROOT=' "$STACK/.env" | cut -d= -f2- | tr -d '"')"
+    if [ "$url" = auto ]; then
+      url="$(cd "$STACK" && docker compose logs quicktunnel 2>/dev/null | grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' | tail -1)"
+    fi
+  fi
+  [ -z "$url" ] && url="http://$(lan_ip)"
+  printf '%s' "$url"
+}
+
+port() { grep -E '^MOODLE_PORT=' "$STACK/.env" 2>/dev/null | cut -d= -f2 | tr -d '"' || echo 80; }
+
+healthy() { curl -fsS -o /dev/null --max-time 5 "http://127.0.0.1:$(port)/login/index.php"; }
+
+test_boot() {
+  modprobe qemu_fw_cfg 2>/dev/null || true
+  [ -e /sys/firmware/qemu_fw_cfg/by_name/opt/material/testboot/raw ] && return 0
+  grep -qw material.testboot /proc/cmdline
+}
+
+say_serial() {
+  local msg="$1" dev
+  for dev in /dev/ttyS0 /dev/ttyAMA0 /dev/console; do
+    [ -w "$dev" ] && printf '%s\n' "$msg" >"$dev" 2>/dev/null || true
+  done
+}

@@ -1,0 +1,17 @@
+[Unit]
+Description=Material Moodle stack
+ConditionPathExists=/var/lib/material/configured
+After=docker.service network-online.target material-load-images.service
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/material-moodle
+ExecStart=/usr/bin/docker compose up -d
+ExecStop=/usr/bin/docker compose stop
+RemainAfterExit=yes
+TimeoutStartSec=600
+
+[Install]
+WantedBy=multi-user.target

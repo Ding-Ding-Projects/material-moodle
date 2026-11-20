@@ -1,0 +1,14 @@
+[Unit]
+Description=Grow the root partition to fill the disk
+ConditionPathExists=!/var/lib/material/grown
+DefaultDependencies=no
+After=local-fs.target
+Before=material-swap.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/material-grow-root
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

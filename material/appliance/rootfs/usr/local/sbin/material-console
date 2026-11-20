@@ -1,0 +1,29 @@
+#!/bin/bash
+# Status screen on the first console: the link, health and how to manage the server.
+set -u
+. /usr/local/sbin/material-common
+if [ ! -f "$STATE/configured" ]; then exec /usr/local/sbin/material-setup --console; fi
+while :; do
+  clear
+  setterm --blank 0 2>/dev/null || true
+  figlet -w 100 "Material Moodle" 2>/dev/null || echo "Material Moodle"
+  if healthy; then state="Running"; else state="Starting or stopped"; fi
+  printf '\n  Site:             %s\n' "$(site_link)"
+  printf '  On your network:  http://%s   (http://material-moodle.local)\n' "$(lan_ip)"
+  printf '  Status:           %s\n' "$state"
+  printf '  Version:          %s\n\n' "$(cat /etc/material-appliance-version 2>/dev/null)"
+  if [ -f "$STATE/initial-password" ]; then
+    printf '  Sign in over SSH or on Alt+F2 as "material" with the one-time password %s\n' "$(cat "$STATE/initial-password")"
+    printf '  (you will be asked to choose your own; this line disappears afterwards).\n\n'
+  fi
+  printf '  R  run setup again     U  update     L  log in here     Enter  refresh\n'
+  read -r -t 30 -n 1 key || key=""
+  case "$key" in
+    r|R) /usr/local/sbin/material-setup --console --reconfigure ;;
+    u|U) /usr/local/sbin/material-update; read -r -p "Press Enter" _ ;;
+    l|L) chvt 2 ;;
+  esac
+  if [ -f "$STATE/initial-password" ] && [ "$(chage -l material | awk -F': ' '/Last password change/ {print $2}')" != "password must be changed" ]; then
+    rm -f "$STATE/initial-password"
+  fi
+done

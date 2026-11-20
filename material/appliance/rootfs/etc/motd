@@ -1,0 +1,6 @@
+
+Material Moodle appliance. Useful commands:
+  sudo material-setup --reconfigure   change the site answers
+  sudo material-update                update the appliance and Moodle
+  material-status                     link and health
+

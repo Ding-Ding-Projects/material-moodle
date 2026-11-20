@@ -1,0 +1,6 @@
+#!/bin/bash
+# Prints the site link and health.
+. /usr/local/sbin/material-common
+echo "Site: $(site_link)"
+echo "On your network: http://$(lan_ip)"
+if healthy; then echo "Status: running"; else echo "Status: starting or stopped"; fi

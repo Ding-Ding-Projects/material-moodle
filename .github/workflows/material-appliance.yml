@@ -1,0 +1,146 @@
+name: Material appliance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'material/appliance/**'
+      - 'material/docker/**'
+      - 'material/install.sh'
+      - '.github/workflows/material-appliance.yml'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: material-appliance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and boot-test (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: x86_64
+            runner: ubuntu-24.04
+          - platform: raspberry-pi
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          df -h /
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends debootstrap gdisk parted dosfstools e2fsprogs \
+            qemu-utils qemu-system-x86 qemu-system-arm ovmf xz-utils zstd cloud-guest-utils
+          if [ -e /dev/kvm ]; then sudo chmod 666 /dev/kvm; fi
+
+      - name: Version
+        id: meta
+        run: |
+          version=$(sed -n "s/.*\$plugin->release *= *'\([^']*\)'.*/\1/p" public/theme/material/version.php)
+          echo "version=${version:-dev}-${GITHUB_SHA::9}" >>"$GITHUB_OUTPUT"
+
+      - name: Bundle the container images
+        run: |
+          set -euo pipefail
+          if [ "${{ matrix.platform }}" = x86_64 ]; then
+            docker pull ghcr.io/ding-ding-projects/material-moodle:latest \
+              || docker build -f material/docker/Dockerfile -t ghcr.io/ding-ding-projects/material-moodle:latest .
+          else
+            # The published image is built for amd64; the arm64 appliance gets a native build.
+            docker build -f material/docker/Dockerfile -t ghcr.io/ding-ding-projects/material-moodle:latest .
+          fi
+          docker pull postgres:17
+          docker pull cloudflare/cloudflared:latest
+          docker save ghcr.io/ding-ding-projects/material-moodle:latest postgres:17 cloudflare/cloudflared:latest \
+            | zstd -T0 -12 -o "$RUNNER_TEMP/images.tar.zst"
+          ls -la "$RUNNER_TEMP/images.tar.zst"
+          docker system prune -af >/dev/null
+
+      - name: Build the image
+        run: |
+          sudo material/appliance/build.sh --platform "${{ matrix.platform }}" --out out \
+            --images "$RUNNER_TEMP/images.tar.zst" --version "${{ steps.meta.outputs.version }}"
+          sudo chown -R "$USER" out
+
+      - name: Boot test (BIOS)
+        if: matrix.platform == 'x86_64'
+        run: BOOT_LOG=out/boot-bios.log material/appliance/test/boot-test.sh x86_64 out/material-moodle-appliance-x86_64.qcow2 bios
+
+      - name: Boot test (UEFI)
+        if: matrix.platform == 'x86_64'
+        run: BOOT_LOG=out/boot-uefi.log material/appliance/test/boot-test.sh x86_64 out/material-moodle-appliance-x86_64.qcow2 uefi
+
+      - name: Boot test (arm64)
+        if: matrix.platform == 'raspberry-pi'
+        run: BOOT_LOG=out/boot-arm64.log material/appliance/test/boot-test.sh arm64 out/material-moodle-appliance-arm64.img.xz out/boot-test
+
+      - name: Upload boot logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: boot-logs-${{ matrix.platform }}
+          path: out/*.log
+          if-no-files-found: ignore
+
+      - name: Upload images
+        uses: actions/upload-artifact@v4
+        with:
+          name: material-appliance-${{ matrix.platform }}
+          path: |
+            out/*.img.xz
+            out/*.qcow2
+            out/*.ova
+            out/SHA256SUMS
+          if-no-files-found: error
+          compression-level: 0
+
+  attach:
+    name: Attach to the release
+    needs: build
+    # Releases made by the release workflow use the built-in token, which does not start other workflows, so
+    # pushes to main also attach their images to the release made for the same commit.
+    if: github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: material-appliance-*
+          path: images
+      - name: Upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          if [ -z "$TAG" ]; then
+            for _ in $(seq 1 60); do
+              TAG=$(gh release list --repo "$GITHUB_REPOSITORY" --limit 20 --json tagName --jq '.[].tagName' | while read -r t; do
+                sha=$(gh api "repos/$GITHUB_REPOSITORY/commits/$t" --jq .sha 2>/dev/null || true)
+                if [ "$sha" = "$GITHUB_SHA" ]; then echo "$t"; break; fi
+              done)
+              [ -n "$TAG" ] && break
+              sleep 30
+            done
+          fi
+          if [ -z "$TAG" ]; then echo "No release for $GITHUB_SHA yet; the images stay as workflow artifacts."; exit 0; fi
+          echo "Attaching to $TAG"
+          mkdir -p upload
+          cat images/*/SHA256SUMS >upload/SHA256SUMS-appliance
+          find images -type f ! -name SHA256SUMS -exec cp {} upload/ \;
+          gh release upload "$TAG" upload/* --clobber --repo "$GITHUB_REPOSITORY"

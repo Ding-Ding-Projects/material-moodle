@@ -1,0 +1,10 @@
+#!/bin/bash
+# Grows the root partition and filesystem to fill the disk on first boot.
+set -u
+. /usr/local/sbin/material-common
+dev="$(findmnt -no SOURCE /)"
+disk="/dev/$(lsblk -no PKNAME "$dev")"
+part="$(cat "/sys/class/block/$(basename "$dev")/partition")"
+growpart "$disk" "$part" || true
+resize2fs "$dev" || true
+touch "$STATE/grown"

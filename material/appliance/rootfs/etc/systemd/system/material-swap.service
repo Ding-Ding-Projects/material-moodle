@@ -1,0 +1,12 @@
+[Unit]
+Description=Create a swap file on first boot
+ConditionPathExists=!/swapfile
+After=material-grow-root.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/material-swap
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

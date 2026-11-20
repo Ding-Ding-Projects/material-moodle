@@ -1,0 +1,54 @@
+#!/bin/bash
+# First-boot and re-run setup for the appliance. It runs the Material Moodle installer in a terminal menu.
+#   material-setup [--console] [--reconfigure]
+set -u
+. /usr/local/sbin/material-common
+CONSOLE=0; RECONF=""
+for a in "$@"; do
+  case "$a" in
+    --console) CONSOLE=1 ;;
+    --reconfigure) RECONF="--reconfigure" ;;
+  esac
+done
+exec 9>/run/material-setup.lock
+flock -n 9 || { echo "Setup is already running on another screen."; exit 0; }
+
+if test_boot; then
+  say_serial "MATERIAL-APPLIANCE: first-boot setup screen ready"
+  if docker info >/dev/null 2>&1; then say_serial "MATERIAL-APPLIANCE: docker ready"; fi
+  docker image ls --format '{{.Repository}}:{{.Tag}}' 2>/dev/null | while read -r img; do say_serial "MATERIAL-APPLIANCE: image $img"; done
+  say_serial "MATERIAL-APPLIANCE: test boot complete"
+  systemctl poweroff
+  exit 0
+fi
+
+[ "$CONSOLE" = 1 ] && { clear; setterm --blank 0 2>/dev/null || true; }
+whiptail --title "Material Moodle" --msgbox "Welcome to your Material Moodle server.
+
+A few questions follow: the site name, the administrator, and how people will reach the site. Passwords are generated for you.
+
+Address on your network right now: $(lan_ip)" 15 70
+
+until ip -4 route | grep -q default; do
+  whiptail --title "Material Moodle" --infobox "Waiting for a network connection. Plug in a network cable or check the virtual machine's network setting." 8 70
+  sleep 3
+done
+while systemctl is-active --quiet material-load-images.service && [ -f "$STACK/images.tar.zst" ]; do
+  whiptail --title "Material Moodle" --infobox "Preparing the server for the first time. This takes a few minutes." 8 70
+  sleep 5
+done
+
+if MM_DIR="$STACK" MM_PORT="${MM_PORT:-80}" bash /usr/local/lib/material-moodle/install.sh $RECONF; then
+  touch "$STATE/configured"
+  systemctl enable --now material-moodle.service >/dev/null 2>&1 || true
+  link="$(site_link)"
+  clear
+  figlet -w 100 "Ready" 2>/dev/null || true
+  printf '\n  Your site:        %s\n  On your network:  http://%s\n  Also:             http://material-moodle.local\n\n' "$link" "$(lan_ip)"
+  [ "$CONSOLE" = 1 ] && { echo "  Press Enter for the status screen."; read -r _ || true; }
+else
+  echo
+  echo "Setup did not finish. Fix the problem shown above, then press Enter to try again."
+  [ "$CONSOLE" = 1 ] && { read -r _ || true; exec "$0" "$@"; }
+  exit 1
+fi

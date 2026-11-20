@@ -1,0 +1,7 @@
+#!/bin/bash
+# Updates the operating system packages and the Material Moodle containers.
+set -e
+. /usr/local/sbin/material-common
+apt-get update && apt-get -y upgrade
+cd "$STACK" && docker compose pull && docker compose up -d
+echo "Updated."

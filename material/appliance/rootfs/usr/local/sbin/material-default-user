@@ -1,0 +1,11 @@
+#!/bin/bash
+# Gives the "material" user a random one-time password that must be changed at the first sign-in.
+set -eu
+. /usr/local/sbin/material-common
+password="$(LC_ALL=C tr -dc 'a-km-z2-9' </dev/urandom | head -c 12 || true)"
+echo "material:$password" | chpasswd
+chage -d 0 material
+install -d -m 0700 /run/material
+printf '%s\n' "$password" >"$STATE/initial-password"
+chmod 600 "$STATE/initial-password"
+touch "$STATE/user-ready"

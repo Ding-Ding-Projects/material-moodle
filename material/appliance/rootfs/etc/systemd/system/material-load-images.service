@@ -1,0 +1,14 @@
+[Unit]
+Description=Load the bundled Material Moodle container images
+ConditionPathExists=/opt/material-moodle/images.tar.zst
+After=docker.service material-grow-root.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'zstd -dc /opt/material-moodle/images.tar.zst | docker load && rm -f /opt/material-moodle/images.tar.zst'
+RemainAfterExit=yes
+TimeoutStartSec=1800
+
+[Install]
+WantedBy=multi-user.target

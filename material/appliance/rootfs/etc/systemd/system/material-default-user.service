@@ -1,0 +1,12 @@
+[Unit]
+Description=Give the material user a one-time password on first boot
+ConditionPathExists=!/var/lib/material/user-ready
+Before=material-firstboot.service ssh.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/material-default-user
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
