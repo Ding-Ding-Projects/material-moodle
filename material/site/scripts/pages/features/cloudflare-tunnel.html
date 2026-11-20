@@ -8,7 +8,7 @@
 <div class="article">
   <div class="prose">
     <h2 id="quick-tunnel" data-i18n="art.quick">Quick tunnel</h2>
-    <p>No Cloudflare account needed. Good for trying the site from another device. Set <code>MOODLE_WWWROOT=auto</code> in <code>.env</code>, then:</p>
+    <p>No Cloudflare account needed. Good for trying the site from another device. Choose the quick link in the installer menu (or <code>MM_ACCESS=quick</code>), and it prints the address. To switch an existing stack by hand, set <code>MOODLE_WWWROOT=auto</code> in <code>.env</code>, then:</p>
     <pre aria-label="Start a quick tunnel"><code>docker compose --profile quicktunnel up -d
 docker compose logs quicktunnel | grep -o 'https://[a-z0-9-]*\.trycloudflare\.com'</code></pre>
     <div class="note warn">The address changes every time the tunnel restarts, and passkeys added on one address do not work on the next. Do not use a quick tunnel for a site people rely on.</div>

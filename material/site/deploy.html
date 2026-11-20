@@ -68,27 +68,47 @@
 
 <section class="section tight" aria-labelledby="run-with-docker">
   <h2 id="run-with-docker" data-i18n="deploy.docker">Run with Docker</h2>
+  <p data-i18n="deploy.oneCmd">One command installs and starts everything. Run it on the server as a user who can use Docker or sudo.</p>
+  <pre aria-label="One-command install"><code>bash &lt;(curl -fsSL https://raw.githubusercontent.com/Ding-Ding-Projects/material-moodle/main/material/install.sh)</code></pre>
   <ol class="steps">
-    <li><strong data-i18n="deploy.s1">Get the code</strong><span data-i18n="deploy.s1b">Clone the repository on a machine with Docker and Docker Compose.</span></li>
-    <li><strong data-i18n="deploy.s2">Set two passwords</strong><span data-i18n="deploy.s2b">Copy .env.example to .env and set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD.</span></li>
-    <li><strong data-i18n="deploy.s3">Start the stack</strong><span data-i18n="deploy.s3b">The first start installs Moodle and applies the Material defaults. It takes a few minutes.</span></li>
-    <li><strong data-i18n="deploy.s4">Sign in</strong><span data-i18n="deploy.s4b">Open http://localhost:8080 and sign in as the administrator from .env.</span></li>
+    <li><strong data-i18n="deploy.s1">Answer a few questions</strong><span data-i18n="deploy.s1b">A terminal menu asks for the site name, administrator and how people reach the site. Press Enter to accept each suggestion.</span></li>
+    <li><strong data-i18n="deploy.s2">Passwords are made for you</strong><span data-i18n="deploy.s2b">The installer generates the database and administrator passwords and writes the .env file. Docker is installed first if it is missing, after you agree.</span></li>
+    <li><strong data-i18n="deploy.s3">Moodle starts</strong><span data-i18n="deploy.s3b">The first start installs Moodle and applies the Material defaults. The installer waits until the site answers.</span></li>
+    <li><strong data-i18n="deploy.s4">Open your link</strong><span data-i18n="deploy.s4b">The installer prints the address and the administrator sign-in. The setup wizard opens when you first sign in.</span></li>
   </ol>
-  <pre aria-label="Run with Docker"><code>git clone https://github.com/Ding-Ding-Projects/material-moodle
-cd material-moodle/material/docker
-cp .env.example .env
-# Edit .env: set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD
-docker compose up -d --build
-docker compose logs -f moodle   # wait for MATERIAL_MOODLE_INSTALLED</code></pre>
-  <p data-i18n="deploy.image">Without --build, Compose uses the published image ghcr.io/ding-ding-projects/material-moodle:latest when it is available.</p>
+  <h3 id="change-your-answers" data-i18n="deploy.reconf">Change your answers</h3>
+  <p data-i18n="deploy.reconfB">Run the same command again to restart with your saved answers, or add --reconfigure to change them.</p>
+  <pre aria-label="Reconfigure"><code>bash &lt;(curl -fsSL https://raw.githubusercontent.com/Ding-Ding-Projects/material-moodle/main/material/install.sh) --reconfigure</code></pre>
+  <h3 id="automation" data-i18n="deploy.auto">Automation</h3>
+  <p data-i18n="deploy.autoB">Add --yes to skip the menu and set the answers with MM_ variables. Anything you leave out uses the suggestion, and passwords are still generated.</p>
+  <pre aria-label="Unattended install"><code>MM_SITE_NAME="Our School" MM_ADMIN_EMAIL=admin@example.org MM_ACCESS=quick \
+  bash &lt;(curl -fsSL https://raw.githubusercontent.com/Ding-Ding-Projects/material-moodle/main/material/install.sh) --yes</code></pre>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Variable</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>MM_DIR</code></td><td>Folder for the stack (default <code>~/material-moodle</code>)</td></tr>
+      <tr><td><code>MM_SITE_NAME</code>, <code>MM_SHORT_NAME</code></td><td>Site name and short name</td></tr>
+      <tr><td><code>MM_ADMIN_USER</code>, <code>MM_ADMIN_EMAIL</code>, <code>MM_ADMIN_PASSWORD</code></td><td>First administrator (the password is generated if empty)</td></tr>
+      <tr><td><code>MM_PORT</code></td><td>Port on the server</td></tr>
+      <tr><td><code>MM_ACCESS</code></td><td><code>local</code>, <code>quick</code> (Cloudflare quick link), <code>token</code> (named tunnel) or <code>url</code> (your own address)</td></tr>
+      <tr><td><code>MM_TUNNEL_TOKEN</code>, <code>MM_PUBLIC_URL</code></td><td>Tunnel token and public address</td></tr>
+      <tr><td><code>MM_SEED_COLOR</code>, <code>MM_PASSKEYS</code></td><td>Seed colour, and 1 or 0 for passkey sign-in</td></tr>
+      <tr><td><code>MM_IMAGE</code></td><td>Container image to use</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="manual-setup" data-i18n="deploy.manual">Manual setup from a checkout</h3>
+  <p data-i18n="deploy.manualB">Prefer to do it by hand? The installer also works from a clone of the repository, using its Compose file.</p>
+  <pre aria-label="Install from a checkout"><code>git clone https://github.com/Ding-Ding-Projects/material-moodle
+bash material-moodle/material/install.sh</code></pre>
 </section>
 
 <section class="section tight" aria-labelledby="put-it-online">
   <h2 id="put-it-online" data-i18n="deploy.online">Put it online</h2>
   <div class="grid">
-    <div class="card c1"><h3 data-i18n="deploy.quick" id="quick-link">Quick link</h3><p data-i18n="deploy.quickB">No account. You get a random address that changes when the tunnel restarts. Set MOODLE_WWWROOT=auto first.</p></div>
-    <div class="card c2"><h3 data-i18n="deploy.named" id="your-own-domain">Your own domain</h3><p data-i18n="deploy.namedB">A permanent address on a domain in your Cloudflare account, using a tunnel token from the dashboard.</p></div>
+    <div class="card c1"><h3 data-i18n="deploy.quick" id="quick-link">Quick link</h3><p data-i18n="deploy.quickB">No account. You get a random address that changes when the tunnel restarts. Choose it in the installer menu.</p></div>
+    <div class="card c2"><h3 data-i18n="deploy.named" id="your-own-domain">Your own domain</h3><p data-i18n="deploy.namedB">A permanent address on a domain in your Cloudflare account. Paste a tunnel token from the dashboard into the installer.</p></div>
   </div>
+  <p data-i18n="deploy.tunnelManual">The installer sets these up for you. To switch an existing stack by hand, from the stack folder:</p>
   <pre aria-label="Quick tunnel"><code># Quick link (temporary trycloudflare.com address)
 docker compose --profile quicktunnel up -d
 docker compose logs quicktunnel | grep -o 'https://[a-z0-9-]*\.trycloudflare\.com'</code></pre>
@@ -101,6 +121,7 @@ docker compose --profile tunnel up -d</code></pre>
 
 <section class="section tight" aria-labelledby="environment-variables">
   <h2 id="environment-variables" data-i18n="deploy.env">Environment variables</h2>
+  <p data-i18n="deploy.envB">The installer writes these to .env for you. They are listed here for reference.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Variable</th><th>Default</th><th>Meaning</th></tr></thead>
     <tbody>
@@ -120,9 +141,10 @@ docker compose --profile tunnel up -d</code></pre>
 
 <section class="section tight" aria-labelledby="updating">
   <h2 id="updating" data-i18n="deploy.update">Updating</h2>
-  <p data-i18n="deploy.updateB">Back up both volumes, then pull the new image or rebuild from a newer checkout. Moodle's upgrade runs when the container starts.</p>
-  <pre aria-label="Update"><code>git pull
-docker compose up -d --build</code></pre>
+  <p data-i18n="deploy.updateB">Back up both volumes, then pull the new image from the stack folder. Moodle's upgrade runs when the container starts.</p>
+  <pre aria-label="Update"><code>cd ~/material-moodle
+docker compose pull
+docker compose up -d</code></pre>
 </section>
 
 <section class="section tight" aria-labelledby="desktop-deployer">

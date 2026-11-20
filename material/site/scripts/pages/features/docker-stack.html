@@ -20,16 +20,15 @@
     </table></div>
     <h2 id="first-start" data-i18n="art.firstStart">First start</h2>
     <p>The entrypoint waits for PostgreSQL, installs Moodle with the site name and administrator from <code>.env</code>, then selects the Material theme, turns on colour modes, applies <code>MATERIAL_SEED_COLOR</code> and enables passkey sign-in. The log prints <code>MATERIAL_MOODLE_INSTALLED</code> when it is done, and the first administrator to sign in is taken to the <a href="setup-wizard.html">setup wizard</a>. Later starts run Moodle's upgrade and keep settings you changed.</p>
-    <pre aria-label="Start the stack"><code>cd material/docker
-cp .env.example .env
-docker compose up -d --build
-docker compose logs -f moodle</code></pre>
+    <p>The one-command installer asks a few questions, generates the passwords and <code>.env</code>, starts the stack, waits until Moodle answers and prints the link:</p>
+    <pre aria-label="One-command install"><code>bash &lt;(curl -fsSL https://raw.githubusercontent.com/Ding-Ding-Projects/material-moodle/main/material/install.sh)</code></pre>
+    <p>Run it again with <code>--reconfigure</code> to change your answers, or with <code>--yes</code> and <code>MM_</code> variables for automation.</p>
     <p>The <a href="{{root}}deploy.html#run-with-docker">Deploy page</a> lists every command and the environment variables.</p>
     <h2 id="security" data-i18n="art.security">Security</h2>
     <ul>
-      <li><code>.env</code> holds passwords and the tunnel token; keep it out of version control.</li>
+      <li><code>.env</code> holds the generated passwords and the tunnel token; keep it private and out of version control.</li>
       <li>PostgreSQL is not published on a host port.</li>
-      <li>Change the example passwords before the first start.</li>
+      <li>The installer generates strong passwords; if you write <code>.env</code> by hand, never keep the example values.</li>
     </ul>
   </div>
   <aside><!--toc--><!--doc--><p class="aside-title" data-i18n="ui.related">Related</p><ul><li><a href="cloudflare-tunnel.html">Cloudflare tunnel</a></li><li><a href="desktop-deployer.html">Desktop deployer</a></li></ul></aside>

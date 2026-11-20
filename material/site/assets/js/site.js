@@ -880,9 +880,28 @@
     // ---------- Copy buttons on every code block ----------
     function initCopyButtons(scope) {
         (scope || doc).querySelectorAll('pre').forEach(function(pre) {
-            if (pre.querySelector('.copy-btn') || pre.hasAttribute('data-nocopy')) {
+            if (pre.parentNode.classList.contains('code-block') || pre.hasAttribute('data-nocopy')) {
                 return;
             }
+            // Wrap the block so the copy button stays fixed while long lines scroll, with edge fades.
+            var wrap = el('div', {className: 'code-block'});
+            pre.parentNode.insertBefore(wrap, pre);
+            wrap.appendChild(pre);
+            if (!pre.hasAttribute('tabindex')) {
+                pre.setAttribute('tabindex', '0');
+            }
+            var edges = function() {
+                var max = pre.scrollWidth - pre.clientWidth;
+                wrap.classList.toggle('more-left', pre.scrollLeft > 2);
+                wrap.classList.toggle('more-right', max - pre.scrollLeft > 2);
+            };
+            pre.addEventListener('scroll', edges, {passive: true});
+            if (window.ResizeObserver) {
+                new ResizeObserver(edges).observe(pre);
+            } else {
+                window.addEventListener('resize', edges);
+            }
+            edges();
             var btn = el('button', {type: 'button', className: 'copy-btn'});
             var paint = function() {
                 btn.textContent = btn.classList.contains('is-copied') ? t('ui.copied', 'Copied') : t('ui.copy', 'Copy');
@@ -902,7 +921,7 @@
             });
             paint();
             doc.addEventListener('mm:language', paint);
-            pre.appendChild(btn);
+            wrap.appendChild(btn);
         });
     }
 

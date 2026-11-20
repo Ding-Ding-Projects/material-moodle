@@ -23,6 +23,7 @@
   --ok: #1F6B2C; --okc: #B7F1B4; --onokc: #002106;
   --inv: #362F2B; --oninv: #FBEEE7; --card: #FFFFFF;
   --p: #8B5000; --onp: #FFFFFF; --pc: #E8DCCC; --onpc: #382000;
+  --code: #362F2B; --oncode: #FBEEE7; --codeline: #362F2B; --codebar: #9E8E83;
   --scrim: rgba(20, 12, 6, .42);
   --shadow: 0 24px 64px rgba(0, 0, 0, .18);
   --ease: cubic-bezier(.05, .7, .1, 1);
@@ -40,6 +41,7 @@
   --ok: #9CD69A; --okc: #00531B; --onokc: #B7F1B4;
   --inv: #EDE0D9; --oninv: #362F2B; --card: #251E1A;
   --p: #CBB08C; --onp: #21160A; --pc: #533000; --onpc: #EAE0D1;
+  --code: #0E0A07; --oncode: #EDE0D9; --codeline: #51443A; --codebar: #84746A;
   --scrim: rgba(0, 0, 0, .6);
   --shadow: 0 24px 64px rgba(0, 0, 0, .5);
   color-scheme: dark;
@@ -53,6 +55,7 @@
     --ok: #9CD69A; --okc: #00531B; --onokc: #B7F1B4;
     --inv: #EDE0D9; --oninv: #362F2B; --card: #251E1A;
     --p: #CBB08C; --onp: #21160A; --pc: #533000; --onpc: #EAE0D1;
+    --code: #0E0A07; --oncode: #EDE0D9; --codeline: #51443A; --codebar: #84746A;
     --scrim: rgba(0, 0, 0, .6);
     --shadow: 0 24px 64px rgba(0, 0, 0, .5);
     color-scheme: dark;
@@ -282,7 +285,7 @@ a.card .go { margin-top: auto; padding-top: 8px; font-weight: 700; font-size: 14
 .card.c2 { background: var(--sc); color: var(--onsc); }
 .card.c3 { background: var(--tc); color: var(--ontc); }
 .card .tag { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--bg); color: var(--on); }
-.split { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+.split { display: flex; flex-direction: row; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
 .split > :first-child { flex: 1 1 360px; min-width: 0; }
 .split > :last-child { flex: 2 1 480px; min-width: 0; }
 .split p { font-size: 18px; color: var(--onv); margin-top: 10px; }
@@ -292,17 +295,25 @@ a.card .go { margin-top: auto; padding-top: 8px; font-weight: 700; font-size: 14
 .steps strong { font-size: 17px; }
 
 /* Code blocks */
-pre { position: relative; margin: 0; border-radius: 24px; background: var(--inv); color: var(--oninv); padding: 22px; padding-right: 96px; font-size: 15px; line-height: 1.8; overflow-x: auto; white-space: pre; }
+pre { position: relative; margin: 0; border-radius: 24px; border: 1px solid var(--codeline); background: var(--code); color: var(--oncode); padding: 22px; padding-right: 96px; font-size: 15px; line-height: 1.8; overflow-x: auto; white-space: pre; scrollbar-width: thin; scrollbar-color: var(--codebar) transparent; }
+/* Code blocks are wrapped by site.js: the copy button stays put while long lines scroll inside a rounded area,
+   with a fade on whichever edge has more to show. */
+.code-block { position: relative; min-width: 0; max-width: 100%; border-radius: 24px; overflow: hidden; }
+.code-block pre { border-radius: 24px; }
+.code-block::before, .code-block::after { content: ''; position: absolute; top: 1px; bottom: 1px; width: 64px; pointer-events: none; opacity: 0; transition: opacity .2s; z-index: 1; }
+.code-block::before { left: 1px; border-radius: 24px 0 0 24px; background: linear-gradient(to right, var(--code) 20%, transparent); }
+.code-block::after { right: 1px; border-radius: 0 24px 24px 0; background: linear-gradient(to left, var(--code) 20%, transparent); }
+.code-block.more-left::before, .code-block.more-right::after { opacity: 1; }
+.code-block .copy-btn { z-index: 2; }
 pre code { background: transparent; padding: 0; font-size: inherit; color: inherit; }
 .copy-btn { position: absolute; top: 12px; right: 12px; height: 36px; padding: 0 14px; border-radius: 10px; border: none; background: var(--p); color: var(--onp); font-weight: 650; font-size: 14px; transition: transform .3s var(--spring); }
 .copy-btn.is-copied { background: var(--ok); color: var(--bg); transform: scale(1.06); }
-.code-wrap { position: relative; }
 
 /* Feature visuals */
 .vis { border-radius: 28px; background: var(--low); padding: 24px; display: flex; flex-direction: column; gap: 12px; }
 .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
 .swatch { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: flex-end; padding: 6px; font-size: 11px; font-weight: 700; }
-.discord { border-radius: 18px; background: var(--inv); color: var(--oninv); padding: 18px; font-family: var(--mono); font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.discord { border-radius: 18px; border: 1px solid var(--codeline); background: var(--code); color: var(--oncode); padding: 18px; font-family: var(--mono); font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
 .cred { display: flex; gap: 8px; align-items: center; }
 .cred code { flex: 1; min-width: 0; overflow-wrap: anywhere; padding: 12px 14px; border-radius: 12px; background: var(--bg); font-size: 16px; }
 .cred button { height: 44px; padding: 0 16px; border-radius: 12px; border: none; background: var(--sc); color: var(--onsc); font-weight: 650; }
@@ -442,7 +453,9 @@ pre code { background: transparent; padding: 0; font-size: inherit; color: inher
   .hero { padding-top: 24px; gap: 32px; }
   .hero-art { min-height: 380px; border-radius: 28px; }
   .btn, .btn-outline { height: 56px; width: 100%; }
-  pre { padding: 18px; padding-top: 56px; font-size: 13px; }
+  pre { padding: 18px; padding-top: 58px; font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .split p { font-size: 16px; }
+  .section { padding-top: 32px; padding-bottom: 32px; gap: 16px; }
   .mm-where { display: none; }
   .signin-side { padding: 28px; }
   .signin-card { padding: 22px; border-radius: 24px; }
