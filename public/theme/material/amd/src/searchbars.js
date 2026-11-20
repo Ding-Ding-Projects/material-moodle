@@ -158,9 +158,11 @@ define([], function() {
             toggle.setAttribute('aria-expanded', pop.hidden ? 'false' : 'true');
         });
         input.addEventListener('input', run);
-        var host = input.closest('.input-group, .search-input-wrapper, .simplesearchform, form') || input.parentNode;
+        var group = input.closest('.input-group, .search-input-wrapper') || input;
+        var host = input.closest('.simplesearchform, form') || group.parentNode;
+        // The toggle sits after the whole field group so rounded field corners stay intact.
+        group.insertAdjacentElement('afterend', toggle);
         host.parentNode.insertBefore(pop, host.nextSibling);
-        input.insertAdjacentElement('afterend', toggle);
     }
 
     return {
