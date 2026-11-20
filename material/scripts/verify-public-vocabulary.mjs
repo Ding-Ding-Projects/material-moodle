@@ -17,7 +17,7 @@ import {fileURLToPath} from 'node:url';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // The overlay set: everything this fork adds on top of Moodle.
-const SCAN_DIRS = ['public/theme/material', 'public/auth/passkey', 'public/local/materialtools', 'material'];
+const SCAN_DIRS = ['public/theme/material', 'public/auth/passkey', 'public/local/materialtools', 'public/local/meetups', 'public/local/groupchats', 'material'];
 const SCAN_FILES = ['AGENTS.md', 'README.md'];
 const WORKFLOW_DIR = '.github/workflows';
 const WORKFLOW_PATTERN = /^material-.*\.yml$/;

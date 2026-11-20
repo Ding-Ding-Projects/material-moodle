@@ -1,0 +1,111 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_groupchats/manage
+
+    Manage one group chat.
+
+    Example context (json):
+    {
+        "id": 4, "name": "Project team", "openurl": "#", "chatlink": "https://example.com/message/index.php?convid=4",
+        "creator": "Alex Student", "membercount": 1, "canmanage": true, "ismember": true, "sesskey": "x",
+        "actionurl": "#", "renameform": "", "addform": "", "done": "", "refused": "", "confirmleave": "Leave?",
+        "listurl": "#",
+        "members": [{"id": 2, "fullname": "Alex Student", "picture": "", "profileurl": "#", "iscreator": true,
+            "isme": true, "canremove": false, "confirmremove": "Remove?"}]
+    }
+}}
+<div class="local-groupchats local-groupchats-manage">
+    {{#done}}<div class="alert {{#donecelebrate}}alert-success{{/donecelebrate}}{{^donecelebrate}}alert-info{{/donecelebrate}} local-groupchats-pop" role="status" {{#donecelebrate}}data-md-celebrate="success"{{/donecelebrate}}>{{done}}</div>{{/done}}
+    {{#refused}}<div class="alert alert-warning local-groupchats-pop" role="status">{{refused}}</div>{{/refused}}
+
+    <section class="card mb-4 local-groupchats-hero">
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between">
+                <div>
+                    <h2 class="h4 mb-1">{{name}}</h2>
+                    <p class="text-muted mb-0">{{#str}}membercount, local_groupchats, {{membercount}}{{/str}}{{#creator}} · {{#str}}startedby, local_groupchats, {{creator}}{{/str}}{{/creator}}</p>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    {{#ismember}}<a class="btn btn-primary" href="{{openurl}}">{{#pix}}t/message, core{{/pix}} {{#str}}openchat, local_groupchats{{/str}}</a>{{/ismember}}
+                    <a class="btn btn-outline-secondary" href="{{listurl}}">{{#str}}mygroupchats, local_groupchats{{/str}}</a>
+                </div>
+            </div>
+            <div class="d-flex gap-2 align-items-center mt-3">
+                <code class="flex-grow-1 p-2 rounded bg-body-tertiary text-break" id="local-groupchats-link">{{chatlink}}</code>
+                <button type="button" class="btn btn-outline-primary text-nowrap" data-md-copy="local-groupchats-link"
+                    data-md-copied-label="{{#str}}copied, local_groupchats{{/str}}">{{#str}}copylink, local_groupchats{{/str}}</button>
+            </div>
+            <p class="small text-muted mt-1 mb-0">{{#str}}chatlink_desc, local_groupchats{{/str}}</p>
+        </div>
+    </section>
+
+    {{#canmanage}}
+    <div class="row g-4 mb-4">
+        <section class="col-12"><div class="card"><div class="card-body">
+            <h3 class="h5">{{#str}}rename, local_groupchats{{/str}}</h3>
+            {{{renameform}}}
+        </div></div></section>
+        <section class="col-12"><div class="card"><div class="card-body">
+            <h3 class="h5">{{#str}}addmembers, local_groupchats{{/str}}</h3>
+            {{{addform}}}
+        </div></div></section>
+    </div>
+    {{/canmanage}}
+
+    <section class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <h3 class="h5 mb-0">{{#str}}members, local_groupchats{{/str}}</h3>
+                <div>
+                    <label class="visually-hidden" for="local-groupchats-member-search">{{#str}}searchmembers, local_groupchats{{/str}}</label>
+                    <input type="search" id="local-groupchats-member-search" class="form-control form-control-sm"
+                        placeholder="{{#str}}searchmembers, local_groupchats{{/str}}" data-local-groupchats-search="#local-groupchats-members" autocomplete="off">
+                </div>
+            </div>
+            <ul class="list-group list-group-flush" id="local-groupchats-members">
+                {{#members}}
+                <li class="list-group-item px-0 d-flex gap-2 align-items-center local-groupchats-member" data-search-item>
+                    {{{picture}}}
+                    <a class="flex-grow-1" href="{{profileurl}}">{{fullname}}</a>
+                    {{#iscreator}}<span class="local-groupchats-chip">{{#str}}creator, local_groupchats{{/str}}</span>{{/iscreator}}
+                    {{#isme}}<span class="local-groupchats-chip is-me">{{#str}}you, local_groupchats{{/str}}</span>{{/isme}}
+                    {{#canremove}}
+                    <form method="post" action="{{actionurl}}" data-local-groupchats-confirm="{{confirmremove}}">
+                        <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="action" value="remove">
+                        <input type="hidden" name="userid" value="{{id}}">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">{{#str}}remove, local_groupchats{{/str}}</button>
+                    </form>
+                    {{/canremove}}
+                </li>
+                {{/members}}
+            </ul>
+        </div>
+    </section>
+
+    {{#ismember}}
+    <form method="post" action="{{actionurl}}" data-local-groupchats-confirm="{{confirmleave}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="action" value="leave">
+        <button type="submit" class="btn btn-outline-danger">{{#str}}leavechat, local_groupchats{{/str}}</button>
+    </form>
+    {{/ismember}}
+</div>
+{{#js}}
+require(['local_groupchats/ui'], function(Ui) {
+    Ui.init();
+});
+{{/js}}

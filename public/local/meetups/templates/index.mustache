@@ -1,0 +1,102 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_meetups/index
+
+    Meetups index with tabs, a search box and meetup cards.
+
+    Example context (json):
+    {
+        "tabs": [{"key": "upcoming", "label": "Upcoming", "url": "#", "active": true}],
+        "cards": [{"id": 1, "title": "Study group", "url": "#", "typelabel": "In person", "type": "inperson",
+            "statuslabel": "Scheduled", "status": "scheduled", "when": "Friday, 4 December 2026, 5:00 PM",
+            "where": "Library room 2", "organiser": "Alex Student", "audience": "Invited people", "going": 3,
+            "capacity": 8, "myreply": "Going", "day": "04", "month": "Dec", "index": 0}],
+        "hascards": true,
+        "empty": "No upcoming meetups.",
+        "cancreate": true,
+        "createurl": "#",
+        "coursename": ""
+    }
+}}
+<div class="local-meetups local-meetups-index">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <div>
+            {{#coursename}}<h2 class="h3 mb-1">{{#str}}meetups, local_meetups{{/str}} <span class="text-muted fs-5">· {{coursename}}</span></h2>{{/coursename}}
+            <p class="text-muted mb-0">{{#str}}index_intro, local_meetups{{/str}}</p>
+        </div>
+        {{#cancreate}}
+        <a class="btn btn-primary local-meetups-fab" href="{{createurl}}">{{#pix}}t/add, core{{/pix}} {{#str}}newmeetup, local_meetups{{/str}}</a>
+        {{/cancreate}}
+    </div>
+
+    <ul class="nav nav-tabs local-meetups-tabs mb-3" role="tablist">
+        {{#tabs}}
+        <li class="nav-item" role="presentation">
+            <a class="nav-link{{#active}} active{{/active}}" href="{{url}}" {{#active}}aria-current="page"{{/active}} data-tab="{{key}}">{{label}}</a>
+        </li>
+        {{/tabs}}
+    </ul>
+
+    <div class="mb-3 local-meetups-searchbar">
+        <label class="visually-hidden" for="local-meetups-search">{{#str}}searchmeetups, local_meetups{{/str}}</label>
+        <input type="search" id="local-meetups-search" class="form-control" placeholder="{{#str}}searchmeetups, local_meetups{{/str}}"
+            data-local-meetups-search="#local-meetups-list" autocomplete="off">
+        <p class="small text-muted mt-1 mb-0" data-region="search-status" aria-live="polite"></p>
+    </div>
+
+    {{#hascards}}
+    <div class="list-group local-meetups-list" id="local-meetups-list">
+        {{#cards}}
+        <a href="{{url}}" class="list-group-item list-group-item-action local-meetups-card is-{{status}}" style="--i: {{index}}" data-search-item>
+            <div class="d-flex gap-3 align-items-start">
+                <div class="local-meetups-date" aria-hidden="true">
+                    <span class="local-meetups-date-day">{{day}}</span>
+                    <span class="local-meetups-date-month">{{month}}</span>
+                </div>
+                <div class="flex-grow-1 min-width-0">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                        <h3 class="h5 mb-0">{{title}}</h3>
+                        <span class="local-meetups-chip is-{{status}}">{{statuslabel}}</span>
+                        <span class="local-meetups-chip is-type">{{typelabel}}</span>
+                        {{#myreply}}<span class="local-meetups-chip is-reply">{{myreply}}</span>{{/myreply}}
+                    </div>
+                    <div class="small text-muted">{{when}}{{#where}} · {{where}}{{/where}}</div>
+                    <div class="small text-muted">{{#str}}organisedby, local_meetups, {{organiser}}{{/str}} · {{audience}}</div>
+                </div>
+                <div class="text-end small text-nowrap local-meetups-count">
+                    <strong>{{going}}</strong>{{#capacity}}/{{capacity}}{{/capacity}}<br>{{#str}}going, local_meetups{{/str}}
+                </div>
+            </div>
+        </a>
+        {{/cards}}
+    </div>
+    <p class="local-meetups-nomatch text-muted mt-3" hidden data-region="no-match">{{#str}}nomatches, local_meetups{{/str}}</p>
+    {{/hascards}}
+    {{^hascards}}
+    <div class="local-meetups-empty text-center p-5">
+        <div class="local-meetups-empty-icon" aria-hidden="true">{{#pix}}i/calendar, core{{/pix}}</div>
+        <p class="lead mb-3">{{empty}}</p>
+        {{#cancreate}}<a class="btn btn-outline-primary" href="{{createurl}}">{{#str}}newmeetup, local_meetups{{/str}}</a>{{/cancreate}}
+    </div>
+    {{/hascards}}
+</div>
+{{#js}}
+require(['local_meetups/ui'], function(Ui) {
+    Ui.init();
+});
+{{/js}}

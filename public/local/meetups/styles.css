@@ -1,0 +1,275 @@
+.local-meetups {
+    --lm-radius: 20px;
+    --lm-ease: cubic-bezier(.2, 0, 0, 1);
+}
+.local-meetups .card,
+.local-meetups-card {
+    border-radius: var(--lm-radius);
+}
+.local-meetups-list {
+    gap: .5rem;
+}
+.local-meetups-list .local-meetups-card {
+    border-radius: var(--lm-radius) !important;
+    border: 1px solid var(--md-sys-color-outline-variant, #d0d5dd) !important;
+    background: var(--md-sys-color-surface-container-low, #f7f8fa);
+    color: var(--md-sys-color-on-surface, #1b1c1f);
+    animation: local-meetups-rise .45s var(--lm-ease) backwards;
+    animation-delay: calc(var(--i, 0) * 40ms);
+    transition: transform .2s var(--lm-ease), box-shadow .2s var(--lm-ease), background-color .2s ease;
+}
+.local-meetups-list .local-meetups-card:hover,
+.local-meetups-list .local-meetups-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    background: var(--md-sys-color-surface-container, #eef0f4);
+}
+.local-meetups-card.is-cancelled {
+    opacity: .7;
+}
+.local-meetups-card.is-cancelled h3 {
+    text-decoration: line-through;
+}
+[data-search-item].local-meetups-filtered {
+    display: none !important;
+}
+.local-meetups-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 16px;
+    background: var(--md-sys-color-primary-container, #dbe7ff);
+    color: var(--md-sys-color-on-primary-container, #0a2a5c);
+    line-height: 1.05;
+}
+.local-meetups-date-day {
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+.local-meetups-date-month {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+.local-meetups-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: .1rem .65rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    background: var(--md-sys-color-secondary-container, #e2e6ef);
+    color: var(--md-sys-color-on-secondary-container, #1c2333);
+    transition: background-color .2s ease, transform .2s var(--lm-ease);
+}
+.local-meetups-chip.is-scheduled,
+.local-meetups-chip.is-yes {
+    background: var(--md-sys-color-primary-container, #d7f5dd);
+    color: var(--md-sys-color-on-primary-container, #0b3d18);
+}
+.local-meetups-chip.is-planning,
+.local-meetups-chip.is-ifneeded {
+    background: var(--md-sys-color-tertiary-container, #fff0c2);
+    color: var(--md-sys-color-on-tertiary-container, #3d2e00);
+}
+.local-meetups-chip.is-cancelled,
+.local-meetups-chip.is-no {
+    background: var(--md-sys-color-error-container, #ffdad6);
+    color: var(--md-sys-color-on-error-container, #410002);
+}
+.local-meetups-chip.is-none {
+    background: transparent;
+}
+.local-meetups-tabs .nav-link {
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
+}
+.local-meetups-fab {
+    border-radius: 16px;
+    transition: transform .2s var(--lm-ease), box-shadow .2s var(--lm-ease);
+}
+.local-meetups-fab:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+}
+.local-meetups-empty {
+    border: 2px dashed var(--md-sys-color-outline-variant, #c4c8d0);
+    border-radius: var(--lm-radius);
+    animation: local-meetups-rise .5s var(--lm-ease) backwards;
+}
+.local-meetups-empty-icon .icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 3rem;
+    opacity: .6;
+    animation: local-meetups-float 3s ease-in-out infinite;
+}
+.local-meetups-hero {
+    background: var(--md-sys-color-surface-container-low, #f7f8fa);
+    animation: local-meetups-rise .45s var(--lm-ease) backwards;
+}
+.local-meetups-view > .card,
+.local-meetups-view > section {
+    animation: local-meetups-rise .45s var(--lm-ease) backwards;
+}
+.local-meetups-view > section:nth-of-type(2) {
+    animation-delay: 60ms;
+}
+.local-meetups-view > section:nth-of-type(3) {
+    animation-delay: 120ms;
+}
+.local-meetups-view > section:nth-of-type(4) {
+    animation-delay: 180ms;
+}
+.local-meetups-facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .5rem .75rem;
+    align-items: center;
+}
+.local-meetups-facts dt {
+    font-weight: 400;
+}
+.local-meetups-facts dd {
+    margin: 0;
+}
+.local-meetups-code {
+    font-size: .875rem;
+}
+.local-meetups-segmented .btn {
+    border-radius: 999px;
+    transition: background-color .15s ease, color .15s ease, transform .15s var(--lm-ease);
+}
+.local-meetups-segmented .btn-check:checked + .btn {
+    transform: scale(1.04);
+}
+.local-meetups-segmented .btn-check:checked + .btn.is-notgoing,
+.local-meetups-segmented .btn-check:checked + .btn.is-no {
+    background: var(--md-sys-color-error, #ba1a1a);
+    border-color: var(--md-sys-color-error, #ba1a1a);
+    color: var(--md-sys-color-on-error, #fff);
+}
+.local-meetups-segmented .btn-check:checked + .btn.is-maybe,
+.local-meetups-segmented .btn-check:checked + .btn.is-ifneeded {
+    background: var(--md-sys-color-tertiary, #7a5900);
+    border-color: var(--md-sys-color-tertiary, #7a5900);
+    color: var(--md-sys-color-on-tertiary, #fff);
+}
+.local-meetups-option {
+    border-radius: var(--lm-radius) !important;
+    margin-bottom: .5rem;
+    border: 1px solid var(--md-sys-color-outline-variant, #d0d5dd) !important;
+    transition: box-shadow .25s var(--lm-ease), border-color .25s ease, background-color .25s ease;
+}
+.local-meetups-option .is-best-chip {
+    display: none;
+    background: var(--md-sys-color-primary, #0f6cbf);
+    color: var(--md-sys-color-on-primary, #fff);
+}
+.local-meetups-option.is-best {
+    border-color: var(--md-sys-color-primary, #0f6cbf) !important;
+    box-shadow: 0 0 0 2px var(--md-sys-color-primary, #0f6cbf) inset;
+}
+.local-meetups-option.is-best .is-best-chip {
+    display: inline-flex;
+    animation: local-meetups-pop .35s var(--lm-ease) both;
+}
+.local-meetups-option.is-final {
+    background: var(--md-sys-color-primary-container, #e7f0fa);
+}
+.local-meetups-option.is-saving {
+    opacity: .75;
+}
+.local-meetups-option.is-saved {
+    background: var(--md-sys-color-secondary-container, #e2e6ef);
+}
+.local-meetups-bar {
+    min-width: 8rem;
+    height: .5rem;
+    border-radius: 999px;
+    background: var(--md-sys-color-surface-container-highest, #e3e5ea);
+}
+.local-meetups-bar .progress-bar {
+    background: var(--md-sys-color-primary, #0f6cbf);
+    border-radius: 999px;
+    transition: width .6s var(--lm-ease);
+}
+.local-meetups-bump {
+    display: inline-block;
+    animation: local-meetups-pop .4s var(--lm-ease);
+}
+.local-meetups-live::before {
+    content: "";
+    display: inline-block;
+    width: .5rem;
+    height: .5rem;
+    margin-right: .25rem;
+    border-radius: 50%;
+    background: var(--md-sys-color-primary, #0f6cbf);
+    animation: local-meetups-pulse 2s ease-in-out infinite;
+}
+.local-meetups-bubble {
+    padding: .5rem .75rem;
+    border-radius: 4px 18px 18px 18px;
+    background: var(--md-sys-color-surface-container, #eef0f4);
+}
+.local-meetups-comment {
+    animation: local-meetups-rise .35s var(--lm-ease) backwards;
+}
+.local-meetups-person {
+    transition: background-color .2s ease;
+}
+.local-meetups-pop {
+    animation: local-meetups-pop .45s var(--lm-ease) both;
+}
+.local-meetups-copied {
+    animation: local-meetups-pop .3s var(--lm-ease);
+}
+.local-meetups-matrix summary {
+    cursor: pointer;
+}
+.local-meetups-edit .fitem {
+    /* Backwards fill only, so finished rows keep no stacking context and autocomplete lists stay on top. */
+    animation: local-meetups-rise .35s var(--lm-ease) backwards;
+}
+@keyframes local-meetups-rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+@keyframes local-meetups-pop {
+    0% {
+        transform: scale(.92);
+        opacity: .4;
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes local-meetups-pulse {
+    50% {
+        opacity: .25;
+    }
+}
+@keyframes local-meetups-float {
+    50% {
+        transform: translateY(-6px);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .local-meetups *,
+    .local-meetups *::before {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+.local-meetups .form-autocomplete-suggestions {
+    z-index: 1060;
+}

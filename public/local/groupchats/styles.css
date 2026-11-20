@@ -1,0 +1,160 @@
+.local-groupchats {
+    --lg-ease: cubic-bezier(.2, 0, 0, 1);
+}
+.local-groupchats .card {
+    border-radius: 20px;
+}
+.local-groupchats-list {
+    gap: .5rem;
+}
+.local-groupchats-list .local-groupchats-item {
+    border-radius: 20px !important;
+    border: 1px solid var(--md-sys-color-outline-variant, #d0d5dd) !important;
+    background: var(--md-sys-color-surface-container-low, #f7f8fa);
+    animation: local-groupchats-rise .4s var(--lg-ease) backwards;
+    animation-delay: calc(var(--i, 0) * 40ms);
+    transition: transform .2s var(--lg-ease), box-shadow .2s var(--lg-ease), background-color .2s ease;
+}
+.local-groupchats-list .local-groupchats-item:hover,
+.local-groupchats-list .local-groupchats-item:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    background: var(--md-sys-color-surface-container, #eef0f4);
+}
+[data-search-item].local-groupchats-filtered {
+    display: none !important;
+}
+.local-groupchats-avatar {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    background: var(--md-sys-color-tertiary-container, #e6eef9);
+    color: var(--md-sys-color-on-tertiary-container, #10233d);
+    transition: border-radius .3s var(--lg-ease);
+}
+.local-groupchats-item:hover .local-groupchats-avatar {
+    border-radius: 50%;
+}
+.local-groupchats-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: .1rem .6rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    background: var(--md-sys-color-secondary-container, #e2e6ef);
+    color: var(--md-sys-color-on-secondary-container, #1c2333);
+}
+.local-groupchats-chip.is-ok {
+    background: var(--md-sys-color-primary-container, #d7f5dd);
+    color: var(--md-sys-color-on-primary-container, #0b3d18);
+}
+.local-groupchats-chip.is-bad {
+    background: var(--md-sys-color-error-container, #ffdad6);
+    color: var(--md-sys-color-on-error-container, #410002);
+}
+.local-groupchats-status {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-weight: 800;
+    animation: local-groupchats-pop .4s var(--lg-ease) both;
+}
+.local-groupchats-check.is-ok .local-groupchats-status {
+    background: var(--md-sys-color-primary, #0f6cbf);
+    color: var(--md-sys-color-on-primary, #fff);
+}
+.local-groupchats-check.is-bad .local-groupchats-status {
+    background: var(--md-sys-color-error, #ba1a1a);
+    color: var(--md-sys-color-on-error, #fff);
+}
+.local-groupchats-hero,
+.local-groupchats-manage > .row,
+.local-groupchats-manage > section,
+.local-groupchats-check,
+.local-groupchats-new .fitem {
+    /* Backwards fill only, so finished blocks keep no stacking context and autocomplete lists stay on top. */
+    animation: local-groupchats-rise .4s var(--lg-ease) backwards;
+}
+.local-groupchats-member {
+    transition: background-color .2s ease;
+}
+.local-groupchats-fab {
+    border-radius: 16px;
+    transition: transform .2s var(--lg-ease), box-shadow .2s var(--lg-ease);
+}
+.local-groupchats-fab:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+}
+.local-groupchats-empty {
+    border: 2px dashed var(--md-sys-color-outline-variant, #c4c8d0);
+    border-radius: 20px;
+    animation: local-groupchats-rise .5s var(--lg-ease) backwards;
+}
+.local-groupchats-empty-icon .icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 3rem;
+    opacity: .6;
+    animation: local-groupchats-float 3s ease-in-out infinite;
+}
+.local-groupchats-pop,
+.local-groupchats-copied {
+    animation: local-groupchats-pop .4s var(--lg-ease) both;
+}
+.local-groupchats-drawer-actions {
+    animation: local-groupchats-rise .35s var(--lg-ease) backwards;
+}
+.local-groupchats-drawer-actions .btn {
+    border-radius: 999px;
+    transition: transform .15s var(--lg-ease), box-shadow .15s var(--lg-ease);
+}
+.local-groupchats-drawer-actions .btn:hover {
+    transform: translateY(-1px);
+}
+@keyframes local-groupchats-rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+@keyframes local-groupchats-pop {
+    0% {
+        transform: scale(.92);
+        opacity: .4;
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes local-groupchats-float {
+    50% {
+        transform: translateY(-6px);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .local-groupchats *,
+    .local-groupchats-drawer-actions,
+    .local-groupchats-drawer-actions * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+.local-groupchats .form-autocomplete-suggestions {
+    z-index: 1060;
+}
