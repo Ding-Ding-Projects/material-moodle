@@ -71,16 +71,17 @@ On a phone:
 <details>
 <summary><strong>Install with Docker</strong></summary>
 
+One command on any Linux machine or Mac with Docker (it installs Docker on Linux if it is missing):
+
 ```sh
-git clone https://github.com/Ding-Ding-Projects/material-moodle
-cd material-moodle/material/docker
-cp .env.example .env     # set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD
-docker compose up -d     # Moodle on http://localhost:8080
+bash <(curl -fsSL https://raw.githubusercontent.com/Ding-Ding-Projects/material-moodle/main/material/install.sh)
 ```
 
-The first start installs Moodle and prints `MATERIAL_MOODLE_INSTALLED` when it is ready. Add
-`--profile quicktunnel` (with `MOODLE_WWWROOT=auto`) for a free temporary https address, or `--profile tunnel` with
-`CLOUDFLARE_TUNNEL_TOKEN` for your own domain. Details: [Docker stack](material/docs/docker-stack.md) and
+It asks a few questions in a terminal menu (site name, administrator, how people reach the site: your network, a
+free public https link from Cloudflare, or your own domain), generates the passwords and the `.env` file for you,
+starts the stack, waits until Moodle is ready and prints the link. Run it again to see the link, or with
+`--reconfigure` to change your answers. For automation, pass `--yes` with `MM_*` variables (see the top of
+[material/install.sh](material/install.sh)). Details: [Docker stack](material/docs/docker-stack.md) and
 [Cloudflare tunnels](material/docs/cloudflare-tunnels.md).
 
 </details>

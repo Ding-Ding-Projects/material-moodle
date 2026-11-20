@@ -33,9 +33,7 @@ module name. It does not need Moodle's grunt toolchain. Commit `amd/src` and `am
 ## Running the Docker stack
 
 ```sh
-cd material/docker
-cp .env.example .env        # set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD at least
-docker compose up -d --build
+material/install.sh          # asks the questions, writes material/docker/.env, starts the stack and waits
 ```
 
 Moodle answers on `http://localhost:8080` (change `MOODLE_PORT` and `MOODLE_WWWROOT` together). The first start
