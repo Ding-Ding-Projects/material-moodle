@@ -1,0 +1,514 @@
+// Material 3 Expressive layer: bold shapes, tonal colour blocks, spring motion, page transitions and phone layouts.
+// Loaded after material.scss. Every animation has a calm and an off path (see the motion setting).
+
+$xp-spring: cubic-bezier(.34, 1.56, .64, 1);
+$xp-emph: cubic-bezier(.05, .7, .1, 1);
+
+:root {
+    --xp-radius-xl: calc(var(--md-radius) + 16px);
+    --xp-radius-l: calc(var(--md-radius) + 4px);
+    --xp-squircle: 30% / 30%;
+}
+
+// Cross-document page transitions in browsers that support them.
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: xp-out .22s ease both;
+}
+
+::view-transition-new(root) {
+    animation: xp-in .45s $xp-emph both;
+}
+
+#page-header .page-header-headings h1 {
+    view-transition-name: xp-page-title;
+}
+
+@keyframes xp-out {
+    to {
+        opacity: 0;
+        transform: scale(.985);
+    }
+}
+
+@keyframes xp-in {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(.99);
+    }
+}
+
+// Display type with live weight.
+#page-header h1,
+.page-header-headings h1,
+.material-login-heading {
+    font-weight: 800;
+    letter-spacing: -.035em;
+    transition: font-weight .5s $xp-emph, letter-spacing .5s $xp-emph;
+
+    &:hover {
+        font-weight: 900;
+        letter-spacing: -.045em;
+    }
+}
+
+// Floating top app bar with blur.
+.navbar.fixed-top {
+    background: rgba(var(--md-sys-color-surface-container-rgb), .82) !important;
+    backdrop-filter: saturate(1.4) blur(18px);
+    -webkit-backdrop-filter: saturate(1.4) blur(18px);
+    border-radius: 0 0 var(--xp-radius-l) var(--xp-radius-l);
+    box-shadow: 0 1px 0 rgba(var(--md-sys-color-outline-variant-rgb), .6);
+    transition: box-shadow .3s ease, background-color .3s ease;
+}
+
+.navbar .navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+.navbar .avatar,
+.usermenu .userinitials,
+.userinitials {
+    border-radius: var(--xp-squircle);
+    background: var(--md-sys-color-tertiary-container) !important;
+    color: var(--md-sys-color-on-tertiary-container) !important;
+    font-weight: 750;
+}
+
+// Secondary navigation as a segmented pill bar with a sliding feel.
+.secondary-navigation .moremenu .nav,
+.secondary-navigation .nav-tabs {
+    background: var(--md-sys-color-surface-container);
+    border: 0;
+    border-radius: 999px;
+    padding: 4px;
+    display: inline-flex;
+    gap: 2px;
+}
+
+.secondary-navigation .nav-link {
+    border-radius: 999px !important;
+    padding: .55rem 1.1rem !important;
+    transition: background-color .35s $xp-emph, color .25s ease, transform .3s $xp-spring !important;
+
+    &:active {
+        transform: scale(.94);
+    }
+
+    &.active {
+        background: var(--md-sys-color-surface) !important;
+        color: var(--md-sys-color-on-surface) !important;
+        box-shadow: var(--md-shadow-1) !important;
+        border-bottom: 0 !important;
+    }
+}
+
+// Hero banners: dashboard and course headers become tonal colour blocks with morphing shapes.
+#page-my-index #page-header,
+#page-course-view-topics #page-header,
+#page-course-view-weeks #page-header,
+body.path-course-view #page-header,
+#page-site-index #page-header {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border-radius: var(--xp-radius-xl);
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem) !important;
+    margin-bottom: 1.5rem;
+    animation: xp-hero .8s $xp-emph both;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+        animation: md-morph 22s linear infinite;
+    }
+
+    &::before {
+        width: 420px;
+        height: 420px;
+        right: -120px;
+        top: -200px;
+        background: var(--md-sys-color-primary);
+        opacity: .18;
+    }
+
+    &::after {
+        width: 220px;
+        height: 220px;
+        right: 18%;
+        bottom: -120px;
+        background: var(--md-sys-color-tertiary-container);
+        opacity: .9;
+        animation-direction: reverse;
+        animation-duration: 16s;
+    }
+
+    h1,
+    h2,
+    .h2 {
+        color: inherit;
+    }
+}
+
+@keyframes xp-hero {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.98);
+        border-radius: 80px;
+    }
+}
+
+// Cards: bigger radius, tonal layering, spring hover with a shape change.
+.card,
+.block {
+    border-radius: var(--xp-radius-l);
+    transition: transform .45s $xp-spring, box-shadow .35s ease, border-radius .45s $xp-emph, background-color .3s ease;
+}
+
+.dashboard-card,
+.coursebox,
+.course-card {
+    border-radius: var(--xp-radius-l) !important;
+    background: var(--md-sys-color-surface-container-low) !important;
+
+    &:hover {
+        transform: translateY(-6px) rotate(-.4deg);
+        border-radius: calc(var(--md-radius) + 20px) var(--md-radius) calc(var(--md-radius) + 20px) var(--md-radius) !important;
+        box-shadow: var(--md-shadow-3);
+    }
+
+    .card-img-top,
+    .card-img,
+    .dashboard-card-img {
+        transition: transform .8s $xp-emph, filter .5s ease;
+    }
+
+    &:hover .card-img-top,
+    &:hover .dashboard-card-img {
+        transform: scale(1.06);
+        filter: saturate(1.2);
+    }
+
+    .coursename,
+    .multiline {
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+}
+
+// Staggered spring entrance for lists of cards and activities.
+.dashboard-card-deck > *,
+.course-section,
+.activity-item,
+.list-group-item,
+.block,
+.md-stagger > * {
+    animation: xp-enter .6s $xp-emph both;
+}
+
+@for $i from 1 through 12 {
+    .dashboard-card-deck > :nth-child(#{$i}),
+    .md-stagger > :nth-child(#{$i}) {
+        animation-delay: #{$i * 45}ms;
+    }
+}
+
+@keyframes xp-enter {
+    from {
+        opacity: 0;
+        transform: translateY(26px) scale(.97);
+    }
+}
+
+// Scroll-linked reveal where supported.
+@supports (animation-timeline: view()) {
+    .course-section,
+    .activity-item,
+    #region-main .card {
+        animation: xp-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 18%;
+    }
+
+    @keyframes xp-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(40px) scale(.97);
+        }
+    }
+}
+
+// Course page: one tonal block per section, activities as tiles with squircle icons.
+.course-section {
+    border: 0 !important;
+    background: var(--md-sys-color-surface-container-low);
+    border-radius: var(--xp-radius-xl);
+    padding: 1.25rem clamp(.75rem, 2vw, 1.75rem) !important;
+
+    .course-section-header,
+    .sectionname {
+        font-weight: 760;
+        letter-spacing: -.02em;
+    }
+
+    .content,
+    .section-item {
+        border: 0 !important;
+        background: transparent !important;
+    }
+}
+
+.activity-item {
+    border: 0 !important;
+    background: var(--md-sys-color-surface) !important;
+    border-radius: var(--xp-radius-l) !important;
+    transition: transform .4s $xp-spring, box-shadow .3s ease, background-color .3s ease;
+
+    &:hover {
+        transform: translateX(4px);
+        box-shadow: var(--md-shadow-1);
+        background: var(--md-sys-color-surface-container-lowest) !important;
+    }
+}
+
+.activityiconcontainer {
+    border-radius: var(--xp-squircle) !important;
+    transition: border-radius .5s $xp-emph, transform .5s $xp-spring;
+}
+
+.activity-item:hover .activityiconcontainer {
+    border-radius: 50% !important;
+    transform: rotate(-8deg) scale(1.06);
+}
+
+// Buttons morph from pill to rounded square while pressed.
+.btn {
+    min-height: 44px;
+    transition: border-radius .35s $xp-emph, transform .35s $xp-spring, box-shadow .25s ease, background-color .25s ease;
+
+    &:active {
+        border-radius: 14px;
+        transform: scale(.96);
+    }
+}
+
+.btn-lg {
+    min-height: 56px;
+    border-radius: 20px;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 18px rgba(var(--md-sys-color-primary-rgb), .35);
+}
+
+// Filled tonal fields.
+.form-control,
+.form-select {
+    background-color: var(--md-sys-color-surface-container-highest);
+    border-color: transparent;
+    border-bottom: 2px solid var(--md-sys-color-outline);
+    border-radius: var(--md-radius-sm) var(--md-radius-sm) 6px 6px;
+
+    &:focus {
+        background-color: var(--md-sys-color-surface-container-high);
+        border-color: transparent;
+        border-bottom-color: var(--md-sys-color-primary);
+        box-shadow: 0 2px 0 0 var(--md-sys-color-primary);
+    }
+}
+
+// Drawers.
+.drawer {
+    border-radius: 0 var(--xp-radius-l) var(--xp-radius-l) 0;
+
+    &.drawer-right {
+        border-radius: var(--xp-radius-l) 0 0 var(--xp-radius-l);
+    }
+}
+
+.courseindex .courseindex-item {
+    border-radius: 999px;
+    padding-inline: .75rem;
+    transition: background-color .25s ease, transform .3s $xp-spring;
+
+    &:hover {
+        background: rgba(var(--md-sys-color-on-surface-rgb), .06);
+        transform: translateX(3px);
+    }
+}
+
+// Notifications and alerts slide in with a spring.
+.alert {
+    border-radius: var(--xp-radius-l);
+    animation: xp-enter .55s $xp-spring both;
+}
+
+// Progress and completion.
+.progress {
+    height: .65rem;
+}
+
+.progress-bar {
+    transition: width 1.2s $xp-emph;
+}
+
+// Thin scrollbars.
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--md-sys-color-on-surface-rgb), .25) transparent;
+}
+
+// Phones and small tablets.
+@media (max-width: 767.98px) {
+    .navbar.fixed-top {
+        border-radius: 0 0 20px 20px;
+    }
+
+    #page-my-index #page-header,
+    body.path-course-view #page-header {
+        border-radius: 28px;
+    }
+
+    .btn,
+    .nav-link,
+    .dropdown-item,
+    .md-chip,
+    .form-control,
+    .form-select {
+        min-height: 48px;
+    }
+
+    .secondary-navigation .moremenu .nav {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        max-width: 100%;
+
+        .nav-item {
+            scroll-snap-align: start;
+            flex: none;
+        }
+    }
+
+    // Menus and dialogs become bottom sheets.
+    .dropdown-menu.show {
+        position: fixed !important;
+        inset: auto 0 0 0 !important;
+        transform: none !important;
+        border-radius: 28px 28px 0 0;
+        max-height: 70vh;
+        overflow: auto;
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+        animation: xp-sheet .35s $xp-emph both;
+    }
+
+    .modal-dialog {
+        margin: 0;
+        position: fixed;
+        inset: auto 0 0 0;
+        max-width: none;
+
+        .modal-content {
+            border-radius: 28px 28px 0 0;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+
+    .modal.show .modal-dialog {
+        animation: xp-sheet .4s $xp-emph both;
+    }
+
+    .md-palette {
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100vw;
+        max-height: 100dvh;
+        height: 100dvh;
+        border-radius: 0;
+        animation: xp-sheet .35s $xp-emph both;
+    }
+
+    .md-context-menu {
+        position: fixed;
+        left: 0 !important;
+        right: 0;
+        top: auto !important;
+        bottom: 0;
+        max-width: none;
+        border-radius: 28px 28px 0 0;
+        padding-bottom: calc(.75rem + env(safe-area-inset-bottom));
+        animation: xp-sheet .3s $xp-emph both;
+
+        button {
+            min-height: 52px;
+        }
+    }
+
+    .material-login-panel {
+        padding: 1.5rem;
+    }
+
+    body.pagelayout-login .login-container {
+        padding: 1.5rem;
+        border-radius: 28px;
+    }
+
+    .generaltable,
+    .table-responsive {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+@keyframes xp-sheet {
+    from {
+        transform: translateY(100%);
+    }
+}
+
+html[data-md-motion="calm"] {
+    .dashboard-card:hover,
+    .coursebox:hover,
+    .activity-item:hover,
+    .activity-item:hover .activityiconcontainer {
+        transform: none;
+    }
+
+    #page-header::before,
+    #page-header::after {
+        animation: none;
+    }
+}
+
+.md-filter-regex {
+    align-self: stretch;
+    min-width: 48px;
+    justify-content: center;
+    border-radius: 14px;
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-color: transparent;
+}
+
+.dashboard-card-footer,
+.dashboard-card .card-footer {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.md-palette-trigger svg,
+.md-palette-field svg {
+    flex: none;
+}

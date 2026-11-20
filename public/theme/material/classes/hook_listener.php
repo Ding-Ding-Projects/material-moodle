@@ -35,7 +35,13 @@ class hook_listener {
      */
     private static function active(): bool {
         global $PAGE;
-        return isset($PAGE->theme) && $PAGE->theme->name === 'material';
+        try {
+            // The page object exposes the theme through a magic getter, so isset() cannot be used here.
+            $theme = $PAGE->theme;
+        } catch (\Throwable $e) {
+            return false;
+        }
+        return $theme && $theme->name === 'material';
     }
 
     /**

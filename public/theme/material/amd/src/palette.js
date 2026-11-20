@@ -29,12 +29,26 @@ define(['core/ajax'], function(Ajax) {
     var root = null;
     var state = {regex: true, ignoreCase: true, active: 0, results: []};
     var opener = null;
+    var ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+        'stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
 
     var BLOCKS = [
         ['^', 'startswith'], ['$', 'endswith'], ['.*', 'anything'], ['\\d', 'digit'],
         ['[A-Za-z]', 'letter'], ['\\b', 'wordedge'], ['\\s', 'space'], ['+', 'oneormore'],
         ['?', 'optional'], ['|', 'either'], ['(', 'groupopen'], [')', 'groupclose']
     ];
+
+    /**
+     * The search icon.
+     *
+     * @returns {HTMLElement}
+     */
+    function iconSpan() {
+        var span = document.createElement('span');
+        span.setAttribute('aria-hidden', 'true');
+        span.innerHTML = ICON;
+        return span;
+    }
 
     /**
      * Read a saved switch.
@@ -314,7 +328,7 @@ define(['core/ajax'], function(Ajax) {
         blocks.hidden = !state.regex || !config.regexbuilder;
         root = el('div', {'class': 'md-palette', role: 'dialog', 'aria-modal': 'true', 'aria-label': s.search || 'Search'}, [
             el('div', {'class': 'md-palette-field'}, [
-                el('span', {'aria-hidden': 'true', text: '⌕'}), input,
+                iconSpan(), input,
                 el('kbd', {text: 'Ctrl Shift F'})
             ]),
             el('section', {'class': 'md-regex', 'aria-label': s.regexbuilder || 'Regex builder'}, [
@@ -420,7 +434,7 @@ define(['core/ajax'], function(Ajax) {
             return;
         }
         var b = el('button', {type: 'button', 'class': 'md-palette-trigger', 'aria-keyshortcuts': 'Control+Shift+F',
-            onclick: open}, [el('span', {'aria-hidden': 'true', text: '⌕'}), el('span', {'class': 'd-none d-md-inline',
+            onclick: open}, [iconSpan(), el('span', {'class': 'd-none d-md-inline',
             text: s.search || 'Search'}), el('kbd', {'class': 'd-none d-lg-inline', text: 'Ctrl Shift F'})]);
         host.insertBefore(b, host.firstChild);
     }

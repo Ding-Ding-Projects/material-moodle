@@ -1,0 +1,68 @@
+# Material Moodle handoff
+
+Last updated 2026-11-20. Facts only; anything not listed as verified is unverified.
+
+## Current state
+
+- Base: Moodle 6 (upstream commit `2d4bafe85`). Commit `c8a646269` on `main` adds the three plugins, the Docker
+  stack and `.dockerignore`. Still uncommitted: `AGENTS.md`, `material/docs`, `material/ROADMAP.md`,
+  `material/HANDOFF.md`, `material/COMPLETENESS.md`, the two new scripts in `material/scripts`, the deployer,
+  the site, `material/release` and both `.github/workflows/material-*.yml` files.
+- Working plugins (by code review, not by a running site): Material theme, command palette with regex blocks, copy
+  buttons, celebrations, sign-in page, passkey sign-in and manager, first sign-in passkey step, Add a student,
+  custom vocabulary pack, site wording, first-run configuration CLI, Docker stack.
+- Written but not active: `T/amd/src/searchbars.js` (regex builder on page search boxes) and
+  `T/amd/src/contextmenu.js` (right-click menu). Neither is loaded by `main.js` nor has an `amd/build` file; the
+  context menu's strings are missing.
+- Being built by other contributors at the time of writing: per-assignment type labels (`L/classes/labels.php`,
+  `L/db/install.xml`, data layer only), the desktop deployer (`material/deployer/src`), the project site
+  (`material/site`) and the release pipeline (`material/release`, `material-release.yml`).
+- Completeness against the maintainer's feature catalogue: 5 Done, 28 Partial, 73 Missing, 15 Not applicable out
+  of 121 (`COMPLETENESS.md`).
+
+`T`, `P` and `L` stand for `public/theme/material`, `public/auth/passkey` and `public/local/materialtools`.
+
+## Build
+
+```sh
+material/scripts/build-amd.sh            # rebuild amd/build from amd/src for the three plugins
+```
+
+## Run
+
+```sh
+cd material/docker && cp .env.example .env   # set MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD
+docker compose up -d --build
+docker compose logs -f moodle                # wait for MATERIAL_MOODLE_INSTALLED, then open http://localhost:8080
+```
+
+## Test and check
+
+```sh
+node material/scripts/verify-public-vocabulary.mjs   # public vocabulary scan
+node material/scripts/line-counts.mjs                # line counts for release notes
+```
+
+There are no PHPUnit, Behat or JavaScript tests for the Material plugins yet. The `Material image` workflow
+smoke-tests the container (install, HTTP 200 on the sign-in page, Material layout present) but has not run yet.
+
+## Verification evidence from this session
+
+- `verify-public-vocabulary.mjs`: red on a test dictionary (findings reported, exit 1); against the real dictionary
+  it reports 2 findings, both in `material/site/assets/css/site.css` (two lines using one CSS class name), which is
+  outside the files this session wrote. Everything this session wrote passes.
+- `line-counts.mjs`: runs and prints the table.
+- Not run: the Docker stack, any browser check, any workflow.
+
+## Open items
+
+1. Fix the two scan findings in `material/site/assets/css/site.css` (rename the class) before any commit.
+2. Activate and build `searchbars.js` and `contextmenu.js`, or remove the page-filter promise from the
+   `regexbuilder_desc` string until they ship.
+3. Per-assignment labels need UI, a `db/upgrade.php` step with a version bump (installed sites will not get the
+   new tables otherwise) and privacy provider coverage for personal titles.
+4. Add licence files for the bundled Inter, Atkinson Hyperlegible Next and Roboto Mono fonts.
+5. Deployer: Windows target is NSIS/portable while the catalogue requires Squirrel.Windows; `build/icon.png` is
+   missing.
+6. Root `README.md` is still upstream Moodle's.
+7. Everything else: see `ROADMAP.md`.

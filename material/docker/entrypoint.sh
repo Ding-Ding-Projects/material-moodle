@@ -55,6 +55,8 @@ if ! installed; then
 else
   as_www "php admin/cli/upgrade.php --non-interactive --allow-unstable" || true
   as_www "php public/local/materialtools/cli/configure.php"
+  # A new image can carry new theme files with the same version number; start from fresh caches.
+  as_www "php admin/cli/purge_caches.php" || true
 fi
 
 exec apache2-foreground
