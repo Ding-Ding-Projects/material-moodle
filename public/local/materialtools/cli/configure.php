@@ -53,6 +53,7 @@ if (getenv('MATERIAL_ENABLE_PASSKEYS') !== '0') {
     }
 }
 set_config('vocabaudience', 'selected', 'local_materialtools');
+set_config('onboardingpending', 1, 'local_materialtools');
 theme_reset_all_caches();
 purge_all_caches();
 cli_writeln('Material defaults applied.');

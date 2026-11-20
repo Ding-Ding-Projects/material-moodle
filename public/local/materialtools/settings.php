@@ -28,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 if ($hassiteconfig || has_capability('local/materialtools:createstudents', context_system::instance())) {
     $c = 'local_materialtools';
     $ADMIN->add('users', new admin_category('local_materialtools', get_string('pluginname', $c)));
+    $ADMIN->add('local_materialtools', new admin_externalpage('local_materialtools_onboarding',
+        get_string('onboarding', $c), new moodle_url('/local/materialtools/onboarding.php'), 'moodle/site:config'));
     $ADMIN->add('local_materialtools', new admin_externalpage('local_materialtools_newstudent',
         get_string('newstudent', $c), new moodle_url('/local/materialtools/newstudent.php'),
         'local/materialtools:createstudents'));

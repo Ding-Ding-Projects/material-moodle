@@ -69,3 +69,26 @@ function local_materialtools_pre_course_module_delete($cm) {
     global $DB;
     $DB->delete_records(\local_materialtools\labels::CM, ['cmid' => $cm->id]);
 }
+
+/**
+ * Send a site administrator to the setup wizard once, right after installation.
+ *
+ * @param stdClass|int|null $courseorid
+ * @param bool $autologinguest
+ * @param stdClass|null $cm
+ * @param bool $setwantsurltome
+ * @param bool $preventredirect
+ */
+function local_materialtools_after_require_login($courseorid = null, $autologinguest = true, $cm = null,
+        $setwantsurltome = true, $preventredirect = false) {
+    global $SCRIPT;
+    if ($preventredirect || AJAX_SCRIPT || CLI_SCRIPT || !is_siteadmin() || \core\session\manager::is_loggedinas()) {
+        return;
+    }
+    if (!get_config('local_materialtools', 'onboardingpending') || strpos((string) $SCRIPT, '/local/materialtools/') !== false
+            || strpos((string) $SCRIPT, '/admin/') !== false) {
+        return;
+    }
+    unset_config('onboardingpending', 'local_materialtools');
+    redirect(new moodle_url('/local/materialtools/onboarding.php'));
+}
