@@ -11,8 +11,8 @@ everything this fork adds lives in a small, separate overlay so upstream merges 
 | `public/auth/passkey` | `auth_passkey`, passkey (WebAuthn) sign-in, the per-user passkey manager and the optional "add a passkey" step after a new account's first sign-in. |
 | `public/local/materialtools` | `local_materialtools`: Add a student (with a credentials message for Discord), the custom vocabulary pack, site wording (role and assignment names), per-activity type labels and the first-run configuration CLI. |
 | `material/docker` | Dockerfile, Compose stack (PostgreSQL, Moodle, cron, optional Cloudflare quick or named tunnel) and the container entrypoint. |
-| `material/deployer` | Desktop deployer (Electron) that deploys the stack to an SSH server and sets up a Cloudflare tunnel. Work in progress. |
-| `material/site` | Source of the public project site. Work in progress. |
+| `material/deployer` | Desktop deployer (Electron) that deploys the stack to an SSH server and sets up a Cloudflare tunnel (quick link, guided sign-in for your own domain, or a token). `npm test` runs its tests. |
+| `material/site` | Source of the public project site (GitHub Pages). Rebuild with `node material/site/scripts/build.mjs`. |
 | `material/design` | Design references for the site and the theme. Not created yet. |
 | `material/docs` | One Markdown article per feature; start at `material/docs/README.md`. |
 | `material/scripts` | Build and verification scripts (see below). |

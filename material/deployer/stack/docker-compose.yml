@@ -1,0 +1,67 @@
+# Material Moodle stack.
+#   docker compose up -d                          Moodle on http://localhost:8080
+#   docker compose --profile quicktunnel up -d    plus a free Cloudflare quick tunnel (random https address)
+#   docker compose --profile tunnel up -d         plus a named Cloudflare tunnel (CLOUDFLARE_TUNNEL_TOKEN)
+name: material-moodle
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${MOODLE_DB_NAME:-moodle}
+      POSTGRES_USER: ${MOODLE_DB_USER:-moodle}
+      POSTGRES_PASSWORD: ${MOODLE_DB_PASSWORD:?Set MOODLE_DB_PASSWORD in .env}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  moodle:
+    image: ${MOODLE_IMAGE:-ghcr.io/ding-ding-projects/material-moodle:latest}
+    build:
+      context: ../..
+      dockerfile: material/docker/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    ports:
+      - "${MOODLE_PORT:-8080}:80"
+    volumes:
+      - moodledata:/var/www/moodledata
+
+  cron:
+    image: ${MOODLE_IMAGE:-ghcr.io/ding-ding-projects/material-moodle:latest}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    command: ["cron"]
+    volumes:
+      - moodledata:/var/www/moodledata
+
+  quicktunnel:
+    image: cloudflare/cloudflared:latest
+    profiles: ["quicktunnel"]
+    restart: unless-stopped
+    command: ["tunnel", "--no-autoupdate", "--url", "http://moodle:80"]
+    depends_on: [moodle]
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    profiles: ["tunnel"]
+    restart: unless-stopped
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
+    depends_on: [moodle]
+
+volumes:
+  db:
+  moodledata:

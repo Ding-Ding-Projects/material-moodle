@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material Moodle Deployer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#page-host">Skip to content</a>
+<div class="app">
+  <header id="titlebar" class="titlebar"></header>
+  <div class="app-body">
+    <nav id="rail" class="rail" aria-label="Main"></nav>
+    <main id="page-host" class="page-host" tabindex="-1"></main>
+  </div>
+</div>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<aside id="notif-panel" class="notif-panel" role="dialog" aria-labelledby="notif-title" hidden></aside>
+<div id="palette" class="palette" hidden></div>
+<div id="ctxmenu" class="ctxmenu" role="menu" hidden></div>
+<div id="onboarding" class="onboarding" hidden></div>
+<div id="celebrate" class="celebrate" hidden></div>
+<div id="poke" class="poke" hidden></div>
+<script src="locales/en.js"></script>
+<script src="locales/yue.js"></script>
+<script src="regex.js"></script>
+<script src="theme.js"></script>
+<script src="js/core.js"></script>
+<script src="js/search.js"></script>
+<script src="js/pages.js"></script>
+<script src="js/overlays.js"></script>
+<script src="js/boot.js"></script>
+</body>
+</html>

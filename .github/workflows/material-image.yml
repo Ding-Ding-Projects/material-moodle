@@ -1,0 +1,170 @@
+# Builds the Material Moodle container image, smoke tests it with the Docker Compose stack and, only if the
+# smoke test passes, pushes it to ghcr.io/ding-ding-projects/material-moodle.
+name: Material image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'lib/**'
+      - 'material/docker/**'
+      - 'composer.*'
+      - '.github/workflows/material-image.yml'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag to build and add as an image tag (for example material-v1.0.0-42). Leave empty for latest and sha only.'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: material-image-${{ github.ref }}-${{ inputs.release_tag || 'main' }}
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/ding-ding-projects/material-moodle
+  LOCAL_TAG: material-moodle:smoke-test
+
+jobs:
+  smoke-test:
+    name: Build and smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image locally
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: material/docker/Dockerfile
+          load: true
+          push: false
+          tags: ${{ env.LOCAL_TAG }}
+          cache-from: type=gha,scope=material-image
+          cache-to: type=gha,mode=max,scope=material-image
+
+      - name: Write smoke test .env
+        working-directory: material/docker
+        run: |
+          db_password="$(openssl rand -hex 16)"
+          admin_password="Smoke-$(openssl rand -hex 8)-1!"
+          grep -Ev '^(MOODLE_IMAGE|MOODLE_DB_PASSWORD|MOODLE_ADMIN_PASSWORD|MOODLE_WWWROOT|MOODLE_PORT)=' .env.example > .env
+          {
+            echo "MOODLE_IMAGE=${LOCAL_TAG}"
+            echo "MOODLE_DB_PASSWORD=${db_password}"
+            echo "MOODLE_ADMIN_PASSWORD=${admin_password}"
+            echo "MOODLE_WWWROOT=http://localhost:8080"
+            echo "MOODLE_PORT=8080"
+          } >> .env
+          echo "::add-mask::${db_password}"
+          echo "::add-mask::${admin_password}"
+
+      - name: Start the stack
+        run: docker compose -f material/docker/docker-compose.yml up -d --no-build db moodle
+
+      - name: Wait for the Moodle install to finish
+        timeout-minutes: 30
+        run: |
+          compose="docker compose -f material/docker/docker-compose.yml"
+          for attempt in $(seq 1 180); do
+            if $compose logs moodle 2>&1 | grep -q 'MATERIAL_MOODLE_INSTALLED'; then
+              echo "Install finished after about $((attempt * 10)) seconds."
+              exit 0
+            fi
+            if [ "$($compose ps -a --format '{{.State}}' moodle)" = "exited" ]; then
+              echo "::error::The moodle container exited before the install finished."
+              exit 1
+            fi
+            sleep 10
+          done
+          echo "::error::MATERIAL_MOODLE_INSTALLED did not appear in the logs within 30 minutes."
+          exit 1
+
+      - name: Check the login page
+        run: |
+          status=000
+          for attempt in $(seq 1 30); do
+            status="$(curl -s -o login.html -w '%{http_code}' http://localhost:8080/login/index.php || true)"
+            [ "$status" = "200" ] && break
+            sleep 5
+          done
+          if [ "$status" != "200" ]; then
+            echo "::error::GET /login/index.php returned HTTP ${status}, expected 200."
+            exit 1
+          fi
+          if grep -Eq 'material-login|theme/styles\.php/material/|theme_material' login.html; then
+            echo "The login page uses the Material theme."
+          else
+            echo "::error::The login page does not contain material-login or the theme_material styles."
+            head -c 4000 login.html
+            exit 1
+          fi
+
+      - name: Show stack logs
+        if: failure()
+        run: docker compose -f material/docker/docker-compose.yml logs --no-color --tail 400
+
+      - name: Tear down
+        if: always()
+        run: |
+          docker compose -f material/docker/docker-compose.yml down -v --remove-orphans || true
+          rm -f material/docker/.env login.html
+
+  push:
+    name: Push image
+    needs: smoke-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Sign in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image tags and labels
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=sha,format=long
+            type=raw,value=${{ inputs.release_tag }},enable=${{ inputs.release_tag != '' }}
+          labels: |
+            org.opencontainers.image.title=Material Moodle
+            org.opencontainers.image.description=Moodle with the Material theme, passkey sign-in and the Material tools.
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: material/docker/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=material-image
+          cache-to: type=gha,mode=max,scope=material-image

@@ -1,0 +1,75 @@
+{
+  "name": "material-moodle-deployer",
+  "productName": "Material Moodle Deployer",
+  "version": "1.0.0",
+  "description": "One-click deployment of Material Moodle to any SSH server, with Cloudflare tunnel setup.",
+  "main": "src/main.js",
+  "license": "GPL-3.0-or-later",
+  "author": "Ding Ding Projects",
+  "homepage": "https://github.com/Ding-Ding-Projects/material-moodle",
+  "scripts": {
+    "start": "npm run sync-stack && electron .",
+    "sync-stack": "node scripts/sync-stack.js",
+    "make-icon": "node scripts/make-icon.js",
+    "test": "node --test \"test/*.test.js\"",
+    "screenshots": "node scripts/screenshots.js",
+    "predist": "npm run sync-stack && npm run make-icon",
+    "dist": "electron-builder --publish never"
+  },
+  "dependencies": {
+    "ssh2": "^1.16.0"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "dev.dingding.materialmoodle.deployer",
+    "productName": "Material Moodle Deployer",
+    "files": [
+      "src/**",
+      "renderer/**",
+      "stack/**",
+      "package.json",
+      "!**/*.map"
+    ],
+    "extraResources": [],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "build/icon.png",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png",
+      "category": "Development",
+      "maintainer": "Ding Ding Projects"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    },
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ding-Ding-Projects/material-moodle.git",
+    "directory": "material/deployer"
+  }
+}

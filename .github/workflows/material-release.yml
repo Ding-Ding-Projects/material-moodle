@@ -1,0 +1,292 @@
+# Checks the Material plugins and deployer, builds the deployer installers on Windows, macOS and Linux, packages
+# the Docker stack and the plugins, and publishes everything as a GitHub release with a unique tag and a dim sum
+# code name. Installers are built without code signing.
+name: Material release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: material-release
+  cancel-in-progress: false
+
+env:
+  PLUGIN_DIRS: public/theme/material public/auth/passkey public/local/materialtools
+
+jobs:
+  start:
+    name: Start
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      started_at: ${{ steps.clock.outputs.started_at }}
+      version: ${{ steps.meta.outputs.version }}
+      tag: ${{ steps.meta.outputs.tag }}
+      codename: ${{ steps.meta.outputs.codename }}
+    steps:
+      - name: Record start time (UTC)
+        id: clock
+        run: echo "started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Version, tag and code name
+        id: meta
+        run: >-
+          node material/release/meta.mjs
+          --run-number "${{ github.run_number }}"
+          --run-attempt "${{ github.run_attempt }}"
+          --github-output "$GITHUB_OUTPUT"
+
+  checks:
+    name: Checks
+    needs: start
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: material/deployer/package-lock.json
+
+      - name: PHP syntax (php -l)
+        run: |
+          failed=0
+          while IFS= read -r -d '' file; do
+            php -l "$file" > /dev/null || { echo "::error file=$file::PHP syntax error"; failed=1; }
+          done < <(find $PLUGIN_DIRS -name '*.php' -not -path '*/node_modules/*' -print0)
+          exit $failed
+
+      - name: JavaScript syntax (node --check on amd/src)
+        run: |
+          failed=0
+          while IFS= read -r -d '' file; do
+            node --check "$file" || { echo "::error file=$file::JavaScript syntax error"; failed=1; }
+          done < <(find $PLUGIN_DIRS -path '*/amd/src/*' -name '*.js' -print0)
+          exit $failed
+
+      - name: AMD build is up to date
+        run: |
+          bash material/scripts/build-amd.sh
+          builds=$(for dir in $PLUGIN_DIRS; do [ -d "$dir/amd/build" ] && echo "$dir/amd/build"; done)
+          if [ -n "$(git status --porcelain -- $builds)" ]; then
+            echo "::error::amd/build is stale. Run material/scripts/build-amd.sh and commit the result."
+            git status --short -- $builds
+            git diff -- $builds
+            exit 1
+          fi
+
+      - name: Public vocabulary
+        run: node material/scripts/verify-public-vocabulary.mjs
+
+      - name: Deployer tests
+        working-directory: material/deployer
+        run: |
+          npm ci
+          npm test
+
+  deployer:
+    name: Deployer (${{ matrix.os }})
+    needs: checks
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            extra_args: ''
+          - os: macos-latest
+            extra_args: '--config.mac.identity=null'
+          - os: ubuntu-latest
+            extra_args: ''
+    env:
+      # No code signing on any platform: disable certificate discovery and clear every signing input.
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      CSC_LINK: ''
+      CSC_KEY_PASSWORD: ''
+      WIN_CSC_LINK: ''
+      WIN_CSC_KEY_PASSWORD: ''
+      APPLE_ID: ''
+      APPLE_APP_SPECIFIC_PASSWORD: ''
+      APPLE_TEAM_ID: ''
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: material/deployer/package-lock.json
+
+      - name: Build installers (unsigned)
+        working-directory: material/deployer
+        shell: bash
+        run: |
+          npm ci
+          npm run dist -- ${{ matrix.extra_args }}
+
+      - name: Upload installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployer-${{ runner.os }}
+          if-no-files-found: error
+          path: |
+            material/deployer/dist/*.exe
+            material/deployer/dist/*.dmg
+            material/deployer/dist/*.zip
+            material/deployer/dist/*.AppImage
+            material/deployer/dist/*.deb
+
+  bundle:
+    name: Stack bundle and plugin zips
+    needs: [start, checks]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Docker stack bundle
+        env:
+          VERSION: ${{ needs.start.outputs.version }}
+        run: |
+          out="$RUNNER_TEMP/assets"
+          stage="$RUNNER_TEMP/stack/material-moodle-stack"
+          mkdir -p "$out" "$stage"
+          cp material/docker/docker-compose.yml material/docker/.env.example "$stage/"
+          if [ -f material/docker/README.md ]; then
+            cp material/docker/README.md "$stage/README.md"
+          else
+            {
+              echo "# Material Moodle stack"
+              echo
+              echo "1. Copy .env.example to .env and set MOODLE_ADMIN_PASSWORD, MOODLE_DB_PASSWORD and MOODLE_WWWROOT."
+              echo "2. Run: docker compose up -d"
+              echo "3. Wait for MATERIAL_MOODLE_INSTALLED in: docker compose logs -f moodle"
+              echo "4. Open MOODLE_WWWROOT (default http://localhost:8080)."
+              echo
+              echo "The stack uses the image ghcr.io/ding-ding-projects/material-moodle:latest unless MOODLE_IMAGE is set."
+            } > "$stage/README.md"
+          fi
+          (cd "$RUNNER_TEMP/stack" && zip -r -X "$out/material-moodle-stack-${VERSION}.zip" material-moodle-stack)
+
+      - name: Plugin zips
+        run: |
+          out="$RUNNER_TEMP/assets"
+          package() {
+            local parent="$1" folder="$2" zipname="$3"
+            (cd "$parent" && zip -r -X "$out/$zipname" "$folder" -x "$folder/node_modules/*" "*/.DS_Store")
+          }
+          package public/theme material theme_material.zip
+          package public/auth passkey auth_passkey.zip
+          package public/local materialtools local_materialtools.zip
+          for z in "$out"/*.zip; do
+            echo "$(basename "$z"): top-level folder $(unzip -Z1 "$z" | head -1)"
+          done
+
+      - name: Upload bundle and plugins
+        uses: actions/upload-artifact@v4
+        with:
+          name: stack-and-plugins
+          if-no-files-found: error
+          path: ${{ runner.temp }}/assets/*.zip
+
+  release:
+    name: Publish release
+    needs: [start, deployer, bundle]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Line counts
+        run: |
+          if [ -f material/scripts/line-counts.mjs ]; then
+            node material/scripts/line-counts.mjs > line-counts.md || {
+              echo "::warning::line-counts.mjs failed; the notes will say line counts are unavailable."
+              : > line-counts.md
+            }
+          else
+            echo "::warning::material/scripts/line-counts.mjs is missing; the notes will say line counts are unavailable."
+            : > line-counts.md
+          fi
+
+      - name: Release notes
+        env:
+          VERSION: ${{ needs.start.outputs.version }}
+          TAG: ${{ needs.start.outputs.tag }}
+          CODENAME: ${{ needs.start.outputs.codename }}
+          STARTED_AT: ${{ needs.start.outputs.started_at }}
+        run: |
+          completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          node material/release/notes.mjs \
+            --version "$VERSION" \
+            --tag "$TAG" \
+            --codename "$CODENAME" \
+            --started-at "$STARTED_AT" \
+            --completed-at "$completed_at" \
+            --assets-dir release-assets \
+            --line-counts line-counts.md \
+            --repository "$GITHUB_REPOSITORY" \
+            --sha "$GITHUB_SHA" \
+            --run-url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+            --output release-notes.md
+          cat release-notes.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.start.outputs.version }}
+          TAG: ${{ needs.start.outputs.tag }}
+          CODENAME: ${{ needs.start.outputs.codename }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "::error::A release named $TAG already exists."
+            exit 1
+          fi
+          mapfile -d '' files < <(find release-assets -type f -print0 | sort -z)
+          echo "Attaching ${#files[@]} files:"
+          printf '  %s\n' "${files[@]}"
+          gh release create "$TAG" "${files[@]}" \
+            --target "$GITHUB_SHA" \
+            --title "Material Moodle $VERSION \"$CODENAME\"" \
+            --notes-file release-notes.md
