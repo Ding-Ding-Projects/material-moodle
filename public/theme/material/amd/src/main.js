@@ -73,6 +73,7 @@ define(['theme_material/celebrate', 'theme_material/palette', 'theme_material/co
             }
             started = true;
             config = config || {};
+            config.strings = (window.M && M.str && M.str.theme_material) ? M.str.theme_material : {};
             var calm = reduced(config);
             if (config.pagetransitions && !calm) {
                 document.documentElement.classList.add('md-transitions');

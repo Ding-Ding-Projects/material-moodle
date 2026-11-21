@@ -78,10 +78,8 @@ class hook_listener {
             'blockletter', 'blockwordedge', 'blockspace', 'blockoneormore', 'blockoptional', 'blockeither',
             'blockgroupopen', 'blockgroupclose', 'ctxmenu', 'ctxcopy', 'ctxsearchfor', 'ctxopen', 'ctxopentab', 'ctxcopylink',
             'ctxopenimage', 'ctxcopyimage', 'ctxcopycode', 'ctxback', 'ctxreload', 'ctxcopypage', 'ctxprint', 'ctxtop'];
-        $config['strings'] = [];
-        foreach ($keys as $key) {
-            $config['strings'][$key] = get_string($key, 'theme_material');
-        }
+        // Strings travel through M.str so the init call stays small.
+        $PAGE->requires->strings_for_js($keys, 'theme_material');
         $PAGE->requires->js_call_amd('theme_material/main', 'init', [$config]);
     }
 }
