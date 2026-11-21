@@ -91,11 +91,11 @@ deb $MIRROR $SUITE-updates main contrib non-free-firmware
 deb http://security.debian.org/debian-security $SUITE-security main contrib non-free-firmware
 EOF
 echo material-moodle >"$ROOT/etc/hostname"
-printf '127.0.0.1 localhost\n127.0.1.1 material-moodle material-moodle.local\n' >"$ROOT/etc/hosts"
+# The host name resolves through libnss-myhostname so the console shows the real network address.
+printf '127.0.0.1 localhost\n::1 localhost\n' >"$ROOT/etc/hosts"
 cat >"$ROOT/etc/fstab" <<EOF
 LABEL=mm-root / ext4 defaults,noatime,errors=remount-ro 0 1
 LABEL=MMBOOT /$BOOT_DIR vfat defaults,umask=0077 0 2
-/swapfile none swap sw,nofail 0 0
 EOF
 
 echo "==> Overlay and stack"
@@ -114,7 +114,7 @@ chroot "$ROOT" /bin/bash -euo pipefail <<EOF
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y --no-install-recommends $KERNEL initramfs-tools \
-  openssh-server sudo avahi-daemon libnss-mdns nftables unattended-upgrades apt-listchanges \
+  openssh-server sudo avahi-daemon libnss-mdns libnss-myhostname nftables unattended-upgrades apt-listchanges \
   whiptail figlet cloud-guest-utils e2fsprogs dosfstools zstd xz-utils iproute2 iputils-ping \
   systemd-resolved systemd-timesyncd less nano procps kmod
 install -d -m 0755 /etc/apt/keyrings

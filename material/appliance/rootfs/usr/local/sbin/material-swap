@@ -1,10 +1,12 @@
 #!/bin/bash
-# Creates a swap file sized for the machine's memory.
+# Creates a swap file sized for the machine's memory on first boot and turns it on at every boot.
 set -eu
-mem_mb=$(awk '/MemTotal/ {print int($2 / 1024)}' /proc/meminfo)
-size=1024
-[ "$mem_mb" -gt 3000 ] && size=512
-fallocate -l "${size}M" /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
+if [ ! -f /swapfile ]; then
+  mem_mb=$(awk '/MemTotal/ {print int($2 / 1024)}' /proc/meminfo)
+  size=1024
+  [ "$mem_mb" -gt 3000 ] && size=512
+  fallocate -l "${size}M" /swapfile
+  chmod 600 /swapfile
+  mkswap /swapfile
+fi
+swapon --show=NAME --noheadings | grep -qx /swapfile || swapon /swapfile

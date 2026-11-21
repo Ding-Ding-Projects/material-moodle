@@ -1,6 +1,5 @@
 [Unit]
-Description=Create a swap file on first boot
-ConditionPathExists=!/swapfile
+Description=Create and enable the swap file
 After=material-grow-root.service
 
 [Service]
