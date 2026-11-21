@@ -1,0 +1,68 @@
+name: Material tests
+
+# PHPUnit for the Material plugins only: the theme, passkeys, tools, meetups and group chats.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/theme/material/**'
+      - 'public/auth/passkey/**'
+      - 'public/local/materialtools/**'
+      - 'public/local/meetups/**'
+      - 'public/local/groupchats/**'
+      - '.github/workflows/material-tests.yml'
+  pull_request:
+    paths:
+      - 'public/theme/material/**'
+      - 'public/auth/passkey/**'
+      - 'public/local/**'
+  workflow_dispatch:
+
+concurrency:
+  group: material-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          ini-values: max_input_vars=5000
+          coverage: none
+      - uses: actions/checkout@v6
+      - uses: ramsey/composer-install@v4
+      - name: Set up PHPUnit
+        env:
+          dbtype: pgsql
+        run: |
+          echo "pathtophp=$(which php)" >> "$GITHUB_ENV"
+          cp .github/workflows/config-template.php config.php
+          mkdir ../moodledata
+          sudo locale-gen en_AU.UTF-8
+          php public/admin/tool/phpunit/cli/init.php --no-composer-self-update
+      - name: Run the Material plugin tests
+        env:
+          dbtype: pgsql
+        run: |
+          set -o pipefail
+          status=0
+          for suite in theme_material auth_passkey local_materialtools local_meetups local_groupchats; do
+            echo "::group::$suite"
+            vendor/bin/phpunit --testsuite "${suite}_testsuite" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
