@@ -89,7 +89,7 @@ starts the stack, waits until Moodle is ready and prints the link. Run it again 
 <details>
 <summary><strong>Use the ready-made server image</strong></summary>
 
-Each release has a server image: an `.ova` for VirtualBox and VMware, `.qcow2` and `.vmdk` disks, a PC image for a USB
+Each release has a server image: an `.ova` for VirtualBox and VMware, a `.qcow2` disk, a PC image for a USB
 stick, and a Raspberry Pi 4/5 image. Start it and answer the menu on its screen; it shows the link and the
 administrator password when it is done. Details: [Server image](material/docs/appliance.md).
 

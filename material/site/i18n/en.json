@@ -437,5 +437,5 @@
   "demo.retryFail": "Step 4 failed again: the tunnel certificate is still missing. Run the guided login first.",
   "demo.quickOk": "Quick tunnel started: https://bright-otter-lake.trycloudflare.com",
   "dl.appliance": "Server image",
-  "dl.applianceB": "Ready-made Debian server with everything inside: .ova for VirtualBox and VMware, .qcow2, .vmdk, a PC image for USB, and a Raspberry Pi 4/5 image. Start it and answer the menu on its screen."
+  "dl.applianceB": "Ready-made Debian server with everything inside: .ova for VirtualBox and VMware, .qcow2, a PC image for USB, and a Raspberry Pi 4/5 image. Start it and answer the menu on its screen."
 }

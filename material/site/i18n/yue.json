@@ -438,5 +438,5 @@
   "docs.install": "安裝",
   "docs.installB": "喺 Linux 伺服器（有冇 Docker 都得），一句指令裝晒兼印出你條連結。選項睇「部署」。",
   "dl.appliance": "伺服器映像",
-  "dl.applianceB": "預先整好嘅 Debian 伺服器，乜都喺入面：VirtualBox 同 VMware 用嘅 .ova、.qcow2、.vmdk、寫落 USB 嘅 PC 映像，仲有 Raspberry Pi 4/5 映像。開機之後跟住畫面嘅選單答幾條問題就得。"
+  "dl.applianceB": "預先整好嘅 Debian 伺服器，乜都喺入面：VirtualBox 同 VMware 用嘅 .ova、.qcow2、寫落 USB 嘅 PC 映像，仲有 Raspberry Pi 4/5 映像。開機之後跟住畫面嘅選單答幾條問題就得。"
 }

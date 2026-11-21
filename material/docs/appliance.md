@@ -9,9 +9,8 @@ Each release has these files once the image build finishes:
 
 | File | Use it for |
 | --- | --- |
-| `material-moodle-appliance-x86_64.ova` | VirtualBox and VMware: File, Import Appliance. |
+| `material-moodle-appliance-x86_64.ova` | VirtualBox and VMware: File, Import Appliance. The `.vmdk` disk is inside it. |
 | `material-moodle-appliance-x86_64.qcow2` | QEMU, Proxmox and other KVM hosts. |
-| `material-moodle-appliance-x86_64.vmdk` | VMware disks you attach yourself. |
 | `material-moodle-appliance-x86_64.img.xz` | A spare PC: write it to a USB stick or disk. |
 | `material-moodle-appliance-arm64.img.xz` | Raspberry Pi 4 and 5 (64-bit), written to a microSD card or USB drive. |
 | `SHA256SUMS-appliance` | Checksums for every file above. |
