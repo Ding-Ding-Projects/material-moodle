@@ -69,3 +69,22 @@ function auth_passkey_extend_navigation_user_settings(navigation_node $navigatio
     $navigation->add(get_string('managepasskeys', 'auth_passkey'), new moodle_url('/auth/passkey/manage.php'),
         navigation_node::TYPE_SETTING, null, 'auth_passkey_manage', new pix_icon('i/passkey', '', 'auth_passkey'));
 }
+
+/**
+ * Link administrators to another person's passkeys from that person's profile.
+ *
+ * @param \core_user\output\myprofile\tree $tree
+ * @param stdClass $user
+ * @param bool $iscurrentuser
+ * @param stdClass|null $course
+ */
+function auth_passkey_myprofile_navigation(\core_user\output\myprofile\tree $tree, $user, $iscurrentuser, $course) {
+    if ($iscurrentuser || isguestuser($user) || !has_capability('moodle/user:update', context_system::instance())) {
+        return;
+    }
+    $count = count(\auth_passkey\manager::list_for_user($user->id));
+    $node = new \core_user\output\myprofile\node('administration', 'auth_passkey_admin',
+        get_string('passkeysofuser', 'auth_passkey', $count),
+        null, new moodle_url('/auth/passkey/manage.php', ['userid' => $user->id]));
+    $tree->add_node($node);
+}

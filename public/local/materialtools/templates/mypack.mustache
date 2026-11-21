@@ -1,0 +1,60 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_materialtools/mypack
+
+    Your own wording pack.
+
+    Example context (json):
+    {"present": true, "count": 12, "updated": "21 November 2026", "sitepack": true, "actionurl": "#", "sesskey": "x"}
+}}
+<div class="local-materialtools-mypack d-flex flex-column gap-4" style="max-width: 52rem;">
+    <p class="lead mb-0">{{#str}}personalvocab_desc, local_materialtools{{/str}}</p>
+    {{#sitepack}}<div class="alert alert-info mb-0">{{#str}}personalvocabsite, local_materialtools{{/str}}</div>{{/sitepack}}
+    <div class="card">
+        <div class="card-body d-flex flex-wrap align-items-center gap-3">
+            {{#present}}
+                <div class="flex-grow-1">
+                    <h2 class="h5 mb-1">{{#str}}personalvocabactive, local_materialtools, {{count}}{{/str}}</h2>
+                    <p class="text-muted small mb-0">{{#str}}personalvocabupdated, local_materialtools, {{updated}}{{/str}}</p>
+                </div>
+                <form method="post" action="{{actionurl}}">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}">
+                    <input type="hidden" name="action" value="clear">
+                    <button type="submit" class="btn btn-outline-danger">{{#str}}personalvocabclear, local_materialtools{{/str}}</button>
+                </form>
+            {{/present}}
+            {{^present}}
+                <div class="flex-grow-1">
+                    <h2 class="h5 mb-1">{{#str}}personalvocabnone, local_materialtools{{/str}}</h2>
+                    <p class="text-muted small mb-0">{{#str}}personalvocabdrop, local_materialtools{{/str}}</p>
+                </div>
+            {{/present}}
+        </div>
+    </div>
+    <form method="post" action="{{actionurl}}" enctype="multipart/form-data" class="card" data-region="vocab-drop">
+        <div class="card-body d-flex flex-column gap-3">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="upload">
+            <label class="form-label mb-0" for="mypack-file">{{#str}}vocabfile, local_materialtools{{/str}}</label>
+            <input type="file" class="form-control" id="mypack-file" name="vocabfile" accept=".json,application/json">
+            <label class="form-label mb-0" for="mypack-text">{{#str}}vocabtext, local_materialtools{{/str}}</label>
+            <textarea class="form-control font-monospace" id="mypack-text" name="vocabtext" rows="8" spellcheck="false"></textarea>
+            <div><button type="submit" class="btn btn-primary">{{#str}}personalvocabsave, local_materialtools{{/str}}</button></div>
+        </div>
+    </form>
+</div>

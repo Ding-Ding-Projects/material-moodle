@@ -1,0 +1,78 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Settings provenance: every administration setting says whether it uses the shipped default or a saved value.
+ *
+ * @module     theme_material/provenance
+ * @copyright  2026 Ding Ding Projects
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+define([], function() {
+    var valueOf = function(row) {
+        var field = row.querySelector('.form-setting input:not([type="hidden"]), .form-setting select, .form-setting textarea');
+        if (!field) {
+            return null;
+        }
+        if (field.type === 'checkbox') {
+            return field.checked ? '1' : '0';
+        }
+        return String(field.value || '');
+    };
+
+    var defaultOf = function(row) {
+        var d = row.querySelector('.form-defaultinfo');
+        if (!d) {
+            return null;
+        }
+        var text = (d.textContent || '').replace(/^\s*[^:]+:\s*/, '').trim();
+        return text;
+    };
+
+    return {
+        /**
+         * Mark each setting row on administration pages.
+         *
+         * @param {Object} s Theme strings.
+         */
+        init: function(s) {
+            if (!document.body.id || document.body.id.indexOf('page-admin') !== 0) {
+                return;
+            }
+            document.querySelectorAll('.form-item[id^="admin-"]').forEach(function(row) {
+                var value = valueOf(row);
+                var def = defaultOf(row);
+                if (value === null || def === null) {
+                    return;
+                }
+                var field = row.querySelector('.form-setting input:not([type="hidden"]), .form-setting select');
+                var shown = value;
+                if (field && field.tagName === 'SELECT' && field.selectedIndex >= 0) {
+                    shown = field.options[field.selectedIndex].text.trim();
+                }
+                if (field && field.type === 'checkbox') {
+                    shown = value === '1' ? (s.yes || 'Yes') : (s.no || 'No');
+                }
+                var same = shown === def || value === def || (def === '' && value === '') ||
+                    (def === (s.empty || 'Empty') && value === '');
+                var chip = document.createElement('span');
+                chip.className = 'md-provenance ' + (same ? 'is-default' : 'is-changed');
+                chip.textContent = same ? (s.provdefault || 'Shipped default') : (s.provchanged || 'Changed from default');
+                var label = row.querySelector('.form-label');
+                (label || row).appendChild(chip);
+            });
+        }
+    };
+});

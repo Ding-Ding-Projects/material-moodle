@@ -85,7 +85,7 @@ if ($ADMIN->fulltree) {
 
     // Features.
     $page = new admin_settingpage('theme_material_features', get_string('tabfeatures', $c));
-    foreach (['commandpalette', 'regexbuilder', 'contextmenu', 'copybuttons', 'celebrations'] as $flag) {
+    foreach (['commandpalette', 'regexbuilder', 'contextmenu', 'copybuttons', 'celebrations', 'notifications', 'provenance'] as $flag) {
         $page->add(new admin_setting_configcheckbox("$c/$flag", get_string($flag, $c), get_string($flag . '_desc', $c), 1));
     }
     $page->add(new admin_setting_configselect("$c/celebrationlevel", get_string('celebrationlevel', $c),

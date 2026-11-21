@@ -46,6 +46,8 @@ if ($hassiteconfig || has_capability('local/materialtools:createstudents', conte
     if ($ADMIN->fulltree) {
         $page->add(new admin_setting_configtextarea("$c/discordtemplate", get_string('discordtemplate', $c),
             get_string('discordtemplate_desc', $c), \local_materialtools\student_creator::DEFAULT_TEMPLATE, PARAM_RAW, 60, 12));
+        $page->add(new admin_setting_configcheckbox("$c/allowpersonalvocab", get_string('allowpersonalvocab', $c),
+            get_string('allowpersonalvocab_desc', $c), 1));
         $page->add(new admin_setting_configtextarea("$c/quickposts", get_string('quickposts', $c),
             get_string('quickposts_desc', $c), "Dropbox|assign", PARAM_RAW, 40, 5));
         $page->add(new admin_setting_configselect("$c/passwordstyle", get_string('passwordstyle', $c),

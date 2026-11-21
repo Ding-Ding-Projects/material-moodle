@@ -32,11 +32,14 @@ require_login(null, false, null, false, true);
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex');
-if (!\local_materialtools\vocabulary::eligible()) {
+$site = \local_materialtools\vocabulary::eligible() ? \local_materialtools\vocabulary::entries() : [];
+// A person's own pack wins over the site pack for the same wording.
+$entries = array_merge($site, \local_materialtools\vocabulary::personal_entries((int) $USER->id));
+if (!$entries) {
     header('Cache-Control: no-store');
     echo json_encode(['entries' => new stdClass()]);
     die();
 }
-// The URL carries the pack hash, so a private cache can keep it until the pack changes.
+// The URL carries the pack hashes, so a private cache can keep it until a pack changes.
 header('Cache-Control: private, max-age=86400');
-echo json_encode(['entries' => (object) \local_materialtools\vocabulary::entries()], JSON_UNESCAPED_UNICODE);
+echo json_encode(['entries' => (object) $entries], JSON_UNESCAPED_UNICODE);

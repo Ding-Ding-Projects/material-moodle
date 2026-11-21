@@ -232,4 +232,76 @@ class vocabulary {
                                       WHERE p.name = :name AND p.value = '1' AND u.deleted = 0
                                    ORDER BY u.lastname, u.firstname", ['name' => self::PREF]);
     }
+
+    /**
+     * May people upload their own pack in their preferences?
+     *
+     * @return bool
+     */
+    public static function personal_allowed(): bool {
+        $v = get_config('local_materialtools', 'allowpersonalvocab');
+        return $v === false ? true : (bool) $v;
+    }
+
+    /**
+     * Store a person's own pack, which applies only to them and wins over the site pack.
+     *
+     * @param int $userid
+     * @param string $json
+     * @return array The validation result.
+     */
+    public static function store_personal(int $userid, string $json): array {
+        $result = self::validate($json);
+        $context = \context_user::instance($userid);
+        $fs = get_file_storage();
+        $fs->delete_area_files($context->id, 'local_materialtools', 'personalvocab');
+        $clean = json_encode(['schemaVersion' => 1, 'entries' => $result['entries']], JSON_UNESCAPED_UNICODE);
+        $fs->create_file_from_string([
+            'contextid' => $context->id, 'component' => 'local_materialtools', 'filearea' => 'personalvocab',
+            'itemid' => 0, 'filepath' => '/', 'filename' => 'vocabulary.json',
+        ], $clean);
+        set_user_preference('local_materialtools_personalvocab', sha1($clean) . ':' . $result['count'] . ':' . time(), $userid);
+        return $result;
+    }
+
+    /**
+     * Remove a person's own pack.
+     *
+     * @param int $userid
+     */
+    public static function clear_personal(int $userid): void {
+        get_file_storage()->delete_area_files(\context_user::instance($userid)->id, 'local_materialtools', 'personalvocab');
+        unset_user_preference('local_materialtools_personalvocab', $userid);
+    }
+
+    /**
+     * Details of a person's own pack: hash, count and time, or null.
+     *
+     * @param int $userid
+     * @return array|null
+     */
+    public static function personal_info(int $userid): ?array {
+        $raw = (string) get_user_preferences('local_materialtools_personalvocab', '', $userid);
+        if ($raw === '' || !self::personal_allowed()) {
+            return null;
+        }
+        [$hash, $count, $time] = array_pad(explode(':', $raw), 3, 0);
+        return ['hash' => $hash, 'count' => (int) $count, 'time' => (int) $time];
+    }
+
+    /**
+     * Entries of a person's own pack.
+     *
+     * @param int $userid
+     * @return array
+     */
+    public static function personal_entries(int $userid): array {
+        if (!self::personal_info($userid)) {
+            return [];
+        }
+        $file = get_file_storage()->get_file(\context_user::instance($userid)->id, 'local_materialtools', 'personalvocab', 0,
+            '/', 'vocabulary.json');
+        $data = $file ? json_decode($file->get_content(), true) : null;
+        return is_array($data['entries'] ?? null) ? $data['entries'] : [];
+    }
 }

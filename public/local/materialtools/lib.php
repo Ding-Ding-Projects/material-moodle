@@ -92,3 +92,22 @@ function local_materialtools_after_require_login($courseorid = null, $autologing
     unset_config('onboardingpending', 'local_materialtools');
     redirect(new moodle_url('/local/materialtools/onboarding.php'));
 }
+
+/**
+ * Link to your own wording pack from the preferences page.
+ *
+ * @param navigation_node $navigation
+ * @param stdClass $user
+ * @param context_user $usercontext
+ * @param stdClass $course
+ * @param context_course $coursecontext
+ */
+function local_materialtools_extend_navigation_user_settings(navigation_node $navigation, $user, $usercontext, $course,
+        $coursecontext) {
+    global $USER;
+    if ($user->id != $USER->id || isguestuser() || !\local_materialtools\vocabulary::personal_allowed()) {
+        return;
+    }
+    $navigation->add(get_string('personalvocab', 'local_materialtools'), new moodle_url('/local/materialtools/mypack.php'),
+        navigation_node::TYPE_SETTING, null, 'local_materialtools_mypack');
+}

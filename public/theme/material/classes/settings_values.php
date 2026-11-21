@@ -103,6 +103,8 @@ class settings_values {
                 ? $c->celebrationlevel : 'dramatic',
             'ripples' => $flag('ripples'),
             'contextmenu' => $flag('contextmenu'),
+            'notifications' => $flag('notifications'),
+            'provenance' => $flag('provenance'),
             'pagetransitions' => $flag('pagetransitions'),
             'shortcut' => 'ctrl+shift+f',
         ];

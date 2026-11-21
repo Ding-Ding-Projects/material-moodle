@@ -722,3 +722,184 @@ select.custom-select {
     font-weight: 750;
     animation: md-pop .4s $xp-spring both;
 }
+
+// Notification centre in the top bar.
+.md-notify {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-inline-end: .25rem;
+}
+
+.md-notify-bell {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0;
+    background: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .2s ease, transform .3s $xp-spring;
+
+    &:hover,
+    &[aria-expanded="true"] {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+    }
+
+    &:active {
+        transform: scale(.92);
+    }
+
+    svg {
+        width: 22px;
+        height: 22px;
+        flex: none;
+    }
+}
+
+.md-notify-count {
+    position: absolute;
+    top: 4px;
+    inset-inline-end: 2px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--md-sys-color-error);
+    color: var(--md-sys-color-on-error);
+    font-size: 11px;
+    font-weight: 750;
+    line-height: 18px;
+    text-align: center;
+    animation: md-pop .4s $xp-spring both;
+}
+
+.md-notify-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    inset-inline-end: -8px;
+    z-index: 1060;
+    width: min(420px, calc(100vw - 24px));
+    max-height: min(70vh, 640px);
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1.1rem;
+    border-radius: 28px;
+    background: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    box-shadow: var(--md-shadow-3);
+    animation: md-drop .35s $xp-emph both;
+
+    h2 {
+        margin: 0;
+        font-size: 1.35rem;
+        font-weight: 700;
+    }
+}
+
+.md-notify-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+
+    .btn {
+        border-radius: 999px;
+    }
+}
+
+.md-notify-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.md-notify-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .75rem .9rem;
+    border-radius: 18px;
+    background: var(--md-sys-color-surface-container-low);
+    border-inline-start: 4px solid var(--md-sys-color-outline-variant);
+
+    &.is-success { border-inline-start-color: var(--md-sys-color-primary); }
+    &.is-warning { border-inline-start-color: var(--md-sys-color-tertiary); }
+    &.is-error { border-inline-start-color: var(--md-sys-color-error); }
+
+    &.is-unread .md-notify-text {
+        font-weight: 700;
+    }
+
+    .form-check-input {
+        margin-top: .15rem;
+        flex: none;
+    }
+}
+
+.md-notify-body {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover .md-notify-text {
+        text-decoration: underline;
+    }
+}
+
+.md-notify-text {
+    overflow-wrap: anywhere;
+}
+
+.md-notify-meta {
+    font-size: .8rem;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.md-notify-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+@media (max-width: 575.98px) {
+    .md-notify-panel {
+        position: fixed;
+        top: 64px;
+        inset-inline: 12px;
+        width: auto;
+    }
+}
+
+// Setting provenance chips on administration pages.
+.md-provenance {
+    display: inline-flex;
+    align-items: center;
+    margin-inline-start: .5rem;
+    padding: .1rem .6rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 650;
+    vertical-align: middle;
+
+    &.is-default {
+        background: var(--md-sys-color-surface-container-highest);
+        color: var(--md-sys-color-on-surface-variant);
+    }
+
+    &.is-changed {
+        background: var(--md-sys-color-tertiary-container);
+        color: var(--md-sys-color-on-tertiary-container);
+    }
+}

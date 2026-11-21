@@ -77,7 +77,9 @@ class hook_listener {
             'kindcourse', 'kindsearch', 'kindsetting', 'blockstartswith', 'blockendswith', 'blockanything', 'blockdigit',
             'blockletter', 'blockwordedge', 'blockspace', 'blockoneormore', 'blockoptional', 'blockeither',
             'blockgroupopen', 'blockgroupclose', 'ctxmenu', 'ctxcopy', 'ctxsearchfor', 'ctxopen', 'ctxopentab', 'ctxcopylink',
-            'ctxopenimage', 'ctxcopyimage', 'ctxcopycode', 'ctxback', 'ctxreload', 'ctxcopypage', 'ctxprint', 'ctxtop'];
+            'ctxopenimage', 'ctxcopyimage', 'ctxcopycode', 'ctxback', 'ctxreload', 'ctxcopypage', 'ctxprint', 'ctxtop', 'notifications', 'notifynow', 'notifyminutes', 'notifyempty',
+            'notifysearch', 'notifynomatch', 'notifymarkread', 'notifyremoveselected', 'notifyclear', 'notifyselect', 'provdefault', 'provchanged',
+            'yes', 'no', 'empty'];
         // Strings travel through M.str so the init call stays small.
         $PAGE->requires->strings_for_js($keys, 'theme_material');
         $PAGE->requires->js_call_amd('theme_material/main', 'init', [$config]);

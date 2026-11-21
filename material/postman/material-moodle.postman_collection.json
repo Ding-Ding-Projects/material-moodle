@@ -1,0 +1,346 @@
+{
+  "info": {
+    "name": "Material Moodle endpoints",
+    "description": "HTTP endpoints added by the Material plugins. Sign in with a browser first and copy the MoodleSession cookie and the sesskey from the page (M.cfg.sesskey) into the collection variables. Passkey ceremonies need a real authenticator, so the login and register requests document the body shape only.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "sesskey",
+      "value": ""
+    },
+    {
+      "key": "meetupId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Passkeys",
+      "item": [
+        {
+          "name": "Sign-in options",
+          "request": {
+            "method": "POST",
+            "description": "Returns a WebAuthn request challenge for discoverable passkeys. Works before sign-in.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/passkey/ajax.php?action=loginoptions&sesskey={{sesskey}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "passkey",
+                "ajax.php"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "loginoptions"
+                },
+                {
+                  "key": "sesskey",
+                  "value": "{{sesskey}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Sign in with a passkey",
+          "request": {
+            "method": "POST",
+            "description": "Verifies an assertion from navigator.credentials.get and signs the person in.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/passkey/ajax.php?action=login&sesskey={{sesskey}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "passkey",
+                "ajax.php"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "login"
+                },
+                {
+                  "key": "sesskey",
+                  "value": "{{sesskey}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<credential id, base64url>\",\n  \"clientDataJSON\": \"<base64url>\",\n  \"authenticatorData\": \"<base64url>\",\n  \"signature\": \"<base64url>\",\n  \"wantsurl\": \"/my/\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Registration options",
+          "request": {
+            "method": "POST",
+            "description": "Signed in only. Returns a WebAuthn creation challenge for a new passkey.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/passkey/ajax.php?action=registeroptions&sesskey={{sesskey}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "passkey",
+                "ajax.php"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "registeroptions"
+                },
+                {
+                  "key": "sesskey",
+                  "value": "{{sesskey}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Register a passkey",
+          "request": {
+            "method": "POST",
+            "description": "Signed in only. Stores the attestation from navigator.credentials.create.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/passkey/ajax.php?action=register&sesskey={{sesskey}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "passkey",
+                "ajax.php"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "register"
+                },
+                {
+                  "key": "sesskey",
+                  "value": "{{sesskey}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientDataJSON\": \"<base64url>\",\n  \"attestationObject\": \"<base64url>\",\n  \"name\": \"Laptop\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Wording packs",
+      "item": [
+        {
+          "name": "Get my wording",
+          "request": {
+            "method": "GET",
+            "description": "Signed in only. Returns the site pack (if chosen) merged with the person's own pack. Signed-out requests get an error and never receive a pack.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/local/materialtools/vocab.php?v=any",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "materialtools",
+                "vocab.php"
+              ],
+              "query": [
+                {
+                  "key": "v",
+                  "value": "any"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Replace the site pack",
+          "request": {
+            "method": "POST",
+            "description": "Needs local/materialtools:managevocabulary. Validates and stores the site pack.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/local/materialtools/vocabulary.php?action=uploadjson&sesskey={{sesskey}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "materialtools",
+                "vocabulary.php"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "uploadjson"
+                },
+                {
+                  "key": "sesskey",
+                  "value": "{{sesskey}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemaVersion\": 1,\n  \"name\": \"Kitchen words\",\n  \"entries\": {\n    \"Assignment\": \"Dropbox\",\n    \"Teacher\": \"Coach\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Set my own pack",
+          "request": {
+            "method": "POST",
+            "description": "Signed in only, when personal packs are allowed. Applies to the caller only.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/local/materialtools/mypack.php?action=uploadjson&sesskey={{sesskey}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "materialtools",
+                "mypack.php"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "uploadjson"
+                },
+                {
+                  "key": "sesskey",
+                  "value": "{{sesskey}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemaVersion\": 1,\n  \"entries\": {\n    \"Teacher\": \"Sifu\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Meetups",
+      "item": [
+        {
+          "name": "Calendar file for a meetup",
+          "request": {
+            "method": "GET",
+            "description": "Returns an iCalendar file for a meetup the caller can see.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/local/meetups/export.php?id={{meetupId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "meetups",
+                "export.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{meetupId}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

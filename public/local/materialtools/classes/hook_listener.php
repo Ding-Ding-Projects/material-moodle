@@ -33,18 +33,24 @@ class hook_listener {
      * @param before_footer_html_generation $hook
      */
     public static function before_footer(before_footer_html_generation $hook): void {
-        global $PAGE;
+        global $PAGE, $USER;
         if (during_initial_install() || !isloggedin() || isguestuser()) {
             return;
         }
         $config = ['url' => '', 'drop' => ''];
-        if (vocabulary::eligible()) {
+        $personal = vocabulary::personal_info((int) $USER->id);
+        if (vocabulary::eligible() || $personal) {
             $config['url'] = (new \moodle_url('/local/materialtools/vocab.php',
-                ['v' => get_config('local_materialtools', 'vocabhash')]))->out(false);
+                ['v' => get_config('local_materialtools', 'vocabhash') . '.' . ($personal['hash'] ?? '')]))->out(false);
         }
-        if (has_capability('local/materialtools:managevocabulary', \context_system::instance())) {
-            $config['drop'] = (new \moodle_url('/local/materialtools/vocabulary.php', ['action' => 'uploadjson',
-                'sesskey' => sesskey()]))->out(false);
+        $manager = has_capability('local/materialtools:managevocabulary', \context_system::instance());
+        if ($manager || vocabulary::personal_allowed()) {
+            // Managers replace the site pack by dropping a file; everyone else sets their own pack.
+            $config['drop'] = $manager
+                ? (new \moodle_url('/local/materialtools/vocabulary.php', ['action' => 'uploadjson',
+                    'sesskey' => sesskey()]))->out(false)
+                : (new \moodle_url('/local/materialtools/mypack.php', ['action' => 'uploadjson',
+                    'sesskey' => sesskey()]))->out(false);
             $config['strings'] = [
                 'dropinvalid' => get_string('dropinvalid', 'local_materialtools'),
                 'vocabapplied' => get_string('vocabapplied', 'local_materialtools'),
