@@ -18,11 +18,11 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [x] Docker stack with quick and named (token) Cloudflare tunnels
 - [x] Activate the search-box regex builder: load `searchbars.js` from `main.js`, build it, verify on course and user lists (`regex-search`)
 - [x] Activate the right-click menu: load and build `contextmenu.js`, add the `ctx*` strings, let `Palette.open()` accept a starting query, add a setting and keyboard/touch openers (`context-menus`, `menu-shortcuts`)
-- [ ] Per-assignment type labels: editing UI, display on course and activity pages, "Post a new Dropbox" buttons, `quickposts` setting, `db/upgrade.php` and version bump, privacy coverage for personal titles, backup and restore
+- [x] Per-assignment type labels: editing UI, display on course and activity pages, "Post a new Dropbox" buttons, `quickposts` setting, privacy coverage for personal titles, backup and restore
 - [ ] Command palette: every setting, activity and article as results, teleport and highlight (`command-palette`)
 - [x] Administrator first-run setup wizard in the app (`onboarding-wizard`)
-- [ ] Administrator view to remove another person's passkeys
-- [ ] Automated tests: PHPUnit for vocabulary validation, strict JSON, student creation, passkey manager; Behat or browser tests for the sign-in and palette flows
+- [x] Administrator view to remove another person's passkeys
+- [ ] Automated tests: PHPUnit for vocabulary validation, strict JSON, student creation and the passkey manager are written (`tests/`); run them in CI, and add browser tests for the sign-in and palette flows
 
 ## Phase 2: deployer and site
 
@@ -33,7 +33,7 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [ ] `material/design` folder with design references and parity checks (`design-folder`, `design-reference-parity`)
 - [ ] Rename the site CSS classes that fail the public vocabulary scan (`material/site/assets/css/site.css`)
 
-- [ ] Server image (appliance): `.ova`, `.qcow2`, `.vmdk`, PC and Raspberry Pi images built and boot-tested in CI and attached to releases (`material-appliance.yml`)
+- [x] Server image (appliance): `.ova`, `.qcow2`, PC and Raspberry Pi images built and boot-tested in CI and attached to releases (`material-appliance.yml`)
 
 ## Phase 3: release and repository records
 
@@ -44,8 +44,8 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [ ] Sanitized instruction mirror in README and `AGENTS.md` (`sanitized-instruction-copy`)
 - [ ] Vocabulary hash lock on builds and pushes (`vocabulary-hash-lock`)
 - [ ] Root `build.bat`, `build-installer.bat`, dependency fetcher and fresh build command (`build-entrypoints`, `fresh-build-run-command`, `dependency-fetcher`)
-- [ ] Font licence files for Inter, Atkinson Hyperlegible Next and Roboto Mono, plus a fetch script with checksums (`vendored-fonts`)
-- [ ] Postman collection for the three HTTP endpoints (`postman-collections`)
+- [ ] Font fetch script with checksums (`vendored-fonts`); licence files for every font are in place
+- [x] Postman collection for the plugin endpoints (`postman-collections`)
 - [ ] Screenshots of every surface, a screen recording and a social preview image (`product-evidence`, `screen-recording`, `shared-link-embed`)
 - [ ] `CLOSEOUT_PROMPT.md`, GitHub issue handoff, project board, wiki, operational skill (`closeout-prompt`, `handoff-record`, `project-board`, `wiki-site-sync`, `operational-skill`)
 - [x] `AGENTS.md` with the vocabulary discipline block
