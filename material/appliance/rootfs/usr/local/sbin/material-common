@@ -23,6 +23,9 @@ port() { grep -E '^MOODLE_PORT=' "$STACK/.env" 2>/dev/null | cut -d= -f2 | tr -d
 healthy() { curl -fsS -o /dev/null --max-time 5 "http://127.0.0.1:$(port)/login/index.php"; }
 
 test_boot() {
+  grep -qw material.testboot /proc/cmdline && return 0
+  # QEMU passes the flag as an SMBIOS OEM string, which needs no extra kernel module.
+  grep -qa material.testboot /sys/firmware/dmi/entries/11-*/raw 2>/dev/null && return 0
   modprobe qemu_fw_cfg 2>/dev/null || true
   [ -e /sys/firmware/qemu_fw_cfg/by_name/opt/material/testboot/raw ] && return 0
   grep -qw material.testboot /proc/cmdline

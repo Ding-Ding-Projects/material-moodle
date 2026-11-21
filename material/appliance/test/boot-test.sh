@@ -22,7 +22,7 @@ if [ "$ARCH" = x86_64 ]; then
   timeout "$TIMEOUT" qemu-system-x86_64 -machine q35,accel="$ACCEL" -cpu max -smp 2 -m 3072 \
     "${FW[@]}" -drive file="$WORK/disk.qcow2",if=virtio,format=qcow2 \
     -netdev user,id=n0 -device virtio-net-pci,netdev=n0 \
-    -fw_cfg name=opt/material/testboot,string=1 \
+    -fw_cfg name=opt/material/testboot,string=1 -smbios type=11,value=material.testboot=1 \
     -display none -serial file:"$LOG" -no-reboot || true
 else
   KERNELS="$EXTRA"
