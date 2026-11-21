@@ -46,6 +46,7 @@ behaviour together with what exists today.
 | [Docker stack](docker-stack.md) | Available |
 | [Cloudflare tunnels](cloudflare-tunnels.md) | Available; guided sign-in in progress |
 | [Desktop deployer](desktop-deployer.md) | In progress |
+| [Server image (appliance)](appliance.md) | Available once the image build finishes |
 
 ## Reference
 

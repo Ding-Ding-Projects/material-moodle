@@ -87,6 +87,15 @@ starts the stack, waits until Moodle is ready and prints the link. Run it again 
 </details>
 
 <details>
+<summary><strong>Use the ready-made server image</strong></summary>
+
+Each release has a server image: an `.ova` for VirtualBox and VMware, `.qcow2` and `.vmdk` disks, a PC image for a USB
+stick, and a Raspberry Pi 4/5 image. Start it and answer the menu on its screen; it shows the link and the
+administrator password when it is done. Details: [Server image](material/docs/appliance.md).
+
+</details>
+
+<details>
 <summary><strong>Install into an existing Moodle 6 site</strong></summary>
 
 Copy `public/theme/material`, `public/auth/passkey` and `public/local/materialtools` into the same places in your
