@@ -39,9 +39,12 @@ fi
 
 if ! installed; then
   echo "Installing Moodle. This takes a few minutes the first time."
+  # With no MOODLE_ADMIN_PASSWORD, install with a random throwaway password; the first visitor then chooses the
+  # administrator's username and password on the setup page.
+  first_visit_setup=0
   if [ -z "${MOODLE_ADMIN_PASSWORD:-}" ]; then
-    echo "MOODLE_ADMIN_PASSWORD is required for the first start." >&2
-    exit 1
+    first_visit_setup=1
+    MOODLE_ADMIN_PASSWORD="$(head -c 48 /dev/urandom | base64 | tr -dc A-Za-z0-9 | head -c 32)Aa1!"
   fi
   as_www "php admin/cli/install_database.php --agree-license \
     --adminuser=$(printf %q "${MOODLE_ADMIN_USER:-admin}") \
@@ -51,6 +54,11 @@ if ! installed; then
     --shortname=$(printf %q "${MOODLE_SITE_SHORTNAME:-Moodle}") \
     --lang=en"
   as_www "php public/local/materialtools/cli/configure.php --first-run"
+  if [ "$first_visit_setup" = 1 ]; then
+    as_www "php admin/cli/cfg.php --component=local_materialtools --name=firstadminpending --set=1"
+    unset MOODLE_ADMIN_PASSWORD
+    echo "Open the site to choose the administrator username and password."
+  fi
   echo "MATERIAL_MOODLE_INSTALLED"
 else
   as_www "php admin/cli/upgrade.php --non-interactive --allow-unstable" || true

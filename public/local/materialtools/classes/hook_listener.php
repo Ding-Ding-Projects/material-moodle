@@ -28,6 +28,15 @@ use core\hook\output\before_footer_html_generation;
  */
 class hook_listener {
     /**
+     * While a new site waits for its administrator, send visitors to the setup page.
+     *
+     * @param corehookafter_config $hook
+     */
+    public static function after_config(corehookafter_config $hook): void {
+        first_admin::redirect_if_pending();
+    }
+
+    /**
      * Add the scripts.
      *
      * @param before_footer_html_generation $hook

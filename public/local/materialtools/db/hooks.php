@@ -27,6 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $callbacks = [
     [
+        'hook' => corehookafter_config::class,
+        'callback' => [local_materialtoolshook_listener::class, 'after_config'],
+    ],
+    [
         'hook' => \core\hook\output\before_footer_html_generation::class,
         'callback' => [\local_materialtools\hook_listener::class, 'before_footer'],
     ],
