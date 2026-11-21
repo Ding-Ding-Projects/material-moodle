@@ -16,11 +16,11 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [x] Custom vocabulary pack (strict validation, audience, drop to apply)
 - [x] Site wording for roles and assignments
 - [x] Docker stack with quick and named (token) Cloudflare tunnels
-- [ ] Activate the search-box regex builder: load `searchbars.js` from `main.js`, build it, verify on course and user lists (`regex-search`)
-- [ ] Activate the right-click menu: load and build `contextmenu.js`, add the `ctx*` strings, let `Palette.open()` accept a starting query, add a setting and keyboard/touch openers (`context-menus`, `menu-shortcuts`)
+- [x] Activate the search-box regex builder: load `searchbars.js` from `main.js`, build it, verify on course and user lists (`regex-search`)
+- [x] Activate the right-click menu: load and build `contextmenu.js`, add the `ctx*` strings, let `Palette.open()` accept a starting query, add a setting and keyboard/touch openers (`context-menus`, `menu-shortcuts`)
 - [ ] Per-assignment type labels: editing UI, display on course and activity pages, "Post a new Dropbox" buttons, `quickposts` setting, `db/upgrade.php` and version bump, privacy coverage for personal titles, backup and restore
 - [ ] Command palette: every setting, activity and article as results, teleport and highlight (`command-palette`)
-- [ ] Administrator first-run setup wizard in the app (`onboarding-wizard`)
+- [x] Administrator first-run setup wizard in the app (`onboarding-wizard`)
 - [ ] Administrator view to remove another person's passkeys
 - [ ] Automated tests: PHPUnit for vocabulary validation, strict JSON, student creation, passkey manager; Behat or browser tests for the sign-in and palette flows
 
@@ -33,9 +33,11 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [ ] `material/design` folder with design references and parity checks (`design-folder`, `design-reference-parity`)
 - [ ] Rename the site CSS classes that fail the public vocabulary scan (`material/site/assets/css/site.css`)
 
+- [ ] Server image (appliance): `.ova`, `.qcow2`, `.vmdk`, PC and Raspberry Pi images built and boot-tested in CI and attached to releases (`material-appliance.yml`)
+
 ## Phase 3: release and repository records
 
-- [ ] First successful run of `material-image.yml` and `material-release.yml` with real installers (`release-workflow`)
+- [x] First successful run of `material-image.yml` and `material-release.yml` with real installers (`release-workflow`)
 - [ ] Release notes proven to carry timing and line counts (`release-timing`, `release-line-counts`)
 - [ ] Dim sum code names from the public catalogue with photo links (`dim-sum-code-names`, `release-dim-sum-photo`)
 - [ ] Project README rewritten for Material Moodle with folded sections and a time estimate (`tabbed-readme`, `human-time-estimate`)
