@@ -22,18 +22,22 @@ Ghostscript for PDF annotation.
 ```sh
 cd material/docker
 cp .env.example .env
-# Edit .env: at least MOODLE_ADMIN_PASSWORD and MOODLE_DB_PASSWORD.
+# Edit .env: at least MOODLE_DB_PASSWORD. Leave MOODLE_ADMIN_PASSWORD empty to choose the administrator in the browser.
 docker compose up -d            # uses the published image
 docker compose up -d --build    # builds from this checkout instead
 docker compose logs -f moodle   # wait for MATERIAL_MOODLE_INSTALLED
 ```
 
-Then open `http://localhost:8080` and sign in with `MOODLE_ADMIN_USER` / `MOODLE_ADMIN_PASSWORD`.
+Then open `http://localhost:8080`. With `MOODLE_ADMIN_PASSWORD` empty, every page shows **Set up your site** until
+someone fills it in: the first person to finish it chooses the administrator username, password, name and email,
+is signed in, and the page locks. Do this straight away on a new site. With `MOODLE_ADMIN_PASSWORD` set, sign in
+with `MOODLE_ADMIN_USER` and that password instead.
 
 ## What the entrypoint does
 
 1. Waits up to three minutes for PostgreSQL.
-2. **First start** (no `mdl_config` table): requires `MOODLE_ADMIN_PASSWORD`, runs
+2. **First start** (no `mdl_config` table): if `MOODLE_ADMIN_PASSWORD` is empty, generates a random throwaway
+   password and marks the site as waiting for first-visit setup; then runs
    `admin/cli/install_database.php` with the site name, short name and administrator from `.env`, then runs
    `local/materialtools/cli/configure.php --first-run`, which selects the Material theme, turns on Boost colour
    modes, applies `MATERIAL_SEED_COLOR` if it is a `#RRGGBB` colour, enables passkey sign-in unless
@@ -52,7 +56,7 @@ The container health check requests `/login/index.php`, with a 10-minute start p
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `MOODLE_SITE_NAME`, `MOODLE_SITE_SHORTNAME` | Material Moodle, Moodle | Used at first install. |
-| `MOODLE_ADMIN_USER`, `MOODLE_ADMIN_PASSWORD`, `MOODLE_ADMIN_EMAIL` | admin, none, admin@example.com | First administrator; the password is required at first start. |
+| `MOODLE_ADMIN_USER`, `MOODLE_ADMIN_PASSWORD`, `MOODLE_ADMIN_EMAIL` | admin, empty, admin@example.com | First administrator. Empty password: the first visitor chooses the administrator on the setup page. |
 | `MOODLE_DB_PASSWORD` | none (required by Compose) | Database password. `MOODLE_DB_NAME`, `MOODLE_DB_USER`, `MOODLE_DB_HOST`, `MOODLE_DB_PORT` are also read. |
 | `MOODLE_WWWROOT` | `http://localhost:8080` | Public address, or `auto` (see below). |
 | `MOODLE_TRUSTED_HOSTS` | `localhost,localhost:*,*.trycloudflare.com` | Host patterns accepted when `MOODLE_WWWROOT=auto`. |
@@ -78,7 +82,8 @@ runs Moodle's upgrade on start. Back up both volumes before upgrading.
 
 ## When something goes wrong
 
-- **The moodle container exits at first start with "MOODLE_ADMIN_PASSWORD is required".** Set it in `.env`.
+- **Someone else finished the setup page first.** Stop the stack, remove the volumes (`docker compose down -v`) and
+  start again, or reset the administrator password with `admin/cli/reset_password.php` inside the container.
 - **"Database did not become ready."** Check `docker compose logs db` and the database password.
 - **Redirect loops or "Incorrect access detected".** `MOODLE_WWWROOT` does not match the address you use. Set it to
   the exact address, or use `auto` with a matching `MOODLE_TRUSTED_HOSTS` entry.
