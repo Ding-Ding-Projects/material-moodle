@@ -1,0 +1,5 @@
+// The appliance ships its own settings files; keep them when a package offers its version.
+Dpkg::Options {
+  "--force-confdef";
+  "--force-confold";
+};
