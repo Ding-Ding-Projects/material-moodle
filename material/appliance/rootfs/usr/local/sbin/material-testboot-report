@@ -1,0 +1,17 @@
+#!/bin/bash
+# Only used by the automated boot test: reports start-up progress on the serial console so a stuck boot can be diagnosed.
+set -u
+. /usr/local/sbin/material-common
+test_boot || exit 0
+say_serial "MATERIAL-APPLIANCE: test mode detected"
+n=0
+while :; do
+  sleep 30
+  n=$((n + 1))
+  say_serial "MATERIAL-APPLIANCE: progress after $((n * 30))s"
+  systemctl list-jobs --no-legend --no-pager 2>/dev/null | head -8 | while read -r l; do say_serial "  job: $l"; done
+  systemctl --failed --no-legend --no-pager 2>/dev/null | while read -r l; do say_serial "  failed: $l"; done
+  if [ $((n % 10)) = 0 ]; then
+    journalctl -b --no-pager -n 25 -u material-load-images -u material-firstboot -u docker 2>/dev/null | while read -r l; do say_serial "  log: $l"; done
+  fi
+done

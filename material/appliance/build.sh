@@ -130,7 +130,7 @@ useradd -m -s /bin/bash -G sudo,docker material
 passwd -l material
 passwd -l root
 systemctl enable systemd-networkd systemd-resolved systemd-timesyncd ssh avahi-daemon nftables docker \
-  material-grow-root material-swap material-default-user material-ssh-keys material-load-images \
+  material-grow-root material-swap material-default-user material-ssh-keys material-load-images material-testboot-report \
   material-firstboot material-console material-moodle unattended-upgrades
 systemctl mask getty@tty1.service systemd-firstboot.service
 systemctl set-default multi-user.target

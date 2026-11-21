@@ -8,7 +8,7 @@ ARCH="$1"; IMAGE="$2"; EXTRA="${3:-bios}"
 WORK="$(mktemp -d)"
 LOG="${BOOT_LOG:-$WORK/serial.log}"
 ACCEL="tcg"; TIMEOUT=3600
-if [ -w /dev/kvm ] && [ "$ARCH" = x86_64 ]; then ACCEL="kvm"; TIMEOUT=900; fi
+if [ -w /dev/kvm ] && [ "$ARCH" = x86_64 ]; then ACCEL="kvm"; TIMEOUT=1800; fi
 echo "Booting $IMAGE ($ARCH, $EXTRA, accel $ACCEL), log $LOG"
 
 if [ "$ARCH" = x86_64 ]; then

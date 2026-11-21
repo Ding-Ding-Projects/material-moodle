@@ -1,0 +1,10 @@
+[Unit]
+Description=Report start-up progress during the automated boot test
+After=systemd-modules-load.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/material-testboot-report
+
+[Install]
+WantedBy=multi-user.target
