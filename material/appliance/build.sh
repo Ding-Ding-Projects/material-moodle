@@ -170,7 +170,8 @@ KERNEL_ARCH=arm64
 EOF
   chroot "$ROOT" /bin/bash -euo pipefail <<'EOF'
 export DEBIAN_FRONTEND=noninteractive
-apt-get install -y --no-install-recommends raspi-firmware firmware-brcm80211
+# Our settings file was written first, so keep it at the package prompt.
+apt-get install -y --no-install-recommends -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold raspi-firmware firmware-brcm80211
 update-initramfs -u
 EOF
   ls "$ROOT/boot/firmware" | head
