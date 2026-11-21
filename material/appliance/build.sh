@@ -56,6 +56,14 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# Runs a script inside the image from a file. Feeding it on stdin does not work: apt and dpkg read stdin and
+# swallow the rest of the script, which then silently never runs.
+in_chroot() {
+  cat >"$ROOT/root/build-step.sh"
+  chroot "$ROOT" /bin/bash -euo pipefail /root/build-step.sh </dev/null
+  rm -f "$ROOT/root/build-step.sh"
+}
+
 echo "==> Disk ($SIZE, $PLATFORM)"
 truncate -s "$SIZE" "$DISK"
 if [ "$PLATFORM" = x86_64 ]; then
@@ -110,7 +118,7 @@ fi
 chmod 0755 "$ROOT"/usr/local/sbin/*
 
 echo "==> Packages"
-chroot "$ROOT" /bin/bash -euo pipefail <<EOF
+in_chroot <<EOF
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y --no-install-recommends $KERNEL initramfs-tools \
@@ -138,7 +146,7 @@ EOF
 
 if [ "$PLATFORM" = x86_64 ]; then
   echo "==> GRUB (BIOS and UEFI)"
-  chroot "$ROOT" /bin/bash -euo pipefail <<EOF
+  in_chroot <<EOF
 export DEBIAN_FRONTEND=noninteractive
 apt-get install -y --no-install-recommends grub-pc-bin grub-efi-amd64-bin grub2-common grub-common
 cat >/etc/default/grub <<'G'
@@ -168,7 +176,7 @@ ROOTPART=LABEL=mm-root
 CONSOLES="serial0,115200 tty1"
 KERNEL_ARCH=arm64
 EOF
-  chroot "$ROOT" /bin/bash -euo pipefail <<'EOF'
+  in_chroot <<'EOF'
 export DEBIAN_FRONTEND=noninteractive
 # Our settings file was written first, so keep it at the package prompt.
 apt-get install -y --no-install-recommends -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold raspi-firmware firmware-brcm80211
@@ -179,6 +187,11 @@ EOF
   cp "$ROOT"/boot/vmlinuz-* "$OUT/boot-test/vmlinuz"
   cp "$ROOT"/boot/initrd.img-* "$OUT/boot-test/initrd.img"
 fi
+
+for unit in material-firstboot material-console material-load-images docker systemd-networkd; do
+  [ -L "$ROOT/etc/systemd/system/multi-user.target.wants/$unit.service" ] || { echo "$unit is not enabled" >&2; exit 1; }
+done
+[ "$(readlink "$ROOT/etc/systemd/system/getty@tty1.service")" = /dev/null ] || { echo "getty@tty1 is not masked" >&2; exit 1; }
 
 echo "==> Clean up the image"
 chroot "$ROOT" /bin/bash -c 'apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*'
