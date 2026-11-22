@@ -38,7 +38,18 @@ function theme_material_get_main_scss_content($theme): string {
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/material.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/expressive.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/pages.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/controls.scss');
     return $scss;
+}
+
+/** Supply the active seed to the separate rich-text editor document. */
+function theme_material_process_editor_colours(string $css, theme_config $theme): string {
+    $marker = '/* material-editor-colours */';
+    if (!str_contains($css, $marker)) {
+        return $css;
+    }
+    $settings = \theme_material\settings_values::from_theme($theme);
+    return str_replace($marker, \theme_material\palette::css($settings->seed), $css);
 }
 
 /**

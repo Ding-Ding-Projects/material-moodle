@@ -1,5 +1,12 @@
 # Material Moodle handoff
 
+## Shared control design
+
+Theme version `2026112202` connects Moodle's component colours with the same seed palette used by
+course forms and settings. The editor inherits its base content stylesheet and adds the active surface
+and ink colours in its iframe. See the [comparison](design/README.md#shared-moodle-controls) and
+`material/tests/e2e/control-surfaces.mjs` for scope, screenshots and browser checks.
+
 ## Toolbar and interactive demo reference
 
 Use `material/site/demo.html` as the selected visual source and `material/design/README.md`

@@ -6,6 +6,23 @@ spacing, shapes and panel treatments. Its [script](../site/assets/js/demo.js)
 uses sample data for the illustrated workflows. The demo is maintained in its
 original location; this folder records comparisons with the running Moodle theme.
 
+## Shared Moodle controls
+
+| Previous course form, phone | Updated course form, phone |
+| --- | --- |
+| ![Former course form with filled, bottom-bordered fields](controls-course-before.png) | ![Outlined course fields, tab and section controls, and primary and tonal actions](controls-course-phone.png) |
+
+The updated theme uses the demo's standard 48-pixel action with 18-pixel corners, its tonal secondary
+action and 56-pixel outlined fields with 14-pixel corners at the default size setting. It connects the
+same colour roles to Moodle Design System components, Bootstrap forms and the separate rich-text editor
+document. A different site seed or density still changes the result.
+
+The course editor, settings page and phone toolbar were exercised on an isolated installation of the
+theme (version `2026112202`) with synthetic records. Chromium and WebKit checks cover 320, 390 and
+1280 CSS pixels, focus, selection, collapsing a section with a draft, disabling and enabling a date,
+keyboard checkbox interaction, rich-text editing and dark mode. The two phone images use the same
+390 × 900 viewport. [Desktop course form](controls-course-desktop.png) · [Dark editor](controls-editor-dark.png) · [Administration controls](controls-admin-dark.png).
+
 ## Display settings
 
 | Demo | Moodle course editor |

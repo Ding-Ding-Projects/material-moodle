@@ -24,6 +24,7 @@
         </div>
         {{/groups}}
         <small>{{#note}}{{> theme_material/panel_label}}{{/note}}</small>
+        <div class="mm-display-editmode" data-editmode-slot></div>
         <div class="mm-display-links"><a href="{{preferencesurl}}">{{#prefs}}{{> theme_material/panel_label}}{{/prefs}}</a>
         {{#adminurl}}<a href="{{adminurl}}">{{#adminlabel}}{{> theme_material/panel_label}}{{/adminlabel}}</a>{{/adminurl}}</div>
         <span role="status" data-panel-status></span>

@@ -22,6 +22,11 @@ identical with, the reference Material Color Utilities output.
 
 ## Fonts
 
+The shared control stylesheet covers Moodle Design System components, Bootstrap fields and actions,
+form sections, the file manager and the TinyMCE toolbar. On phones below 576 CSS pixels, **Display
+settings** contains the existing **Edit mode** switch when the user can edit. The account menu stays
+on the toolbar. On larger screens the switch returns to its original position.
+
 All fonts are bundled in `public/theme/material/fonts` and served through Moodle's font handler, so no font is
 loaded from another website:
 

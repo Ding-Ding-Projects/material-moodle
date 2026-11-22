@@ -1,0 +1,322 @@
+// Shared controls used by core pages, course forms, plugin forms and dialogs.
+// MDS widgets consume different properties from Bootstrap widgets; give both
+// the active theme's roles without replacing their markup or event handlers.
+:root, [data-bs-theme="light"], [data-bs-theme="dark"] {
+    --mds-font-family-base: var(--md-font);
+    --mds-bg-surface-default: var(--md-sys-color-surface);
+    --mds-bg-surface-subtle: var(--md-sys-color-surface-container-low);
+    --mds-bg-surface-strong: var(--md-sys-color-surface-container-high);
+    --mds-text-default: var(--md-sys-color-on-surface);
+    --mds-text-emphasis: var(--md-sys-color-on-surface);
+    --mds-text-subtle: var(--md-sys-color-on-surface-variant);
+    --mds-text-muted: var(--md-sys-color-on-surface-variant);
+    --mds-text-inverse: var(--md-sys-color-on-primary);
+    --mds-text-link-primary-default: var(--md-sys-color-primary);
+    --mds-text-link-primary-hover: var(--md-sys-color-on-primary-container);
+    --mds-text-danger: var(--md-sys-color-error);
+    --mds-border-default: var(--md-sys-color-outline-variant);
+    --mds-border-interactive-primary-default: var(--md-sys-color-primary);
+    --mds-border-interactive-secondary-default: var(--md-sys-color-outline);
+    --mds-border-interactive-secondary-hover: var(--md-sys-color-on-surface-variant);
+    --mds-border-interactive-secondary-active: var(--md-sys-color-primary);
+    --mds-focus-default: var(--md-sys-color-primary);
+    --mds-focus-danger: var(--md-sys-color-error);
+    --mds-bg-interactive-primary-default: var(--md-sys-color-primary);
+    --mds-bg-interactive-primary-hover: var(--md-sys-color-primary);
+    --mds-bg-interactive-primary-active: var(--md-sys-color-primary);
+    --mds-bg-interactive-primary-default-light: var(--md-sys-color-primary-container);
+    --mds-bg-interactive-secondary-default: var(--md-sys-color-secondary-container);
+    --mds-bg-interactive-secondary-hover: var(--md-sys-color-surface-container-highest);
+    --mds-bg-interactive-secondary-active: var(--md-sys-color-secondary-container);
+    --mds-bg-interactive-danger-default: var(--md-sys-color-error);
+    --mds-bg-interactive-danger-default-light: var(--md-sys-color-error-container);
+    --mds-bg-nav-pill-selected: var(--md-sys-color-secondary-container);
+    --mds-bg-nav-pill-hover: var(--md-sys-color-surface-container-high);
+    --mds-bg-nav-pill-pressed: var(--md-sys-color-secondary-container);
+    --mds-bg-switch-track-default: var(--md-sys-color-surface-container-highest);
+    --mds-bg-switch-thumb-default: var(--md-sys-color-on-surface-variant);
+    --mds-bg-switch-track-hover: var(--md-sys-color-secondary-container);
+    --mds-bg-switch-thumb-hover: var(--md-sys-color-on-secondary-container);
+    --mds-border-interactive-danger-default: var(--md-sys-color-error);
+    --mds-border-feedback-danger: var(--md-sys-color-error);
+    --mds-border-feedback-success: var(--md-sys-color-success);
+    --mds-text-feedback-danger: var(--md-sys-color-on-error-container);
+    --mds-text-feedback-success: var(--md-sys-color-on-success-container);
+    --mm-field-radius: clamp(8px, calc(var(--md-radius-sm) + 2px), 20px);
+    --mm-action-radius: clamp(10px, calc(var(--md-radius-sm) + 6px), 24px);
+    --mm-input-height: calc(56px + var(--md-density));
+}
+
+// Keep actions distinct: contained primary actions, tonal secondary actions,
+// outlines and compact round icon actions, as on the interactive reference.
+.btn.btn-primary, .btn.btn-danger, .btn.btn-success, .btn.btn-outline-primary, .btn.btn-outline-secondary,
+.mds-btn.btn {
+    min-height: calc(48px + var(--md-density));
+    border-radius: var(--mm-action-radius);
+    padding-inline: 20px;
+    font-weight: 700;
+}
+.btn.btn-secondary {
+    min-height: calc(44px + var(--md-density));
+    border-radius: 999px;
+    padding-inline: 18px;
+    font-weight: 650;
+}
+.mds-btn.btn.btn-secondary:not(:disabled) { color: var(--md-sys-color-on-secondary-container); }
+.mds-btn.btn.mds-btn--icon-only { padding-inline: 0; border-radius: 50%; }
+.btn.btn-icon, .btn.btn-link.icon-no-margin, .navbar .btn.mm-display-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 50%;
+    padding: 0;
+}
+.btn-group > .btn:not(:first-child) { border-start-start-radius: 0; border-end-start-radius: 0; }
+.btn-group > .btn:not(:last-child) { border-start-end-radius: 0; border-end-end-radius: 0; }
+.btn-toolbar { flex-wrap: wrap; row-gap: .4rem; }
+
+// Leave ranges, colour wells, hidden proxies and password-reveal anchors to
+// their native components. Multiline fields keep their intrinsic height.
+input.form-control:not([type="color"]):not([type="range"]):not([type="file"]),
+textarea.form-control, select.form-select, select.custom-select, select.form-control {
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--mm-field-radius);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    min-height: var(--mm-input-height);
+    max-width: 100%;
+    padding-inline-start: 16px;
+    &:hover:not(:disabled):not(:focus) { border-color: var(--md-sys-color-on-surface); }
+    &:focus {
+        background-color: var(--md-sys-color-surface);
+        border-color: var(--md-sys-color-primary);
+        box-shadow: inset 0 0 0 1px var(--md-sys-color-primary);
+    }
+    &:disabled, &[readonly] {
+        background-color: var(--md-sys-color-surface-container);
+        color: var(--md-sys-color-on-surface-variant);
+        border-color: var(--md-sys-color-outline-variant);
+    }
+    &.is-invalid, &[aria-invalid="true"] {
+        border-color: var(--md-sys-color-error);
+        &:focus { box-shadow: inset 0 0 0 1px var(--md-sys-color-error); }
+    }
+}
+textarea.form-control { min-height: 6rem; padding-block: 12px; }
+select.form-select:not([multiple]), select.custom-select:not([multiple]) { padding-inline-end: 2.6rem; }
+.input-group > .form-control:not(:first-child), .input-group > .form-select:not(:first-child) {
+    border-start-start-radius: 0; border-end-start-radius: 0;
+}
+.input-group > .form-control:not(:last-child), .input-group > .form-select:not(:last-child) {
+    border-start-end-radius: 0; border-end-end-radius: 0;
+}
+.mform .col-form-label > label, #adminsettings .form-label {
+    font-weight: 650;
+    color: var(--md-sys-color-on-surface-variant);
+}
+.mform .fitem > .col-form-label {
+    align-items: center;
+    column-gap: .375rem;
+    .form-label-addon { align-self: center !important; }
+    .help-icon .icon { color: var(--md-sys-color-primary) !important; }
+}
+.mform .fcontainer > .row.fitem {
+    // Match the reference's label-above-field arrangement. Keep grouped date
+    // selectors, file controls and their children in Moodle's original layout.
+    > .col-form-label, > .felement { width: 100%; min-width: 0; }
+    > .col-form-label { font-size: .875rem; padding-block: 0; }
+    > .felement > input.form-control[type="text"]:not([size]),
+    > .felement > textarea.form-control { width: min(100%, 38rem); }
+}
+.mform fieldset .fcontainer.collapseable > .row.fitem > .col-form-label {
+    padding-inline-start: calc(var(--bs-gutter-x, 1.5rem) * .5);
+    .form-label-addon { margin-inline-start: 0; }
+}
+.path-course .mform :is(#id_fullname, #id_shortname) { width: min(100%, 38rem); }
+#sticky-footer.stickyfooter {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+}
+.navbar .btn:focus-visible, .mform .btn:focus-visible, #adminsettings .btn:focus-visible {
+    outline: 3px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+.mform .fdate_time_selector { gap: 4px; }
+.mform .ftoggler .btn.fheader {
+    border: 0;
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+}
+.mform .collapsible-actions .collapseexpand {
+    padding-inline: 14px !important;
+    background-color: var(--md-sys-color-surface-container);
+}
+.form-autocomplete-input .form-autocomplete-downarrow {
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--md-sys-color-primary);
+}
+.form-autocomplete-selection [role="option"][aria-selected="true"] {
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 999px;
+    padding: .45rem .8rem;
+    background: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
+}
+.form-autocomplete-suggestions {
+    border-radius: var(--mm-field-radius);
+    border-color: var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+}
+.form-check-input:indeterminate {
+    background-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+}
+.form-switch .form-check-input[type="checkbox"] { border-radius: 999px; }
+
+// Core administration settings render plain inputs, without Bootstrap classes.
+#adminsettings .form-checkbox, #adminsettings .form-multicheckbox, #adminsettings .form-radio {
+    input[type="checkbox"], input[type="radio"] {
+        appearance: none;
+        display: inline-grid;
+        place-content: center;
+        width: 22px;
+        height: 22px;
+        margin-inline-end: .35rem;
+        border: 2px solid var(--md-sys-color-outline);
+        background-color: var(--md-sys-color-surface);
+        vertical-align: middle;
+        cursor: pointer;
+        &:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 3px; }
+        &:checked, &:indeterminate { border-color: var(--md-sys-color-primary); }
+        &:disabled { opacity: .55; cursor: default; }
+    }
+    input[type="checkbox"] {
+        border-radius: 6px;
+        &:checked, &:indeterminate { background: var(--md-sys-color-primary); }
+        &:checked::after {
+            content: "";
+            width: 7px;
+            height: 12px;
+            border: solid var(--md-sys-color-on-primary);
+            border-width: 0 2px 2px 0;
+            transform: translateY(-1px) rotate(45deg);
+        }
+        &:indeterminate::after {
+            content: "";
+            width: 12px;
+            height: 2px;
+            background: var(--md-sys-color-on-primary);
+            border: 0;
+            transform: none;
+        }
+    }
+    input[type="radio"] {
+        border-radius: 50%;
+        &:checked::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--md-sys-color-primary);
+        }
+    }
+}
+.mform input[type="range"], #adminsettings input[type="range"] { accent-color: var(--md-sys-color-primary); }
+input[type="file"]::file-selector-button {
+    border-radius: 999px;
+    border: 0;
+    padding: .5rem 1rem;
+    margin-inline-end: .75rem;
+    font-weight: 650;
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+}
+
+// TinyMCE's chrome loads its own skin. Scope overrides to Moodle's editor
+// frame; leave the document being authored and its focus management alone.
+body .tox.tox-tinymce {
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--mm-field-radius);
+    .tox-editor-header, .tox-menubar, .tox-toolbar, .tox-toolbar-overlord, .tox-toolbar__primary,
+    .tox-toolbar__overflow, .tox-statusbar {
+        background: var(--md-sys-color-surface-container);
+        color: var(--md-sys-color-on-surface);
+    }
+    .tox-tbtn, .tox-mbtn {
+        background-color: transparent;
+        color: var(--md-sys-color-on-surface);
+        border-radius: 10px;
+        svg { fill: currentColor; }
+        &:hover, &:focus-visible { background: var(--md-sys-color-surface-container-highest); }
+    }
+    .tox-tbtn--enabled, .tox-mbtn--active {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    .tox-tbtn--disabled { color: var(--md-sys-color-outline); }
+    .tox-edit-area__iframe { background-color: var(--md-sys-color-surface); }
+}
+.filemanager .fp-navbar.card {
+    background-color: var(--md-sys-color-surface-container);
+    border: 0;
+    border-radius: var(--mm-field-radius);
+}
+.filemanager .filemanager-toolbar .btn.checked {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    box-shadow: inset 0 0 0 1px var(--md-sys-color-primary);
+}
+
+.secondary-navigation .mds-nav-pill {
+    min-height: 44px;
+    padding-inline: .9rem;
+    border-radius: 14px 14px 0 0;
+    &.mds-nav-pill--selected {
+        box-shadow: inset 0 3px 0 var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-secondary-container);
+    }
+}
+.mm-display-editmode:empty { display: none; }
+.mm-display-panel .mm-display-editmode .editmode-switch-form {
+    margin-inline: 0 !important;
+    min-height: 48px;
+    .mds-switch-label { display: inline !important; }
+}
+@media (max-width: 575.98px) {
+    .navbar.fixed-top .navbar-content { padding-inline: 4px; }
+    .navbar.fixed-top #usernavigation {
+        .divider { display: none; }
+        .usermenu #user-menu-toggle {
+            min-width: 44px;
+            width: 44px;
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center;
+            &::after { display: none; }
+        }
+        .md-palette-trigger { min-width: 44px; width: 44px; margin-inline: 0; padding: 0; justify-content: center; }
+    }
+}
+@media (max-width: 767.98px) {
+    .btn.btn-primary, .btn.btn-secondary, .btn.btn-outline-primary, .btn.btn-outline-secondary,
+    .btn.btn-icon, .navbar .btn.mm-display-toggle, .secondary-navigation .mds-nav-pill {
+        min-height: 48px;
+    }
+    .mform .felement > input.form-control:not([type="color"]):not([type="range"]),
+    .mform .felement > select.form-select, .mform .felement > .form-autocomplete-input {
+        width: 100%;
+    }
+    .mform .felement { min-width: 0; }
+    .navbar .navbar-content { padding-inline: 8px; }
+    .navbar #usernavigation { column-gap: 0; }
+}
+@media (forced-colors: active) {
+    #adminsettings .form-checkbox, #adminsettings .form-multicheckbox, #adminsettings .form-radio {
+        input[type="checkbox"], input[type="radio"] { appearance: auto; &::after { content: none; } }
+    }
+    .secondary-navigation .mds-nav-pill--selected, .filemanager-toolbar .btn.checked {
+        outline: 2px solid Highlight; outline-offset: -2px;
+    }
+}

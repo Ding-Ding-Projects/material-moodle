@@ -1,0 +1,6 @@
+/* material-editor-colours */
+html[data-bs-theme] body.mce-content-body {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    caret-color: var(--md-sys-color-primary);
+}

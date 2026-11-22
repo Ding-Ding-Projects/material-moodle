@@ -49,6 +49,24 @@ define([], function() {
             return;
         }
         menu.dataset.initialised = 'true';
+        // Keep the real Moodle switch, label and handlers when it moves into the phone panel.
+        var bar = menu.closest('#usernavigation');
+        var editForm = bar && bar.querySelector(':scope > .editmode-switch-form');
+        var slot = menu.querySelector('[data-editmode-slot]');
+        if (editForm && slot) {
+            var anchor = document.createComment('edit mode');
+            editForm.before(anchor);
+            var narrow = window.matchMedia('(max-width: 575.98px)');
+            var positionEditMode = function() {
+                if (narrow.matches) {
+                    slot.appendChild(editForm);
+                } else {
+                    anchor.after(editForm);
+                }
+            };
+            positionEditMode();
+            narrow.addEventListener('change', positionEditMode);
+        }
         var toggle = menu.querySelector('[data-bs-toggle="dropdown"]');
         var panel = menu.querySelector('.mm-display-panel');
         document.addEventListener('keydown', function(e) {

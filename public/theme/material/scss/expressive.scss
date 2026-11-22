@@ -316,22 +316,6 @@ body.path-course-view #page-header,
     box-shadow: 0 6px 18px rgba(var(--md-sys-color-primary-rgb), .35);
 }
 
-// Filled tonal fields.
-.form-control,
-.form-select {
-    background-color: var(--md-sys-color-surface-container-highest);
-    border-color: transparent;
-    border-bottom: 2px solid var(--md-sys-color-outline);
-    border-radius: var(--md-radius-sm) var(--md-radius-sm) 6px 6px;
-
-    &:focus {
-        background-color: var(--md-sys-color-surface-container-high);
-        border-color: transparent;
-        border-bottom-color: var(--md-sys-color-primary);
-        box-shadow: 0 2px 0 0 var(--md-sys-color-primary);
-    }
-}
-
 // Drawers.
 .drawer {
     border-radius: 0 var(--xp-radius-l) var(--xp-radius-l) 0;
@@ -719,8 +703,8 @@ html[data-md-motion="calm"] {
     }
 }
 
-input[type="checkbox"]:not(.form-check-input):not(.visually-hidden),
-input[type="radio"]:not(.form-check-input):not(.visually-hidden) {
+input[type="checkbox"]:not(.form-check-input):not(.visually-hidden):not([class*="mds-"]),
+input[type="radio"]:not(.form-check-input):not(.visually-hidden):not([class*="mds-"]) {
     accent-color: var(--md-sys-color-primary);
     width: 1.25em;
     height: 1.25em;

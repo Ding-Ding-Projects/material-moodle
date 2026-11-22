@@ -5,6 +5,10 @@ Account holders can adjust reading size, line spacing and motion in Preferences.
 <details>
 <summary>Reading preferences and site operations</summary>
 
+![Material course form on a phone](material/design/controls-course-phone.png)
+
+[Compare the course controls, administration settings and dark editor](material/design/README.md#shared-moodle-controls).
+
 The toolbar's **Display settings** panel offers colour, motion and language controls, with links to all account preferences and permitted site administration pages. [Compare the working panel with its design reference](material/design/README.md).
 
 ![Material display settings in the course editor](material/design/moodle-display-settings.png)

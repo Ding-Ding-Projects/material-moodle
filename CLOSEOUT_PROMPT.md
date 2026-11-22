@@ -9,3 +9,5 @@ For an existing deployment, use the deployer's Read running server and Apply cho
 Use the configuration settings directory to locate each matching control from the shipped configuration example. Staging reports 23 editable names, one host override and 175 names without a matching native field out of 199. Document applicable host-side controls and supported recovery individually. The current product inventory records four source-level Done, 42 Partial, 60 Missing and 15 Not applicable. See the handoff for runtime evidence.
 
 The latest toolbar change uses material/site/demo.html as the visual reference. See material/design/README.md for the comparison, measurements and test coverage. The display panel, default colours, sign-in dimensions and phone palette were updated. Confirm the new image digest and live endpoint before reporting deployment.
+
+The shared control redesign (theme 2026112202) extends the interactive reference to course and administration forms, toolbar actions, navigation, the file manager and the editor. See material/design/README.md for the before/after evidence and material/tests/e2e/control-surfaces.mjs for the repeatable checks.

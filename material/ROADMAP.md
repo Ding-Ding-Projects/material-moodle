@@ -1,5 +1,7 @@
 # Material Moodle roadmap
 
+- [x] Apply shared controls to course forms, settings, navigation and the rich-text editor; exercise the course and settings workflows on phone and desktop widths.
+
 A box is ticked only when the item is implemented and inspectable in the repository. Derived from
 [`COMPLETENESS.md`](COMPLETENESS.md); the ids in brackets are its row ids.
 

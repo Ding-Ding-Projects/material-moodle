@@ -29,8 +29,10 @@ require_once(__DIR__ . '/lib.php');
 $THEME->name = 'material';
 $THEME->parents = ['boost'];
 $THEME->sheets = [];
-$THEME->editor_sheets = [];
-$THEME->editor_scss = ['editor'];
+$THEME->editor_sheets = ['material_editor'];
+// Inherit Boost's editor SCSS. Its iframe carries its own data-bs-theme attribute.
+$THEME->editor_scss = [];
+$THEME->csspostprocess = 'theme_material_process_editor_colours';
 $THEME->usefallback = true;
 $THEME->scss = function($theme) {
     return theme_material_get_main_scss_content($theme);
