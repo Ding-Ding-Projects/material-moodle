@@ -10,6 +10,9 @@
 
   'server.title': 'Deploy to your server',
   'php.title': 'PHP runtime limits',
+  'job.limits': 'Running server settings', 'step.limits': 'Verify PHP settings on the running stack',
+  'php.read': 'Read running server', 'php.apply': 'Apply choices and restart web and worker',
+  'php.readback': 'Last verified container configuration', 'php.verified': 'Verified the PHP configuration on the server.',
   'php.description': 'Deploy to apply these limits to web requests and scheduled tasks. The request body limit must accommodate the upload. Moodle course limits may be lower.',
   'php.keep': 'Keep server setting (new server: {value})',
   'php.max_input_vars': 'Maximum input variables',

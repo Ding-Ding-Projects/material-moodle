@@ -4,3 +4,4 @@ material/deployer
 material/site
 material/design
 material/docker/.env
+**/.material-php-limits.*

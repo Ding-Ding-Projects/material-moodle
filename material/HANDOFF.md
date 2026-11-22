@@ -22,6 +22,12 @@ In the staged installation, 23 had a matching editable core setting, one had a h
 175 had no matching native core field. These counts vary with the installation. The directory links
 to existing controls and does not grant new permissions or turn arbitrary configuration into editable PHP.
 
+The desktop deployer can also find an already running Compose stack from its service labels, read the
+nine configured PHP limits and apply selected changes without a full deployment. An isolated ARM64
+stack verified an actual change to 768 MiB of memory and 64 MiB per upload, rejection of a conflicting
+request limit, and rollback after a deliberately interrupted readback. A no-change apply on the
+existing installation preserved both container IDs. Recovery copies remain on the host with owner-only access.
+
 ## Earlier handoff, 2026-11-20
 
 ## Current state

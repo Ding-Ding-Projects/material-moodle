@@ -82,6 +82,7 @@
 
   // ---------- jobs ----------
   M.JOB_STEPS = {
+    limits: ['connect', 'limits'],
     deploy: ['connect', 'docker', 'upload', 'image', 'start', 'health'],
     quick: ['connect', 'configure', 'starttunnel', 'quickurl'],
     named: ['connect', 'prepare', 'login', 'create', 'route', 'config', 'restart', 'connected'],
@@ -140,7 +141,10 @@
     state.jobs[job.name] = job;
     state.running = job.status === 'running' ? job.name : (state.running === job.name ? null : state.running);
     if (prev?.status === 'running' || prev?.status === undefined) {
-      if (job.status === 'done') M.celebrate(job.name, job.result || {});
+      if (job.status === 'done' && job.name === 'limits') {
+        M.toast(t('php.verified'), { kind: 'ok' });
+        if (state.page === 'server') M.rerender();
+      } else if (job.status === 'done') M.celebrate(job.name, job.result || {});
       if (job.status === 'failed' && job.error) M.showError(job.name, job.error);
       if (job.status === 'cancelled') M.toast(t('toast.cancelled'));
     }
@@ -148,6 +152,8 @@
   };
 
   M.onJobsChanged = () => {
+    const limitsStatus = M.$('#php-runtime-status');
+    if (limitsStatus) limitsStatus.textContent = state.running === 'limits' ? t('step.limits') : '';
     for (const el of M.$$('[data-job-view]')) el.replaceWith(M.stepCard(el.dataset.jobView, el.dataset.compact === '1'));
     for (const el of M.$$('[data-running-disable]')) el.disabled = !!state.running;
     M.renderBell?.();
@@ -295,7 +301,17 @@
       h('fieldset', { class: 'group' },
         h('legend', { class: 'group-title', text: t('php.title') }),
         h('p', { class: 'field-hint', text: t('php.description') }),
-        Object.entries(M.appInfo?.phpSettings || {}).map(([name, spec]) => phpLimitField(name, spec))),
+        Object.entries(M.appInfo?.phpSettings || {}).map(([name, spec]) => phpLimitField(name, spec)),
+        h('div', { class: 'row wrap gap-s' },
+          h('button', { type: 'button', id: 'php-read', class: 'btn btn-outline', 'data-running-disable': '1', disabled: !!state.running,
+            text: t('php.read'), onclick: () => M.runJob('limits', 0, { apply: false }) }),
+          h('button', { type: 'button', id: 'php-apply', class: 'btn btn-outline', 'data-running-disable': '1', disabled: !!state.running,
+            text: t('php.apply'), onclick: () => M.runJob('limits', 0, { apply: true }) })),
+        h('span', { id: 'php-runtime-status', role: 'status', text: state.running === 'limits' ? t('step.limits') : '' }),
+        state.jobs.limits?.status === 'done' && state.jobs.limits.result?.values
+          ? h('details', { open: true }, h('summary', { text: t('php.readback') + ' · ' + state.jobs.limits.result.host }),
+            h('dl', {}, Object.entries(state.jobs.limits.result.values).map(([name, value]) =>
+              [h('dt', { text: t('php.' + name) }), h('dd', { text: value })]))) : null),
       h('div', { class: 'row wrap gap-s align-center' }, testBtn, testChip),
       deployBtn);
 

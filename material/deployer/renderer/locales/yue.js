@@ -3,6 +3,9 @@
 (globalThis.MMD_LOCALES = globalThis.MMD_LOCALES || {}).yue = {
   'nav.server': '伺服器', 'nav.tunnel': '隧道', 'nav.logs': '紀錄', 'nav.settings': '設定', 'nav.about': '關於',
   'php.title': 'PHP 執行限制',
+  'job.limits': '現有伺服器設定', 'step.limits': '核對運行中嘅 PHP 設定',
+  'php.read': '讀取現有伺服器', 'php.apply': '套用選項並重啟網頁同排程服務',
+  'php.readback': '上次核實嘅容器設定', 'php.verified': '已核實伺服器嘅 PHP 設定。',
   'php.description': '部署後，網頁請求同排程工作會用新設定。請求大小上限要容得落上載檔案。課程本身可以有更低嘅上限。',
   'php.keep': '保留伺服器設定（新伺服器：{value}）',
   'php.max_input_vars': '輸入變數數目上限',

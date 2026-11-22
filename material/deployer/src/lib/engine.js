@@ -16,6 +16,7 @@ const HEALTH_TIMEOUT_MS = 15 * 60 * 1000;
 const MAX_LOG_LINES = 5000;
 
 const JOBS = {
+  limits: ['connect', 'limits'],
   deploy: ['connect', 'docker', 'upload', 'image', 'start', 'health'],
   quick: ['connect', 'configure', 'starttunnel', 'quickurl'],
   named: ['connect', 'prepare', 'login', 'create', 'route', 'config', 'restart', 'connected'],
@@ -277,6 +278,31 @@ class Engine extends EventEmitter {
     this.ctx = { dockerRoot: this.ctx.dockerRoot };
     await this.ensureConnected(this.abort?.signal);
     await this.detectDockerAccess(false);
+  }
+
+  async step_limits(job) {
+    await this.detectDockerAccess(true);
+    const schema = require('../../stack/php-settings.json');
+    const selections = {};
+    for (const [name, value] of Object.entries(this.server.phpLimits || {})) {
+      if (!value) continue;
+      if (!schema[name]?.options.includes(value)) throw new StepError('Unsupported PHP setting: ' + name);
+      selections[name] = value;
+    }
+    const action = job.params.apply === true ? 'apply' : 'read';
+    const source = fs.readFileSync(path.join(__dirname, 'running_limits.py'), 'utf8');
+    const args = [source, this.ctx.home, action, JSON.stringify(selections)].map(shQuote);
+    const result = await this.must('python3 -c ' + args.join(' '), {
+      docker: true, quiet: true, timeoutMs: 540000,
+      // Once a restart begins the host must finish its health check or rollback.
+      signal: new AbortController().signal,
+      failMessage: 'Could not reconcile PHP settings on the running server.',
+    });
+    const values = JSON.parse(result.stdout);
+    for (const [name, spec] of Object.entries(schema)) {
+      if (!spec.options.includes(values[name])) throw new StepError('The running settings could not be verified.');
+    }
+    job.result = { values, host: this.server.host, user: this.server.user, port: this.server.port };
   }
 
   async detectDockerAccess(required = true) {

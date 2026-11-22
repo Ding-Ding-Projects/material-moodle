@@ -137,7 +137,8 @@
       check('Ctrl+Shift+F opens the palette', !M.$('#palette').hidden);
       const input = M.$('#palette-input');
       input.value = 'Motion'; input.dispatchEvent(new Event('input')); await wait(50);
-      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); await wait(250);
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      for (let i = 0; i < 30 && !document.activeElement?.closest('#set-motion'); i++) await wait(50);
       check('Palette jumps to a setting and focuses it', state.page === 'settings' && document.activeElement?.closest('#set-motion'));
       key('F', { ctrlKey: true, shiftKey: true }); await wait(100);
       const pi = M.$('#palette-input');
@@ -183,6 +184,18 @@
       M.hideError();
       const copyCount = M.$$('.code-block').filter((b) => b.querySelector('.code-copy')).length;
       check('Every code block has a copy button', copyCount === M.$$('.code-block').length && copyCount > 0);
+      M.go('server');
+      const keys = Object.keys(M.appInfo.phpSettings);
+      const fields = keys.map(name => document.getElementById('php-' + name.replaceAll('.', '-')));
+      check('Each supported PHP runtime setting has a labelled selector', keys.length === 9 &&
+        fields.every(el => el?.tagName === 'SELECT' && el.labels?.length));
+      const memory = document.getElementById('php-memory_limit');
+      memory.value = '768M';
+      memory.dispatchEvent(new Event('change'));
+      await wait(800);
+      const withLimits = await api.settings.get();
+      check('The PHP choice persists and an existing stack can be read or updated', withLimits.lastServer.phpLimits.memory_limit === '768M' &&
+        M.$('#php-read') && M.$('#php-apply'));
       return results;
     };
   }

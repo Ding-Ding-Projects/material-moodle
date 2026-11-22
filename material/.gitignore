@@ -1,4 +1,5 @@
 docker/.env
+docker/.material-php-limits.*
 deployer/node_modules/
 deployer/dist/
 site/node_modules/

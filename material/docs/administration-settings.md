@@ -20,6 +20,16 @@ In the desktop deployer, open **Server > PHP runtime limits**. Choose the memory
 request body size, request timeout, maximum input variables or opcode cache settings. **Keep server setting**
 preserves an existing deployment value. The option label shows the default used on new installations.
 Select **Deploy** to recreate the web and scheduled-task containers with the selected limits.
+For an existing instance, enter its SSH connection details and select **Read running server**.
+The deployer discovers the active Compose directory and displays the nine configured values.
+Choose **Apply choices and restart web and worker** to update only the selected limits. It checks
+for unrelated pending Compose changes, keeps the running images and database, waits for both services,
+and reads the configured limits back. A normal restart or verification failure restores the previous
+configuration. This route requires Python 3, SSH and a Compose version supporting dry-run and health waits.
+If the connection or host stops during a change, the stack directory may contain the owner-only
+`.material-php-limits.previous` file. Treat it as confidential. Compare it with the current configuration
+on the host, restore the intended settings, and verify the web and worker containers before retiring it.
+The deployer leaves that file in place if recovery needs attention.
 The request body limit must accommodate the upload and its form overhead. A course or site upload
 limit can further restrict files. Review **Site administration > Security > Site security settings** in Moodle.
 The first container version with these controls must be installed for the choices to take effect.
