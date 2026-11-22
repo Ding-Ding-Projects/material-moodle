@@ -10,4 +10,4 @@ Use the configuration settings directory to locate each matching control from th
 
 The latest toolbar change uses material/site/demo.html as the visual reference. See material/design/README.md for the comparison, measurements and test coverage. The display panel, default colours, sign-in dimensions and phone palette were updated. Confirm the new image digest and live endpoint before reporting deployment.
 
-The shared control redesign (theme 2026112202) extends the interactive reference to course and administration forms, toolbar actions, navigation, the file manager and the editor. See material/design/README.md for the before/after evidence and material/tests/e2e/control-surfaces.mjs for the repeatable checks.
+The shared control redesign (theme 2026112203) extends the interactive reference to course and administration forms, toolbar actions, navigation, the file manager and the editor. See material/design/README.md for the before/after evidence and material/tests/e2e/control-surfaces.mjs for the repeatable checks.

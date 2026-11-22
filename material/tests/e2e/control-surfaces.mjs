@@ -68,6 +68,11 @@ export async function verifyControls(page, base, capture = async () => {}) {
     const editor = toolbar.locator('xpath=ancestor::*[contains(@class,"tox-tinymce")][1]');
     await editor.evaluate(el => el.scrollIntoView({block: 'center'}));
     await capture('editor-dark', page, editor);
+    await editor.getByRole('menuitem', {name: 'Edit', exact: true}).click();
+    const editorMenu = page.locator('.tox-tinymce-aux .tox-menu:visible').first();
+    await editorMenu.waitFor();
+    assert.equal(await editorMenu.evaluate(el => getComputedStyle(el).backgroundColor), 'rgb(48, 40, 36)');
+    await page.keyboard.press('Escape');
 
     page.once('dialog', dialog => dialog.accept());
     await page.goto(new URL('/admin/settings.php?section=local_materialtools_operations', base).href);

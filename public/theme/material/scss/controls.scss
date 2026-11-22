@@ -16,6 +16,9 @@
     --mds-text-danger: var(--md-sys-color-error);
     --mds-border-default: var(--md-sys-color-outline-variant);
     --mds-border-interactive-primary-default: var(--md-sys-color-primary);
+    --mds-border-interactive-primary-hover: var(--md-sys-color-primary);
+    --mds-border-interactive-primary-active: var(--md-sys-color-primary);
+    --mds-border-interactive-primary-disabled: var(--md-sys-color-outline-variant);
     --mds-border-interactive-secondary-default: var(--md-sys-color-outline);
     --mds-border-interactive-secondary-hover: var(--md-sys-color-on-surface-variant);
     --mds-border-interactive-secondary-active: var(--md-sys-color-primary);
@@ -25,9 +28,11 @@
     --mds-bg-interactive-primary-hover: var(--md-sys-color-primary);
     --mds-bg-interactive-primary-active: var(--md-sys-color-primary);
     --mds-bg-interactive-primary-default-light: var(--md-sys-color-primary-container);
+    --mds-bg-interactive-primary-disabled: var(--md-sys-color-surface-container-highest);
     --mds-bg-interactive-secondary-default: var(--md-sys-color-secondary-container);
     --mds-bg-interactive-secondary-hover: var(--md-sys-color-surface-container-highest);
     --mds-bg-interactive-secondary-active: var(--md-sys-color-secondary-container);
+    --mds-bg-interactive-secondary-disabled: var(--md-sys-color-surface-container-highest);
     --mds-bg-interactive-danger-default: var(--md-sys-color-error);
     --mds-bg-interactive-danger-default-light: var(--md-sys-color-error-container);
     --mds-bg-nav-pill-selected: var(--md-sys-color-secondary-container);
@@ -40,6 +45,11 @@
     --mds-border-interactive-danger-default: var(--md-sys-color-error);
     --mds-border-feedback-danger: var(--md-sys-color-error);
     --mds-border-feedback-success: var(--md-sys-color-success);
+    --mds-border-feedback-primary: var(--md-sys-color-primary);
+    --mds-bg-feedback-primary-default: var(--md-sys-color-primary);
+    --mds-bg-feedback-primary-light: var(--md-sys-color-primary-container);
+    --mds-bg-feedback-primary-subtle: var(--md-sys-color-primary-container);
+    --mds-text-feedback-primary: var(--md-sys-color-on-primary-container);
     --mds-text-feedback-danger: var(--md-sys-color-on-error-container);
     --mds-text-feedback-success: var(--md-sys-color-on-success-container);
     --mm-field-radius: clamp(8px, calc(var(--md-radius-sm) + 2px), 20px);
@@ -77,7 +87,10 @@
 // Leave ranges, colour wells, hidden proxies and password-reveal anchors to
 // their native components. Multiline fields keep their intrinsic height.
 input.form-control:not([type="color"]):not([type="range"]):not([type="file"]),
-textarea.form-control, select.form-select, select.custom-select, select.form-control {
+textarea.form-control, select.form-select, select.custom-select, select.form-control,
+:where(#region-main, .modal-body) form :where(input:not([type]), input[type="text"], input[type="email"],
+    input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="password"],
+    input[type="date"], input[type="time"], textarea, select):not([class]) {
     border: 1px solid var(--md-sys-color-outline);
     border-radius: var(--mm-field-radius);
     background-color: var(--md-sys-color-surface);
@@ -102,6 +115,19 @@ textarea.form-control, select.form-select, select.custom-select, select.form-con
     }
 }
 textarea.form-control { min-height: 6rem; padding-block: 12px; }
+:where(#region-main, .modal-body) form textarea:not([class]) { min-height: 6rem; padding-block: 12px; }
+:where(#region-main, .modal-body) form :is(button, input[type="button"], input[type="submit"], input[type="reset"]):not([class]) {
+    min-height: 44px;
+    padding: .5rem 1rem;
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--mm-action-radius);
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    font: inherit;
+    font-weight: 650;
+    &:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+    &:disabled { opacity: .55; }
+}
 select.form-select:not([multiple]), select.custom-select:not([multiple]) { padding-inline-end: 2.6rem; }
 .input-group > .form-control:not(:first-child), .input-group > .form-select:not(:first-child) {
     border-start-start-radius: 0; border-end-start-radius: 0;
@@ -257,6 +283,52 @@ body .tox.tox-tinymce {
     }
     .tox-tbtn--disabled { color: var(--md-sys-color-outline); }
     .tox-edit-area__iframe { background-color: var(--md-sys-color-surface); }
+}
+
+// The editor places its menus and dialogs in a separate UI sink outside the form.
+body .tox.tox-tinymce-aux {
+    .tox-menu, .tox-dialog {
+        background-color: var(--md-sys-color-surface-container-high);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        border-radius: var(--mm-field-radius);
+        color: var(--md-sys-color-on-surface);
+        box-shadow: var(--md-shadow-2);
+    }
+    .tox-collection__item, .tox-label, .tox-dialog__title, .tox-form__group, .tox-button--icon {
+        color: var(--md-sys-color-on-surface);
+    }
+    .tox-collection__item-icon svg, .tox-collection__item-caret svg { fill: currentColor; }
+    .tox-collection--list .tox-collection__item--active,
+    .tox-collection--list .tox-collection__item--enabled {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+        border-radius: 8px;
+    }
+    .tox-collection__item--state-disabled { opacity: .55; }
+    .tox-dialog__header, .tox-dialog__footer, .tox-dialog__body-content {
+        background: var(--md-sys-color-surface-container-high);
+        color: var(--md-sys-color-on-surface);
+    }
+    .tox-textfield, .tox-textarea, .tox-listboxfield .tox-listbox--select {
+        min-height: 48px;
+        background: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: var(--mm-field-radius);
+        &:focus-within { border-color: var(--md-sys-color-primary); }
+    }
+    .tox-dialog__footer .tox-button {
+        border: 0;
+        border-radius: var(--mm-action-radius);
+        min-height: 44px;
+        color: var(--md-sys-color-on-primary);
+        background: var(--md-sys-color-primary);
+    }
+    .tox-dialog__footer .tox-button--secondary {
+        border-radius: 999px;
+        color: var(--md-sys-color-on-secondary-container);
+        background: var(--md-sys-color-secondary-container);
+    }
 }
 .filemanager .fp-navbar.card {
     background-color: var(--md-sys-color-surface-container);

@@ -18,7 +18,7 @@ same colour roles to Moodle Design System components, Bootstrap forms and the se
 document. A different site seed or density still changes the result.
 
 The course editor, settings page and phone toolbar were exercised on an isolated installation of the
-theme (version `2026112202`) with synthetic records. Chromium and WebKit checks cover 320, 390 and
+theme (version `2026112203`) with synthetic records. Chromium and WebKit checks cover 320, 390 and
 1280 CSS pixels, focus, selection, collapsing a section with a draft, disabling and enabling a date,
 keyboard checkbox interaction, rich-text editing and dark mode. The two phone images use the same
 390 × 900 viewport. [Desktop course form](controls-course-desktop.png) · [Dark editor](controls-editor-dark.png) · [Administration controls](controls-admin-dark.png).
