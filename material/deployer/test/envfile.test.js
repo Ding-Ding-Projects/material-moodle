@@ -49,6 +49,16 @@ test('buildEnv follows a changed HTTP port when no tunnel address is set', () =>
   assert.equal(again.MOODLE_PORT, '80');
 });
 
+test('runtime limits preserve existing choices and validate the effective upload pair before deployment', () => {
+  const first = env.buildEnv({ ...base, phpLimits: { upload_max_filesize: '64M', post_max_size: '128M' } });
+  const next = env.envToObject(env.buildEnv({ ...base, phpLimits: { post_max_size: '', memory_limit: '768M' } }, first));
+  assert.equal(next.MATERIAL_PHP_UPLOAD_MAX_FILESIZE, '64M');
+  assert.equal(next.MATERIAL_PHP_POST_MAX_SIZE, '128M');
+  assert.equal(next.MATERIAL_PHP_MEMORY_LIMIT, '768M');
+  assert.throws(() => env.buildEnv({ ...base, phpLimits: { post_max_size: '32M' } }, first), /request body/);
+  assert.throws(() => env.buildEnv({ ...base, phpLimits: { memory_limit: 'lots' } }), /memory_limit/);
+});
+
 test('buildEnv rejects missing or invalid input', () => {
   assert.throws(() => env.buildEnv({ ...base, adminPassword: '' }), /admin password/);
   assert.throws(() => env.buildEnv({ ...base, seed: 'orange' }), /seed colour/);

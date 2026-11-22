@@ -2,6 +2,18 @@
 // Playful Hong Kong-style Cantonese strings. Missing keys fall back to English.
 (globalThis.MMD_LOCALES = globalThis.MMD_LOCALES || {}).yue = {
   'nav.server': '伺服器', 'nav.tunnel': '隧道', 'nav.logs': '紀錄', 'nav.settings': '設定', 'nav.about': '關於',
+  'php.title': 'PHP 執行限制',
+  'php.description': '部署後，網頁請求同排程工作會用新設定。請求大小上限要容得落上載檔案。課程本身可以有更低嘅上限。',
+  'php.keep': '保留伺服器設定（新伺服器：{value}）',
+  'php.max_input_vars': '輸入變數數目上限',
+  'php.memory_limit': '每個 PHP 程序嘅記憶體上限',
+  'php.upload_max_filesize': '單一上載檔案大小上限',
+  'php.post_max_size': '請求內容大小上限',
+  'php.max_execution_time': '網頁請求時限（秒）',
+  'php.opcache.enable': '指令快取（0 關閉，1 開啟）',
+  'php.opcache.memory_consumption': '指令快取記憶體（MiB）',
+  'php.opcache.max_accelerated_files': '快取指令碼數目上限',
+  'php.opcache.revalidate_freq': '快取重新檢查間隔（秒）',
   'win.minimize': '縮細', 'win.maximize': '放到最大', 'win.restore': '還原', 'win.close': '閂咗佢',
 
   'common.copy': '複製', 'common.copied': '複製咗', 'common.open': '打開', 'common.close': '閂', 'common.cancel': '唔做住',

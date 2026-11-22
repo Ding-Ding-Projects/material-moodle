@@ -70,3 +70,26 @@ if ($hassiteconfig || has_capability('local/materialtools:createstudents', conte
     }
     $ADMIN->add('local_materialtools', $page);
 }
+
+if ($hassiteconfig) {
+    $component = 'local_materialtools';
+    $page = new admin_settingpage('local_materialtools_operations', get_string('operations', $component));
+    if ($ADMIN->fulltree) {
+        // Use core setting names so backups, enrolment and the status report consume the saved values directly.
+        foreach (['usezipbackups', 'disableusercreationonrestore'] as $name) {
+            $page->add(new admin_setting_configcheckbox($name, get_string('ops' . $name, $component),
+                get_string('ops' . $name . '_desc', $component), 0));
+        }
+        $durations = [
+            'enrolments_sync_interval' => [HOURSECS, [5 * MINSECS, 15 * MINSECS, HOURSECS, 4 * HOURSECS]],
+            'adhoctaskagewarn' => [10 * MINSECS, [5 * MINSECS, 10 * MINSECS, 30 * MINSECS, HOURSECS]],
+            'adhoctaskageerror' => [4 * HOURSECS, [2 * HOURSECS, 4 * HOURSECS, 8 * HOURSECS, DAYSECS]],
+        ];
+        foreach ($durations as $name => [$default, $values]) {
+            $labels = array_combine($values, array_map('format_time', $values));
+            $page->add(new admin_setting_configselect($name, get_string('ops' . $name, $component),
+                get_string('ops' . $name . '_desc', $component), $default, $labels));
+        }
+    }
+    $ADMIN->add('server', $page);
+}

@@ -1,6 +1,15 @@
 # Material Moodle handoff
 
-Last updated 2026-11-20. Facts only; anything not listed as verified is unverified.
+## Configuration and feature inventory, 2026-11-22
+
+The stock public source was compared with upstream revision `2d4bafe8548a6d6c01494c862ec3d9749ba6ea84`.
+All 67,073 baseline public paths and all 23 activity/resource modules were retained. Component discovery
+found 411 bundled components and five additions. Inclusion alone does not exercise their workflows.
+The updated inventory covers 121 feature IDs and records incomplete work explicitly.
+The desktop deployment form now manages nine PHP runtime options. The web app adds five core operations
+settings and per-account reading preferences. See [administration settings](docs/administration-settings.md).
+
+## Earlier handoff, 2026-11-20
 
 ## Current state
 

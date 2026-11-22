@@ -5,6 +5,11 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 
 ## Phase 1: core plugins (web app)
 
+- [ ] Verify account-specific text size, line spacing and motion on the full accessibility and language matrix.
+- [ ] Complete the configuration GUI inventory. The SSH deployer now offers the nine PHP resource and cache
+  directives shipped with the container. Database migration, host networking and remaining hosting configuration
+  need separate controls and recovery checks.
+
 - [x] Material theme with seed-colour palette, fonts, roundness and density
 - [x] Motion levels with reduced-motion handling
 - [x] Ctrl+Shift+F command palette with regex builder blocks

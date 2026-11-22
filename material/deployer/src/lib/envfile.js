@@ -2,6 +2,24 @@
 // Reading and writing the stack's .env file. Docker Compose interpolates "$" in unquoted and
 // double-quoted values, so anything unusual is written in single quotes, which are literal.
 const crypto = require('node:crypto');
+const phpSettings = require('../../stack/php-settings.json');
+
+function phpOverrides(requested, existing) {
+  const changes = {};
+  const effective = {};
+  for (const [name, spec] of Object.entries(phpSettings)) {
+    const key = 'MATERIAL_PHP_' + name.replaceAll('.', '_').toUpperCase();
+    const selection = requested?.[name];
+    const value = selection || existing[key] || spec.default;
+    if (!spec.options.includes(value)) throw new Error('Unsupported PHP setting: ' + name);
+    effective[name] = value;
+    if (selection) changes[key] = selection;
+  }
+  if (parseInt(effective.upload_max_filesize, 10) > parseInt(effective.post_max_size, 10)) {
+    throw new Error('The request body limit must be at least the upload limit.');
+  }
+  return changes;
+}
 
 const KEY_RE = /^[A-Z_][A-Z0-9_]*$/;
 const BARE_RE = /^[A-Za-z0-9_.,:/@+=*-]*$/;
@@ -130,6 +148,7 @@ function buildEnv(opts, existingText = '') {
   const existing = envToObject(existingText);
   const port = Number(opts.httpPort || 8080);
   const values = {
+    ...phpOverrides(opts.phpLimits, existing),
     MOODLE_SITE_NAME: opts.siteName || 'Material Moodle',
     MOODLE_SITE_SHORTNAME: opts.shortName || shortName(opts.siteName),
     MOODLE_ADMIN_USER: opts.adminUser || 'admin',

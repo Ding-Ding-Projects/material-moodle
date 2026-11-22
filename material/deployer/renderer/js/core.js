@@ -12,6 +12,7 @@
     server: {
       host: '', port: '22', user: '', auth: 'key', keyPath: '', passphrase: '', password: '', sudoPassword: '',
       siteName: 'Material Moodle', adminUser: 'admin', adminEmail: '', adminPassword: '', seed: '#8B5000', httpPort: '8080',
+      phpLimits: {},
     },
     test: null,
     testing: false,

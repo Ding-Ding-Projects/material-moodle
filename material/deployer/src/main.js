@@ -8,6 +8,7 @@ const crypto = require('node:crypto');
 const { SettingsStore, SECRET_FIELDS } = require('./lib/settings');
 const { Engine } = require('./lib/engine');
 const { generateAdminPassword } = require('./lib/envfile');
+const phpSettings = require('../stack/php-settings.json');
 const { isSafeLoginUrl } = require('./lib/tunnel');
 
 const CAPTURE_DIR = process.env.MMD_CAPTURE_DIR ? path.resolve(process.env.MMD_CAPTURE_DIR) : null;
@@ -94,12 +95,17 @@ function serverTarget(cfg) {
     'siteName', 'adminUser', 'adminEmail', 'adminPassword', 'seed', 'httpPort'];
   const out = {};
   for (const k of pick) if (cfg[k] !== undefined && cfg[k] !== null) out[k] = String(cfg[k]);
+  out.phpLimits = {};
+  for (const name of Object.keys(phpSettings)) {
+    if (typeof cfg.phpLimits?.[name] === 'string') out.phpLimits[name] = cfg.phpLimits[name];
+  }
   out.host = (out.host || '').trim();
   return out;
 }
 
 function registerIpc() {
   handle('app:info', () => ({
+    phpSettings,
     version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome,
     node: process.versions.node, platform: process.platform + ' ' + process.arch,
     userData: app.getPath('userData'),
@@ -129,6 +135,7 @@ function registerIpc() {
     const s = store.get();
     const clean = {};
     for (const [k, v] of Object.entries(profile || {})) if (!SECRET_FIELDS.includes(k) && typeof v !== 'object') clean[k] = String(v);
+    clean.phpLimits = serverTarget(profile).phpLimits;
     clean.id = /^[a-f0-9]{16}$/.test(clean.id || '') ? clean.id : crypto.randomBytes(8).toString('hex');
     clean.name = (clean.name || clean.host || 'Server').slice(0, 80);
     const secrets = {};

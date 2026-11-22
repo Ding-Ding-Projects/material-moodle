@@ -11,4 +11,5 @@ if (!fs.existsSync(source)) {
   process.exit(1);
 }
 fs.copyFileSync(source, path.join(targetDir, 'docker-compose.yml'));
+fs.copyFileSync(path.join(path.dirname(source), 'php-settings.json'), path.join(targetDir, 'php-settings.json'));
 console.log('Copied docker-compose.yml into stack/');

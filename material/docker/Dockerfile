@@ -11,6 +11,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 COPY material/docker/php.ini /usr/local/etc/php/conf.d/moodle.ini
+COPY material/docker/configure-php.php material/docker/php-settings.json /usr/local/share/material-runtime/
+RUN php /usr/local/share/material-runtime/configure-php.php > /usr/local/etc/php/conf.d/zz-material-limits.ini
 COPY material/docker/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite headers remoteip
 

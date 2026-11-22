@@ -346,6 +346,7 @@
       ['srv-host', 'server.host'], ['srv-port', 'server.port'], ['srv-user', 'server.user'], ['srv-sudo', 'server.sudo'],
       ['site-name', 'server.siteName'], ['site-admin', 'server.adminUser'], ['site-email', 'server.adminEmail'],
       ['site-password', 'server.adminPassword'], ['site-seed', 'server.seed'], ['site-port', 'server.httpPort'],
+      ...Object.keys(M.appInfo?.phpSettings || {}).map(name => ['php-' + name.replaceAll('.', '-'), 'php.' + name]),
     ].map(([id, k]) => ({ group: 'palette.fields', label: t(k), hint: t('nav.server'), run: () => M.go('server', { focus: id }) }));
     return [...pages, ...actions, ...settings, ...serverFields];
   }

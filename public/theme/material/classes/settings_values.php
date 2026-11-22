@@ -93,8 +93,16 @@ class settings_values {
     public static function js_config(): array {
         $c = get_config('theme_material');
         $flag = fn(string $name, bool $default = true) => isset($c->$name) ? (bool) $c->$name : $default;
+        $motion = in_array($c->motion ?? '', ['expressive', 'calm', 'off']) ? $c->motion : 'expressive';
+        $display = class_exists(\local_materialtools\display_preferences::class)
+            ? \local_materialtools\display_preferences::current() : [];
+        if (($display['motion'] ?? '') === 'off' || (($display['motion'] ?? '') === 'calm' && $motion === 'expressive')) {
+            $motion = $display['motion'];
+        }
         return [
-            'motion' => in_array($c->motion ?? '', ['expressive', 'calm', 'off']) ? $c->motion : 'expressive',
+            'motion' => $motion,
+            'textsize' => $display['textsize'] ?? 'site',
+            'spacing' => $display['spacing'] ?? 'site',
             'commandpalette' => $flag('commandpalette'),
             'regexbuilder' => $flag('regexbuilder'),
             'copybuttons' => $flag('copybuttons'),

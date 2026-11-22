@@ -1,5 +1,7 @@
 # Material Moodle
 
+Account holders can adjust reading size, line spacing and motion in Preferences. Site administrators can change backup, restore, enrolment and task-queue behaviour under Server. The desktop deployer also exposes the container's PHP resource limits. See the [administration settings reference](material/docs/administration-settings.md).
+
 Moodle 6, redesigned in Material 3. One seed colour builds the whole light and dark palette, every page moves with
 expressive motion, people sign in with passkeys, and a desktop app deploys the whole thing to your own server with a
 secure public link in one click.

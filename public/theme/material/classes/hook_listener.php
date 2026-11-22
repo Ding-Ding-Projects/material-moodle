@@ -55,6 +55,8 @@ class hook_listener {
         }
         $config = settings_values::js_config();
         $hook->add_attribute('data-md-motion', $config['motion']);
+        $hook->add_attribute('data-md-textsize', $config['textsize']);
+        $hook->add_attribute('data-md-spacing', $config['spacing']);
     }
 
     /**

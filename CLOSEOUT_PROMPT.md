@@ -1,0 +1,5 @@
+# Material Moodle continuation
+
+Complete the applicable product feature catalogue and provide graphical configuration for the supported Moodle and hosting settings. Preserve Moodle core files and existing deployment data. The comparison baseline is `2d4bafe8548a6d6c01494c862ec3d9749ba6ea84`. See `material/COMPLETENESS.md` for the 121-row inventory and `material/ROADMAP.md` for the remaining work.
+
+The current increment adds a deployer form for nine PHP options, five Moodle operations settings, and per-account reading and motion preferences. Verify the built deployment, persistence, search and accessibility across surfaces. Preserve the existing first-visit account setup state. Deployment details and account data belong outside the public repository.

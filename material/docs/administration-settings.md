@@ -1,5 +1,30 @@
 # Administration settings reference
 
+### Change backup, enrolment and queue behaviour
+
+Open **Site administration > Server > Backup, enrolment and task settings**. The ZIP option affects new
+course backups. The restore setting blocks creation of new accounts during a course restore. The
+enrolment interval controls when an ongoing user session refreshes enrolments. The two queue thresholds
+control Moodle's existing ad hoc queue status check. Each control writes Moodle's original setting.
+Values explicitly forced in the installation configuration retain Moodle's normal override semantics.
+
+### Change the PHP limits of a hosted installation
+
+In the desktop deployer, open **Server > PHP runtime limits**. Choose the memory per process, upload limit,
+request body size, request timeout, maximum input variables or opcode cache settings. **Keep server setting**
+preserves an existing deployment value. The option label shows the default used on new installations.
+Select **Deploy** to recreate the web and scheduled-task containers with the selected limits.
+The request body limit must accommodate the upload and its form overhead. A course or site upload
+limit can further restrict files. Review **Site administration > Security > Site security settings** in Moodle.
+The first container version with these controls must be installed for the choices to take effect.
+
+### Set reading preferences for one account
+
+In Moodle, open **Preferences > Reading and motion preferences**. Choose a text size, line spacing
+or lower animation intensity and save. The Material theme applies the choice to that account on other
+devices. Select **Site default** in each field to reset. The theme respects the site's motion ceiling
+and the device's reduced-motion preference.
+
 Every setting the Material additions add, with its stored name (`plugin | name`), default and where it lives.
 Settings marked with an asterisk purge the theme cache when saved.
 

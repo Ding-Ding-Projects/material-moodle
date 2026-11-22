@@ -1,0 +1,11 @@
+{
+  "max_input_vars": {"default": "5000", "options": ["5000", "10000", "20000"]},
+  "memory_limit": {"default": "512M", "options": ["256M", "512M", "768M", "1024M"]},
+  "upload_max_filesize": {"default": "256M", "options": ["16M", "32M", "64M", "128M", "256M", "512M"]},
+  "post_max_size": {"default": "256M", "options": ["32M", "64M", "128M", "256M", "512M", "640M"]},
+  "max_execution_time": {"default": "300", "options": ["60", "120", "300", "600"]},
+  "opcache.enable": {"default": "1", "options": ["0", "1"]},
+  "opcache.memory_consumption": {"default": "256", "options": ["128", "256", "512"]},
+  "opcache.max_accelerated_files": {"default": "20000", "options": ["10000", "20000", "40000"]},
+  "opcache.revalidate_freq": {"default": "60", "options": ["0", "15", "60", "120"]}
+}

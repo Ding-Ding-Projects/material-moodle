@@ -105,7 +105,12 @@ function local_materialtools_after_require_login($courseorid = null, $autologing
 function local_materialtools_extend_navigation_user_settings(navigation_node $navigation, $user, $usercontext, $course,
         $coursecontext) {
     global $USER;
-    if ($user->id != $USER->id || isguestuser() || !\local_materialtools\vocabulary::personal_allowed()) {
+    if ($user->id != $USER->id || isguestuser()) {
+        return;
+    }
+    $navigation->add(get_string('displaypreferences', 'local_materialtools'), new moodle_url('/local/materialtools/display.php'),
+        navigation_node::TYPE_SETTING, null, 'local_materialtools_display');
+    if (!\local_materialtools\vocabulary::personal_allowed()) {
         return;
     }
     $navigation->add(get_string('personalvocab', 'local_materialtools'), new moodle_url('/local/materialtools/mypack.php'),

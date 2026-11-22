@@ -40,6 +40,19 @@
     return h('div', { class: 'input-wrap' }, input, btn);
   }
 
+  function phpLimitField(name, spec) {
+    const id = 'php-' + name.replaceAll('.', '-');
+    const control = h('select', { id, class: 'input' },
+      h('option', { value: '', text: t('php.keep', { value: spec.default }) }),
+      spec.options.map(value => h('option', { value, text: value })));
+    control.value = state.server.phpLimits?.[name] || '';
+    control.addEventListener('change', () => {
+      state.server.phpLimits = { ...state.server.phpLimits, [name]: control.value };
+      saveServerSoon();
+    });
+    return field(id, 'php.' + name, control);
+  }
+
   let saveTimer = null;
   function saveServerSoon() {
     clearTimeout(saveTimer);
@@ -179,6 +192,7 @@
     profileSel.addEventListener('change', async () => {
       if (!profileSel.value) return;
       const p = await api.profiles.load(profileSel.value);
+      state.server.phpLimits = {};
       Object.assign(state.server, Object.fromEntries(Object.entries(p).filter(([k]) => k in state.server)));
       M.toast(t('toast.profileLoaded', { name: p.name }), { kind: 'ok' });
       M.rerender();
@@ -278,6 +292,10 @@
         h('div', { class: 'row wrap' },
           field('site-seed', 'server.seed', h('div', { class: 'row gap-s align-center' }, seedPicker, seedHex), { grow: 1, info: 'info.seed' }),
           field('site-port', 'server.httpPort', textInput('site-port', 'httpPort', { inputmode: 'numeric' }), { grow: 1, info: 'info.httpPort' }))),
+      h('fieldset', { class: 'group' },
+        h('legend', { class: 'group-title', text: t('php.title') }),
+        h('p', { class: 'field-hint', text: t('php.description') }),
+        Object.entries(M.appInfo?.phpSettings || {}).map(([name, spec]) => phpLimitField(name, spec))),
       h('div', { class: 'row wrap gap-s align-center' }, testBtn, testChip),
       deployBtn);
 

@@ -327,15 +327,16 @@ class Engine extends EventEmitter {
   async step_upload(job) {
     const dir = this.ctx.dir;
     await this.must('mkdir -p ' + shQuote(dir) + ' ' + shQuote(dir + '/cloudflared'), { failMessage: 'Could not create ' + dir + '.' });
-    const composeText = fs.readFileSync(path.join(this.stackDir, 'docker-compose.yml'), 'utf8');
-    await this.session.writeFile(dir + '/docker-compose.yml', composeText, 0o644);
-    this.log('deploy', 'Uploaded docker-compose.yml to ' + dir + '.');
     const existing = (await this.session.readFile(dir + '/.env')) || '';
     const s = this.server;
     const text = env.buildEnv({
       host: s.host, httpPort: s.httpPort, siteName: s.siteName, adminUser: s.adminUser,
       adminPassword: s.adminPassword, adminEmail: s.adminEmail, seed: s.seed,
+      phpLimits: s.phpLimits,
     }, existing);
+    const composeText = fs.readFileSync(path.join(this.stackDir, 'docker-compose.yml'), 'utf8');
+    await this.session.writeFile(dir + '/docker-compose.yml', composeText, 0o644);
+    this.log('deploy', 'Uploaded docker-compose.yml to ' + dir + '.');
     this.ctx.dbPassword = env.envToObject(text).MOODLE_DB_PASSWORD;
     await this.session.writeFile(dir + '/.env', text, 0o600);
     this.log('deploy', existing ? 'Updated .env (kept the existing database password and tunnel settings).' : 'Wrote .env with a new random database password.');

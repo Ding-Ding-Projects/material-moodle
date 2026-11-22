@@ -55,6 +55,7 @@ class provider implements
             'timemodified' => 'privacy:metadata:title:timemodified',
         ], 'privacy:metadata:title');
         $collection->add_user_preference(\local_materialtools\vocabulary::PREF, 'privacy:metadata:preference:vocab');
+        $collection->add_user_preference(\local_materialtools\display_preferences::PREF, 'privacy:metadata:preference:display');
         $collection->add_user_preference('local_materialtools_personalvocab', 'privacy:metadata:preference:personalvocab');
         $collection->add_subsystem_link('core_files', [], 'privacy:metadata:personalvocabfiles');
         return $collection;
@@ -179,6 +180,7 @@ class provider implements
      */
     public static function export_user_preferences(int $userid) {
         foreach ([\local_materialtools\vocabulary::PREF => 'privacy:metadata:preference:vocab',
+                \local_materialtools\display_preferences::PREF => 'privacy:metadata:preference:display',
                 'local_materialtools_personalvocab' => 'privacy:metadata:preference:personalvocab'] as $name => $desc) {
             $value = get_user_preferences($name, null, $userid);
             if ($value !== null) {

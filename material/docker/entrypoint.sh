@@ -6,6 +6,14 @@ set -euo pipefail
 cd /var/www/moodle
 mode="${1:-web}"
 
+# Validate before touching the database or starting either service.
+limitsfile="$(mktemp /usr/local/etc/php/conf.d/.material-limits.XXXXXX)"
+trap 'rm -f -- "$limitsfile"' EXIT
+php /usr/local/share/material-runtime/configure-php.php > "$limitsfile"
+chmod 0644 "$limitsfile"
+mv -f -- "$limitsfile" /usr/local/etc/php/conf.d/zz-material-limits.ini
+trap - EXIT
+
 wait_for_db() {
   for i in $(seq 1 90); do
     if PGPASSWORD="${MOODLE_DB_PASSWORD:-moodle}" pg_isready -h "${MOODLE_DB_HOST:-db}" -p "${MOODLE_DB_PORT:-5432}" -U "${MOODLE_DB_USER:-moodle}" >/dev/null 2>&1; then

@@ -1,12 +1,12 @@
 # Material Moodle completeness inventory
 
-Checked against the maintainer's required-feature catalogue (121 ids in its flat id list) on 2026-11-20, from the files present in
+Checked against the maintainer's required-feature catalogue (121 ids in its flat id list) with selected rows refreshed on 2026-11-22, from the files present in
 the working copy. Nothing here is a claim that the work is finished: the product is **not complete**.
 
 **Rules used**
 
 - **Done** means implemented in this repository and inspectable in the files listed. It does not mean verified in a
-  running build unless the row says so; no item has screenshot or automated interaction evidence yet.
+  running build unless the row says so; tracked screenshots and interaction scripts require source-specific verification.
 - **Partial** means some of the feature exists; the "Missing" column lists the rest.
 - **Missing** means nothing for this feature exists in the Material overlay. Upstream Moodle behaviour is mentioned
   where it touches the feature but never counts as Done.
@@ -31,9 +31,9 @@ by the maintainer; no waivers are recorded yet.
 
 | Status | Count |
 | --- | ---: |
-| Done | 5 |
-| Partial | 28 |
-| Missing | 73 |
+| Done | 4 |
+| Partial | 40 |
+| Missing | 62 |
 | Not applicable | 15 |
 | **Total** | **121** |
 
@@ -42,10 +42,10 @@ by the maintainer; no waivers are recorded yet.
 | # | Id | Feature | Applies | Status | Evidence | Missing |
 | ---: | --- | --- | --- | --- | --- | --- |
 | 1 | `job-experience-document-label` | Job Experience Document product label | No: only for job-related apps; this is a learning platform. | Not applicable | | |
-| 2 | `language` | English, playful Hong Kong Cantonese and bilingual language modes | Yes: web app, deployer, site. | Missing | Only English strings: `T/lang/en`, `P/lang/en`, `L/lang/en`. | Cantonese language packs for the three plugins, bilingual mode, deployer and site localization. |
+| 2 | `language` | English, playful Hong Kong Cantonese and bilingual language modes | Yes: web app, deployer, site. | Partial | English and Hong Kong Cantonese deployer controls, bilingual display, project pages and a subset of Moodle display and operations strings. | Complete all plugin strings, language switches and runtime verification across surfaces. |
 | 3 | `funny-emoji` | Funny-level sliders and emoji switch | Yes. | Missing | | Per-language playfulness sliders wired to all copy, emoji switch. |
-| 4 | `personal-vocabulary` | Personal vocabulary JSON upload | Yes. | Partial | Site-level custom vocabulary pack with strict validation and audience control: `L/classes/vocabulary.php`, `L/classes/strict_json.php`, `L/vocabulary.php`, `L/amd/src/vocabulary.js`. | Upload is per site by a manager, not per person in their own settings; no settings-search or palette entry; deployer and site have none. |
-| 5 | `vocabulary-drop-apply` | Drop a vocabulary JSON anywhere to apply it | Yes. | Partial | Managers can drop a pack on any page; full-window headline and celebration: `L/amd/src/vocabulary.js`, `L/classes/hook_listener.php`. | Ordinary signed-in people cannot drop a personal pack; deployer has no drop target. |
+| 4 | `personal-vocabulary` | Personal vocabulary JSON upload | Yes. | Partial | Site and personal packs, including the personal preferences route and access checks. | Verify the full lifecycle across surfaces. |
+| 5 | `vocabulary-drop-apply` | Drop a vocabulary JSON anywhere to apply it | Yes. | Partial | The page hook supports both personal and site-managed routes. | Verify per-surface behaviour, outcomes and accessibility. |
 | 6 | `school-mode` | Shared School mode switch | Yes. | Missing | | |
 | 7 | `narration` | Spoken narrator with voice pickers | Yes. | Missing | | |
 | 8 | `action-sound-effects` | Action sounds with a Settings switch | Yes. | Missing | | |
@@ -61,7 +61,7 @@ by the maintainer; no waivers are recorded yet.
 | ---: | --- | --- | --- | --- | --- | --- |
 | 14 | `material-design` | Full Material 3 Expressive conformance | Yes. | Partial | Seed palette and restyle of core components: `T/classes/palette.php`, `T/scss/material.scss`, `T/lib.php`. | Many core Moodle templates keep Bootstrap markup and styling; no component registry; deployer UI and site not built. |
 | 15 | `workflow-navigation` | Discrete destinations, working window chrome | Yes. | Missing | Moodle's own navigation only. | Frameless Material title bar and controls for the deployer; audit that every navigation element works. |
-| 16 | `motion` | Material motion with complete reduced-motion path | Yes. | Partial | `T/scss/material.scss` (motion section), `T/classes/hook_listener.php` (`data-md-motion`), `T/amd/src/main.js`, `T/amd/src/celebrate.js`. | Per-person motion preference, scheduling, proof on every animated surface. |
+| 16 | `motion` | Material motion with complete reduced-motion path | Yes. | Partial | Site motion modes, device reduced motion and a per-account lower-motion preference. | Verify all states and surfaces; complete the motion editor. |
 | 17 | `live-charts` | Live-updating charts | No: the Material additions show no live-updating charts. | Not applicable | | Reassess if the deployer adds live progress charts. |
 | 18 | `update-coming-soon` | "Update coming soon" with build progress | Yes (deployer, site). | Missing | | |
 | 19 | `appearance-editor` | Per-element appearance editor | Yes. | Missing | Site-wide raw SCSS only (`T/settings.php`). | |
@@ -69,20 +69,20 @@ by the maintainer; no waivers are recorded yet.
 | 21 | `logo-customization` | Logo presets and custom upload | Yes. | Missing | `T/lib.php` serves a `logo` file area but no setting uses it. | Presets, upload with validation, reset. |
 | 22 | `overlay-panels` | Bounded, resizable overlays and panels | Yes. | Partial | Palette and context menu stay inside the viewport: `T/amd/src/palette.js`, `T/amd/src/contextmenu.js`. | Resizing and dragging, audit of Moodle's own popovers. |
 | 23 | `collapse-filters` | Collapsible filters and statistics | Yes. | Missing | | |
-| 24 | `accessibility-sizing` | Accessibility tools menu, no clipping | Yes. | Missing | Reduced motion and focus rings are respected (`T/scss/material.scss`). | Accessibility menu (text size, contrast, larger targets, read aloud), clipping checks. |
+| 24 | `accessibility-sizing` | Accessibility tools menu, no clipping | Yes. | Partial | Account text size, line spacing and motion choices are available in Preferences. | Complete accessibility menu and verify the full layout matrix. |
 | 25 | `functional-ui` | Every control works, truthful empty states | Yes. | Partial | Empty states exist (passkey manager, vocabulary page: `P/templates/manage.mustache`, `L/templates/vocabulary.mustache`). | The theme setting text promises page filter boxes that are not active (`T/lang/en/theme_material.php`, `regexbuilder_desc`); no interaction tests. |
 
 ## Navigation, search and commands
 
 | # | Id | Feature | Applies | Status | Evidence | Missing |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 26 | `onboarding-wizard` | Practical first-run setup wizard | Yes. | Partial | Student first sign-in flow with progress (`P/welcome.php`, `P/templates/welcome.mustache`, `P/lib.php`); scripted defaults (`L/cli/configure.php`). | An in-app administrator setup wizard with Back/Next, save and resume; deployer wizard. |
+| 26 | `onboarding-wizard` | Practical first-run setup wizard | Yes. | Partial | First-visit account setup, six-step site wizard with saved navigation and deployer onboarding. | Verify setup, recovery and coverage on every surface. |
 | 27 | `extension-support` | Extension support with manifest, protocol and consent | Yes. | Missing | Moodle's plugin system is upstream and does not meet the contract. | |
 | 28 | `tabs` | Browser-style tabs, every tab open by default | Yes. | Missing | | |
-| 29 | `regex-search` | Regex builder on every search surface | Yes. | Partial | Builder in the command palette (`T/amd/src/palette.js`); search-box builder written but inactive (`T/amd/src/searchbars.js`, no build output, not loaded). | Activate and build `searchbars.js`; replacement, explanation, flavours, history; deployer and site search. |
+| 29 | `regex-search` | Regex builder on every search surface | Yes. | Partial | Built theme search-bar module is initialized by main.js. Deployer and site have search controls. | Full engine and workflow parity and verified reachability on every search. |
 | 30 | `command-palette` | Ctrl+Shift+F command palette | Yes. | Partial | `T/amd/src/palette.js`, `T/classes/hook_listener.php`. | Every setting, page, article and control as results; live controls in rows; teleport and highlight of the exact element; deployer and site palette. |
-| 31 | `context-menus` | Context menu on every element | Yes. | Partial | Written but inactive: `T/amd/src/contextmenu.js`. | Load and build it, add its strings, filter field with regex builder, Edit appearance and Lock entries, touch and keyboard openers. |
-| 32 | `menu-shortcuts` | Shortcuts shown in menus | Yes. | Partial | Shortcut labels in `T/amd/src/contextmenu.js` (inactive). | Derive labels from the key handlers; platform notation; activation. |
+| 31 | `context-menus` | Context menu on every element | Yes. | Partial | Theme main.js loads the built context menu when enabled. | Verify actions, keyboard and touch coverage on each applicable surface. |
+| 32 | `menu-shortcuts` | Shortcuts shown in menus | Yes. | Partial | The theme loads its context menu; deployer has palette navigation. | Complete per-element menu and keyboard coverage. |
 | 33 | `rich-controls` | Real controls wherever a value is shown | Yes. | Missing | | |
 | 34 | `guided-forms` | Guided forms with suggestions and inline validation | Yes. | Partial | Add a student suggests usernames, generates passwords, validates inline: `L/classes/form/newstudent.php`, `L/classes/student_creator.php`. | Guided wizards above controls; other forms. |
 | 35 | `info-icon-guidance` | Info button above each control | Yes. | Missing | One Moodle help icon on the username field (`L/classes/form/newstudent.php`). | |
@@ -109,10 +109,10 @@ by the maintainer; no waivers are recorded yet.
 | 46 | `local-history` | Local version history with undo | Yes. | Missing | | History for vocabulary packs, wording and settings. |
 | 47 | `exports` | Export everything in every format | Yes. | Missing | Upstream backups and privacy exports only. | Export of vocabulary pack, wording, labels, passkey list. |
 | 48 | `bulk-actions` | Bulk actions everywhere | Yes. | Partial | Several students can be added to the vocabulary audience at once (`L/classes/form/vocabusers.php`). | Multi-select and bulk actions on passkeys, chosen students, labels. |
-| 49 | `changelog` | Changelog viewer | Yes. | Missing | | |
+| 49 | `changelog` | Changelog viewer | Yes. | Partial | The project site includes a generated changelog. | Remaining app surfaces and runtime verification. |
 | 50 | `offline-docs` | Offline documentation browser in the app | Yes. | Missing | Articles exist as Markdown only (`material/docs`). | |
 | 51 | `rendered-provider-text` | Provider text rendered as Markdown | Yes (deployer will show release notes). | Missing | | |
-| 52 | `notifications` | Non-blocking notifications and a centre | Yes. | Partial | Success and error moments on Moodle's alerts and toasts (`T/amd/src/celebrate.js`). | Notification centre with history, search and bulk management. |
+| 52 | `notifications` | Non-blocking notifications and a centre | Yes. | Partial | Theme has a persistent searchable centre; the deployer has a notification centre. | Verify retention, accessibility and event coverage across surfaces. |
 
 ## Built-in tools
 
@@ -128,7 +128,7 @@ by the maintainer; no waivers are recorded yet.
 | 60 | `external-editor` | External editor and VS Code hand-off | Yes (deployer owns stack files). | Missing | | |
 | 61 | `download-handoff` | Browser-extension download hand-off | No: there is no browser extension. | Not applicable | | |
 | 62 | `forge-publishing` | Publishing a repository to a forge | No: the product never publishes repositories. | Not applicable | | |
-| 63 | `progress-recovery` | Progress where it started, recovery where it broke | Yes. | Partial | Deployer engine has per-step status and retry (`material/deployer/src/lib/engine.js`, unverified). | User interface, verification. |
+| 63 | `progress-recovery` | Progress where it started, recovery where it broke | Yes. | Partial | The deployer displays individual operation steps and retry controls. | End-to-end failure recovery on each relevant surface. |
 | 64 | `drawesome-drawing` | Drawing and annotation | Yes. | Missing | | |
 
 ## Completeness and evidence
@@ -136,8 +136,8 @@ by the maintainer; no waivers are recorded yet.
 | # | Id | Feature | Applies | Status | Evidence | Missing |
 | ---: | --- | --- | --- | --- | --- | --- |
 | 65 | `completeness-parity` | Per-surface completeness inventory | Yes. | Partial | This file. | Separate rows per surface; a test that fails when the inventory drifts. |
-| 66 | `front-provenance` | Version and updated-at time on the first screen | Yes. | Missing | | |
-| 67 | `product-evidence` | Real screenshots of every surface | Yes. | Missing | `material/site/screenshots` is empty. | |
+| 66 | `front-provenance` | Version and updated-at time on the first screen | Yes. | Partial | The project site includes version and update-date information. | Verify freshness and coverage of all surfaces. |
+| 67 | `product-evidence` | Real screenshots of every surface | Yes. | Partial | Desktop and phone images are tracked in the project, deployer and website screenshot folders. | Verify provenance, source freshness and coverage for every state. |
 | 68 | `screen-recording` | Committed screen recording | Yes. | Missing | | |
 | 69 | `design-reference-parity` | Checked-in design reference parity | Yes, once `material/design` exists. | Missing | `material/design` does not exist. | |
 | 70 | `design-folder` | Design surfaces kept in the repository | Yes. | Missing | `material/design` does not exist. | |
@@ -148,13 +148,13 @@ by the maintainer; no waivers are recorded yet.
 
 | # | Id | Feature | Applies | Status | Evidence | Missing |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 73 | `landing-site` | Material project site carrying every feature | Yes. | Partial | Started: `material/site/scripts/build.mjs`, `material/site/assets`. | Pages, deployment, every feature. |
-| 74 | `mobile-friendly-site` † | Mobile-friendly site | Yes. | Missing | | |
+| 73 | `landing-site` | Material project site carrying every feature | Yes. | Partial | Generated site pages and deployment workflow are present. | Verify deployed content against the complete delivery requirements. |
+| 74 | `mobile-friendly-site` † | Mobile-friendly site | Yes. | Partial | Phone and desktop images exist for the generated site. | Exercise every reachable action at narrow and desktop widths. |
 | 75 | `installer-download-button` | Verified installer download on the site's home page | Yes. | Missing | | |
-| 76 | `feature-articles` | One article per feature on the site | Yes. | Missing | Markdown articles exist in `material/docs`, not yet on the site. | |
+| 76 | `feature-articles` | One article per feature on the site | Yes. | Partial | Generated article pages exist under `material/site/features`. | Complete article and wiki inventory, links and live verification. |
 | 77 | `vendored-fonts` | Complete, scripted font vendoring | Yes. | Partial | Fonts in `T/fonts` and `material/site/assets/fonts`. | Fetch script, SHA-256 manifest, licence files for Inter, Atkinson Hyperlegible Next and Roboto Mono (only Roboto Flex's OFL is present), non-Latin subsets. |
 | 78 | `shared-link-embed` | Real product picture when a link is shared | Yes. | Missing | | `social-preview.png` and its script. |
-| 79 | `homepage-link` | Site linked from the repository's About field | Yes. | Missing | | |
+| 79 | `homepage-link` | Site linked from the repository's About field | Yes. | Partial | The repository About website points to its project site. | Verify live assets and home-page delivery on the current deployment. |
 | 80 | `vocabulary-unlock-boundary` | Custom wording only after authentication | Yes (the vocabulary pack). | Partial | Pack served only to eligible signed-in people and applied client-side: `L/vocab.php`, `L/classes/vocabulary.php` (`eligible()`), `L/classes/hook_listener.php`. | Automated test proving signed-out pages and error text never carry the pack. |
 | 81 | `private-site-app` † | Private site delivered as a desktop app | No: for private repositories only. | Not applicable | | |
 | 82 | `site-pdf-edition` † | Phone-sized PDF edition of the site | Yes. | Missing | | |
@@ -179,7 +179,7 @@ by the maintainer; no waivers are recorded yet.
 | 91 | `squirrel-installer` | Squirrel.Windows installers | Yes (deployer on Windows). | Missing | Deployer targets NSIS and portable (`material/deployer/package.json`), which conflicts with the contract. | |
 | 92 | `self-signing` | Sign only where the format requires it | Yes. | Partial | Release workflow builds unsigned and disables certificate discovery (`.github/workflows/material-release.yml`, `material/release/README.md`). | Not yet run; no verification of `NotSigned` output. |
 | 93 | `auto-updates` | Automatic updates with a ready banner | Yes (deployer). | Missing | | |
-| 94 | `app-icon` | Original logo and packaged icon | Yes. | Missing | `material/deployer/build` is empty; `package.json` names `build/icon.png`. | |
+| 94 | `app-icon` | Original logo and packaged icon | Yes. | Partial | Tracked deployer icon and its generator. | Verify each packaged icon. |
 
 ## Release pipeline
 
@@ -198,14 +198,14 @@ by the maintainer; no waivers are recorded yet.
 
 | # | Id | Feature | Applies | Status | Evidence | Missing |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 103 | `tabbed-readme` | Compact README with folded sections | Yes. | Missing | `README.md` is still upstream Moodle's. | |
+| 103 | `tabbed-readme` | Compact README with folded sections | Yes. | Partial | Root README has a documentation link and folded sections. | Full navigation and presentation contract. |
 | 104 | `human-time-estimate` | Hand-written time estimate in the README | Yes. | Missing | | |
 | 105 | `sanitized-instruction-copy` | Sanitized mirror of the shared instructions | Yes. | Missing | | |
 | 106 | `agents-md-vocabulary-block` | Vocabulary discipline block in `AGENTS.md` | Yes. | Done | `AGENTS.md`. | |
 | 107 | `vocabulary-hash-lock` | Vocabulary hash lock on builds and pushes | Yes. | Missing | The scanner (`material/scripts/verify-public-vocabulary.mjs`) is a separate check, not a hash lock. | |
 | 108 | `roadmap-checklist` | `ROADMAP.md` checklist | Yes. | Done | `material/ROADMAP.md`. | |
-| 109 | `feature-docs` | One Markdown file per feature | Yes. | Done | `material/docs/README.md` and 19 articles. | Articles for features not built yet. |
-| 110 | `postman-collections` | Postman collections for HTTP APIs | Yes: three endpoints exist. | Missing | Endpoints listed in `material/docs/README.md`. | |
+| 109 | `feature-docs` | One Markdown file per feature | Yes. | Partial | Articles and an index exist in `material/docs`. | Categorized indexes and complete coverage. |
+| 110 | `postman-collections` | Postman collections for HTTP APIs | Yes: three endpoints exist. | Partial | Collection and instructions under `material/postman`. | Verify import and coverage for applicable endpoints. |
 | 111 | `wiki-site-sync` † | Wiki and site kept current | Yes. | Missing | | |
 | 112 | `handoff-record` | `HANDOFF.md` and an issue handoff section | Yes. | Partial | `material/HANDOFF.md`. | Handoff section on a GitHub issue. |
 | 113 | `closeout-prompt` | Committed `CLOSEOUT_PROMPT.md` | Yes. | Missing | | |
