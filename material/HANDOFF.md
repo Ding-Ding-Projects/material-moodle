@@ -17,6 +17,11 @@ in Chromium at a 1240 by 900 viewport, light theme. Runtime PHP reported the fix
 memory, 64 MiB per upload and 128 MiB per request. The deployer Linux suite reported 49 passes and one
 skipped Compose check in the test environment.
 
+The configuration directory lists 199 distinct property names in this version of `config-dist.php`.
+In the staged installation, 23 had a matching editable core setting, one had a host override and
+175 had no matching native core field. These counts vary with the installation. The directory links
+to existing controls and does not grant new permissions or turn arbitrary configuration into editable PHP.
+
 ## Earlier handoff, 2026-11-20
 
 ## Current state

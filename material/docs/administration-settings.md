@@ -1,5 +1,11 @@
 # Administration settings reference
 
+Open **Site administration > Server > Configuration settings directory** to search the names documented
+in the installed version of `config-dist.php`. Each matching core control opens its native settings page.
+Filter by configuration method to see editable controls, host overrides and names without a matching core
+field. The directory reads the distributed example and registered setting names, never the live configuration file.
+It covers named properties; nested keys, compound expressions and service configuration files are outside its count.
+
 ### Change backup, enrolment and queue behaviour
 
 Open **Site administration > Server > Backup, enrolment and task settings**. The ZIP option affects new

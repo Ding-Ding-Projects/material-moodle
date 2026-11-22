@@ -73,6 +73,8 @@ if ($hassiteconfig || has_capability('local/materialtools:createstudents', conte
 
 if ($hassiteconfig) {
     $component = 'local_materialtools';
+    $ADMIN->add('server', new admin_externalpage('local_materialtools_configuration', get_string('configurationindex', $component),
+        new moodle_url('/local/materialtools/configuration.php'), 'moodle/site:config'));
     $page = new admin_settingpage('local_materialtools_operations', get_string('operations', $component));
     if ($ADMIN->fulltree) {
         // Use core setting names so backups, enrolment and the status report consume the saved values directly.

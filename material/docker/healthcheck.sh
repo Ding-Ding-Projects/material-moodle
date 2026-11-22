@@ -13,5 +13,11 @@ if [[ -f "$state" ]]; then
         *) exit 1 ;;
     esac
 else
-    exec php -r 'exit(@file_get_contents("http://127.0.0.1/login/index.php") === false ? 1 : 0);'
+    # Moodle redirects to its configured external URL. The local listener has
+    # answered at that point; a published port may be unreachable from inside.
+    exec php -r '
+        $ctx = stream_context_create(["http" => ["follow_location" => 0, "timeout" => 3]]);
+        @file_get_contents("http://127.0.0.1/login/index.php", false, $ctx);
+        exit(preg_match("~^HTTP/\S+ [23]\d{2}\b~", $http_response_header[0] ?? "") ? 0 : 1);
+    '
 fi
