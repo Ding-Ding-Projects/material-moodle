@@ -5,6 +5,10 @@ Account holders can adjust reading size, line spacing and motion in Preferences.
 <details>
 <summary>Reading preferences and site operations</summary>
 
+The toolbar's **Display settings** panel offers colour, motion and language controls, with links to all account preferences and permitted site administration pages. [Compare the working panel with its design reference](material/design/README.md).
+
+![Material display settings in the course editor](material/design/moodle-display-settings.png)
+
 ![Account reading choices with animations off, text at 125% and relaxed line spacing](material/screenshots/account-reading-options.png)
 
 ![Moodle backup, restore, enrolment sync and queue settings](material/screenshots/course-operations-settings.png)

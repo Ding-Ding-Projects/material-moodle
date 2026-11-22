@@ -29,7 +29,7 @@ define([], function() {
      * @returns {boolean}
      */
     function calm() {
-        return settings.motion !== 'expressive' ||
+        return (document.documentElement.dataset.mdMotion || settings.motion) !== 'expressive' ||
             (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     }
 

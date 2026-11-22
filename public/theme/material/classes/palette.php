@@ -31,6 +31,36 @@ class palette {
     /** @var string Fallback seed when the setting is empty or invalid. */
     public const DEFAULT_SEED = '#8B5000';
 
+    /** Default-seed light and dark roles from the checked-in interactive design reference. */
+    private const REFERENCE_COLOURS = [
+        'primary' => ['#8B5000', '#CBB08C'],
+        'on-primary' => ['#FFFFFF', '#21160A'],
+        'primary-container' => ['#E8DCCC', '#533000'],
+        'on-primary-container' => ['#382000', '#EAE0D1'],
+        'secondary-container' => ['#F8DEC6', '#5A432C'],
+        'on-secondary-container' => ['#291806', '#FFDCBE'],
+        'tertiary-container' => ['#DCE8B4', '#414B24'],
+        'on-tertiary-container' => ['#161E01', '#DCE8B4'],
+        'error' => ['#BA1A1A', '#FFB4AB'],
+        'error-container' => ['#FFDAD6', '#93000A'],
+        'on-error-container' => ['#410002', '#FFDAD6'],
+        'success' => ['#1F6B2C', '#9CD69A'],
+        'success-container' => ['#B7F1B4', '#00531B'],
+        'on-success-container' => ['#002106', '#B7F1B4'],
+        'surface' => ['#FFF8F5', '#18120D'],
+        'surface-container-low' => ['#FCF2EB', '#201A16'],
+        'surface-container' => ['#F6ECE5', '#251E1A'],
+        'surface-container-high' => ['#F0E6DF', '#302824'],
+        'surface-container-highest' => ['#EBE0D9', '#3B332E'],
+        'on-surface' => ['#201A17', '#EDE0D9'],
+        'on-surface-variant' => ['#51443A', '#D6C3B6'],
+        'outline' => ['#84746A', '#9E8E83'],
+        'outline-variant' => ['#D6C3B6', '#51443A'],
+        'inverse-surface' => ['#362F2B', '#EDE0D9'],
+        'inverse-on-surface' => ['#FBEEE7', '#362F2B'],
+    ];
+
+
     /**
      * Normalise a colour to #RRGGBB.
      *
@@ -253,6 +283,11 @@ class palette {
         $out = [];
         foreach ($roles as $role => [$rh, $rs, $light, $darktone]) {
             $out[$role] = self::tone($rh, $rs, $dark ? $darktone : $light);
+        }
+        if (self::normalise($seed) === self::DEFAULT_SEED) {
+            foreach (self::REFERENCE_COLOURS as $role => [$lightcolour, $darkcolour]) {
+                $out[$role] = $dark ? $darkcolour : $lightcolour;
+            }
         }
         return $out;
     }

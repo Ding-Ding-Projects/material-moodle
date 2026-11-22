@@ -36,9 +36,13 @@ Roboto Mono (variable 100 to 700) is always loaded for code. Only the Latin subs
 
 ## Light and dark mode
 
-Material does not add its own light and dark switch. Turn on **Colour modes** in the Boost settings
-(`theme_boost | enablecolourmodes`); people then choose light, dark or automatic from the user menu, and the Material
-palette follows that choice. On a fresh Docker install the first-run configuration turns colour modes on for you.
+Open **Display settings** using the sliders button in the signed-in toolbar. The panel offers Automatic, Light
+and Dark through Boost's colour-mode preference. A fresh container installation enables this choice under
+`theme_boost | enablecolourmodes`. Motion changes use the account's existing reading preference and respect the
+site and device limits. English, Cantonese and bilingual wording apply to the panel on this browser. Use
+**All preferences** for account settings, including the Moodle language. Users with a site administration
+destination also get a direct link to it. The default seed uses the reviewed demo's light and dark surface
+colours; other seed colours use the theme generator.
 
 ## Settings
 

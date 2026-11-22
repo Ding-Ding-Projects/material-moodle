@@ -516,8 +516,8 @@ body.pagelayout-login {
     .login-container {
         background: var(--md-sys-color-surface-container-low);
         border-radius: calc(var(--md-radius) + 8px);
-        padding: 2.5rem;
-        max-width: 460px;
+        padding: 32px;
+        max-width: 440px;
         animation: md-rise .7s .1s $md-ease-emph both;
     }
 
@@ -659,7 +659,7 @@ body.pagelayout-login {
 // Passkey button (added by auth_passkey) gets the hero treatment.
 .md-passkey-btn {
     width: 100%;
-    min-height: 60px;
+    min-height: 64px;
     border: 0;
     border-radius: 20px;
     background: var(--md-sys-color-primary);

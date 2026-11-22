@@ -32,7 +32,7 @@ define(['theme_material/celebrate', 'theme_material/palette', 'theme_material/co
      * @returns {boolean}
      */
     function reduced(config) {
-        return config.motion === 'off' ||
+        return (document.documentElement.dataset.mdMotion || config.motion) === 'off' ||
             (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     }
 
@@ -42,7 +42,8 @@ define(['theme_material/celebrate', 'theme_material/palette', 'theme_material/co
     function ripples() {
         document.addEventListener('pointerdown', function(e) {
             var target = e.target.closest ? e.target.closest('.btn, .md-chip, .md-passkey-btn') : null;
-            if (!target || target.disabled) {
+            if (!target || target.disabled || document.documentElement.dataset.mdMotion !== 'expressive' ||
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 return;
             }
             var rect = target.getBoundingClientRect();
@@ -75,11 +76,12 @@ define(['theme_material/celebrate', 'theme_material/palette', 'theme_material/co
             started = true;
             config = config || {};
             config.strings = (window.M && M.str && M.str.theme_material) ? M.str.theme_material : {};
-            var calm = reduced(config);
-            if (config.pagetransitions && !calm) {
-                document.documentElement.classList.add('md-transitions');
+            function updateTransitions() {
+                document.documentElement.classList.toggle('md-transitions', !!config.pagetransitions && !reduced(config));
             }
-            if (config.ripples && !calm && config.motion !== 'calm') {
+            updateTransitions();
+            document.addEventListener('theme-material-motion-change', updateTransitions);
+            if (config.ripples) {
                 ripples();
             }
             if (config.copybuttons) {

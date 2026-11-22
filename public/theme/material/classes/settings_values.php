@@ -94,6 +94,7 @@ class settings_values {
         $c = get_config('theme_material');
         $flag = fn(string $name, bool $default = true) => isset($c->$name) ? (bool) $c->$name : $default;
         $motion = in_array($c->motion ?? '', ['expressive', 'calm', 'off']) ? $c->motion : 'expressive';
+        $sitemotion = $motion;
         $display = class_exists(\local_materialtools\display_preferences::class)
             ? \local_materialtools\display_preferences::current() : [];
         if (($display['motion'] ?? '') === 'off' || (($display['motion'] ?? '') === 'calm' && $motion === 'expressive')) {
@@ -101,6 +102,7 @@ class settings_values {
         }
         return [
             'motion' => $motion,
+            'sitemotion' => $sitemotion,
             'textsize' => $display['textsize'] ?? 'site',
             'spacing' => $display['spacing'] ?? 'site',
             'commandpalette' => $flag('commandpalette'),

@@ -32,8 +32,8 @@ by the maintainer; no waivers are recorded yet.
 | Status | Count |
 | --- | ---: |
 | Done | 4 |
-| Partial | 40 |
-| Missing | 62 |
+| Partial | 42 |
+| Missing | 60 |
 | Not applicable | 15 |
 | **Total** | **121** |
 
@@ -139,8 +139,8 @@ by the maintainer; no waivers are recorded yet.
 | 66 | `front-provenance` | Version and updated-at time on the first screen | Yes. | Partial | The project site includes version and update-date information. | Verify freshness and coverage of all surfaces. |
 | 67 | `product-evidence` | Real screenshots of every surface | Yes. | Partial | Desktop and phone images are tracked in the project, deployer and website screenshot folders. | Verify provenance, source freshness and coverage for every state. |
 | 68 | `screen-recording` | Committed screen recording | Yes. | Missing | | |
-| 69 | `design-reference-parity` | Checked-in design reference parity | Yes, once `material/design` exists. | Missing | `material/design` does not exist. | |
-| 70 | `design-folder` | Design surfaces kept in the repository | Yes. | Missing | `material/design` does not exist. | |
+| 69 | `design-reference-parity` | Checked-in design reference parity | Yes. | Partial | `material/design/README.md` compares the reference and running display panel. | Remaining surfaces and full verification matrix. |
+| 70 | `design-folder` | Design surfaces kept in the repository | Yes. | Partial | Demo source and display panel evidence are linked from `material/design/README.md`. | Complete reference set for other workflows. |
 | 71 | `clipping-matrix` † | Clipping checks for every built surface | Yes. | Missing | | |
 | 72 | `public-screenshot-gallery` † | Public screenshot gallery for private projects | No: it exists for private repositories; this repository is public and carries its own screenshots. | Not applicable | | |
 

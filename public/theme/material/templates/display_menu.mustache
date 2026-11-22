@@ -1,0 +1,37 @@
+<div class="dropdown mm-display" data-region="colourmode-menu" data-cookieattributes="{{cookieattributes}}" data-panel-language="en"
+     data-motion-url="{{motionurl}}" data-save-failure="{{failure}}">
+    <button type="button" id="colourmode-menu-toggle" class="btn mm-display-toggle" data-bs-toggle="dropdown"
+            data-bs-auto-close="outside" aria-controls="colourmode-action-menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>
+        </svg>
+        <span class="visually-hidden">{{#title}}{{> theme_material/panel_label}}{{/title}}</span>
+    </button>
+    <div id="colourmode-action-menu" class="dropdown-menu dropdown-menu-end mm-display-panel" aria-labelledby="colourmode-menu-toggle">
+        <strong class="mm-display-title">{{#title}}{{> theme_material/panel_label}}{{/title}}</strong>
+        {{#groups}}
+        <div class="mm-display-group" role="group" aria-labelledby="mm-display-{{kind}}">
+            <span id="mm-display-{{kind}}" class="mm-display-label">{{#label}}{{> theme_material/panel_label}}{{/label}}</span>
+            <div class="mm-segments" {{#iscolour}}role="radiogroup" aria-labelledby="mm-display-colour"{{/iscolour}}>
+                {{#buttons}}
+                <button type="button" data-setting="{{kind}}" data-value="{{value}}"
+                    {{#colour}}role="radio" aria-checked="{{#active}}true{{/active}}{{^active}}false{{/active}}" tabindex="{{#active}}0{{/active}}{{^active}}-1{{/active}}"{{/colour}}
+                    {{^colour}}aria-pressed="{{#active}}true{{/active}}{{^active}}false{{/active}}"{{/colour}}
+                    {{#colour}}data-action="set-colourmode" data-colourmode="{{value}}" data-icon="{{icon}}"{{/colour}}
+                    {{#disabled}}disabled{{/disabled}}>{{#label}}{{> theme_material/panel_label}}{{/label}}</button>
+                {{/buttons}}
+            </div>
+        </div>
+        {{/groups}}
+        <small>{{#note}}{{> theme_material/panel_label}}{{/note}}</small>
+        <div class="mm-display-links"><a href="{{preferencesurl}}">{{#prefs}}{{> theme_material/panel_label}}{{/prefs}}</a>
+        {{#adminurl}}<a href="{{adminurl}}">{{#adminlabel}}{{> theme_material/panel_label}}{{/adminlabel}}</a>{{/adminurl}}</div>
+        <span role="status" data-panel-status></span>
+    </div>
+</div>
+{{#js}}
+    require(['theme_boost/colourmode', 'theme_material/displaymenu'], function(ColourMode, DisplayMenu) {
+        ColourMode.init();
+        DisplayMenu.init();
+    });
+{{/js}}

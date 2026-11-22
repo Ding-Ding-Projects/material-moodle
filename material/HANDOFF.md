@@ -1,5 +1,13 @@
 # Material Moodle handoff
 
+## Toolbar and interactive demo reference
+
+Use `material/site/demo.html` as the selected visual source and `material/design/README.md`
+for reference and runtime evidence. The toolbar panel includes colour, motion and panel language.
+An isolated installation verified all nine controls at four widths in Chromium and WebKit.
+The updated default palette also uses the demo's colour roles. See the design comparison
+for measured differences and the remaining full-screen coverage.
+
 ## Configuration and feature inventory, 2026-11-22
 
 The stock public source was compared with upstream revision `2d4bafe8548a6d6c01494c862ec3d9749ba6ea84`.

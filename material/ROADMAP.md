@@ -35,7 +35,8 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [ ] Guided named-tunnel sign-in verified end to end
 - [ ] Switch the Windows deployer installer to Squirrel.Windows (`squirrel-installer`) and add automatic updates (`auto-updates`)
 - [ ] Project site with one article per feature, mobile layout, verified download button, PDF edition (`landing-site`, `feature-articles`, `mobile-friendly-site`, `installer-download-button`, `site-pdf-edition`)
-- [ ] `material/design` folder with design references and parity checks (`design-folder`, `design-reference-parity`)
+- [x] Record the interactive demo and display-settings comparison under `material/design`.
+- [ ] Extend design comparisons beyond display settings to all applicable screens, languages and scales.
 - [ ] Rename the site CSS classes that fail the public vocabulary scan (`material/site/assets/css/site.css`)
 
 - [x] Server image (appliance): `.ova`, `.qcow2`, PC and Raspberry Pi images built and boot-tested in CI and attached to releases (`material-appliance.yml`)
