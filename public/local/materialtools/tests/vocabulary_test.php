@@ -94,6 +94,8 @@ final class vocabulary_test extends \advanced_testcase {
         $this->assertFalse(vocabulary::eligible($chosen));
 
         set_config('vocabaudience', 'everyone', 'local_materialtools');
+        $this->assertFalse(vocabulary::eligible($other));
+        $this->setUser($other);
         $this->assertTrue(vocabulary::eligible($other));
         $this->assertFalse(vocabulary::eligible(guest_user()));
 

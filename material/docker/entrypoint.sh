@@ -37,10 +37,23 @@ chown -R www-data:www-data /var/www/moodledata
 wait_for_db
 
 if [ "$mode" = "cron" ]; then
+  statusfile=/run/material-cron-status
+  record_status() {
+    printf '%s %s\n' "$1" "$2" > "$statusfile.next"
+    mv -f "$statusfile.next" "$statusfile"
+  }
+  record_status starting 0
   until installed; do sleep 15; done
   echo "Cron loop started."
   while true; do
-    as_www "php admin/cli/cron.php --keep-alive=0" || true
+    su -s /bin/bash www-data -c 'exec php admin/cli/cron.php --keep-alive=0' &
+    worker=$!
+    record_status running "$worker"
+    if wait "$worker"; then
+      record_status idle "$(date +%s)"
+    else
+      record_status failed 0
+    fi
     sleep 60
   done
 fi

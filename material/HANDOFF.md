@@ -9,6 +9,14 @@ The updated inventory covers 121 feature IDs and records incomplete work explici
 The desktop deployment form now manages nine PHP runtime options. The web app adds five core operations
 settings and per-account reading preferences. See [administration settings](docs/administration-settings.md).
 
+An isolated ARM64 deployment of `9fb783b640e025b2193a8abf1549fda86e6b15ba` accepted a change to ZIP backups
+and a 15-minute enrolment sync interval through the actual settings form and retained both on reload.
+Reading preferences persisted at 125% (computed root size 20 px), motion off and relaxed spacing,
+then returned to site defaults. The two screenshot files in the README show the synthetic test account
+in Chromium at a 1240 by 900 viewport, light theme. Runtime PHP reported the fixture limits of 768 MiB
+memory, 64 MiB per upload and 128 MiB per request. The deployer Linux suite reported 49 passes and one
+skipped Compose check in the test environment.
+
 ## Earlier handoff, 2026-11-20
 
 ## Current state

@@ -49,7 +49,9 @@ with `MOODLE_ADMIN_USER` and that password instead.
 
 The `cron` service waits until Moodle is installed, then loops every 60 seconds.
 
-The container health check requests `/login/index.php`, with a 10-minute start period for the first install.
+The web health check requests `/login/index.php`, with a 10-minute start period for the first install.
+The scheduled-task worker reports an active CLI child or a successful pass within the last three minutes.
+A failed pass stays unhealthy until the worker starts a new attempt.
 
 ## Environment variables
 

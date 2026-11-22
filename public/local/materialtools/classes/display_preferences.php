@@ -14,7 +14,7 @@ final class display_preferences {
     public static function normalise(array $input): array {
         $selected = [];
         foreach (self::CHOICES as $name => $choices) {
-            $value = (string)($input[$name] ?? 'site');
+            $value = $input[$name] ?? 'site';
             $selected[$name] = in_array($value, $choices, true) ? $value : 'site';
         }
         return $selected;

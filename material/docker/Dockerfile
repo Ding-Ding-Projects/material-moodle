@@ -20,12 +20,13 @@ WORKDIR /var/www/moodle
 COPY --chown=www-data:www-data . /var/www/moodle
 COPY material/docker/config.php /var/www/moodle/config.php
 COPY material/docker/entrypoint.sh /usr/local/bin/material-entrypoint
-RUN chmod +x /usr/local/bin/material-entrypoint \
+COPY material/docker/healthcheck.sh /usr/local/bin/material-healthcheck
+RUN chmod +x /usr/local/bin/material-entrypoint /usr/local/bin/material-healthcheck \
  && mkdir -p /var/www/moodledata && chown -R www-data:www-data /var/www/moodledata /var/www/moodle/config.php
 
 VOLUME ["/var/www/moodledata"]
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=5s --start-period=600s --retries=5 \
-  CMD php -r 'exit(@file_get_contents("http://127.0.0.1/login/index.php") === false ? 1 : 0);'
+  CMD ["material-healthcheck"]
 ENTRYPOINT ["material-entrypoint"]
 CMD ["web"]
