@@ -31,8 +31,15 @@ env:
 
 jobs:
   smoke-test:
-    name: Build and smoke test
-    runs-on: ubuntu-latest
+    name: Build and smoke test (${{ matrix.arch }})
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     steps:
       - name: Check out
@@ -51,8 +58,8 @@ jobs:
           load: true
           push: false
           tags: ${{ env.LOCAL_TAG }}
-          cache-from: type=gha,scope=material-image
-          cache-to: type=gha,mode=max,scope=material-image
+          cache-from: type=gha,scope=material-image-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=material-image-${{ matrix.arch }}
 
       - name: Write smoke test .env
         working-directory: material/docker
@@ -94,7 +101,7 @@ jobs:
       - name: Check the login page
         run: |
           status=000
-          for attempt in $(seq 1 30); do
+          for _ in $(seq 1 30); do
             status="$(curl -s -o login.html -w '%{http_code}' http://localhost:8080/login/index.php || true)"
             [ "$status" = "200" ] && break
             sleep 5
@@ -122,9 +129,16 @@ jobs:
           rm -f material/docker/.env login.html
 
   push:
-    name: Push image
+    name: Push platform digest (${{ matrix.arch }})
     needs: smoke-test
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
     permissions:
       contents: read
@@ -145,26 +159,87 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Image tags and labels
+      - name: Identify the checked-out source
+        id: source
+        run: echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Image labels
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.IMAGE }}
-          tags: |
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            type=sha,format=long
-            type=raw,value=${{ inputs.release_tag }},enable=${{ inputs.release_tag != '' }}
           labels: |
             org.opencontainers.image.title=Material Moodle
             org.opencontainers.image.description=Moodle with the Material theme, passkey sign-in and the Material tools.
+            org.opencontainers.image.revision=${{ steps.source.outputs.revision }}
 
-      - name: Build and push
+      - name: Publish the native platform digest
+        id: image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: material/docker/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          platforms: linux/${{ matrix.arch }}
+          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha,scope=material-image
-          cache-to: type=gha,mode=max,scope=material-image
+          cache-from: type=gha,scope=material-image-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=material-image-${{ matrix.arch }}
+
+      - name: Record digest
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          [[ "$DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]
+          printf '%s\n' "$DIGEST" > "$RUNNER_TEMP/digest"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: image-digest-${{ matrix.arch }}
+          path: ${{ runner.temp }}/digest
+          retention-days: 1
+
+  publish-index:
+    name: Publish and verify both platforms
+    needs: push
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: image-digest-*
+          path: ${{ runner.temp }}/digests
+
+      - name: Assemble the immutable source tag and verify both platforms
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          set -euo pipefail
+          revision=$(git rev-parse HEAD)
+          immutable="$IMAGE:sha-$revision"
+          sources=()
+          for arch in amd64 arm64; do
+            digest=$(cat "$RUNNER_TEMP/digests/image-digest-$arch/digest")
+            [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+            sources+=("$IMAGE@$digest")
+          done
+          docker buildx imagetools create -t "$immutable" "${sources[@]}"
+          docker buildx imagetools inspect --raw "$immutable" |
+            jq -e '([.manifests[].platform | select(.os=="linux") | .architecture] | sort) == ["amd64","arm64"]'
+          tags=()
+          if [[ -n "$RELEASE_TAG" ]]; then tags+=(-t "$IMAGE:$RELEASE_TAG"); fi
+          if [[ "$GITHUB_REF" == refs/heads/main && -z "$RELEASE_TAG" ]]; then tags+=(-t "$IMAGE:latest"); fi
+          if (( ${#tags[@]} )); then docker buildx imagetools create "${tags[@]}" "$immutable"; fi

@@ -5,6 +5,10 @@
 
 ## What it runs
 
+The image workflow builds and exercises Linux AMD64 and ARM64 on their respective native hosts.
+It assembles the platform manifests under a `sha-<full-commit>` tag and checks both architectures
+before advancing the distribution tags. Compose selects the platform matching the server.
+
 | Service | Image | Purpose |
 | --- | --- | --- |
 | `db` | `postgres:17` | Database, with a health check. Data in the `db` volume. |
