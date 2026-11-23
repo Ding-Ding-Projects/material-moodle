@@ -32,8 +32,12 @@
 - Quick link check: a fresh copy was deployed the same way, then the deployer's quick link job opened a temporary
   `trycloudflare.com` address. Through that public HTTPS address the states, dark mode and course workspace tests
   passed; the copy and its link were deleted afterwards.
-- Not verified: a deployment to the owner's own server and a named tunnel on the owner's Cloudflare domain (both
-  need the owner's accounts), and some page selectors the restyle could not confirm from templates
+- Owner's server updated: the owner's existing arm64 Docker deployment (set up by hand from `material/docker`) was
+  backed up (database dump, Moodle data and settings), switched to the image built from `8754b8d` by changing only
+  `MOODLE_IMAGE`, upgraded and came back healthy with its data. The states, dark mode and course workspace tests
+  passed on that live site using a temporary administrator and course, both deleted afterwards.
+- Not verified: a named tunnel on the owner's Cloudflare domain (needs the owner's Cloudflare sign-in), and some
+  page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
   (built in a separate session); its remaining items are in that fork's roadmap.
