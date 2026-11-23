@@ -90,6 +90,9 @@ class hook_listener {
         // Strings travel through M.str so the init call stays small.
         $PAGE->requires->strings_for_js($keys, 'theme_material');
         $PAGE->requires->js_call_amd('theme_material/main', 'init', [$config]);
+        $PAGE->requires->strings_for_js(['stateofflinetitle', 'stateofflinebody', 'stateretry', 'statechecking',
+            'stateonline'], 'theme_material');
+        $PAGE->requires->js_call_amd('theme_material/states', 'init');
     }
 
     /**

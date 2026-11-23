@@ -45,6 +45,7 @@ function theme_material_get_main_scss_content($theme): string {
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/signin.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/redesign.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/dockview.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/states.scss');
     return $scss;
 }
 

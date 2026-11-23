@@ -15,10 +15,12 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [x] Apply the redesigned dashboard, my courses, course, assignment, calendar, grades, messages, profile, preferences and administration layouts to the real pages (CSS restyle; no page errors or sideways scrolling at 1440 and 390 pixels)
 - [x] Rebuild the features launcher in the redesigned bento style with one regex button (launcher test passes in Chromium and WebKit)
 - [x] Sign-in fields: icons sit in their own slot, so the placeholder is never covered
-- [x] dockview workspaces for course pages (checked in Chromium and WebKit) and the desktop deployer (11 new tests pass; not yet run in the packaged Electron window), with the tab features layered on top (`dockview-workspace`)
+- [x] dockview workspaces for course pages (checked in Chromium and WebKit) and the desktop deployer (11 new tests pass; run in a real Electron 39.8.10 window from source, where closing a tab survives a reload and tab search reopens it; the installer build itself not run), with the tab features layered on top (`dockview-workspace`)
 - [x] Exercise the rich-text editor after the TinyMCE 8.10.2 update on a running site (8.10.2 served; bold text typed, saved and read back)
 - [x] Due date extensions: allowance per period (3 per month by default, up to unlimited), instant, dice, coin and wheel rules decided on the server, kept-denial zero grade with revoke, wheel deductions through a grade penalty plugin, teacher rules and log (checked on a test site)
 - [x] Due date extensions: golden coin chance from extra bathroom breaks and a dim sum from the public catalog (server path and golden dialog checked; the dialog fits the window)
+- [x] Page states: empty, done, not found and offline, styled from the States board; offline card with an honest message and Try again (`states.mjs` passes in light and dark at 1440 and 390 pixels)
+- [x] Dark mode across the restyled pages: no text below 3:1 contrast on eleven main pages (`dark-mode.mjs`); the admin search icon fixed
 - [x] Bathroom pass: passes per period, leave and back with two Home Assistant webhooks, never refused, golden chance for the coin (checked on a test site with a local webhook receiver)
 
 ## Phase 1: core plugins (web app)

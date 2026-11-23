@@ -1669,6 +1669,12 @@ body.path-admin {
         box-shadow: none;
     }
 
+    // The submit button keeps Bootstrap's primary text colour, which is too dark on the dark field.
+    .simplesearchform .btn,
+    #adminsearchform .btn {
+        color: $rd-on-v;
+    }
+
     // Category link pages: each group of links is a card.
     #region-main .tab-content .container-fluid > .row {
         row-gap: 16px;

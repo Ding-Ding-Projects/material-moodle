@@ -19,6 +19,7 @@ behaviour together with what exists today.
 | --- | --- |
 | [Features launcher and All features page](features-launcher.md) | Available |
 | [Course workspace](course-workspace.md) | Available |
+| [Page states: empty, done, not found and offline](page-states.md) | Available |
 | [Command palette](command-palette.md) | Available |
 | [Regex builder on search boxes](regex-builder.md) | Available in the palette; in progress on page search boxes |
 | [Right-click menu](right-click-menu.md) | In progress |

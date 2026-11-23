@@ -1,0 +1,203 @@
+// States every page can reach: empty, done, not found and offline.
+// Design: design/canvas/project/States.dc.html. Colours come only from the generated --md-sys-color-* roles.
+
+// A tone band with three soft shapes, drawn above each state's title.
+@mixin mm-state-art($band, $one, $two, $three) {
+    height: 124px;
+    margin-bottom: 8px;
+    border-radius: 28px;
+    background:
+        // Positions are percentages so the shapes stay apart on a phone as well.
+        radial-gradient(circle at 16% 50%, $one 0 34px, transparent 35px),
+        radial-gradient(circle at 44% 50%, $two 0 26px, transparent 27px),
+        linear-gradient(90deg, transparent 62%, $three 62%, $three 90%, transparent 90%) center / 100% 32px no-repeat,
+        $band;
+}
+
+// Not found and error pages: Moodle's error box becomes the state card.
+// .box.errorbox matches the older error style in pages.scss, which this replaces.
+.errorbox,
+.box.errorbox,
+#page-error [role="main"] {
+    max-width: 640px;
+    margin: 24px auto;
+    padding: 24px !important;
+    border: 0;
+    border-radius: 36px;
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
+    animation: mm-state-in 420ms cubic-bezier(.05, .7, .1, 1) both;
+
+    &::before {
+        content: "";
+        display: block;
+        @include mm-state-art(var(--md-sys-color-error-container), var(--md-sys-color-error),
+            var(--md-sys-color-on-error-container), var(--md-sys-color-primary));
+    }
+
+    .errormessage,
+    h2 {
+        margin: 8px 0;
+        font-size: 1.5rem;
+        font-weight: 750;
+        line-height: 1.2;
+    }
+
+    // The page's own error alert sits inside the card without a second box.
+    .alert-danger {
+        margin: 8px 0 16px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 1.125rem;
+
+        .btn-close {
+            display: none;
+        }
+    }
+
+    .btn,
+    .continuebutton .btn {
+        min-height: 48px;
+        padding-inline: 24px;
+        border-radius: 999px;
+    }
+}
+
+// Empty lists and "nothing due" messages.
+[data-region="empty-message"],
+.block_timeline [data-region="no-events-empty-message"],
+.block_myoverview [data-region="empty-message"] {
+    padding: 24px;
+    border-radius: 36px;
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
+
+    img {
+        max-height: 96px;
+    }
+}
+
+// Done: Moodle's success messages and toasts become snackbars.
+.alert-success {
+    border: 0;
+    border-radius: 16px;
+    background: var(--md-sys-color-success-container, var(--md-sys-color-secondary-container));
+    color: var(--md-sys-color-on-success-container, var(--md-sys-color-on-secondary-container));
+}
+
+.toast-wrapper .toast,
+.mm-state-note {
+    border: 0;
+    border-radius: 12px;
+    background: var(--md-sys-color-inverse-surface);
+    color: var(--md-sys-color-inverse-on-surface);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .14);
+
+    .toast-body,
+    .close,
+    .btn-close {
+        color: inherit;
+    }
+}
+
+.mm-state-note {
+    position: fixed;
+    inset-inline-start: 50%;
+    bottom: 24px;
+    z-index: 1100;
+    min-height: 48px;
+    padding: 14px 16px;
+    transform: translateX(-50%);
+    font-size: .875rem;
+    animation: mm-state-in 420ms cubic-bezier(.05, .7, .1, 1) both;
+}
+
+// Offline: a card fixed to the bottom of the window, never covering the whole page.
+.mm-state-offline {
+    position: fixed;
+    inset-inline: 16px;
+    bottom: 16px;
+    z-index: 1100;
+    max-width: 520px;
+    margin-inline: auto;
+    padding: 20px 24px 24px;
+    border-radius: 36px;
+    background: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, .2);
+    animation: mm-state-in 420ms cubic-bezier(.05, .7, .1, 1) both;
+
+    .mm-state-art {
+        @include mm-state-art(var(--md-sys-color-tertiary-container), var(--md-sys-color-on-tertiary-container),
+            var(--md-sys-color-error), var(--md-sys-color-outline));
+        height: 88px;
+
+        span {
+            display: none;
+        }
+    }
+
+    .mm-state-title {
+        margin: 4px 0;
+        font-size: 1.375rem;
+        font-weight: 750;
+    }
+
+    .mm-state-body {
+        margin: 0 0 16px;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .mm-state-button {
+        min-height: 48px;
+        padding-inline: 24px;
+        border-radius: 999px;
+    }
+}
+
+@keyframes mm-state-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.mm-state-note {
+    animation-name: mm-state-note-in;
+}
+
+@keyframes mm-state-note-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .errorbox,
+    #page-error [role="main"],
+    .mm-state-note,
+    .mm-state-offline {
+        animation: none;
+    }
+}
+
+html[data-md-motion="off"] {
+    .errorbox,
+    .mm-state-note,
+    .mm-state-offline {
+        animation: none;
+    }
+}

@@ -842,7 +842,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "Four states every page can reach. Press each button to see its confirmation. Not built yet.",
+      "text": "Four states every page can reach. Press each button to see its confirmation. Built in the theme; the offline card says plainly that nothing saves until the connection returns.",
       "page": "states"
     },
     "n-StatesPhonedchtml": {
@@ -850,7 +850,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "The same states on a phone. Not built yet.",
+      "text": "The same states on a phone. Built in the theme (checked at 390 pixels).",
       "page": "states"
     },
     "title-foundations": {

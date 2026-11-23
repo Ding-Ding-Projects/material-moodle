@@ -9,10 +9,15 @@
 - Verified on a Docker test site: sign-in and ten pages without page errors or sideways scrolling at 1440 and 390
   pixels; launcher and course workspace tests in Chromium and WebKit; the TinyMCE 8.10.2 editor saving bold text;
   the golden coin dialog with a dim sum photo.
-- Not verified: the deployer in its packaged Electron window (its renderer was exercised in a browser with a stub),
-  dark mode across the restyled pages, and some page selectors the restyle could not confirm from templates
+- Later the same day: the deployer ran in a real Electron 39.8.10 window from source on a hidden desktop (tabs,
+  close, reload, tab search, no page errors); dark mode was measured on eleven pages (`tests/e2e/dark-mode.mjs`,
+  no text below 3:1; the admin search icon was too dark and is fixed); the four page states were built
+  (`scss/states.scss`, `amd/src/states.js`, `docs/page-states.md`, `tests/e2e/states.mjs`). The deployer's
+  `node_modules/electron` had no binary; it was extracted from the local Electron download cache.
+- Not verified: the deployer installer build, and some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
-- The private dockview fork `Ding-Ding-Projects/dockview` exists; the tab features are planned inside it.
+- The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
+  (built in a separate session); its remaining items are in that fork's roadmap.
 - Test sites on plain `http://localhost` need `cookiesecure` off. WebKit reports Moodle core requests cut short by
   navigation as page errors; the tests ignore exactly that pattern.
 
