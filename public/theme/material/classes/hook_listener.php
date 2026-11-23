@@ -19,6 +19,7 @@ namespace theme_material;
 
 use core\hook\output\before_footer_html_generation;
 use core\hook\output\before_html_attributes;
+use core\hook\output\before_standard_top_of_body_html_generation;
 
 /**
  * Hook callbacks for the Material theme.
@@ -57,6 +58,10 @@ class hook_listener {
         $hook->add_attribute('data-md-motion', $config['motion']);
         $hook->add_attribute('data-md-textsize', $config['textsize']);
         $hook->add_attribute('data-md-spacing', $config['spacing']);
+        if (rail::shown()) {
+            // Body classes are closed by now, so the layout keys its rail space on the html element.
+            $hook->add_attribute('data-mm-rail', '1');
+        }
     }
 
     /**
@@ -85,5 +90,17 @@ class hook_listener {
         // Strings travel through M.str so the init call stays small.
         $PAGE->requires->strings_for_js($keys, 'theme_material');
         $PAGE->requires->js_call_amd('theme_material/main', 'init', [$config]);
+    }
+
+    /**
+     * Put the navigation rail at the top of the body.
+     *
+     * @param before_standard_top_of_body_html_generation $hook
+     */
+    public static function before_top_of_body(before_standard_top_of_body_html_generation $hook): void {
+        if (!self::active() || !rail::shown()) {
+            return;
+        }
+        $hook->add_html(rail::render());
     }
 }

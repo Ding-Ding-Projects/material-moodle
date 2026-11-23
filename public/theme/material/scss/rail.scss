@@ -1,0 +1,145 @@
+// Navigation rail from design/canvas (Rail.dc.html and PhoneNav.dc.html).
+// Wide screens: a 96px rail on the left. Below 768px: an 80px bottom navigation bar.
+
+$mm-rail-width: 96px;
+$mm-bnav-height: 80px;
+
+.mm-rail {
+    position: fixed;
+    z-index: 1032;
+    display: flex;
+    font-family: inherit;
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface-variant);
+    a { text-decoration: none; }
+    a:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+}
+.mm-rail-items { list-style: none; margin: 0; padding: 0; display: flex; }
+.mm-rail-items a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .01em;
+    &[aria-current="page"] {
+        color: var(--md-sys-color-on-surface);
+        font-weight: 700;
+        .mm-rail-pill {
+            background: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+    }
+    &:hover .mm-rail-pill { background: var(--md-sys-color-surface-container-highest); }
+    &[aria-current="page"]:hover .mm-rail-pill { background: var(--md-sys-color-secondary-container); }
+}
+.mm-rail-pill {
+    width: 56px;
+    height: 32px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    transition: background-color .2s ease, width .3s cubic-bezier(.2, 0, 0, 1.4);
+}
+.mm-rail-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+}
+.mm-rail-new {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    &:hover { box-shadow: 0 8px 28px rgba(27, 27, 33, .14); color: var(--md-sys-color-on-primary-container); }
+}
+.mm-rail-settings {
+    display: grid;
+    place-items: center;
+    color: var(--md-sys-color-on-surface-variant);
+    &[aria-current="page"] .mm-rail-pill {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+    }
+}
+.mm-rail-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+    font-size: .875rem;
+    font-weight: 700;
+    &[aria-current="page"] { box-shadow: 0 0 0 3px var(--md-sys-color-primary); }
+}
+html[data-md-motion="off"] .mm-rail-pill { transition: none; }
+@media (prefers-reduced-motion: reduce) { .mm-rail-pill { transition: none; } }
+
+// Wide: rail on the left, everything else moves right by its width.
+@media (min-width: 768px) {
+    .mm-rail {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: $mm-rail-width;
+        padding: 16px 0 24px;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+    }
+    .mm-rail-new { margin-top: 20px; }
+    .mm-rail-items { margin-top: 28px; flex-direction: column; gap: 16px; }
+    .mm-rail-items a { width: 80px; }
+    .mm-rail-settings { margin-top: auto; }
+    .mm-rail-avatar { margin-top: 16px; }
+    html[data-mm-rail] body {
+        padding-left: $mm-rail-width;
+        .navbar.fixed-top { left: $mm-rail-width; }
+        .drawer.drawer-left.show { left: $mm-rail-width; }
+        // The rail carries the brand, so the navbar's own site name steps back.
+        .navbar.fixed-top .navbar-brand { display: none; }
+    }
+    html[data-mm-rail] body.dir-rtl {
+        padding-left: 0;
+        padding-right: $mm-rail-width;
+        .navbar.fixed-top { left: 0; right: $mm-rail-width; }
+    }
+    .dir-rtl .mm-rail { left: auto; right: 0; }
+}
+@media (min-width: 768px) and (max-height: 640px) {
+    .mm-rail-items { gap: 8px; margin-top: 16px; }
+    .mm-rail-new { margin-top: 12px; }
+}
+
+// Narrow: bottom navigation bar with the five phone destinations.
+@media (max-width: 767.98px) {
+    .mm-rail {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: calc(#{$mm-bnav-height} + env(safe-area-inset-bottom));
+        padding: 12px 8px calc(16px + env(safe-area-inset-bottom));
+        background: var(--md-sys-color-surface-container);
+    }
+    .mm-rail-logo, .mm-rail-new, .mm-rail-settings, .mm-rail-avatar, .mm-rail-wide-only { display: none; }
+    .mm-rail-items { flex: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+    .mm-rail-items a { min-height: 52px; justify-content: center; }
+    .mm-rail-items .mm-rail-pill { width: 64px; }
+    html[data-mm-rail] body {
+        padding-bottom: calc(#{$mm-bnav-height} + env(safe-area-inset-bottom));
+        #page-footer .btn-footer-popover, .btn-footer-popover,
+        [data-region="footer-container-popover"] { bottom: calc(#{$mm-bnav-height} + 16px); }
+    }
+}
+@media print { .mm-rail { display: none !important; } html[data-mm-rail] body { padding: 0 !important; } }

@@ -1,0 +1,54 @@
+{{!
+    @template theme_material/rail
+
+    Navigation rail on wide screens and bottom navigation bar on narrow screens.
+
+    Context variables required for this template:
+    * homeurl, newurl (optional), settingsurl, profileurl, initials
+    * items - array of {key, label, url, icon, active, phone}
+
+    Example context (json):
+    {
+        "homeurl": "/my/", "settingsurl": "/user/preferences.php", "profileurl": "/user/profile.php", "initials": "MC",
+        "items": [{"key": "home", "label": "Home", "url": "/my/", "icon": "M4 11l8-7 8 7v9h-5v-6H9v6H4z",
+            "active": true, "phone": true}]
+    }
+}}
+<nav class="mm-rail" aria-label="{{#str}}railnav, theme_material{{/str}}" data-region="mm-rail">
+    <a class="mm-rail-logo" href="{{homeurl}}" aria-label="{{sitename}}">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5M22 9v6"/></svg>
+    </a>
+    {{#newurl}}
+    <a class="mm-rail-new" href="{{newurl}}" title="{{#str}}railnew, theme_material{{/str}}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="visually-hidden">{{#str}}railnew, theme_material{{/str}}</span>
+    </a>
+    {{/newurl}}
+    <ul class="mm-rail-items" role="list">
+        {{#items}}
+        <li class="mm-rail-item{{^phone}} mm-rail-wide-only{{/phone}}">
+            <a href="{{url}}" data-rail="{{key}}" {{#active}}aria-current="page"{{/active}}>
+                <span class="mm-rail-pill" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="{{icon}}"/></svg>
+                </span>
+                <span class="mm-rail-label">{{label}}</span>
+            </a>
+        </li>
+        {{/items}}
+    </ul>
+    <a class="mm-rail-settings" href="{{settingsurl}}" title="{{#str}}railsettings, theme_material{{/str}}" {{#settingsactive}}aria-current="page"{{/settingsactive}}>
+        <span class="mm-rail-pill" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </span>
+        <span class="visually-hidden">{{#str}}railsettings, theme_material{{/str}}</span>
+    </a>
+    <a class="mm-rail-avatar" href="{{profileurl}}" title="{{#str}}railprofile, theme_material{{/str}}" {{#profileactive}}aria-current="page"{{/profileactive}}>
+        <span aria-hidden="true">{{initials}}</span>
+        <span class="visually-hidden">{{#str}}railprofile, theme_material{{/str}}</span>
+    </a>
+</nav>
+{{#js}}
+    require(['theme_material/rail'], function(Rail) {
+        Rail.init(document.querySelector('[data-region="mm-rail"]'));
+    });
+{{/js}}

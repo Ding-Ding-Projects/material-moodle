@@ -40,6 +40,7 @@ function theme_material_get_main_scss_content($theme): string {
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/pages.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/controls.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/features.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/rail.scss');
     return $scss;
 }
 
