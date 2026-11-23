@@ -143,7 +143,7 @@
     if (prev?.status === 'running' || prev?.status === undefined) {
       if (job.status === 'done' && job.name === 'limits') {
         M.toast(t('php.verified'), { kind: 'ok' });
-        if (state.page === 'server') M.rerender();
+        if (M.workspace.isVisible('server')) M.rerender();
       } else if (job.status === 'done') M.celebrate(job.name, job.result || {});
       if (job.status === 'failed' && job.error) M.showError(job.name, job.error);
       if (job.status === 'cancelled') M.toast(t('toast.cancelled'));
@@ -157,7 +157,7 @@
     for (const el of M.$$('[data-job-view]')) el.replaceWith(M.stepCard(el.dataset.jobView, el.dataset.compact === '1'));
     for (const el of M.$$('[data-running-disable]')) el.disabled = !!state.running;
     M.renderBell?.();
-    if (state.page === 'tunnel') M.refreshTunnelBody?.();
+    if (M.workspace.isVisible('tunnel')) M.refreshTunnelBody?.();
   };
 
   M.stepCard = (name, compact) => {
@@ -603,8 +603,8 @@
       h('h1', { class: 'page-title', text: t('settings.title') }),
       h('p', { class: 'lead', text: t('settings.lead') }),
       [...groups].map(([g, rows]) => h('section', { class: 'card settings-card' }, h('h2', { class: 'card-title', text: t(g) }), rows))));
-    if (!storage) api.profiles.storage().then((s) => { storage = s; if (state.page === 'settings') M.rerender(); });
-    if (!hosts) api.knownHosts.list().then((k) => { hosts = k; if (state.page === 'settings') M.rerender(); });
+    if (!storage) api.profiles.storage().then((s) => { storage = s; if (M.workspace.isVisible('settings')) M.rerender(); });
+    if (!hosts) api.knownHosts.list().then((k) => { hosts = k; if (M.workspace.isVisible('settings')) M.rerender(); });
   };
 
   // ---------- About page ----------
@@ -640,6 +640,6 @@
         h('h2', { class: 'card-title', text: t('about.licence') }),
         h('p', { class: 'muted', text: t('about.licenceText') })));
     page.append(body);
-    if (!info) api.app.info().then((i) => { info = i; M.appInfo = i; if (state.page === 'about') M.rerender(); });
+    if (!info) api.app.info().then((i) => { info = i; M.appInfo = i; if (M.workspace.isVisible('about')) M.rerender(); });
   };
 })();

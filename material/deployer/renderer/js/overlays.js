@@ -470,6 +470,8 @@
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
+    // Tab group chips carry dockview's own rename and colour menu.
+    if (e.target.closest?.('.dv-tab-group-chip, .dv-context-menu')) return;
     M.openContextMenu(e.clientX, e.clientY, e.target);
   });
   document.addEventListener('pointerdown', (e) => { if (!e.target.closest('#ctxmenu')) M.closeContextMenu(); }, true);

@@ -83,6 +83,9 @@
     stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
     retry: '<path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
+    pin: '<path d="M12 17v5"/><path d="M9 3h6l-1 7 3 3v2H7v-2l3-3-1-7Z"/>',
+    lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    layout: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16M12 12h9"/>',
   };
   M.icon = function icon(name, size = 20) {
     const svg = document.createElementNS(SVG_NS, 'svg');
@@ -212,11 +215,10 @@
   M.go = (page, { push = true, focus } = {}) => {
     if (!M.pages[page]) return;
     if (push && page !== M.state.page) M.state.history.push(M.state.page);
-    const changed = page !== M.state.page;
     M.state.page = page;
     api.settings.set({ lastPage: page });
+    M.workspace.show(page);
     M.renderRail();
-    M.renderPage(changed);
     if (focus) {
       requestAnimationFrame(() => {
         const el = document.getElementById(focus);
@@ -251,11 +253,7 @@
   };
 
   M.renderPage = (animate) => {
-    const host = M.$('#page-host');
-    const page = M.h('section', { class: 'page' + (animate ? ' page-enter' : ''), 'data-page': M.state.page, 'aria-label': M.t('nav.' + M.state.page) });
-    M.pages[M.state.page](page);
-    host.replaceChildren(page);
-    if (animate) host.scrollTop = 0;
+    M.workspace.renderAll(animate);
   };
 
   /** Re-render the current page in place (keeps focus where possible). */
@@ -263,12 +261,9 @@
     const active = document.activeElement;
     const id = active?.id;
     const sel = id && 'selectionStart' in active ? [active.selectionStart, active.selectionEnd] : null;
-    const host = M.$('#page-host');
-    const scroll = host.scrollTop;
     M.renderChrome();
     M.renderRail();
     M.renderPage(false);
-    host.scrollTop = scroll;
     if (id) {
       const el = document.getElementById(id);
       if (el) {

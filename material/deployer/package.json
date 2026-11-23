@@ -8,15 +8,17 @@
   "author": "Ding Ding Projects",
   "homepage": "https://github.com/Ding-Ding-Projects/material-moodle",
   "scripts": {
-    "start": "npm run sync-stack && electron .",
+    "start": "npm run sync-stack && npm run sync-vendor && electron .",
     "sync-stack": "node scripts/sync-stack.js",
+    "sync-vendor": "node scripts/sync-vendor.js",
     "make-icon": "node scripts/make-icon.js",
     "test": "node --test \"test/*.test.js\"",
     "screenshots": "node scripts/screenshots.js",
-    "predist": "npm run sync-stack && npm run make-icon",
+    "predist": "npm run sync-stack && npm run sync-vendor && npm run make-icon",
     "dist": "electron-builder --publish never"
   },
   "dependencies": {
+    "dockview-core": "8.9.1",
     "ssh2": "^1.16.0"
   },
   "devDependencies": {

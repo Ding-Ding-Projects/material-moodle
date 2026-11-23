@@ -18,6 +18,7 @@ const DEFAULTS = Object.freeze({
   profiles: [],
   knownHosts: {},
   lastPage: 'server',
+  workspace: null,
 });
 
 const ENUMS = {
@@ -40,6 +41,11 @@ function applyPatch(current, patch) {
     if (ENUMS[k] && !ENUMS[k].includes(v)) continue;
     if (k === 'seed' && !/^#[0-9a-fA-F]{6}$/.test(v)) continue;
     if (typeof DEFAULTS[k] === 'boolean' && typeof v !== 'boolean') continue;
+    if (k === 'workspace') {
+      // The saved dock layout: an object or null, and bounded so a corrupt value cannot bloat the file.
+      if (v === null || (typeof v === 'object' && !Array.isArray(v) && JSON.stringify(v).length < 200000)) next[k] = clone(v);
+      continue;
+    }
     if (k === 'lastServer') {
       const safe = { ...v };
       for (const f of SECRET_FIELDS) delete safe[f];

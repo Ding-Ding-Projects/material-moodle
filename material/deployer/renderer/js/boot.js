@@ -16,7 +16,7 @@
     M.renderChrome();
     state.page = M.pages[state.settings.lastPage] ? state.settings.lastPage : 'server';
     M.renderRail();
-    M.renderPage(true);
+    M.workspace.mount();
 
     api.logs.onLine((l) => {
       state.logs.push(l);

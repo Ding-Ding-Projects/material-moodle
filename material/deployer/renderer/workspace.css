@@ -1,0 +1,80 @@
+/* Workspace: dockview themed from the app's own colour variables (they switch with light and dark). */
+.ws-root { position: absolute; inset: 0; }
+.ws-page { height: 100%; overflow: auto; scroll-behavior: smooth; background: var(--bg); }
+.motion-off .ws-page { scroll-behavior: auto; }
+
+.dockview-theme-material {
+  --dv-group-view-background-color: var(--bg);
+  --dv-tabs-and-actions-container-background-color: var(--low);
+  --dv-tabs-and-actions-container-height: 48px;
+  --dv-tabs-and-actions-container-font-size: 14px;
+  --dv-tab-font-size: 14px;
+  --dv-activegroup-visiblepanel-tab-background-color: var(--sc);
+  --dv-activegroup-visiblepanel-tab-color: var(--onsc);
+  --dv-activegroup-hiddenpanel-tab-background-color: transparent;
+  --dv-activegroup-hiddenpanel-tab-color: var(--onv);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--c);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--on);
+  --dv-inactivegroup-hiddenpanel-tab-background-color: transparent;
+  --dv-inactivegroup-hiddenpanel-tab-color: var(--onv);
+  --dv-tab-divider-color: transparent;
+  --dv-separator-border: var(--ov);
+  --dv-sash-color: var(--ov);
+  --dv-active-sash-color: var(--p);
+  --dv-icon-hover-background-color: color-mix(in srgb, var(--p) 14%, transparent);
+  --dv-drag-over-background-color: color-mix(in srgb, var(--p) 22%, transparent);
+  --dv-drag-over-border-color: var(--p);
+  --dv-context-menu-background-color: var(--c);
+  --dv-context-menu-color: var(--on);
+  --dv-tab-border-radius: 14px;
+  --dv-tab-margin: 6px 3px;
+  --dv-border-radius: 12px;
+  --dv-scrollbar-background-color: var(--outline);
+  --dv-tabs-container-scrollbar-color: var(--outline);
+  --dv-overlay-z-index: 40;
+  font-family: var(--font);
+}
+.dockview-theme-material .dv-tabs-and-actions-container { border-bottom: 1px solid var(--ov); }
+.dockview-theme-material .dv-tab-group-chip { font-weight: 650; color: var(--on); }
+
+/* Tabs, 48px tall with a text label on the close button as well as its icon. */
+.ws-tab { display: flex; align-items: center; gap: 8px; height: 100%; padding: 0 8px 0 14px; min-width: 0; white-space: nowrap; user-select: none; }
+.ws-tab-icon { display: inline-flex; color: var(--p); }
+.ws-tab-title { overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+.ws-tab-flag { display: inline-flex; color: var(--p); }
+.ws-tab-close { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 8px; border: 0; border-radius: 16px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+.ws-tab-close:hover:not(:disabled) { background: color-mix(in srgb, var(--err) 16%, transparent); color: var(--err); }
+.ws-tab-close-text { font-weight: 600; }
+.ws-tab.is-pinned .ws-tab-title { font-weight: 700; }
+
+/* Header actions */
+.ws-actions { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 8px; }
+.ws-action { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 0; border-radius: 18px; background: var(--high); color: var(--on); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.ws-action:hover { background: var(--top); }
+.ws-empty { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; text-align: center; }
+
+/* Popovers and the tab search */
+.ws-pop { position: fixed; z-index: 80; display: flex; flex-direction: column; gap: 8px; min-width: 220px; padding: 14px; border-radius: 18px; background: var(--c); color: var(--on); box-shadow: 0 12px 40px rgba(0, 0, 0, .3); }
+.ws-pop-label { font-size: 12px; font-weight: 700; color: var(--p); text-transform: uppercase; letter-spacing: .6px; }
+.ws-pop-input { min-height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--outline); background: var(--card); color: var(--on); font: inherit; }
+.ws-swatches { display: grid; grid-template-columns: repeat(5, 36px); gap: 8px; }
+.ws-swatch { width: 36px; height: 36px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
+.ws-swatch.on { border-color: var(--on); box-shadow: 0 0 0 2px var(--bg) inset; }
+.ws-search { position: fixed; inset: 0; z-index: 75; display: flex; justify-content: center; align-items: flex-start; padding-top: 12vh; }
+.ws-search-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .35); }
+.ws-search-card { position: relative; width: min(520px, calc(100vw - 32px)); max-height: 70vh; display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 24px; background: var(--c); box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
+.ws-search-list { list-style: none; margin: 0; padding: 0; overflow: auto; }
+.ws-search-item { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 12px; border-radius: 14px; cursor: pointer; }
+.ws-search-item.active { background: var(--sc); color: var(--onsc); }
+.ws-badge { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 10px; background: var(--high); color: var(--onv); }
+.ws-badge.closed { background: var(--pc); color: var(--onpc); }
+.ws-search-status { margin: 0 6px; }
+
+/* Narrow windows keep one group: the Layout button stays, text labels shrink. */
+.ws-narrow .ws-action-text { display: none; }
+.ws-narrow .dv-sash { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dockview-theme-material, .dockview-theme-material * { transition: none !important; animation: none !important; }
+}
+.motion-off .dockview-theme-material, .motion-off .dockview-theme-material * { transition: none !important; animation: none !important; }
