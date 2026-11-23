@@ -8,7 +8,7 @@ both apply.
 | --- | --- | --- |
 | Empty | Moodle's own empty messages (for example "You're not enrolled in any courses" or an empty timeline) | A rounded card on the low surface colour with Moodle's illustration |
 | Done | Moodle's success messages and pop-up notifications | Success-coloured message boxes and dark snackbars |
-| Not found and errors | Moodle's "404 Error: File not found" page and its error box | A state card with a coloured band and shapes, the message and a full-round Continue button |
+| Not found and errors | Moodle's "404 Error: File not found" page (Apache sends missing files there with `ErrorDocument 404 /error/index.php` in `material/docker/apache.conf`) and its error box | A state card with a coloured band and shapes, the message and a full-round Continue button |
 | Offline | The browser losing its connection (`theme/material/amd/src/states.js`) | A card at the bottom of the window with Try again; "You are back online." when the connection returns |
 
 ## Offline
