@@ -45,12 +45,10 @@
 - The installed deployer (from the built installer) ran its Save and finish later step and then its read-only
   connection test against the owner's server with an SSH key: it reported the server's Debian 13 and Docker
   29.6.1, with no page errors.
-- Not verified: some page selectors the restyle could not confirm from templates
-  (timeline items, dashboard block columns, admin category tiles).
-- The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
-  (built in a separate session); its remaining items are in that fork's roadmap.
-- Test sites on plain `http://localhost` need `cookiesecure` off. WebKit reports Moodle core requests cut short by
-  navigation as page errors; the tests ignore exactly that pattern.
+- Page selectors checked on a running site: the dashboard bento targeted a `blocks-column` region and the timeline
+  tile a `timeline-course-image` class, neither of which exists in Moodle 6. They now target `#block-region-content`
+  and `.courseicon`; the gap between dashboard blocks measures 16px at 1440 and 390 pixels, every timeline event
+  gets its tile, and the admin category cards were confirmed in a screenshot.
 
 ## Redesign and launcher, 2026-11-23
 

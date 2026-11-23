@@ -497,7 +497,8 @@ $rd-success-c: var(--md-sys-color-success-container);
     @include rd-buttons;
 
     // Blocks sit in a 12 column bento on wide screens. The overview and anything unknown take the full row.
-    [data-region="blocks-column"] {
+    // Moodle 6 puts dashboard blocks straight into #block-region-content (checked against a running site).
+    #block-region-content {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
         gap: 16px;
@@ -507,7 +508,19 @@ $rd-success-c: var(--md-sys-color-success-container);
             grid-column: 1 / -1;
         }
 
-        > [data-block="timeline"] { grid-column: span 8; }
+        // The empty skip-link targets between blocks would each take a grid row and double the gap.
+        > span:empty {
+            position: absolute;
+        }
+
+        // The grid gap spaces the blocks, so their own bottom margin (Bootstrap's mb-3, which is !important) would
+        // double it.
+        > [data-block] {
+            margin-bottom: 0 !important;
+        }
+
+        // The timeline only shares its row when a calendar block sits beside it; alone it takes the full width.
+        &:has(> [data-block^="calendar_"]) > [data-block="timeline"] { grid-column: span 8; }
         > [data-block="calendar_month"],
         > [data-block="calendar_upcoming"] { grid-column: span 4; }
         > [data-block="recentlyaccesseditems"],
@@ -517,8 +530,13 @@ $rd-success-c: var(--md-sys-color-success-container);
 
     // The timeline: each event is a 72px row with the course image as a tonal tile.
     .block_timeline {
-        .timeline-course-image {
+        // Moodle 6 marks each event's icon as .courseicon (an activity icon container).
+        .timeline-course-image,
+        .courseicon {
             @include rd-tile($rd-primary-c, $rd-on-primary-c);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 0;
             width: 40px;
             height: 40px;
@@ -1877,7 +1895,7 @@ body.path-admin {
     }
 
     // Dashboard: one column.
-    #page-my-index [data-region="blocks-column"] {
+    #page-my-index #block-region-content {
         grid-template-columns: minmax(0, 1fr);
 
         > * ,
