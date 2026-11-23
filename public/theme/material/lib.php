@@ -41,6 +41,10 @@ function theme_material_get_main_scss_content($theme): string {
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/controls.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/features.scss');
     $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/rail.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/topbar.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/signin.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/redesign.scss');
+    $scss .= "\n" . file_get_contents($CFG->dirroot . '/theme/material/scss/dockview.scss');
     return $scss;
 }
 
