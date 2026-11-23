@@ -14,7 +14,10 @@
   no text below 3:1; the admin search icon was too dark and is fixed); the four page states were built
   (`scss/states.scss`, `amd/src/states.js`, `docs/page-states.md`, `tests/e2e/states.mjs`). The deployer's
   `node_modules/electron` had no binary; it was extracted from the local Electron download cache.
-- Not verified: the deployer installer build, and some page selectors the restyle could not confirm from templates
+- `npm run dist` builds `Material Moodle Deployer Setup 1.0.0.exe` (98 MB) and the portable
+  `Material Moodle Deployer 1.0.0.exe` (90 MB), unsigned; the built app in `dist/win-unpacked` passed the same
+  workspace checks on a hidden desktop. The installer was built but not installed on this computer.
+- Not verified: some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
   (built in a separate session); its remaining items are in that fork's roadmap.
