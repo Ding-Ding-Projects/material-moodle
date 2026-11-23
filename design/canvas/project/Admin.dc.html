@@ -22,51 +22,35 @@ button,input,select{font-family:inherit}
 .mm-btn:focus-visible,.mm-link:focus-visible{outline:3px solid var(--mm-ring);outline-offset:2px}
 .mm-link:hover{text-decoration:underline}
 .mm-field:focus-within{outline:2px solid var(--mm-ring)}
+.mm-scroll::-webkit-scrollbar{display:none}
 </style>
 </helmet>
 <div class="{{rootClass}}" style="position:relative;width:1440px;height:900px;overflow:hidden;display:flex;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
-  <nav aria-label="Main navigation" style="width:96px;flex:none;height:900px;box-sizing:border-box;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:12px">
-    <span aria-hidden="true" style="width:48px;height:48px;border-radius:16px;background:{{c.primary}};color:{{c.onp}};display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg></span>
-    <button type="button" class="mm-btn" aria-label="New" style="width:56px;height:56px;flex:none;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
-    <sc-for list="{{rail}}" as="r" hint-placeholder-count="6">
-      <button type="button" class="mm-btn" aria-label="{{r.label}}" style="border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:{{c.on}}">
-        <span style="width:56px;height:32px;border-radius:16px;background:{{r.bg}};color:{{r.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
-        <span style="font-size:12px;font-weight:600;line-height:15px">{{r.label}}</span>
-      </button>
-    </sc-for>
-    <span style="flex:1"></span>
-    <button type="button" class="mm-btn" aria-label="Settings" aria-current="page" style="width:56px;height:56px;border:0;border-radius:20px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3"></path></svg></button>
-    <span role="img" aria-label="Admin User" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">AU</span>
-  </nav>
+  <div style="width:96px;flex:none;height:900px">
+    <dc-import name="Rail" active="settings" initials="AU" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import>
+  </div>
 
   <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
-    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px;box-sizing:border-box">
-      <div class="mm-title" style="flex:1 1 0">Administration</div>
-      <label class="mm-field" style="width:560px;flex:none;height:56px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 16px;border-radius:999px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14)">
-        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
-        <span class="mm-sr">Search courses, people and settings</span>
-        <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none">
-        <span class="mm-mono" style="font-size:12px;padding:4px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Ctrl K</span>
-      </label>
-      <div style="flex:1 1 0;display:flex;justify-content:flex-end;gap:4px">
-        <button type="button" class="mm-btn" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"></path></svg></button>
-        <button type="button" class="mm-btn" aria-label="Notifications, 1 new" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;right:11px;top:10px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span></button>
-        <button type="button" class="mm-btn" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
-      </div>
-    </header>
+    <div style="width:1344px;height:72px;flex:none">
+      <dc-import name="TopBar" title="Administration" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import>
+    </div>
 
-    <main style="flex:1;min-height:0;overflow-y:auto;padding:8px 32px 32px;box-sizing:border-box">
-      <div style="max-width:1180px;display:flex;flex-direction:column;gap:24px">
+    <main class="mm-scroll" style="flex:1;min-height:0;overflow-y:auto;padding:24px 32px;box-sizing:border-box">
+      <div style="display:flex;flex-direction:column;gap:20px">
         <h1 class="mm-headline">Site administration</h1>
-        <div class="mm-field" style="height:64px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 24px;border-radius:999px;background:{{c.highest}}">
+        <div class="mm-field" style="height:56px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 4px 0 20px;border-radius:999px;background:{{c.highest}}">
           <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
-          <label style="flex:1;min-width:0;display:flex"><span class="mm-sr">Search all settings</span><input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="Search all settings" style="flex:1;min-width:0;height:56px;border:0;background:transparent;font-size:18px;color:{{c.on}};outline:none"></label>
+          <label style="flex:1;min-width:0;display:flex"><span class="mm-sr">Search all settings</span><input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="{{placeholder}}" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none"></label>
+          <button type="button" class="mm-btn" aria-pressed="{{regexStr}}" aria-label="Use a regular expression" onClick="{{toggleRegex}}" style="width:48px;height:48px;flex:none;padding:0;border:0;background:transparent;display:grid;place-items:center;cursor:pointer"><span style="width:40px;height:40px;border-radius:50%;background:{{regexBg}};color:{{regexFg}};display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h.01M14 5v8M10.6 7l6.8 4M17.4 7l-6.8 4"></path></svg></span></button>
         </div>
+        <sc-if value="{{invalid}}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="margin:-8px 0 0;padding:0 20px;font-size:14px;color:{{c.err}}">That pattern is incomplete. Every category stays listed until it is fixed.</p>
+        </sc-if>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
-          <section style="border-radius:28px;background:{{c.low}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label" style="color:{{c.onv}}">Moodle version</span><span style="font-size:32px;line-height:1.1;font-weight:750;font-stretch:112%">6.0</span><span style="font-size:14px;color:{{c.onv}}">Release 6.0 with Material theme</span></section>
-          <section style="border-radius:28px;background:{{c.low}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label" style="color:{{c.onv}}">Cron</span><span style="font-size:20px;font-weight:650;line-height:1.3;padding-top:6px">Last ran 2 minutes ago</span><span class="mm-label" style="align-self:flex-start;padding:2px 8px;border-radius:8px;background:{{c.sucC}};color:{{c.onsucC}}">Success</span></section>
-          <section style="border-radius:28px;background:{{c.warnC}};color:{{c.onwarnC}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label">Needs attention</span><span style="font-size:20px;font-weight:650;line-height:1.3;padding-top:6px">1 notification</span><button type="button" class="mm-btn mm-label" style="align-self:flex-start;height:48px;margin:-4px 0 -12px -12px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:{{c.onwarnC}};text-decoration:underline;cursor:pointer">Review it</button></section>
-          <section style="border-radius:28px;background:{{c.low}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label" style="color:{{c.onv}}">Disk use</span><span style="font-size:20px;font-weight:650;line-height:1.3;padding-top:6px">38 GB of 120 GB</span><div style="margin-top:8px;height:8px;border-radius:999px;background:{{c.highest}}"><div style="width:32%;height:8px;border-radius:999px;background:{{c.primary}}"></div></div></section>
+          <section style="min-height:150px;box-sizing:border-box;border-radius:28px;background:{{c.low}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label" style="color:{{c.onv}}">Moodle version</span><span style="font-size:32px;line-height:1.1;font-weight:750;font-stretch:112%">6.0</span><span style="font-size:14px;color:{{c.onv}}">Release 6.0 with Material theme</span></section>
+          <section style="min-height:150px;box-sizing:border-box;border-radius:28px;background:{{c.low}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label" style="color:{{c.onv}}">Cron</span><span style="font-size:20px;font-weight:650;line-height:1.3;padding-top:6px">Last ran 2 minutes ago</span><span style="flex:1"></span><span class="mm-label" style="align-self:flex-start;min-width:72px;box-sizing:border-box;text-align:center;padding:2px 8px;border-radius:8px;background:{{c.sucC}};color:{{c.onsucC}}">Success</span></section>
+          <section style="min-height:150px;box-sizing:border-box;border-radius:28px;background:{{c.warnC}};color:{{c.onwarnC}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label">Needs attention</span><span style="font-size:20px;font-weight:650;line-height:1.3;padding-top:6px">1 notification</span><span style="flex:1"></span><button type="button" class="mm-btn mm-label" style="align-self:flex-start;height:48px;margin-bottom:-8px;padding:0 24px;border:0;border-radius:999px;background:{{c.onwarnC}};color:{{c.warnC}};cursor:pointer">Review it</button></section>
+          <section style="min-height:150px;box-sizing:border-box;border-radius:28px;background:{{c.low}};padding:20px 24px;display:flex;flex-direction:column;gap:4px"><span class="mm-label" style="color:{{c.onv}}">Disk use</span><span style="font-size:20px;font-weight:650;line-height:1.3;padding-top:6px">38 GB of 120 GB</span><span style="flex:1"></span><div style="height:8px;border-radius:999px;background:{{c.highest}}"><div style="width:32%;height:8px;border-radius:999px;background:{{c.primary}}"></div></div></section>
         </div>
         <div style="display:flex;align-items:baseline;gap:16px"><h2 class="mm-title" style="margin:0">Categories</h2><span aria-live="polite" style="font-size:14px;color:{{c.onv}}">{{countText}}</span></div>
         <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
@@ -75,8 +59,10 @@ button,input,select{font-family:inherit}
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
           <sc-for list="{{tiles}}" as="t" hint-placeholder-count="10">
             <section style="border-radius:28px;background:{{c.low}};padding:20px;display:flex;flex-direction:column;gap:8px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{t.delay}}">
-              <span style="width:48px;height:48px;border-radius:16px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg></span>
-              <h3 class="mm-title" style="margin:4px 0 0">{{t.name}}</h3>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="width:48px;height:48px;flex:none;border-radius:16px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg></span>
+                <h3 class="mm-title" style="margin:0;min-width:0">{{t.name}}</h3>
+              </div>
               <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
                 <sc-for list="{{t.links}}" as="l" hint-placeholder-count="3">
                   <li><a href="#" class="mm-link" style="display:flex;align-items:center;min-height:36px;font-size:14px;color:{{c.primary}};text-decoration:none">{{l}}</a></li>
@@ -92,7 +78,7 @@ button,input,select{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { q: '' }; }
+  constructor(props) { super(props); this.state = { q: '', regex: false }; }
   renderVals() {
     const dark = this.props.dark ?? false;
     const accent = this.props.accent ?? '#3D5BD9';
@@ -100,8 +86,7 @@ class Component extends DCLogic {
     const L = { pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', sucC:'#B7F1CF', onsucC:'#002111', warnC:'#FFE08A', onwarnC:'#251A00', err:'#BA1A1A', surface:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', onp:'#FFFFFF' };
     const D = { pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', sucC:'#005234', onsucC:'#B7F1CF', warnC:'#5B4300', onwarnC:'#FFE08A', err:'#FFB4AB', surface:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', onp:'#002388' };
     const c = Object.assign({}, dark ? D : L, { primary: dark ? '#B8C3FF' : accent });
-    const RL = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z']];
-    const rail = RL.map(([label, d]) => ({ label, d, bg: 'transparent', fg: c.onv }));
+    const s = this.state;
     const T = [
       ['Users','M9 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM2 20a7 7 0 0 1 14 0M16 4a3.5 3.5 0 0 1 0 7',['Browse list of users','Add a new user','Permissions']],
       ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5',['Manage courses','Add a category','Backups']],
@@ -114,12 +99,20 @@ class Component extends DCLogic {
       ['Development','M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16',['Debugging','Purge caches','Experimental']],
       ['Notifications','M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4',['Notifications','Message outputs','Email settings']]
     ];
-    const q = this.state.q.trim().toLowerCase();
-    const tiles = T.filter((t) => !q || t[0].toLowerCase().indexOf(q) !== -1 || t[2].some((l) => l.toLowerCase().indexOf(q) !== -1))
+    let test = null, invalid = false;
+    const raw = s.q.trim();
+    if (raw) {
+      if (s.regex) { try { const r = new RegExp(raw, 'i'); test = (t) => r.test(t); } catch (e) { invalid = true; } }
+      else { const q = raw.toLowerCase(); test = (t) => t.toLowerCase().indexOf(q) !== -1; }
+    }
+    const tiles = T.filter((t) => !test || test(t[0] + ' ' + t[2].join(' ')))
       .map((t, i) => ({ name: t[0], d: t[1], links: t[2], delay: i * 40 + 'ms' }));
     return {
-      c, rootClass: motion ? '' : 'mm-still', rail, tiles, empty: tiles.length === 0,
-      q: this.state.q, onQ: (e) => this.setState({ q: e.target.value }),
+      c, accent, dark, rootClass: motion ? '' : 'mm-still', tiles, empty: tiles.length === 0,
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      placeholder: s.regex ? 'Pattern, for example ^(user|course)' : 'Search all settings',
+      regexStr: s.regex ? 'true' : 'false', regexBg: s.regex ? c.primary : 'transparent', regexFg: s.regex ? c.onp : c.onv,
+      toggleRegex: () => this.setState({ regex: !s.regex }), invalid,
       countText: tiles.length + ' of 10 categories'
     };
   }

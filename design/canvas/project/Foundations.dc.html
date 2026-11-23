@@ -17,7 +17,7 @@ body{margin:0}
 button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 </style>
 </helmet>
-<div class="{{rootClass}}" style="width:1440px;height:900px;box-sizing:border-box;overflow:hidden;padding:40px 48px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-content:start;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.surface}};color:{{c.onSurface}}">
+<div class="{{rootClass}}" style="width:1440px;height:900px;box-sizing:border-box;overflow:hidden;padding:32px 48px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) minmax(0,1fr);gap:24px;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.surface}};color:{{c.onSurface}}">
 
   <header class="mm-in" style="grid-column:span 12;display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
     <div>
@@ -31,11 +31,11 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
     </div>
   </header>
 
-  <section class="mm-in" style="grid-column:span 7;padding:24px;border-radius:28px;background:{{c.low}};animation-delay:60ms">
-    <h2 style="margin:0 0 16px;font-size:20px;font-weight:650">Colour roles</h2>
-    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+  <section class="mm-in" style="grid-column:span 7;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:16px;animation-delay:60ms">
+    <h2 style="margin:0;font-size:20px;font-weight:650">Colour roles</h2>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:10px">
       <sc-for list="{{swatches}}" as="s" hint-placeholder-count="12">
-        <div style="height:84px;border-radius:18px;background:{{s.bg}};color:{{s.fg}};padding:12px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+        <div style="border-radius:18px;background:{{s.bg}};color:{{s.fg}};padding:12px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
           <span style="font-size:13px;font-weight:650">{{s.name}}</span>
           <span style="font-family:'Roboto Mono',monospace;font-size:12px">{{s.hex}}</span>
         </div>
@@ -43,10 +43,10 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
     </div>
   </section>
 
-  <section class="mm-in" style="grid-column:span 5;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:10px;animation-delay:120ms">
-    <h2 style="margin:0 0 6px;font-size:20px;font-weight:650">Type</h2>
-    <p style="margin:0;font-size:48px;line-height:1;font-weight:800;font-stretch:118%;letter-spacing:-.02em">Display 56</p>
-    <p style="margin:0;font-size:30px;line-height:1.1;font-weight:750;font-stretch:112%">Headline 32</p>
+  <section class="mm-in" style="grid-column:span 5;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;justify-content:space-between;gap:8px;animation-delay:120ms">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><h2 style="margin:0;font-size:20px;font-weight:650">Type</h2><span style="font-size:12px;color:{{c.onSurfaceVariant}}">Scaled to fit. Spec: Display 56, Headline 32</span></div>
+    <p style="margin:0;font-size:44px;line-height:1;font-weight:800;font-stretch:118%;letter-spacing:-.02em">Display</p>
+    <p style="margin:0;font-size:28px;line-height:1.1;font-weight:750;font-stretch:112%">Headline</p>
     <p style="margin:0;font-size:20px;font-weight:650">Title 20</p>
     <p style="margin:0;font-size:16px;line-height:1.55;color:{{c.onSurfaceVariant}}">Body 16. Roboto Flex, with its width axis opened for display sizes so headings feel confident without shouting.</p>
     <p style="margin:0;font-size:14px;font-weight:600">Label 14</p>
@@ -54,7 +54,7 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
     <p style="margin:0;font-family:'Roboto Mono',monospace;font-size:14px">Mono 14 · Tue 14:00</p>
   </section>
 
-  <section class="mm-in" style="grid-column:span 5;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:16px;animation-delay:180ms">
+  <section class="mm-in" style="grid-column:span 4;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;justify-content:space-between;gap:12px;animation-delay:180ms">
     <h2 style="margin:0;font-size:20px;font-weight:650">Actions</h2>
     <div style="display:flex;flex-wrap:wrap;gap:10px">
       <button type="button" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.primary}};color:{{c.onPrimary}};font:inherit;font-size:14px;font-weight:600">Submit</button>
@@ -75,31 +75,47 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
       <span style="height:24px;padding:0 10px;border-radius:8px;display:inline-flex;align-items:center;font-size:12px;font-weight:650;background:{{c.successContainer}};color:{{c.onSurface}}">Submitted</span>
       <span style="height:24px;padding:0 10px;border-radius:8px;display:inline-flex;align-items:center;font-size:12px;font-weight:650;background:{{c.errorContainer}};color:{{c.onSurface}}">Overdue</span>
     </div>
+    <div style="display:flex;gap:24px;align-items:center">
+      <sc-for list="{{switches}}" as="sw" hint-placeholder-count="2">
+        <button type="button" role="switch" aria-checked="{{sw.checked}}" aria-label="{{sw.aria}}" onClick="{{sw.pick}}" style="display:flex;align-items:center;gap:12px;min-height:48px;padding:0;border:0;background:transparent;color:{{c.onSurface}};font:inherit;font-size:14px;font-weight:600;cursor:pointer">
+          <span aria-hidden="true" style="position:relative;width:52px;height:32px;box-sizing:border-box;border-radius:16px;background:{{sw.track}};border:{{sw.border}};flex:none;display:block"><span style="position:absolute;top:50%;left:{{sw.left}};width:{{sw.size}};height:{{sw.size}};margin-top:{{sw.mt}};border-radius:50%;background:{{sw.thumb}};transition:left .2s"></span></span>
+          {{sw.label}}
+        </button>
+      </sc-for>
+    </div>
   </section>
 
-  <section class="mm-in" style="grid-column:span 4;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:14px;animation-delay:240ms">
+  <section class="mm-in" style="grid-column:span 5;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;justify-content:space-between;gap:12px;animation-delay:240ms">
     <h2 style="margin:0;font-size:20px;font-weight:650">Fields and progress</h2>
     <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600">Username
-      <span style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-radius:16px;background:{{c.highest}};box-shadow:inset 0 -2px 0 {{c.primary}}">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.onSurfaceVariant}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex:none"><path d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21a8 8 0 0 1 16 0"></path></svg>
+      <span style="display:flex;align-items:center;height:56px;box-sizing:border-box;border-radius:16px;background:{{c.highest}};box-shadow:inset 0 -2px 0 {{c.primary}}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.onSurfaceVariant}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex:none;margin:0 16px"><path d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21a8 8 0 0 1 16 0"></path></svg>
         <input type="text" value="mei.chan" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;font-weight:400;color:{{c.onSurface}};outline:none">
       </span>
     </label>
+    <div style="display:flex;align-items:center;height:56px;box-sizing:border-box;border-radius:16px;background:{{c.highest}}">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.onSurfaceVariant}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex:none;margin:0 16px"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM21 21l-4.5-4.5"></path></svg>
+      <input type="text" aria-label="Search" placeholder="Search courses" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.onSurface}};outline:none">
+      <button type="button" aria-label="Use a regular expression" aria-pressed="{{regexPressed}}" onClick="{{toggleRegex}}" style="width:40px;height:40px;margin-right:8px;flex:none;border:0;border-radius:50%;background:{{regexBg}};color:{{regexFg}};font-family:'Roboto Mono',monospace;font-size:14px;font-weight:600;cursor:pointer">.*</button>
+    </div>
     <div>
       <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Introduction to Biology</span><span>68%</span></div>
       <div style="height:8px;border-radius:999px;background:{{c.highest}}"><div style="width:68%;height:8px;border-radius:999px;background:{{c.primary}}"></div></div>
     </div>
-    <div style="display:flex;align-items:center;gap:14px">
-      <svg width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="42 percent complete"><circle cx="32" cy="32" r="27" fill="none" stroke="{{c.highest}}" stroke-width="6"></circle><circle cx="32" cy="32" r="27" fill="none" stroke="{{c.tertiary}}" stroke-width="6" stroke-linecap="round" stroke-dasharray="71 170" transform="rotate(-90 32 32)"></circle></svg>
-      <span style="font-size:14px;color:{{c.onSurfaceVariant}}">World History · 42%</span>
+    <div style="display:flex;align-items:center;gap:16px">
+      <svg width="56" height="56" viewBox="0 0 64 64" role="img" aria-label="42 percent complete" style="flex:none"><circle cx="32" cy="32" r="27" fill="none" stroke="{{c.highest}}" stroke-width="6"></circle><circle cx="32" cy="32" r="27" fill="none" stroke="{{c.tertiary}}" stroke-width="6" stroke-linecap="round" stroke-dasharray="71 170" transform="rotate(-90 32 32)"></circle></svg>
+      <div style="display:flex;flex-direction:column"><span style="font-size:14px;font-weight:600">World History</span><span style="font-size:14px;color:{{c.onSurfaceVariant}}">42% complete</span></div>
     </div>
   </section>
 
-  <section class="mm-in" style="grid-column:span 3;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:12px;animation-delay:300ms">
+  <section class="mm-in" style="grid-column:span 3;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:12px;animation-delay:300ms">
     <h2 style="margin:0;font-size:20px;font-weight:650">Shape</h2>
-    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:12px">
       <sc-for list="{{shapes}}" as="sh" hint-placeholder-count="4">
-        <div style="height:64px;border-radius:{{sh.r}};background:{{c.primaryContainer}};color:{{c.onPrimaryContainer}};display:grid;place-items:center;font-size:12px;font-weight:650">{{sh.label}}</div>
+        <div style="display:flex;flex-direction:column;gap:6px;min-height:0">
+          <div aria-hidden="true" style="flex:1;min-height:40px;border-radius:{{sh.r}};border:2px solid {{c.outline}};box-sizing:border-box"></div>
+          <span style="font-size:12px;font-weight:600;color:{{c.onSurfaceVariant}}">{{sh.label}}</span>
+        </div>
       </sc-for>
     </div>
     <p style="margin:0;font-size:13px;line-height:1.5;color:{{c.onSurfaceVariant}}">Surfaces separate by tone. One shadow, only for things that float.</p>
@@ -108,20 +124,20 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { mode: null, chips: { progress: true } }; }
+  constructor(props) { super(props); this.state = { mode: null, chips: { progress: true }, sw: { off: false, on: true }, regex: false }; }
   renderVals() {
     const accent = this.props.accent ?? '#3D5BD9';
     const motion = this.props.motion ?? true;
     const dark = this.state.mode === null ? (this.props.dark ?? false) : this.state.mode === 'dark';
-    const L = { primary: accent, onPrimary:'#FFFFFF', primaryContainer:'#DDE1FF', onPrimaryContainer:'#001454', secondaryContainer:'#DEE1F9', onSecondaryContainer:'#171B2C', tertiary:'#A23F6A', tertiaryContainer:'#FFD9E3', onTertiaryContainer:'#3E0021', successContainer:'#B7F1CF', warningContainer:'#FFE08A', errorContainer:'#FFDAD6', surface:'#FBF8FF', low:'#F5F2FB', container:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', onSurface:'#1B1B21', onSurfaceVariant:'#45464F', outline:'#767680', outlineVariant:'#C6C5D0' };
-    const D = { primary:'#B8C3FF', onPrimary:'#002388', primaryContainer:'#2440BF', onPrimaryContainer:'#DDE1FF', secondaryContainer:'#42455A', onSecondaryContainer:'#DEE1F9', tertiary:'#FFB0CB', tertiaryContainer:'#842653', onTertiaryContainer:'#FFD9E3', successContainer:'#005234', warningContainer:'#5B4300', errorContainer:'#93000A', surface:'#131318', low:'#1B1B21', container:'#1F1F25', high:'#2A292F', highest:'#34343A', onSurface:'#E4E1E9', onSurfaceVariant:'#C6C5D0', outline:'#90909A', outlineVariant:'#45464F' };
+    const L = { primary: accent, onPrimary:'#FFFFFF', primaryContainer:'#DDE1FF', onPrimaryContainer:'#001454', secondaryContainer:'#DEE1F9', onSecondaryContainer:'#171B2C', tertiary:'#A23F6A', tertiaryContainer:'#FFD9E3', onTertiaryContainer:'#3E0021', successContainer:'#B7F1CF', warningContainer:'#FFE08A', errorContainer:'#FFDAD6', surface:'#FBF8FF', low:'#F5F2FB', container:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', onSurface:'#1B1B21', onSurfaceVariant:'#45464F', outline:'#767680', outlineVariant:'#C6C5D0', onOutline:'#000000' };
+    const D = { primary:'#B8C3FF', onPrimary:'#002388', primaryContainer:'#2440BF', onPrimaryContainer:'#DDE1FF', secondaryContainer:'#42455A', onSecondaryContainer:'#DEE1F9', tertiary:'#FFB0CB', tertiaryContainer:'#842653', onTertiaryContainer:'#FFD9E3', successContainer:'#005234', warningContainer:'#5B4300', errorContainer:'#93000A', surface:'#131318', low:'#1B1B21', container:'#1F1F25', high:'#2A292F', highest:'#34343A', onSurface:'#E4E1E9', onSurfaceVariant:'#C6C5D0', outline:'#90909A', outlineVariant:'#45464F', onOutline:'#131318' };
     const c = dark ? D : L;
     const sw = (name, bg, fg) => ({ name, bg: c[bg], fg: c[fg], hex: String(c[bg]).toUpperCase() });
     const swatches = [
       sw('Primary','primary','onPrimary'), sw('Primary container','primaryContainer','onPrimaryContainer'),
       sw('Secondary container','secondaryContainer','onSecondaryContainer'), sw('Tertiary container','tertiaryContainer','onTertiaryContainer'),
       sw('Surface','surface','onSurface'), sw('Container low','low','onSurface'), sw('Container high','high','onSurface'), sw('Container highest','highest','onSurface'),
-      sw('Success container','successContainer','onSurface'), sw('Warning container','warningContainer','onSurface'), sw('Error container','errorContainer','onSurface'), sw('Outline','outline','surface')
+      sw('Success container','successContainer','onSurface'), sw('Warning container','warningContainer','onSurface'), sw('Error container','errorContainer','onSurface'), sw('Outline','outline','onOutline')
     ];
     const modes = ['light','dark'].map((m) => {
       const on = (m === 'dark') === dark;
@@ -132,8 +148,18 @@ class Component extends DCLogic {
       return { label, on, pressed: on ? 'true' : 'false', bg: on ? c.secondaryContainer : 'transparent', fg: on ? c.onSecondaryContainer : c.onSurfaceVariant, border: on ? c.secondaryContainer : c.outline,
         pick: () => this.setState({ chips: { ...this.state.chips, [k]: !on } }) };
     });
-    const shapes = [{label:'Chip 10', r:'10px'},{label:'Field 16', r:'16px'},{label:'Card 28', r:'28px'},{label:'Button', r:'999px'}];
-    return { c, rootClass: motion ? '' : 'mm-still', swatches, modes, chips, shapes };
+    const shapes = [{label:'Chip, 10 px', r:'10px'},{label:'Field, 16 px', r:'16px'},{label:'Card, 28 px', r:'28px'},{label:'Button, fully round', r:'999px'}];
+    const switches = [['off','Off'],['on','On']].map(([k, label]) => {
+      const on = !!this.state.sw[k];
+      return { label, aria: 'Example switch, ' + label.toLowerCase(), checked: on ? 'true' : 'false',
+        track: on ? c.primary : c.highest, border: on ? '2px solid ' + c.primary : '2px solid ' + c.outline,
+        thumb: on ? c.onPrimary : c.outline, left: on ? '24px' : '6px', size: on ? '24px' : '16px', mt: on ? '-12px' : '-8px',
+        pick: () => this.setState({ sw: { ...this.state.sw, [k]: !on } }) };
+    });
+    const rx = this.state.regex;
+    return { c, rootClass: motion ? '' : 'mm-still', swatches, modes, chips, shapes, switches,
+      regexPressed: rx ? 'true' : 'false', regexBg: rx ? c.primary : 'transparent', regexFg: rx ? c.onPrimary : c.onSurfaceVariant,
+      toggleRegex: () => this.setState({ regex: !rx }) };
   }
 }
 </script>

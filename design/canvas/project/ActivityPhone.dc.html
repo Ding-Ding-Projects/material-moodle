@@ -19,9 +19,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
 .mm-still .mm-in{animation:none}
 .mm-hs{scrollbar-width:none}
+.mm-sc{scrollbar-width:none}
+.mm-sc>*{flex:none}
+.mm-ed{border-bottom:1px solid var(--mm-o)}
+.mm-ed:focus-within{border-bottom:2px solid var(--mm-p)}
 </style>
 </helmet>
-<div class="{{rootClass}}" style="width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
+<div class="{{rootClass}}" style="--mm-p:{{c.p}};--mm-o:{{c.outline}};width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
 
   <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px">
     <a href="#" aria-label="Back to Week 2: Cells" style="width:48px;height:48px;border-radius:24px;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
@@ -32,7 +36,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     <button type="button" aria-haspopup="dialog" aria-label="More actions" onClick="{{openMore}}" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"></circle><circle cx="12" cy="12" r="1.8"></circle><circle cx="12" cy="19" r="1.8"></circle></svg></button>
   </header>
 
-  <main style="flex:1;min-height:0;overflow:auto;padding:0 16px 24px;display:flex;flex-direction:column;gap:16px">
+  <main class="mm-sc" style="flex:1;min-height:0;overflow:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px">
     <div>
       <h1 class="mm-in" style="margin:0 0 12px;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Cell structure lab report</h1>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
@@ -61,8 +65,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
       </div>
       <div>
         <label for="otext" style="display:block;margin-bottom:8px;font-size:14px;font-weight:600;letter-spacing:.01em">Online text</label>
-        <div style="border-radius:16px;background:{{c.highest}};overflow:hidden">
-          <div role="toolbar" aria-label="Text formatting" class="mm-hs" style="display:flex;gap:0;padding:0 4px;border-bottom:1px solid {{c.ov}};overflow-x:auto">
+        <div class="mm-ed" style="border-radius:16px 16px 0 0;background:{{c.highest}};overflow:hidden">
+          <div role="toolbar" aria-label="Text formatting" class="mm-hs" style="display:flex;gap:0;padding:0 4px;background:{{c.high}};border-bottom:1px solid {{c.ov}};overflow-x:auto">
             <button type="button" aria-label="Bold" style="flex:none;width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h6a3.5 3.5 0 0 1 0 7H7zM7 11h7a3.5 3.5 0 0 1 0 7H7z"></path></svg></button>
             <button type="button" aria-label="Italic" style="flex:none;width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4h8M6 20h8M14 4l-4 16"></path></svg></button>
             <button type="button" aria-label="Bulleted list" style="flex:none;width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"></path></svg></button>
@@ -70,10 +74,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
           </div>
           <textarea id="otext" value="{{text}}" onChange="{{onText}}" placeholder="Type your report here" style="display:block;width:100%;height:112px;padding:16px;border:0;background:transparent;resize:none;font:inherit;font-size:16px;line-height:1.55;color:{{c.on}};outline:none"></textarea>
         </div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button type="button" onClick="{{submit}}" style="flex:1;height:48px;padding:0 16px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:14px;font-weight:600;cursor:pointer">{{submitLabel}}</button>
-        <button type="button" onClick="{{saveDraft}}" style="flex:1;height:48px;padding:0 16px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;cursor:pointer">Save draft</button>
       </div>
       <sc-if value="{{draftSaved}}" hint-placeholder-val="{{ false }}">
         <div style="font-size:14px;color:{{c.onv}}">Draft saved at <span style="font-family:'Roboto Mono',monospace">13:42</span></div>
@@ -91,17 +91,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     </section>
   </main>
 
-  <nav aria-label="Primary" style="height:80px;flex:none;background:{{c.c}};display:flex;align-items:stretch;justify-content:space-around;padding:8px 4px 0">
-    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
-      <a href="#" aria-current="{{n.cur}}" style="flex:1;min-height:48px;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{c.on}}">
-        <span style="width:64px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg></span>
-        <span style="font-size:12px;font-weight:{{n.w}}">{{n.label}}</span>
-      </a>
-    </sc-for>
-  </nav>
+  <div style="flex:none;height:72px;box-sizing:border-box;padding:12px 16px;display:flex;gap:8px;align-items:center;background:{{c.c}}">
+    <button type="button" onClick="{{submit}}" style="flex:1;height:48px;padding:0 16px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:14px;font-weight:600;cursor:pointer">{{submitLabel}}</button>
+    <button type="button" onClick="{{saveDraft}}" style="flex:1;height:48px;padding:0 16px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;cursor:pointer">Save draft</button>
+  </div>
+  <dc-import name="PhoneNav" active="courses" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import>
 
   <sc-if value="{{snack}}" hint-placeholder-val="{{ true }}">
-    <div role="status" class="mm-in" style="position:absolute;left:16px;right:16px;bottom:96px;display:flex;align-items:center;min-height:56px;padding:0 4px 0 16px;border-radius:16px;background:{{c.on}};color:{{c.bg}};box-shadow:{{c.shadow}};font-size:14px">
+    <div role="status" class="mm-in" style="position:absolute;left:16px;right:16px;bottom:168px;display:flex;align-items:center;min-height:56px;padding:0 4px 0 16px;border-radius:16px;background:{{c.on}};color:{{c.bg}};box-shadow:{{c.shadow}};font-size:14px">
       <span style="flex:1">Submission received</span>
       <button type="button" onClick="{{undo}}" style="min-height:48px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:{{c.pc}};font-size:14px;font-weight:700;cursor:pointer">Undo</button>
       <button type="button" aria-label="Dismiss message" onClick="{{dismiss}}" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.bg}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
@@ -146,7 +143,7 @@ class Component extends DCLogic {
       return { label, d, cur: a ? 'page' : 'false', bg: a ? c.sc : 'transparent', fg: a ? c.onsc : c.onv, w: a ? 700 : 500 };
     });
     return {
-      c, nav, rootClass: motion ? '' : 'mm-still',
+      c, accent, dark, rootClass: motion ? '' : 'mm-still',
       text: s.text, onText: (e) => this.setState({ text: e.target.value }),
       statusText: s.submitted ? 'Submitted' : 'Not submitted',
       statusBg: s.submitted ? c.okc : c.highest, statusFg: s.submitted ? c.onokc : c.onv,

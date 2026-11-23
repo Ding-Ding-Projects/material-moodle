@@ -27,12 +27,12 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
 <div class="{{rootClass}}" style="--fx:{{c.p}};width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
 
   <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px">
-    <h1 style="flex:1;margin:0;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Profile</h1>
+    <h1 style="flex:1;margin:0;font-weight:650;font-size:20px;line-height:1.3">Profile</h1>
     <button type="button" aria-label="More actions" aria-expanded="{{sheetStr}}" onClick="{{openSheet}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
-    <button type="button" aria-label="Account: Mei Chan" aria-current="page" style="width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px">MC</button>
   </header>
 
-  <main style="flex:1;min-height:0;overflow:auto;padding:0 16px 16px">
+  <div style="flex:1;min-height:0;position:relative">
+  <main style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:auto;padding:0 16px 40px">
     <section style="position:relative;border-radius:36px;background:{{c.low}};overflow:hidden;padding:24px 20px;display:flex;flex-direction:column;gap:8px">
       <span style="position:absolute;right:-50px;top:-60px;width:200px;height:200px;border-radius:100px;background:{{c.pc}}"></span>
       <span style="position:relative;width:96px;height:96px;border-radius:48px;background:{{c.tc}};color:{{c.ontc}};font-size:36px;font-weight:800;font-stretch:118%;display:flex;align-items:center;justify-content:center">MC</span>
@@ -117,23 +117,29 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
       </sc-if>
     </div>
   </main>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.bgT}},{{c.bg}})"></div>
+  </div>
 
-  <nav aria-label="Main navigation" style="height:80px;flex:none;background:{{c.cont}};display:flex;align-items:center;justify-content:space-around;padding:0 4px">
-    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
-      <a href="#" aria-current="{{n.cur}}" style="width:72px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:{{c.on}}">
-        <span style="width:64px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg></span>
-        <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
-      </a>
-    </sc-for>
-  </nav>
+  <div style="height:80px;flex:none"><dc-import name="PhoneNav" active="none" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import></div>
+
+  <sc-if value="{{hasSnack}}" hint-placeholder-val="{{ false }}">
+    <div role="status" class="mm-sheet" style="position:absolute;left:16px;right:16px;bottom:96px;min-height:48px;padding:0 8px 0 16px;border-radius:12px;background:{{c.on}};color:{{c.bg}};display:flex;align-items:center;gap:8px;font-size:14px">
+      <span style="flex:1">{{snack}}</span>
+      <button type="button" onClick="{{dismissSnack}}" style="height:48px;padding:0 12px;border:0;background:transparent;color:{{c.bg}};font-size:14px;font-weight:700">Dismiss</button>
+    </div>
+  </sc-if>
 
   <sc-if value="{{sheet}}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute;left:0;top:0;right:0;bottom:0">
       <button type="button" aria-label="Close menu" onClick="{{closeSheet}}" style="position:absolute;left:0;top:0;width:100%;height:100%;border:0;background:rgba(27,27,33,.4)"></button>
       <div class="mm-sheet" role="dialog" aria-label="Profile actions" style="position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;border-radius:32px 32px 0 0;background:{{c.high}}">
         <div style="width:32px;height:4px;border-radius:2px;background:{{c.outline}};margin:0 auto 12px"></div>
-        <sc-for list="{{sheetItems}}" as="si" hint-placeholder-count="4">
-          <button type="button" onClick="{{closeSheet}}" style="width:100%;height:56px;border:0;border-radius:16px;background:transparent;color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{si.d}}"></path></svg>{{si.label}}</button>
+        <div style="height:56px;display:flex;align-items:center;gap:16px;padding:0 12px;margin-bottom:4px;border-radius:16px;background:{{c.cont}}">
+          <span style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">MC</span>
+          <span style="font-size:16px;font-weight:600">Mei Chan</span>
+        </div>
+        <sc-for list="{{sheetItems}}" as="si" hint-placeholder-count="5">
+          <button type="button" onClick="{{si.pick}}" style="width:100%;height:56px;border:0;border-radius:16px;background:{{si.bg}};color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{si.d}}"></path></svg>{{si.label}}</button>
         </sc-for>
       </div>
     </div>
@@ -142,10 +148,10 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { tab: 'about', sheet: false }; }
+  constructor(props) { super(props); this.state = { tab: 'about', sheet: false, snack: '' }; }
   palette(dark, accent) {
-    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
-    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A', bgT:'rgba(251,248,255,0)' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', bgT:'rgba(19,19,24,0)' };
     return dark ? D : L;
   }
   renderVals() {
@@ -154,13 +160,7 @@ class Component extends DCLogic {
     const motion = this.props.motion ?? true;
     const c = this.palette(dark, accent);
     const s = this.state;
-    const nav = [
-      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
-      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
-      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
-      ['Messages','M4 5h16v11H8l-4 4z'],
-      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
-    ].map(([label, d]) => ({ label, d, cur: 'false', bg: 'transparent', fg: c.onv, w: 500 }));
+
     const tabs = [['about','About'],['courses','Courses'],['badges','Badges'],['blog','Blog']].map(([v, label]) => {
       const on = s.tab === v;
       return { label, sel: on ? 'true' : 'false', fg: on ? c.p : c.onv, bar: on ? c.p : 'transparent', pick: () => this.setState({ tab: v }) };
@@ -179,7 +179,7 @@ class Component extends DCLogic {
       ['Full attendance','Locked','M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z',false]
     ];
     return {
-      c, rootClass: motion ? '' : 'mm-still', ring: '2px solid ' + c.p, nav, tabs,
+      c, accent, dark, rootClass: motion ? '' : 'mm-still', tabs,
       isAbout: s.tab === 'about', isCourses: s.tab === 'courses', isBadges: s.tab === 'badges', isBlog: s.tab === 'blog',
       interests: ['Cell biology','Silk Road history','Short fiction','Data visualisation','Running','Piano'],
       contact: [
@@ -198,12 +198,14 @@ class Component extends DCLogic {
         { date:'14 Nov 2026', title:'Notes from the cell lab', body:'This week I stained onion cells for the first time. The nucleus is much easier to find once the focus is right.' },
         { date:'02 Nov 2026', title:'Reading the Silk Road', body:'A short list of the sources I am using for my essay draft, and why trade routes make a good lens for history.' }
       ],
+      snack: s.snack, hasSnack: !!s.snack, dismissSnack: () => this.setState({ snack: '' }),
       sheet: s.sheet, sheetStr: s.sheet ? 'true' : 'false',
       sheetItems: [
-        { label:'Edit profile', d:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4' },
-        { label:'Send message', d:'M4 5h16v11H8l-4 4z' },
-        { label:'Preferences', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4' },
-        { label:'Sign out', d:'M9 4H5v16h4M16 8l4 4-4 4M20 12H9' }
+        { label:'Show courses', d:'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5', bg: s.tab === 'courses' ? c.sc : 'transparent', pick: () => this.setState({ tab: 'courses', sheet: false }) },
+        { label:'Show badges', d:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z', bg: s.tab === 'badges' ? c.sc : 'transparent', pick: () => this.setState({ tab: 'badges', sheet: false }) },
+        { label:'Edit profile', d:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4', bg:'transparent', pick: () => this.setState({ sheet: false, snack: 'Editing the profile is not part of this prototype.' }) },
+        { label:'Preferences', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4', bg:'transparent', pick: () => this.setState({ sheet: false, snack: 'Preferences are not part of this prototype.' }) },
+        { label:'Sign out', d:'M9 4H5v16h4M16 8l4 4-4 4M20 12H9', bg:'transparent', pick: () => this.setState({ sheet: false, snack: 'Signing out is not part of this prototype.' }) }
       ],
       openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false })
     };

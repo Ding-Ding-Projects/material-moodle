@@ -29,11 +29,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 
   <sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
     <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px">
-      <h1 style="flex:1;margin:0;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Messages</h1>
+      <h1 style="flex:1;margin:0;font-weight:650;font-size:20px;line-height:1.3">Messages</h1>
       <button type="button" aria-label="More actions" aria-expanded="{{sheetStr}}" onClick="{{openSheet}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
-      <button type="button" aria-label="Account: Mei Chan" style="width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px">MC</button>
     </header>
-    <main style="flex:1;min-height:0;overflow:auto;padding:0 16px 16px">
+    <div style="flex:1;min-height:0;position:relative">
+    <main style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:auto;padding:0 16px 40px">
       <label class="mm-field" style="position:relative;height:56px;border-radius:28px;background:{{c.high}};display:flex;align-items:center;gap:12px;padding:0 16px">
         <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
         <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search messages</span>
@@ -56,23 +56,26 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
               <span style="font-size:13px;line-height:1.35;color:{{c.onv}};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{cv.preview}}</span>
             </span>
             <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-              <span style="font-family:'Roboto Mono',monospace;font-size:12px;color:{{c.onv}}">{{cv.time}}</span>
-              <sc-if value="{{cv.hasUnread}}" hint-placeholder-val="{{ true }}"><span style="min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:{{c.p}};color:{{c.onp}};font-size:12px;font-weight:700;line-height:24px;text-align:center">{{cv.unread}}</span></sc-if>
+              <span style="font-size:12px;font-weight:600;letter-spacing:.01em;color:{{c.onv}}">{{cv.time}}</span>
+              <sc-if value="{{cv.hasUnread}}" hint-placeholder-val="{{ true }}"><span style="min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:{{c.p}};color:{{c.onp}};font-size:12px;font-weight:700;line-height:20px;text-align:center">{{cv.unread}}</span></sc-if>
             </span>
           </button>
         </sc-for>
         <sc-if value="{{noConvs}}" hint-placeholder-val="{{ false }}"><p style="margin:8px 4px;font-size:14px;color:{{c.onv}}">No conversations match.</p></sc-if>
       </div>
     </main>
-    <button type="button" aria-label="New message" style="position:absolute;right:16px;bottom:96px;width:56px;height:56px;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(27,27,33,.14)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"></path></svg></button>
-    <nav aria-label="Main navigation" style="height:80px;flex:none;background:{{c.cont}};display:flex;align-items:center;justify-content:space-around;padding:0 4px">
-      <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
-        <a href="#" aria-current="{{n.cur}}" style="width:72px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:{{c.on}}">
-          <span style="width:64px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg></span>
-          <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
-        </a>
-      </sc-for>
-    </nav>
+    <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.bgT}},{{c.bg}})"></div>
+    </div>
+    <div style="height:72px;flex:none;padding:0 16px 16px;display:flex;justify-content:flex-end;background:{{c.bg}}">
+      <button type="button" aria-label="New message" onClick="{{openNew}}" style="width:56px;height:56px;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(27,27,33,.14)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"></path></svg></button>
+    </div>
+    <div style="height:80px;flex:none"><dc-import name="PhoneNav" active="messages" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import></div>
+    <sc-if value="{{hasSnack}}" hint-placeholder-val="{{ false }}">
+      <div role="status" class="mm-sheet" style="position:absolute;left:16px;right:16px;bottom:164px;min-height:48px;padding:0 8px 0 16px;border-radius:12px;background:{{c.on}};color:{{c.bg}};display:flex;align-items:center;gap:8px;font-size:14px">
+        <span style="flex:1">{{snack}}</span>
+        <button type="button" onClick="{{dismissSnack}}" style="height:48px;padding:0 12px;border:0;background:transparent;color:{{c.bg}};font-size:14px;font-weight:700">Dismiss</button>
+      </div>
+    </sc-if>
   </sc-if>
 
   <sc-if value="{{isThread}}" hint-placeholder-val="{{ false }}">
@@ -83,6 +86,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
       <button type="button" aria-label="Conversation details" aria-expanded="{{sheetStr}}" onClick="{{openSheet}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
     </header>
     <main style="flex:1;min-height:0;overflow:auto;padding:8px 16px;display:flex;flex-direction:column;gap:8px">
+      <div style="margin-top:auto"></div>
       <sc-for list="{{thread}}" as="m" hint-placeholder-count="6">
         <div style="display:flex;justify-content:{{m.justify}};flex:none">
           <sc-if value="{{m.isSep}}" hint-placeholder-val="{{ false }}"><span style="margin:8px 0;height:28px;padding:0 12px;border-radius:10px;background:{{c.highest}};color:{{c.onv}};font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:28px">{{m.label}}</span></sc-if>
@@ -90,7 +94,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
             <div class="mm-in" style="max-width:82%;display:flex;flex-direction:column;align-items:{{m.align}};gap:2px">
               <sc-if value="{{m.showName}}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:600;color:{{c.onv}};padding:0 8px">{{m.name}}</span></sc-if>
               <div style="padding:10px 16px;border-radius:{{m.radius}};background:{{m.bg}};color:{{m.fg}};font-size:15px;line-height:1.45">{{m.text}}</div>
-              <span style="font-family:'Roboto Mono',monospace;font-size:11px;color:{{c.onv}};padding:0 8px">{{m.time}}</span>
+              <span style="font-size:12px;font-weight:500;color:{{c.onv}};padding:0 8px">{{m.time}}</span>
             </div>
           </sc-if>
         </div>
@@ -112,8 +116,12 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
       <div class="mm-sheet" role="dialog" aria-label="Details" style="position:absolute;left:0;right:0;bottom:0;max-height:640px;overflow:auto;padding:12px 16px 24px;border-radius:32px 32px 0 0;background:{{c.high}}">
         <div style="width:32px;height:4px;border-radius:2px;background:{{c.outline}};margin:0 auto 12px"></div>
         <sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
+          <div style="height:56px;display:flex;align-items:center;gap:16px;padding:0 12px;margin-bottom:4px;border-radius:16px;background:{{c.cont}}">
+            <span style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">MC</span>
+            <span style="font-size:16px;font-weight:600">Mei Chan</span>
+          </div>
           <sc-for list="{{listActions}}" as="la" hint-placeholder-count="3">
-            <button type="button" onClick="{{closeSheet}}" style="width:100%;height:56px;border:0;border-radius:16px;background:transparent;color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{la.d}}"></path></svg>{{la.label}}</button>
+            <button type="button" onClick="{{la.pick}}" style="width:100%;height:56px;border:0;border-radius:16px;background:transparent;color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{la.d}}"></path></svg>{{la.label}}</button>
           </sc-for>
         </sc-if>
         <sc-if value="{{isThread}}" hint-placeholder-val="{{ false }}">
@@ -136,28 +144,29 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { open: null, filter: 'all', q: '', draft: '', sent: {}, read: {}, sheet: false };
+    this.state = { open: null, filter: 'all', q: '', draft: '', sent: {}, read: {}, sheet: false, snack: '' };
   }
   palette(dark, accent) {
-    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
-    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A', bgT:'rgba(251,248,255,0)' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', bgT:'rgba(19,19,24,0)' };
     return dark ? D : L;
   }
   pad(n) { return (n < 10 ? '0' : '') + n; }
+  clip(t, n) { if (t.length <= n) return t; const cut = t.slice(0, n + 1); const i = cut.lastIndexOf(' '); return (i > 8 ? cut.slice(0, i) : t.slice(0, n)).replace(/[ ,.;:]+$/, '') + '\u2026'; }
   convs() {
     return [
       { id:'amara', name:'Dr. Amara Okafor', ini:'AO', kind:'private', star:true, tone:0, unread:2, time:'10:42', sub:'Biology teacher, BIO101',
         members:['Dr. Amara Okafor','Mei Chan'], files:[['Lab report rubric.pdf','212 KB'],['Microscope guide.pdf','1.4 MB']],
-        msgs:[['sep','Yesterday'],['in','Amara','Thanks for sending the plan for your lab report.','17:20'],['out','','You are welcome. I will finish the discussion section tonight.','17:34'],['sep','Today'],['in','Amara','Your outline looks good. Please send the draft before Tuesday 14:00.','10:41'],['in','Amara','Add one sentence on the control group.','10:42']] },
+        msgs:[['sep','Monday'],['in','Amara','Welcome to the lab. Please read the microscope guide before Thursday.','09:05'],['out','','Thank you, I have started reading it.','09:30'],['in','Amara','Good. Bring your lab notebook to the session on Tuesday.','09:34'],['out','','Will do. Should I also bring the printed rubric?','09:41'],['in','Amara','Yes, please. It helps when we go through the marking criteria.','09:44'],['sep','Yesterday'],['in','Amara','Thanks for sending the plan for your lab report.','17:20'],['out','','You are welcome. I will finish the discussion section tonight.','17:34'],['sep','Today'],['in','Amara','Your outline looks good. Please send the draft before Tuesday 14:00.','10:41'],['in','Amara','Add one sentence on the control group.','10:42']] },
       { id:'lab', name:'BIO101 Lab group 3', ini:'L3', kind:'group', star:false, tone:1, unread:5, time:'09:15', sub:'4 members',
         members:['Liam Park','Priya Nair','Sofia Alvarez','Mei Chan'], files:[['Group data.xlsx','86 KB'],['Slide outline.docx','44 KB']],
-        msgs:[['sep','Today'],['in','Liam','I booked the microscope room for 15:00.','09:10'],['in','Priya','Great. I will bring the slides.','09:12'],['out','','I can bring the sample labels.','09:14'],['in','Sofia','Please add your section to the shared file by 14:00.','09:15']] },
+        msgs:[['sep','Yesterday'],['in','Priya','Has everyone finished their part of the data table?','16:40'],['out','','Mine is done. I added the controls.','16:52'],['in','Liam','Same here. I will check the totals tonight.','17:10'],['sep','Today'],['in','Liam','I booked the microscope room for 15:00.','09:10'],['in','Priya','Great. I will bring the slides.','09:12'],['out','','I can bring the sample labels.','09:14'],['in','Sofia','Please add your section to the shared file by 14:00.','09:15']] },
       { id:'daniel', name:'Prof. Daniel Reyes', ini:'DR', kind:'private', star:false, tone:2, unread:0, time:'Sun', sub:'History teacher, HIS120',
         members:['Prof. Daniel Reyes','Mei Chan'], files:[['Silk Road reading list.pdf','320 KB']],
-        msgs:[['sep','Sunday'],['in','Daniel','Remember the Silk Road essay draft is due Thursday at 23:59.','18:20'],['out','','Thank you. May I include a map as an appendix?','18:41'],['in','Daniel','Yes, a short appendix is welcome.','19:02']] },
+        msgs:[['sep','Saturday'],['out','','Good afternoon, I have started reading about the Silk Road.','14:10'],['in','Daniel','Excellent. The reading list is attached for reference.','14:35'],['sep','Sunday'],['in','Daniel','Remember the Silk Road essay draft is due Thursday at 23:59.','18:20'],['out','','Thank you. May I include a map as an appendix?','18:41'],['in','Daniel','Yes, a short appendix is welcome.','19:02']] },
       { id:'priya', name:'Priya Nair', ini:'PN', kind:'private', star:true, tone:3, unread:1, time:'08:03', sub:'Classmate, STA230',
         members:['Priya Nair','Mei Chan'], files:[['Probability cheat sheet.pdf','98 KB']],
-        msgs:[['sep','Today'],['in','Priya','Want to revise probability together before Friday?','08:03']] },
+        msgs:[['sep','Yesterday'],['in','Priya','Did you catch the lecture on conditional probability?','19:30'],['out','','Yes. I can share my notes.','19:48'],['in','Priya','That would be great, thank you.','19:50'],['sep','Today'],['in','Priya','Want to revise probability together before Friday?','08:03']] },
       { id:'write', name:'Creative Writing circle', ini:'CW', kind:'group', star:false, tone:4, unread:0, time:'Fri', sub:'6 members',
         members:['Sofia Alvarez','Noah Bennett','Hana Sato','Mei Chan'], files:[['Short story draft.docx','52 KB'],['Feedback guide.pdf','140 KB']],
         msgs:[['sep','Friday'],['in','Sofia','Posted my short story draft for feedback.','15:30'],['in','Hana','I will read it tonight.','16:02'],['out','','I will add comments by Sunday.','16:40']] },
@@ -173,13 +182,7 @@ class Component extends DCLogic {
     const c = this.palette(dark, accent);
     const s = this.state;
     const tones = [[c.pc,c.onpc],[c.tc,c.ontc],[c.okc,c.onokc],[c.wc,c.onwc],[c.sc,c.onsc]];
-    const nav = [
-      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
-      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
-      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
-      ['Messages','M4 5h16v11H8l-4 4z'],
-      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
-    ].map(([label, d]) => { const on = label === 'Messages'; return { label, d, cur: on ? 'page' : 'false', bg: on ? c.sc : 'transparent', fg: on ? c.onsc : c.onv, w: on ? 700 : 500 }; });
+
     const all = this.convs();
     const lastOf = (cv) => {
       const extra = s.sent[cv.id] || [];
@@ -194,7 +197,7 @@ class Component extends DCLogic {
       const l = lastOf(cv);
       const un = s.read[cv.id] ? 0 : cv.unread;
       const t = tones[cv.tone];
-      return { name: cv.name, ini: cv.ini, preview: (l.own ? 'You: ' : '') + l.text, time: l.time, unread: un, hasUnread: un > 0, avBg: t[0], avFg: t[1], delay: (i * 40) + 'ms', pick: () => this.setState({ open: cv.id, read: Object.assign({}, s.read, { [cv.id]: true }) }) };
+      return { name: cv.name, ini: cv.ini, preview: (l.own ? 'You: ' : '') + this.clip(l.text, 32), time: l.time, unread: un, hasUnread: un > 0, avBg: t[0], avFg: t[1], delay: (i * 40) + 'ms', pick: () => this.setState({ open: cv.id, read: Object.assign({}, s.read, { [cv.id]: true }) }) };
     });
     const chips = [['private','Private'],['group','Group'],['starred','Starred']].map(([v, label]) => {
       const on = s.filter === v;
@@ -214,7 +217,7 @@ class Component extends DCLogic {
       return { name: n, ini: n.replace(/^(Dr\.|Prof\.) /, '').split(' ').map((p) => p[0]).join('').slice(0, 2), bg: tt[0], fg: tt[1] };
     });
     return {
-      c, rootClass: motion ? '' : 'mm-still', ring: 'none', nav, convs, chips, noConvs: convs.length === 0,
+      c, accent, dark, rootClass: motion ? '' : 'mm-still', convs, chips, noConvs: convs.length === 0,
       isList: s.open === null, isThread: s.open !== null,
       q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
       draft: s.draft, onDraft: (e) => this.setState({ draft: e.target.value }),
@@ -230,12 +233,14 @@ class Component extends DCLogic {
       thread,
       open: { name: cur.name, ini: cur.ini, sub: cur.sub, avBg: t[0], avFg: t[1], members, files: cur.files.map((f) => ({ name: f[0], size: f[1] })) },
       listActions: [
-        { label:'New message', d:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4' },
-        { label:'Mark all as read', d:'M5 12.5l4.5 4.500L19 7.500' },
-        { label:'Message preferences', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4' }
+        { label:'New message', d:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4', pick: () => this.setState({ sheet: false, snack: 'Starting a new message is not part of this prototype.' }) },
+        { label:'Mark all as read', d:'M5 12.5l4.5 4.5L19 7.5', pick: () => { const r = {}; all.forEach((x) => { r[x.id] = true; }); this.setState({ read: r, sheet: false, snack: 'All conversations marked as read.' }); } },
+        { label:'Message preferences', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4', pick: () => this.setState({ sheet: false, snack: 'Message preferences are not part of this prototype.' }) }
       ],
+      snack: s.snack, hasSnack: !!s.snack, dismissSnack: () => this.setState({ snack: '' }),
       sheet: s.sheet, sheetStr: s.sheet ? 'true' : 'false',
-      openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false })
+      openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false }),
+      openNew: () => this.setState({ snack: 'Starting a new message is not part of this prototype.' })
     };
   }
 }

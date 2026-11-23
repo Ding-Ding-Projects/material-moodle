@@ -21,6 +21,7 @@ body{margin:0}
     <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search</span>
     <input type="search" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.onSurface}};outline:none">
     <span aria-hidden="true" style="flex:none;height:28px;padding:0 8px;border-radius:8px;background:{{c.surface}};display:grid;place-items:center;font-size:12px;font-weight:650">Ctrl K</span>
+    <button type="button" aria-label="Use a regular expression" aria-pressed="{{regexStr}}" onClick="{{toggleRegex}}" style="flex:none;width:40px;height:40px;border:0;border-radius:50%;background:{{regexBg}};color:{{regexFg}};font-family:'Roboto Mono',monospace;font-weight:700;font-size:14px;cursor:pointer">.*</button>
   </label>
   <div style="display:flex;justify-content:flex-end;gap:4px">
     <button type="button" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:50%;background:transparent;color:{{c.onSurfaceVariant}};display:grid;place-items:center">
@@ -38,12 +39,16 @@ body{margin:0}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"title":{"editor":"text","default":"Home","section":"Top bar"},"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1344,"height":72}}'>
 class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { regex: false }; }
   renderVals() {
     const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
     const c = dark
-      ? { surface:'#131318', high:'#2A292F', onSurface:'#E4E1E9', onSurfaceVariant:'#C6C5D0', error:'#FFB4AB' }
-      : { surface:'#FBF8FF', high:'#E9E7F0', onSurface:'#1B1B21', onSurfaceVariant:'#45464F', error:'#BA1A1A' };
-    return { c, title: this.props.title ?? 'Home' };
+      ? { surface:'#131318', high:'#2A292F', onSurface:'#E4E1E9', onSurfaceVariant:'#C6C5D0', error:'#FFB4AB', primary:'#B8C3FF', onPrimary:'#002388' }
+      : { surface:'#FBF8FF', high:'#E9E7F0', onSurface:'#1B1B21', onSurfaceVariant:'#45464F', error:'#BA1A1A', primary:accent, onPrimary:'#FFFFFF' };
+    const on = this.state.regex;
+    return { c, title: this.props.title ?? 'Home', regexStr: on ? 'true' : 'false', regexBg: on ? c.primary : c.surface, regexFg: on ? c.onPrimary : c.onSurfaceVariant,
+      toggleRegex: () => this.setState({ regex: !on }) };
   }
 }
 </script>

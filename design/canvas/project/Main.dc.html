@@ -27,75 +27,29 @@ a{color:inherit;text-decoration:none}
 </helmet>
 <div class="{{rootClass}}" style="--mm-p:{{c.p}};width:1440px;height:900px;box-sizing:border-box;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
 
-  <aside aria-label="Primary" style="width:96px;flex:none;height:100%;box-sizing:border-box;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:16px 0 16px">
-    <div style="width:48px;height:48px;border-radius:14px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
-    </div>
-    <button type="button" class="mm-focus mm-press" aria-label="New" style="margin-top:16px;width:56px;height:56px;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;cursor:pointer">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
-    </button>
-    <nav aria-label="Main" style="margin-top:24px;display:flex;flex-direction:column;gap:12px;align-items:center">
-      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
-        <a href="#" class="mm-focus" aria-current="{{n.current}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;width:80px;border-radius:12px">
-          <span style="width:56px;height:32px;border-radius:16px;background:{{n.pill}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
-          </span>
-          <span style="font-size:12px;line-height:16px;font-weight:{{n.weight}};color:{{n.labelFg}}">{{n.label}}</span>
-        </a>
-      </sc-for>
-    </nav>
-    <div style="flex:1"></div>
-    <button type="button" class="mm-focus" aria-label="Settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
-    </button>
-    <div aria-label="Mei Chan" role="img" style="margin-top:8px;width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:650">MC</div>
-  </aside>
+  <dc-import name="Rail" active="home" initials="MC" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import>
 
   <div style="flex:1;min-width:0;display:flex;flex-direction:column">
-    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px">
-      <h1 style="margin:0;width:200px;font-weight:650;font-size:20px;line-height:1.3">Home</h1>
-      <div style="flex:1;display:flex;justify-content:center">
-        <label style="width:100%;max-width:560px;height:56px;box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:0 20px 0 18px;border-radius:999px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);color:{{c.onv}}">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg>
-          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search courses, people and settings</span>
-          <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font:inherit;font-size:16px;color:{{c.on}}">
-          <span style="font-family:'Roboto Mono',monospace;font-size:12px;font-weight:600;padding:4px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Ctrl K</span>
-        </label>
-      </div>
-      <div style="width:200px;display:flex;justify-content:flex-end;gap:4px">
-        <button type="button" class="mm-focus" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"></path></svg>
-        </button>
-        <button type="button" class="mm-focus" aria-label="Notifications, 1 unread" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg>
-          <span style="position:absolute;top:11px;right:12px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span>
-        </button>
-        <button type="button" class="mm-focus" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg>
-        </button>
-      </div>
-    </header>
+    <dc-import name="TopBar" title="Home" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import>
 
-    <main class="mm-scroll" style="flex:1;min-height:0;overflow:auto;padding:0 32px 32px">
-      <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:16px">
+    <main style="flex:1;min-height:0;overflow:hidden;box-sizing:border-box;padding:24px 32px 32px">
+      <div style="height:100%;display:flex;flex-direction:column;gap:16px">
 
-        <section class="mm-in" style="position:relative;overflow:hidden;box-sizing:border-box;padding:28px 40px;border-radius:36px;background:{{c.pc}};color:{{c.onpc}};min-height:172px;display:flex;flex-direction:column;justify-content:center">
-          <div aria-hidden="true" style="position:absolute;right:-50px;top:-70px;width:260px;height:260px;border-radius:130px;background:{{c.sc}}"></div>
-          <div aria-hidden="true" style="position:absolute;right:150px;bottom:-60px;width:140px;height:140px;border-radius:36px;background:{{c.tc}};transform:rotate(14deg)"></div>
-          <div style="position:relative;max-width:760px">
+        <section class="mm-in" style="flex:none;box-sizing:border-box;height:160px;padding:0 40px;border-radius:36px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:space-between;gap:32px">
+          <div style="min-width:0">
             <div style="font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Monday 23 November</div>
-            <h2 style="margin:4px 0 0;font-weight:800;font-stretch:118%;font-size:56px;line-height:1.02;letter-spacing:-0.02em">Good afternoon, Mei</h2>
-            <p style="margin:10px 0 16px;font-size:16px;line-height:1.55;max-width:560px">You have 3 items due this week. The next one is the Cell structure lab report, on Tuesday at 14:00.</p>
-            <a href="#" class="mm-focus mm-press" style="display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;background:{{c.bg}};color:{{c.on}};font-weight:600;font-size:14px;letter-spacing:.01em">
-              Resume Introduction to Biology
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-            </a>
+            <h2 style="margin:2px 0 0;font-weight:800;font-stretch:118%;font-size:56px;line-height:1.02;letter-spacing:-0.02em">Good afternoon, Mei</h2>
+            <p style="margin:8px 0 0;font-size:16px;line-height:1.55">You have 3 items due this week. The next one is the Cell structure lab report, on Tuesday at 14:00.</p>
           </div>
+          <a href="#" class="mm-focus mm-press" style="flex:none;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-weight:600;font-size:14px;letter-spacing:.01em">
+            Resume Introduction to Biology
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
         </section>
 
-        <div style="display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:16px">
-          <section class="mm-in" aria-labelledby="due-h" style="animation-delay:70ms;background:{{c.low}};border-radius:28px;padding:24px;box-sizing:border-box">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
+        <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:16px">
+          <section class="mm-in" aria-labelledby="due-h" style="animation-delay:70ms;background:{{c.low}};border-radius:28px;padding:24px;box-sizing:border-box;min-height:0;display:flex;flex-direction:column">
+            <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
               <h2 id="due-h" style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Due {{rangeLabel}}</h2>
               <div role="group" aria-label="Range" style="display:flex;height:48px;box-sizing:border-box;border:1px solid {{c.out}};border-radius:999px;overflow:hidden">
                 <button type="button" class="mm-focus" aria-pressed="{{weekPressed}}" onClick="{{showWeek}}" style="display:flex;align-items:center;gap:6px;border:0;padding:0 18px;background:{{weekBg}};color:{{weekFg}};font-weight:600;font-size:14px;letter-spacing:.01em;cursor:pointer">
@@ -108,9 +62,10 @@ a{color:inherit;text-decoration:none}
                 </button>
               </div>
             </div>
-            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px" aria-live="polite">
+            <div style="position:relative;flex:1;min-height:0">
+            <ul style="list-style:none;margin:0;padding:0;height:100%;overflow:hidden;display:flex;flex-direction:column;gap:8px" aria-live="polite">
               <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
-                <li style="display:flex;align-items:center;gap:16px;min-height:60px;box-sizing:border-box;padding:10px 16px;border-radius:20px;background:{{c.cont}}">
+                <li style="display:flex;align-items:center;gap:16px;flex:none;height:64px;box-sizing:border-box;padding:0 16px;border-radius:20px;background:{{c.cont}}">
                   <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{r.tileBg}};color:{{r.tileFg}};display:flex;align-items:center;justify-content:center">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg>
                   </span>
@@ -122,21 +77,25 @@ a{color:inherit;text-decoration:none}
                 </li>
               </sc-for>
             </ul>
+            <sc-if value="{{isMonth}}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:48px;background:linear-gradient(to bottom,transparent,{{c.low}});pointer-events:none"></div></sc-if>
+            </div>
           </section>
 
-          <section class="mm-in" aria-labelledby="prog-h" style="animation-delay:140ms;background:{{c.low}};border-radius:28px;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center">
-            <h2 id="prog-h" style="margin:0 0 12px;align-self:flex-start;font-weight:650;font-size:20px;line-height:1.3">Progress</h2>
-            <div style="position:relative;width:128px;height:128px">
-              <svg width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="53 percent complete across 4 courses">
+          <section class="mm-in" aria-labelledby="prog-h" style="animation-delay:140ms;background:{{c.low}};border-radius:28px;padding:24px;box-sizing:border-box;min-height:0;display:flex;flex-direction:column">
+            <h2 id="prog-h" style="margin:0 0 12px;font-weight:650;font-size:20px;line-height:1.3">Progress</h2>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+            <div style="position:relative;width:144px;height:144px">
+              <svg width="144" height="144" viewBox="0 0 128 128" role="img" aria-label="53 percent complete across 4 courses">
                 <circle cx="64" cy="64" r="52" fill="none" stroke="{{c.highest}}" stroke-width="6"></circle>
                 <circle cx="64" cy="64" r="52" fill="none" stroke="{{c.p}}" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{ringDash}}" transform="rotate(-90 64 64)"></circle>
               </svg>
               <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1">53%</div>
             </div>
-            <p style="margin:12px 0 0;text-align:center;font-size:14px;color:{{c.onv}}">Average across your 4 courses. Creative Writing is furthest along at 85%.</p>
+            <p style="margin:0;text-align:center;font-size:14px;color:{{c.onv}}">Average across your 4 courses. Creative Writing is furthest along at 85%.</p>
+            </div>
           </section>
 
-          <section class="mm-in" aria-labelledby="cal-h" style="animation-delay:210ms;background:{{c.low}};border-radius:28px;padding:24px;box-sizing:border-box">
+          <section class="mm-in" aria-labelledby="cal-h" style="animation-delay:210ms;background:{{c.low}};border-radius:28px;padding:24px;box-sizing:border-box;min-height:0;display:flex;flex-direction:column">
             <h2 id="cal-h" style="margin:0 0 4px;font-weight:650;font-size:20px;line-height:1.3">Calendar</h2>
             <div style="font-size:14px;color:{{c.onv}}">23 to 29 November</div>
             <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:16px;text-align:center">
@@ -148,22 +107,24 @@ a{color:inherit;text-decoration:none}
                 </div>
               </sc-for>
             </div>
-            <div style="margin-top:12px;padding:12px 16px;border-radius:16px;background:{{c.cont}};font-size:14px;line-height:1.4">
-              <span style="font-weight:600">Next</span><br>
-              <span style="font-family:'Roboto Mono',monospace">Tue 14:00</span> Cell structure lab report
+            <div style="margin-top:16px;flex:1;min-height:0;padding:12px 16px;border-radius:16px;background:{{c.cont}};font-size:14px;line-height:1.4;display:flex;flex-direction:column;justify-content:center;gap:6px">
+              <span style="font-weight:600">Next</span>
+              <span><span style="font-family:'Roboto Mono',monospace">Tue 14:00</span> Cell structure lab report</span>
+              <span><span style="font-family:'Roboto Mono',monospace">Thu 23:59</span> Essay draft: the Silk Road</span>
+              <span><span style="font-family:'Roboto Mono',monospace">Fri 10:00</span> Quiz 3: probability</span>
             </div>
           </section>
         </div>
 
-        <section aria-labelledby="cont-h">
-          <h2 id="cont-h" style="margin:8px 0 12px;font-weight:650;font-size:20px;line-height:1.3">Continue learning</h2>
+        <section aria-labelledby="cont-h" style="flex:none">
+          <h2 id="cont-h" style="margin:0 0 12px;font-weight:650;font-size:20px;line-height:1.3">Continue learning</h2>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
             <sc-for list="{{courses}}" as="co" hint-placeholder-count="4">
               <a href="#" class="mm-in mm-press mm-focus" style="animation-delay:{{co.delay}};display:block;background:{{c.low}};border-radius:28px;overflow:hidden">
-                <div aria-hidden="true" style="position:relative;height:140px;background:{{co.bg}};overflow:hidden">
-                  <div style="position:absolute;right:-30px;bottom:-40px;width:150px;height:150px;border-radius:{{co.radius}};background:{{co.shape}}"></div>
+                <div aria-hidden="true" style="position:relative;height:88px;background:{{co.bg}};overflow:hidden">
+                  <div style="position:absolute;right:-30px;bottom:-40px;width:120px;height:120px;border-radius:{{co.radius}};background:{{co.shape}}"></div>
                 </div>
-                <div style="padding:16px 20px 20px">
+                <div style="padding:14px 20px 16px">
                   <div style="font-family:'Roboto Mono',monospace;font-size:12px;font-weight:600;color:{{c.onv}}">{{co.code}}</div>
                   <div style="margin:2px 0 12px;font-weight:650;font-size:20px;line-height:1.3">{{co.title}}</div>
                   <div style="height:8px;border-radius:999px;background:{{c.highest}};overflow:hidden" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{co.pct}}" aria-label="{{co.title}} progress">
@@ -237,16 +198,16 @@ class Component extends DCLogic {
     const days = dayDefs.map(([l, n]) => ({ l, n, bg: n === 23 ? c.p : 'transparent', fg: n === 23 ? c.onp : c.on, dot: dueDays.indexOf(n) !== -1 ? c.t : 'transparent' }));
 
     const courseDefs = [
-      ['Introduction to Biology', 'BIO101', 68, c.pc, c.p, '75px'],
-      ['World History', 'HIS120', 42, c.tc, c.t, '36px'],
-      ['Creative Writing', 'ENG210', 85, c.okc, c.ok, '75px'],
-      ['Statistics with Python', 'STA230', 15, c.wc, c.w, '36px']
+      ['Introduction to Biology', 'BIO101', 68, c.pc, c.p, '60px'],
+      ['World History', 'HIS120', 42, c.tc, c.t, '30px'],
+      ['Creative Writing', 'ENG210', 85, c.okc, c.ok, '60px'],
+      ['Statistics with Python', 'STA230', 15, c.wc, c.w, '30px']
     ];
     const courses = courseDefs.map(([title, code, pct, bg, shape, radius], i) => ({ title, code, pct, pctW: pct + '%', bg, shape, radius, delay: (280 + i * 70) + 'ms' }));
 
     const circ = 2 * Math.PI * 52;
     return {
-      c, rootClass: motion ? '' : 'mm-still',
+      c, accent, dark, rootClass: motion ? '' : 'mm-still',
       nav, days, courses,
       rows: isWeek ? weekRows : monthRows,
       rangeLabel: isWeek ? 'this week' : 'this month',

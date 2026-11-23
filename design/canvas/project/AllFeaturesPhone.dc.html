@@ -25,30 +25,32 @@ button,input,select{font-family:inherit}
 </style>
 </helmet>
 <div class="{{rootClass}}" style="position:relative;width:390px;height:844px;overflow:hidden;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
-  <header style="position:absolute;left:0;top:0;width:390px;height:64px;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px;box-sizing:border-box;z-index:2;background:{{c.surface}}">
+  <header style="position:absolute;left:0;top:0;width:390px;height:64px;display:flex;align-items:center;gap:4px;padding:0 16px;box-sizing:border-box;z-index:2;background:{{c.surface}}">
     <div class="mm-title" style="flex:1">Everything</div>
     <button type="button" class="mm-btn" aria-label="More actions" aria-haspopup="menu" aria-expanded="{{menuStr}}" onClick="{{toggleMenu}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
-    <span role="img" aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</span>
   </header>
 
-  <main class="mm-scroll" style="position:absolute;left:0;top:64px;width:390px;height:700px;overflow-y:auto;box-sizing:border-box;padding:0 16px 24px">
+  <main class="mm-scroll" style="position:absolute;left:0;top:64px;width:390px;height:700px;overflow-y:auto;box-sizing:border-box;padding:0 16px 32px">
     <div style="display:flex;flex-direction:column;gap:16px">
       <h1 class="mm-display">Everything in Riverside College</h1>
       <p style="margin:0;color:{{c.onv}}">Every feature you can use here. Turned-off features stay listed.</p>
-      <div class="mm-field" style="height:56px;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 8px 0 16px;border-radius:999px;background:{{c.high}}">
+      <div class="mm-field" style="height:56px;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 4px 0 16px;border-radius:999px;background:{{c.high}}">
         <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
         <label style="flex:1;min-width:0;display:flex"><span class="mm-sr">Find a feature</span><input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="{{placeholder}}" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none"></label>
-        <button type="button" class="mm-btn mm-mono" aria-pressed="{{regexStr}}" aria-label="Use a regular expression" onClick="{{toggleRegex}}" style="min-width:48px;height:40px;padding:0 12px;border:0;border-radius:12px;background:{{regexBg}};color:{{regexFg}};box-shadow:{{regexShadow}};font-weight:600;font-size:16px;cursor:pointer">.*</button>
+        <button type="button" class="mm-btn" aria-pressed="{{regexStr}}" aria-label="Use a regular expression" onClick="{{toggleRegex}}" style="width:48px;height:48px;flex:none;padding:0;border:0;background:transparent;display:grid;place-items:center;cursor:pointer"><span style="width:40px;height:40px;border-radius:50%;background:{{regexBg}};color:{{regexFg}};display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h.01M14 5v8M10.6 7l6.8 4M17.4 7l-6.8 4"></path></svg></span></button>
       </div>
       <sc-if value="{{invalid}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin:-8px 0 0;padding:0 16px;font-size:14px;color:{{c.err}}">That pattern is incomplete. Every feature stays listed until it is fixed.</p></sc-if>
       <div style="display:flex;align-items:center;gap:12px;min-height:48px">
-        <button type="button" role="switch" class="mm-btn" aria-checked="{{showOffStr}}" aria-labelledby="mm-off-label" onClick="{{toggleOff}}" style="width:52px;height:32px;flex:none;padding:0;border:0;border-radius:16px;background:{{swBg}};position:relative;cursor:pointer"><span style="position:absolute;top:4px;left:{{swLeft}};width:24px;height:24px;border-radius:12px;background:{{swThumb}};transition:left .25s cubic-bezier(.2,0,0,1.4)"></span></button>
+        <button type="button" role="switch" class="mm-btn" aria-checked="{{showOffStr}}" aria-labelledby="mm-off-label" onClick="{{toggleOff}}" style="width:60px;height:48px;flex:none;margin:0 -4px 0 -4px;padding:0;border:0;background:transparent;display:grid;place-items:center;cursor:pointer"><span style="position:relative;display:block;width:52px;height:32px;box-sizing:border-box;border:2px solid {{sw.border}};border-radius:16px;background:{{sw.bg}}"><span style="position:absolute;top:{{sw.top}};left:{{sw.left}};width:{{sw.size}};height:{{sw.size}};border-radius:50%;background:{{sw.thumb}};transition:left .25s cubic-bezier(.2,0,0,1.4)"></span></span></button>
         <span id="mm-off-label" class="mm-label">Show turned-off features</span>
       </div>
-      <div class="mm-scroll" style="display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px">
-        <sc-for list="{{rail2}}" as="g" hint-placeholder-count="7">
-          <button type="button" class="mm-btn" aria-pressed="{{g.pressed}}" onClick="{{g.pick}}" style="flex:none;height:36px;padding:0 12px;border-radius:10px;border:{{g.border}};background:{{g.bg}};color:{{g.fg}};display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer">{{g.label}} <span class="mm-mono" style="font-weight:400">{{g.count}}</span></button>
-        </sc-for>
+      <div style="position:relative;margin:0 -16px">
+        <div class="mm-scroll" style="display:flex;gap:8px;overflow-x:auto;padding:0 48px 0 16px">
+          <sc-for list="{{rail2}}" as="g" hint-placeholder-count="7">
+            <button type="button" class="mm-btn" aria-pressed="{{g.pressed}}" onClick="{{g.pick}}" style="flex:none;height:36px;padding:0 12px;border-radius:10px;border:{{g.border}};background:{{g.bg}};color:{{g.fg}};display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer">{{g.label}} <span class="mm-mono" style="font-weight:400">{{g.count}}</span></button>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="position:absolute;right:0;top:0;width:32px;height:36px;pointer-events:none;background:linear-gradient(to right,{{c.surfaceFade}},{{c.surface}})"></div>
       </div>
       <span aria-live="polite" style="font-size:14px;color:{{c.onv}}">{{countText}}</span>
       <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div style="padding:32px;border-radius:28px;background:{{c.low}};text-align:center;color:{{c.onv}}">No feature matches. Try fewer words, or switch off the regular expression.</div></sc-if>
@@ -76,6 +78,10 @@ button,input,select{font-family:inherit}
     <div style="position:absolute;left:0;top:0;width:390px;height:844px;z-index:4">
       <div onClick="{{toggleMenu}}" style="position:absolute;left:0;top:0;width:390px;height:844px"></div>
       <div role="menu" aria-label="More actions" style="position:absolute;right:8px;top:56px;width:248px;box-sizing:border-box;padding:8px 0;border-radius:20px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both">
+        <div style="display:flex;align-items:center;gap:16px;padding:8px 16px 12px;margin-bottom:4px;border-bottom:1px solid {{c.ov}}">
+          <span role="img" aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</span>
+          <span style="display:flex;flex-direction:column;line-height:1.3"><span style="font-weight:600">Mei Chan</span><span style="font-size:14px;color:{{c.onv}}">Your profile</span></span>
+        </div>
         <sc-for list="{{menuItems}}" as="m" hint-placeholder-count="6">
           <button type="button" role="menuitem" class="mm-btn" onClick="{{toggleMenu}}" style="width:100%;height:48px;padding:0 16px;border:0;background:transparent;color:{{c.on}};display:flex;align-items:center;gap:16px;font-size:16px;cursor:pointer;text-align:left"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{c.onv}}"><path d="{{m.d}}"></path></svg>{{m.label}}</button>
         </sc-for>
@@ -83,14 +89,9 @@ button,input,select{font-family:inherit}
     </div>
   </sc-if>
 
-  <nav aria-label="Main navigation" style="position:absolute;left:0;bottom:0;width:390px;height:80px;box-sizing:border-box;background:{{c.cont}};display:flex;z-index:3">
-    <sc-for list="{{nav}}" as="r" hint-placeholder-count="5">
-      <button type="button" class="mm-btn" aria-label="{{r.label}}" style="flex:1;border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{c.on}}">
-        <span style="width:64px;height:32px;border-radius:16px;background:{{r.bg}};color:{{r.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
-        <span style="font-size:12px;font-weight:600;line-height:15px">{{r.label}}</span>
-      </button>
-    </sc-for>
-  </nav>
+  <div style="position:absolute;left:0;bottom:0;width:390px;height:80px;z-index:3">
+    <dc-import name="PhoneNav" active="everything" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import>
+  </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
@@ -104,8 +105,6 @@ class Component extends DCLogic {
     const D = { pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', err:'#FFB4AB', surface:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', onp:'#002388' };
     const c = Object.assign({}, dark ? D : L, { primary: dark ? '#B8C3FF' : accent });
     const s = this.state;
-    const NL = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h7v7h-7zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z']];
-    const nav = NL.map(([label, d]) => ({ label, d, bg: label === 'Everything' ? c.sc : 'transparent', fg: label === 'Everything' ? c.onsc : c.onv }));
     const menuItems = [['Search','M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4'],['New','M12 5v14M5 12h14'],['Display settings','M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6'],['Notifications','M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4'],['Help','M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Settings','M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3']].map(([label, d]) => ({ label, d }));
     const G = [
       ['learn','Learning','Where your courses, deadlines and events live.',[
@@ -160,14 +159,14 @@ class Component extends DCLogic {
       bg: s.group === g.id ? c.sc : 'transparent', fg: s.group === g.id ? c.onsc : c.onv, border: s.group === g.id ? '1px solid transparent' : '1px solid ' + c.outline, pick: () => this.setState({ group: g.id })
     }));
     return {
-      c, rootClass: motion ? '' : 'mm-still', nav, menuItems, groups, rail2, empty: groups.length === 0,
+      c: Object.assign(c, { surfaceFade: c.surface + '00' }), accent, dark, rootClass: motion ? '' : 'mm-still', menuItems, groups, rail2, empty: groups.length === 0,
       menu: s.menu, menuStr: s.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !s.menu }),
       q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
       placeholder: s.regex ? 'Pattern, for example ^(c|b)' : 'Find a feature',
-      regexStr: s.regex ? 'true' : 'false', regexBg: s.regex ? c.primary : c.high, regexFg: s.regex ? c.onp : c.onv, regexShadow: s.regex ? 'none' : 'inset 0 -2px 0 ' + c.ov,
+      regexStr: s.regex ? 'true' : 'false', regexBg: s.regex ? c.primary : 'transparent', regexFg: s.regex ? c.onp : c.onv,
       toggleRegex: () => this.setState({ regex: !s.regex }), invalid,
       showOffStr: s.showOff ? 'true' : 'false', toggleOff: () => this.setState({ showOff: !s.showOff }),
-      swBg: s.showOff ? c.primary : c.highest, swThumb: s.showOff ? c.onp : c.outline, swLeft: s.showOff ? '24px' : '4px',
+      sw: s.showOff ? { bg: c.primary, border: c.primary, thumb: c.onp, size: '24px', left: '20px', top: '2px' } : { bg: c.highest, border: c.outline, thumb: c.outline, size: '16px', left: '4px', top: '6px' },
       countText: total === 1 ? '1 feature shown' : total + ' features shown'
     };
   }

@@ -28,9 +28,9 @@ a{color:inherit}
 </helmet>
 <div class="{{rootClass}}" style="--mm-p:{{c.p}};width:390px;height:844px;box-sizing:border-box;position:relative;overflow:hidden;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
 
-  <section aria-label="Riverside College" style="position:absolute;left:0;top:0;right:0;height:250px;box-sizing:border-box;padding:24px 16px;background:{{c.p}};color:{{c.onp}};overflow:hidden">
-    <div aria-hidden="true" style="position:absolute;right:-70px;top:-70px;width:210px;height:210px;border-radius:105px;background:{{c.pc}}"></div>
-    <div aria-hidden="true" style="position:absolute;right:70px;top:120px;width:70px;height:70px;border-radius:22px;background:{{c.tc}};transform:rotate(14deg)"></div>
+  <section aria-label="Riverside College" style="position:absolute;left:0;top:0;right:0;height:272px;box-sizing:border-box;padding:24px 16px;background:{{c.p}};color:{{c.onp}};overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;right:-90px;top:-90px;width:170px;height:170px;border-radius:85px;background:{{c.pc}}"></div>
+    <div aria-hidden="true" style="position:absolute;right:-30px;bottom:-30px;width:90px;height:90px;border-radius:28px;background:{{c.tc}};transform:rotate(14deg)"></div>
     <div style="position:relative;display:flex;align-items:center;gap:12px">
       <div style="width:40px;height:40px;border-radius:12px;background:{{c.bg}};color:{{c.p}};display:flex;align-items:center;justify-content:center">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
@@ -40,7 +40,7 @@ a{color:inherit}
     <h1 class="mm-in" style="position:relative;margin:24px 0 0;max-width:300px;font-weight:800;font-stretch:118%;font-size:40px;line-height:1.02;letter-spacing:-0.02em">Pick up where you left off.</h1>
   </section>
 
-  <main class="mm-scroll" style="position:absolute;left:0;right:0;top:196px;bottom:0;overflow:auto;padding:0 16px 24px">
+  <main class="mm-scroll" style="position:absolute;left:0;right:0;top:240px;bottom:0;overflow:auto;padding:0 16px 24px">
     <div class="mm-in" style="animation-delay:80ms;box-sizing:border-box;padding:24px 20px 12px;border-radius:28px;background:{{c.low}}">
       <h2 style="margin:0 0 20px;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Sign in</h2>
 
@@ -59,7 +59,7 @@ a{color:inherit}
         <div>
           <label for="si-user" style="display:block;margin-bottom:6px;font-weight:600;font-size:14px;letter-spacing:.01em">Username</label>
           <div class="mm-field" style="display:flex;align-items:center;height:56px;box-sizing:border-box;border-radius:16px;background:{{c.highest}}">
-            <span aria-hidden="true" style="width:24px;height:24px;margin:0 12px 0 16px;flex:none;color:{{c.onv}};display:flex">
+            <span aria-hidden="true" style="width:24px;height:24px;margin:0 16px;flex:none;color:{{c.onv}};display:flex">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21a8 8 0 0 1 16 0"></path></svg>
             </span>
             <input id="si-user" type="text" autocomplete="username" value="{{user}}" onChange="{{onUser}}" style="flex:1;min-width:0;height:100%;border:0;outline:none;background:transparent;font:inherit;font-size:16px;color:{{c.on}}">
@@ -68,7 +68,7 @@ a{color:inherit}
         <div>
           <label for="si-pass" style="display:block;margin-bottom:6px;font-weight:600;font-size:14px;letter-spacing:.01em">Password</label>
           <div class="mm-field" style="display:flex;align-items:center;height:56px;box-sizing:border-box;border-radius:16px;background:{{c.highest}}">
-            <span aria-hidden="true" style="width:24px;height:24px;margin:0 12px 0 16px;flex:none;color:{{c.onv}};display:flex">
+            <span aria-hidden="true" style="width:24px;height:24px;margin:0 16px;flex:none;color:{{c.onv}};display:flex">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h12v9H6zM8 11V8a4 4 0 0 1 8 0v3"></path></svg>
             </span>
             <input id="si-pass" type="{{pwType}}" autocomplete="current-password" value="{{pass}}" onChange="{{onPass}}" style="flex:1;min-width:0;height:100%;border:0;outline:none;background:transparent;font:inherit;font-size:16px;color:{{c.on}}">

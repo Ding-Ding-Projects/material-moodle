@@ -28,22 +28,23 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
 <div class="{{rootClass}}" style="--fx:{{c.p}};width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
 
   <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px">
-    <h1 style="flex:1;margin:0;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Grades</h1>
+    <h1 style="flex:1;margin:0;font-weight:650;font-size:20px;line-height:1.3">Grades</h1>
     <button type="button" aria-label="Search" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></button>
     <button type="button" aria-label="More actions" aria-expanded="{{sheetStr}}" onClick="{{openSheet}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
-    <button type="button" aria-label="Account: Mei Chan" style="width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px">MC</button>
   </header>
 
-  <main style="flex:1;min-height:0;overflow:auto;padding:0 0 16px">
-    <div role="group" aria-label="Courses" style="display:flex;gap:12px;overflow-x:auto;padding:4px 16px 8px">
+  <div style="flex:1;min-height:0;position:relative">
+  <main style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:auto;padding:0 0 40px">
+    <div style="position:relative">
+    <div role="group" aria-label="Courses" style="display:flex;gap:12px;overflow-x:auto;padding:4px 40px 8px 16px">
       <sc-for list="{{courses}}" as="co" hint-placeholder-count="4">
-        <button type="button" class="mm-in" aria-pressed="{{co.pressed}}" onClick="{{co.pick}}" style="animation-delay:{{co.delay}};flex:none;width:148px;height:176px;border:0;border-radius:28px;background:{{co.bg}};color:{{co.fg}};padding:16px;text-align:left;display:flex;flex-direction:column;justify-content:space-between">
+        <button type="button" class="mm-in" aria-pressed="{{co.pressed}}" onClick="{{co.pick}}" style="animation-delay:{{co.delay}};flex:none;width:163px;height:176px;border:0;border-radius:28px;background:{{co.bg}};color:{{co.fg}};padding:16px;text-align:left;display:flex;flex-direction:column;justify-content:space-between">
           <span style="position:relative;width:72px;height:72px;display:block">
             <svg width="72" height="72" viewBox="0 0 80 80" aria-hidden="true">
               <circle cx="40" cy="40" r="34" fill="none" stroke="{{co.track}}" stroke-width="6"></circle>
               <circle class="mm-ring" cx="40" cy="40" r="34" fill="none" stroke="{{c.p}}" stroke-width="6" stroke-linecap="round" stroke-dasharray="213.63" stroke-dashoffset="{{co.off}}" transform="rotate(-90 40 40)"></circle>
             </svg>
-            <span style="position:absolute;left:0;top:0;width:72px;height:72px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:750;font-stretch:112%">{{co.letter}}</span>
+            <span style="position:absolute;left:0;top:0;width:72px;height:72px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:650;line-height:1.3">{{co.letter}}</span>
           </span>
           <span style="display:flex;flex-direction:column">
             <span style="font-size:14px;font-weight:650;line-height:1.25">{{co.name}}</span>
@@ -53,19 +54,24 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
         </button>
       </sc-for>
     </div>
+    <div aria-hidden="true" style="position:absolute;right:0;top:0;bottom:0;width:32px;pointer-events:none;background:linear-gradient(to right,{{c.bgT}},{{c.bg}})"></div>
+    </div>
 
     <section aria-label="Graded items" style="margin:8px 16px 0">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px">
         <h2 style="margin:0;font-size:20px;line-height:1.3;font-weight:650">{{sel.name}}</h2>
         <span style="flex:none;height:28px;padding:0 10px;border-radius:10px;background:{{c.pc}};color:{{c.onpc}};font-family:'Roboto Mono',monospace;font-size:13px;line-height:28px">{{sel.pctText}}</span>
       </div>
+      <sc-if value="{{noRows}}" hint-placeholder-val="{{ false }}">
+        <p style="margin:4px 0 0;padding:16px;border-radius:20px;background:{{c.cont}};font-size:14px;color:{{c.onv}}">No graded items yet for this course.</p>
+      </sc-if>
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
         <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
           <div class="mm-in" style="animation-delay:{{r.delay}};padding:12px 16px;border-radius:20px;background:{{c.low}};display:flex;flex-direction:column;gap:8px">
             <div style="display:flex;align-items:center;gap:12px;min-height:48px">
               <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{r.tileBg}};color:{{r.tileFg}};display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
               <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:600;line-height:1.3">{{r.name}}</span><span style="font-size:13px;color:{{c.onv}}">{{r.type}}, weight <span style="font-family:'Roboto Mono',monospace">{{r.weight}}</span></span></span>
-              <span style="flex:none;height:24px;padding:0 8px;border-radius:8px;background:{{r.gBg}};color:{{r.gFg}};font-family:'Roboto Mono',monospace;font-size:12px;line-height:24px">{{r.grade}}</span>
+              <span style="flex:none;min-width:72px;text-align:center;height:24px;padding:0 8px;border-radius:8px;background:{{r.gBg}};color:{{r.gFg}};font-family:'Roboto Mono',monospace;font-size:12px;line-height:24px;white-space:nowrap">{{r.grade}}</span>
             </div>
             <p style="margin:0;font-size:13px;line-height:1.4;color:{{c.onv}}">{{r.feedback}}</p>
           </div>
@@ -73,23 +79,29 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
       </div>
     </section>
   </main>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.bgT}},{{c.bg}})"></div>
+  </div>
 
-  <nav aria-label="Main navigation" style="height:80px;flex:none;background:{{c.cont}};display:flex;align-items:center;justify-content:space-around;padding:0 4px">
-    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
-      <a href="#" aria-current="{{n.cur}}" style="width:72px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:{{c.on}}">
-        <span style="width:64px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg></span>
-        <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
-      </a>
-    </sc-for>
-  </nav>
+  <div style="height:80px;flex:none"><dc-import name="PhoneNav" active="none" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import></div>
+
+  <sc-if value="{{hasSnack}}" hint-placeholder-val="{{ false }}">
+    <div role="status" class="mm-sheet" style="position:absolute;left:16px;right:16px;bottom:96px;min-height:48px;padding:0 8px 0 16px;border-radius:12px;background:{{c.on}};color:{{c.bg}};display:flex;align-items:center;gap:8px;font-size:14px">
+      <span style="flex:1">{{snack}}</span>
+      <button type="button" onClick="{{dismissSnack}}" style="height:48px;padding:0 12px;border:0;background:transparent;color:{{c.bg}};font-size:14px;font-weight:700">Dismiss</button>
+    </div>
+  </sc-if>
 
   <sc-if value="{{sheet}}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute;left:0;top:0;right:0;bottom:0">
       <button type="button" aria-label="Close menu" onClick="{{closeSheet}}" style="position:absolute;left:0;top:0;width:100%;height:100%;border:0;background:rgba(27,27,33,.4)"></button>
       <div class="mm-sheet" role="dialog" aria-label="Grades actions" style="position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;border-radius:32px 32px 0 0;background:{{c.high}}">
         <div style="width:32px;height:4px;border-radius:2px;background:{{c.outline}};margin:0 auto 12px"></div>
-        <sc-for list="{{sheetItems}}" as="si" hint-placeholder-count="4">
-          <button type="button" onClick="{{closeSheet}}" style="width:100%;height:56px;border:0;border-radius:16px;background:transparent;color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{si.d}}"></path></svg>{{si.label}}</button>
+        <div style="height:56px;display:flex;align-items:center;gap:16px;padding:0 12px;margin-bottom:4px;border-radius:16px;background:{{c.cont}}">
+          <span style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">MC</span>
+          <span style="font-size:16px;font-weight:600">Mei Chan</span>
+        </div>
+        <sc-for list="{{sheetItems}}" as="si" hint-placeholder-count="5">
+          <button type="button" onClick="{{si.pick}}" style="width:100%;height:56px;border:0;border-radius:16px;background:{{si.bg}};color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{si.d}}"></path></svg>{{si.label}}</button>
         </sc-for>
       </div>
     </div>
@@ -98,10 +110,10 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { sel: 'BIO101', sheet: false }; }
+  constructor(props) { super(props); this.state = { sel: 'BIO101', sheet: false, gradedOnly: false, sortWeight: false, snack: '' }; }
   palette(dark, accent) {
-    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
-    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A', bgT:'rgba(251,248,255,0)' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', bgT:'rgba(19,19,24,0)' };
     return dark ? D : L;
   }
   data() {
@@ -140,13 +152,7 @@ class Component extends DCLogic {
     const motion = this.props.motion ?? true;
     const c = this.palette(dark, accent);
     const s = this.state;
-    const nav = [
-      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
-      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
-      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
-      ['Messages','M4 5h16v11H8l-4 4z'],
-      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
-    ].map(([label, d]) => ({ label, d, cur: 'false', bg: 'transparent', fg: c.onv, w: 500 }));
+
     const icons = { Assignment:'M5 3h10l4 4v14H5zM9 11h6M9 15h6', Quiz:'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01', Forum:'M4 5h16v11H8l-4 4z', Exam:'M9 4h6v3H9zM6 5h12v16H6zM9 12h6M9 16h4' };
     const tiles = { Assignment:[c.pc,c.onpc], Quiz:[c.wc,c.onwc], Forum:[c.okc,c.onokc], Exam:[c.tc,c.ontc] };
     const data = this.data();
@@ -164,17 +170,23 @@ class Component extends DCLogic {
       }
       return { name, type, weight, grade, feedback, d: icons[type], tileBg: tiles[type][0], tileFg: tiles[type][1], gBg, gFg, delay: (i * 40) + 'ms' };
     });
+    const close = () => this.setState({ sheet: false });
+    const snack = (t) => () => this.setState({ sheet: false, snack: t });
+    const shown = rows.filter((r) => !s.gradedOnly || r.grade.indexOf('/') > -1);
+    if (s.sortWeight) shown.sort((a, b) => parseInt(b.weight, 10) - parseInt(a.weight, 10));
     return {
-      c, rootClass: motion ? '' : 'mm-still', ring: 'none', nav, courses, rows,
+      c, accent, dark, rootClass: motion ? '' : 'mm-still', courses, rows: shown, noRows: shown.length === 0,
       sel: { name: cur.name, pctText: cur.pct.toFixed(1) + '% ' + cur.letter },
       sheet: s.sheet, sheetStr: s.sheet ? 'true' : 'false',
       sheetItems: [
-        { label:'Export grades', d:'M12 4v11M7 10l5 5 5-5M5 20h14' },
-        { label:'Grade settings', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4' },
-        { label:'Message teacher', d:'M4 5h16v11H8l-4 4z' },
-        { label:'Help with grades', d:'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01' }
+        { label: s.gradedOnly ? 'Show all items' : 'Show graded items only', d:'M5 12.5l4.5 4.5L19 7.5', bg: s.gradedOnly ? c.sc : 'transparent', pick: () => this.setState({ gradedOnly: !s.gradedOnly, sheet: false }) },
+        { label: s.sortWeight ? 'Sort by course order' : 'Sort by weight', d:'M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4', bg: s.sortWeight ? c.sc : 'transparent', pick: () => this.setState({ sortWeight: !s.sortWeight, sheet: false }) },
+        { label:'Export grades', d:'M12 4v11M7 10l5 5 5-5M5 20h14', bg:'transparent', pick: snack('Export is not available in this prototype.') },
+        { label:'Message teacher', d:'M4 5h16v11H8l-4 4z', bg:'transparent', pick: snack('Messaging a teacher is not part of this prototype.') },
+        { label:'Help with grades', d:'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01', bg:'transparent', pick: snack('Help opens from the Help button in the full app.') }
       ],
-      openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false })
+      snack: s.snack, hasSnack: !!s.snack, dismissSnack: () => this.setState({ snack: '' }),
+      openSheet: () => this.setState({ sheet: true }), closeSheet: close
     };
   }
 }

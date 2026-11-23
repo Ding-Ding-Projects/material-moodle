@@ -25,41 +25,24 @@ button,input,select{font-family:inherit}
 .mm-tile:hover{transform:translateY(-2px)}
 .mm-tile a:focus-visible,.mm-btn:focus-visible{outline:3px solid var(--mm-ring);outline-offset:2px}
 .mm-field:focus-within{outline:2px solid var(--mm-ring)}
+.mm-scroll::-webkit-scrollbar{display:none}
 </style>
 </helmet>
 <div class="{{rootClass}}" style="position:relative;width:1440px;height:900px;overflow:hidden;display:flex;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
-  <nav aria-label="Main navigation" style="width:96px;flex:none;height:900px;box-sizing:border-box;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:12px;position:relative;z-index:3">
-    <span aria-hidden="true" style="width:48px;height:48px;border-radius:16px;background:{{c.primary}};color:{{c.onp}};display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg></span>
-    <button type="button" class="mm-btn" aria-label="New" style="width:56px;height:56px;flex:none;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
-    <sc-for list="{{rail}}" as="r" hint-placeholder-count="6">
-      <button type="button" class="mm-btn" onClick="{{r.onClick}}" aria-label="{{r.label}}" style="border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:{{c.on}}">
-        <span style="width:56px;height:32px;border-radius:16px;background:{{r.bg}};color:{{r.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
-        <span style="font-size:12px;font-weight:600;line-height:15px">{{r.label}}</span>
-      </button>
-    </sc-for>
-    <span style="flex:1"></span>
-    <button type="button" class="mm-btn" aria-label="Settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3"></path></svg></button>
-    <span role="img" aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</span>
-  </nav>
+  <div style="width:96px;flex:none;height:900px;position:relative;z-index:3">
+    <dc-import name="Rail" active="{{railActive}}" initials="MC" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import>
+  </div>
 
   <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
-    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px;box-sizing:border-box">
-      <div class="mm-title" style="flex:1 1 0">Home</div>
-      <label class="mm-field" style="width:560px;flex:none;height:56px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 16px;border-radius:999px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14)">
-        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
-        <span class="mm-sr">Search courses, people and settings</span>
-        <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none">
-        <span class="mm-mono" style="font-size:12px;padding:4px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Ctrl K</span>
-      </label>
-      <div style="flex:1 1 0;display:flex;justify-content:flex-end;gap:4px">
-        <button type="button" class="mm-btn" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"></path></svg></button>
-        <button type="button" class="mm-btn" aria-label="Notifications, 1 new" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;right:11px;top:10px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span></button>
-        <button type="button" class="mm-btn" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
-      </div>
-    </header>
-    <main style="flex:1;min-height:0;overflow:hidden;padding:8px 32px 24px;box-sizing:border-box">
-      <div style="max-width:1180px;display:flex;flex-direction:column;gap:24px">
-        <h1 class="mm-headline">Good morning, Mei</h1>
+    <div style="width:1344px;height:72px;flex:none">
+      <dc-import name="TopBar" title="Home" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import>
+    </div>
+    <main style="flex:1;min-height:0;overflow:hidden;padding:24px 32px 0;box-sizing:border-box">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:16px">
+          <h1 class="mm-headline" style="flex:1">Good morning, Mei</h1>
+          <button type="button" class="mm-btn mm-label" onClick="{{openLauncher}}" aria-haspopup="dialog" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};cursor:pointer">Open Everything</button>
+        </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
           <sc-for list="{{courses}}" as="k" hint-placeholder-count="4">
             <div style="border-radius:28px;background:{{c.low}};overflow:hidden;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{k.delay}}">
@@ -81,7 +64,7 @@ button,input,select{font-family:inherit}
             <div style="height:72px;display:flex;align-items:center;gap:16px">
               <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM9 11h6M9 15h6"></path></svg></span>
               <span style="flex:1;min-width:0"><span style="display:block;font-weight:600">{{u.title}}</span><span style="display:block;font-size:14px;color:{{c.onv}}">{{u.sub}}</span></span>
-              <span class="mm-label" style="padding:2px 8px;border-radius:8px;background:{{u.bg}};color:{{u.fg}}">{{u.pill}}</span>
+              <span class="mm-label" style="min-width:72px;box-sizing:border-box;text-align:center;padding:2px 8px;border-radius:8px;background:{{u.bg}};color:{{u.fg}}">{{u.pill}}</span>
             </div>
           </sc-for>
         </div>
@@ -97,10 +80,10 @@ button,input,select{font-family:inherit}
           <div style="flex:1;min-width:0"><div class="mm-title">Everything</div><div aria-live="polite" style="font-size:14px;color:{{c.onv}}">{{countText}}</div></div>
           <button type="button" class="mm-btn" onClick="{{close}}" aria-label="Close launcher" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
         </div>
-        <div class="mm-field" style="height:56px;flex:none;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 8px 0 16px;border-radius:999px;background:{{c.highest}}">
+        <div class="mm-field" style="height:56px;flex:none;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 4px 0 16px;border-radius:999px;background:{{c.highest}}">
           <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
           <label style="flex:1;min-width:0;display:flex"><span class="mm-sr">Find a feature</span><input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="{{placeholder}}" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none"></label>
-          <button type="button" class="mm-btn mm-mono" aria-pressed="{{regexStr}}" aria-label="Use a regular expression" onClick="{{toggleRegex}}" style="min-width:48px;height:40px;padding:0 12px;border:0;border-radius:12px;background:{{regexBg}};color:{{regexFg}};box-shadow:{{regexShadow}};font-weight:600;font-size:16px;cursor:pointer">.*</button>
+          <button type="button" class="mm-btn" aria-pressed="{{regexStr}}" aria-label="Use a regular expression" onClick="{{toggleRegex}}" style="width:48px;height:48px;flex:none;padding:0;border:0;background:transparent;display:grid;place-items:center;cursor:pointer"><span style="width:40px;height:40px;border-radius:50%;background:{{regexBg}};color:{{regexFg}};display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h.01M14 5v8M10.6 7l6.8 4M17.4 7l-6.8 4"></path></svg></span></button>
         </div>
         <sc-if value="{{invalid}}" hint-placeholder-val="{{ false }}">
           <p role="alert" style="margin:-8px 0 0;padding:0 16px;font-size:14px;color:{{c.err}}">That pattern is incomplete. Every feature stays listed until it is fixed.</p>
@@ -113,24 +96,29 @@ button,input,select{font-family:inherit}
             </button>
           </sc-for>
         </div>
-        <div style="flex:1;min-height:0;overflow-y:auto;margin:0 -8px;padding:4px 8px">
-          <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
-            <div style="padding:32px;border-radius:24px;background:{{c.cont}};text-align:center;color:{{c.onv}}">No feature matches. Try fewer words, or switch off the regular expression.</div>
-          </sc-if>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:dense;grid-auto-rows:minmax(112px,auto);gap:12px">
-            <sc-for list="{{items}}" as="it" hint-placeholder-count="8">
-              <div class="mm-tile" style="position:relative;grid-column:span {{it.span}};box-sizing:border-box;padding:16px;border-radius:24px;background:{{it.bg}};border:{{it.border}};color:{{it.fg}};display:flex;flex-direction:{{it.dir}};align-items:{{it.align}};gap:12px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{it.delay}}">
-                <sc-if value="{{it.link}}" hint-placeholder-val="{{ true }}"><a href="#" aria-label="{{it.label}}" style="position:absolute;left:0;top:0;right:0;bottom:0;border-radius:24px"></a></sc-if>
-                <span style="width:48px;height:48px;flex:none;border-radius:16px;background:{{it.iconBg}};color:{{it.iconFg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.d}}"></path></svg></span>
-                <span style="display:flex;flex-direction:column;gap:2px;flex:{{it.textFlex}};min-width:0">
-                  <span style="font-size:15px;font-weight:600;line-height:1.3">{{it.label}}</span>
-                  <sc-if value="{{it.hasDesc}}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;line-height:1.4">{{it.desc}}</span></sc-if>
-                  <sc-if value="{{it.off}}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:{{c.onv}}">Off for this site</span></sc-if>
-                </span>
-                <sc-if value="{{it.off}}" hint-placeholder-val="{{ false }}"><button type="button" class="mm-btn mm-label" onClick="{{it.turnOn}}" style="position:relative;z-index:1;height:48px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:{{c.primary}};cursor:pointer">Turn on</button></sc-if>
-              </div>
-            </sc-for>
+        <div style="position:relative;flex:1;min-height:0;margin:0 -8px">
+          <div class="mm-scroll" style="height:100%;overflow-y:auto;box-sizing:border-box;padding:4px 8px 48px">
+            <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+              <div style="padding:32px;border-radius:24px;background:{{c.cont}};text-align:center;color:{{c.onv}}">No feature matches. Try fewer words, or switch off the regular expression.</div>
+            </sc-if>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:dense;grid-auto-rows:152px;gap:12px">
+              <sc-for list="{{items}}" as="it" hint-placeholder-count="8">
+                <div class="mm-tile" style="position:relative;grid-column:span {{it.span}};box-sizing:border-box;padding:16px;border-radius:24px;background:{{it.bg}};border:{{it.border}};color:{{it.fg}};display:flex;flex-direction:{{it.dir}};gap:8px;overflow:hidden;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{it.delay}}">
+                  <sc-if value="{{it.link}}" hint-placeholder-val="{{ true }}"><a href="#" aria-label="{{it.label}}" style="position:absolute;left:0;top:0;right:0;bottom:0;border-radius:24px"></a></sc-if>
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex:none">
+                    <span style="width:48px;height:48px;flex:none;border-radius:16px;background:{{it.iconBg}};color:{{it.iconFg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.d}}"></path></svg></span>
+                    <sc-if value="{{it.off}}" hint-placeholder-val="{{ false }}"><button type="button" class="mm-btn mm-label" onClick="{{it.turnOn}}" style="position:relative;z-index:1;height:48px;min-width:48px;padding:0 6px;border:0;border-radius:999px;background:transparent;color:{{c.primary}};white-space:nowrap;cursor:pointer">Turn on</button></sc-if>
+                  </div>
+                  <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 0;min-width:0">
+                    <span style="font-size:15px;font-weight:600;line-height:1.3">{{it.label}}</span>
+                    <sc-if value="{{it.hasDesc}}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{it.desc}}</span></sc-if>
+                    <sc-if value="{{it.off}}" hint-placeholder-val="{{ false }}"><span class="mm-label" style="align-self:flex-start;min-width:72px;box-sizing:border-box;text-align:center;padding:2px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Off</span></sc-if>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
           </div>
+          <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:48px;pointer-events:none;background:linear-gradient(to bottom,{{c.highFade}},{{c.high}})"></div>
         </div>
       </div>
     </div>
@@ -148,10 +136,6 @@ class Component extends DCLogic {
     const D = { pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', tert:'#FFB0CB', suc:'#7CDBA6', sucC:'#005234', onsucC:'#B7F1CF', warnC:'#5B4300', onwarnC:'#FFE08A', err:'#FFB4AB', surface:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', onp:'#002388' };
     const c = Object.assign({}, dark ? D : L, { primary: dark ? '#B8C3FF' : accent });
     const s = this.state;
-    const toggleOpen = () => this.setState({ open: !s.open });
-    const RL = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z']];
-    const active = s.open ? 'Everything' : 'Home';
-    const rail = RL.map(([label, d]) => ({ label, d, bg: label === active ? c.sc : 'transparent', fg: label === active ? c.onsc : c.onv, onClick: label === 'Everything' ? toggleOpen : () => {} }));
     const GL = [['all','All'],['learn','Learning'],['progress','Progress'],['talk','Talk'],['content','Content'],['account','Account'],['admin','Administration']];
     const F = [
       ['calendar','learn','Calendar','Deadlines and events by month, week or day','/calendar/view.php','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',0,1],
@@ -193,10 +177,9 @@ class Component extends DCLogic {
     const items = rows.map((r, i) => {
       const off = !!r[6] && !s.on[r[0]];
       const pin = !!r[7];
-      const row = pin || off;
       return {
-        label: r[2], desc: r[3], d: r[5], off, link: !off, hasDesc: pin,
-        span: row ? 2 : 1, dir: row ? 'row' : 'column', align: row ? 'center' : 'flex-start', textFlex: row ? '1 1 0' : '0 1 auto',
+        label: r[2], desc: r[3], d: r[5], off, link: !off, hasDesc: !off,
+        span: pin ? 2 : 1, dir: pin ? 'row' : 'column',
         bg: off ? 'transparent' : pin ? c.pc : c.cont, border: off ? '1px dashed ' + c.outline : '1px solid transparent',
         fg: pin ? c.onpc : c.on, iconBg: off ? c.highest : pin ? c.primary : c.sc, iconFg: off ? c.onv : pin ? c.onp : c.onsc,
         delay: Math.min(i, 12) * 30 + 'ms',
@@ -221,13 +204,13 @@ class Component extends DCLogic {
       { title: 'Quiz 3: probability', sub: 'STA230 · Fri 10:00', pill: 'Quiz', bg: c.sc, fg: c.onsc }
     ];
     return {
-      c, rootClass: motion ? '' : 'mm-still', rail, courses, upcoming, chips, items,
+      c: Object.assign(c, { highFade: c.high + '00' }), accent, dark, railActive: s.open ? 'everything' : 'home', openLauncher: () => this.setState({ open: true }), rootClass: motion ? '' : 'mm-still', courses, upcoming, chips, items,
       open: s.open, close: () => this.setState({ open: false }),
       scrim: dark ? 'rgba(0,0,0,.5)' : 'rgba(27,27,33,.32)',
       q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
       placeholder: s.regex ? 'Pattern, for example ^(c|b)' : 'Find a feature',
-      regexStr: s.regex ? 'true' : 'false', regexBg: s.regex ? c.primary : c.high,
-      regexFg: s.regex ? c.onp : c.onv, regexShadow: s.regex ? 'none' : 'inset 0 -2px 0 ' + c.ov,
+      regexStr: s.regex ? 'true' : 'false', regexBg: s.regex ? c.primary : 'transparent',
+      regexFg: s.regex ? c.onp : c.onv,
       toggleRegex: () => this.setState({ regex: !s.regex }), invalid,
       empty: items.length === 0,
       countText: items.length === 1 ? '1 feature shown' : items.length + ' features shown'

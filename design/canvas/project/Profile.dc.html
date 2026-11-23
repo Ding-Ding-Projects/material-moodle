@@ -26,50 +26,15 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 </helmet>
 <div class="{{rootClass}}" style="--fx:{{c.p}};--hv:{{c.high}};width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
 
-  <nav aria-label="Main navigation" style="width:96px;height:900px;flex:none;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:20px 0 16px">
-    <a href="#" aria-label="Riverside College home" style="width:48px;height:48px;border-radius:14px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
-    </a>
-    <button type="button" aria-label="New" style="margin-top:20px;width:56px;height:56px;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
-    </button>
-    <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;align-items:center">
-      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
-        <a href="#" aria-current="{{n.cur}}" style="width:88px;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{c.on}}">
-          <span style="width:56px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
-          </span>
-          <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
-        </a>
-      </sc-for>
-    </div>
-    <div style="flex:1"></div>
-    <button type="button" aria-label="Settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
-    </button>
-    <button type="button" aria-label="Account: Mei Chan" aria-current="page" style="margin-top:8px;width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px;display:flex;align-items:center;justify-content:center">MC</button>
-  </nav>
+  <div style="width:96px;height:900px;flex:none"><dc-import name="Rail" active="profile" initials="MC" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import></div>
 
   <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
-    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px">
-      <div style="flex:1;font-size:20px;line-height:1.3;font-weight:650">Profile</div>
-      <label class="mm-field" style="position:relative;width:560px;height:56px;border-radius:28px;background:{{c.high}};display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 8px 28px rgba(27,27,33,.14)">
-        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
-        <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search courses, people and settings</span>
-        <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
-        <span style="flex:none;height:28px;padding:0 10px;border-radius:8px;background:{{c.highest}};color:{{c.onv}};font-family:'Roboto Mono',monospace;font-size:12px;display:flex;align-items:center">Ctrl K</span>
-      </label>
-      <div style="flex:1;display:flex;justify-content:flex-end;gap:8px">
-        <button type="button" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"></path></svg></button>
-        <button type="button" aria-label="Notifications, 1 new" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span></button>
-        <button type="button" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
-      </div>
-    </header>
+    <div style="width:1344px;height:72px;flex:none"><dc-import name="TopBar" title="Profile" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import></div>
 
-    <main style="flex:1;min-height:0;padding:0 32px 32px">
-      <div style="max-width:1180px;height:100%;display:flex;flex-direction:column;gap:16px">
+    <main style="flex:1;min-height:0;padding:24px 32px 32px">
+      <div style="height:100%;display:flex;flex-direction:column;gap:16px">
 
-        <section style="position:relative;flex:none;height:224px;border-radius:36px;background:{{c.low}};overflow:hidden;display:flex;align-items:center;gap:32px;padding:0 40px">
+        <section style="position:relative;flex:none;height:200px;border-radius:36px;background:{{c.low}};overflow:hidden;display:flex;align-items:center;gap:32px;padding:0 40px">
           <span style="position:absolute;right:-60px;top:-80px;width:300px;height:300px;border-radius:150px;background:{{c.pc}}"></span>
           <span style="position:absolute;right:150px;bottom:-70px;width:150px;height:150px;border-radius:44px;background:{{c.tc}};transform:rotate(14deg)"></span>
           <span style="position:relative;width:120px;height:120px;flex:none;border-radius:60px;background:{{c.tc}};color:{{c.ontc}};font-size:44px;font-weight:800;font-stretch:118%;display:flex;align-items:center;justify-content:center">MC</span>
@@ -92,7 +57,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
           </sc-for>
         </div>
 
-        <div style="flex:1;min-height:0;overflow:auto">
+        <div style="flex:1;min-height:0;position:relative">
+        <div style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:auto;padding-bottom:32px">
           <sc-if value="{{isAbout}}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;gap:16px">
               <div class="mm-in" style="grid-column:span 2;padding:24px;border-radius:28px;background:{{c.low}}">
@@ -165,6 +131,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
             </div>
           </sc-if>
         </div>
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.bgT}},{{c.bg}})"></div>
+        </div>
       </div>
     </main>
   </div>
@@ -174,8 +142,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 class Component extends DCLogic {
   constructor(props) { super(props); this.state = { tab: 'about' }; }
   palette(dark, accent) {
-    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
-    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A', bgT:'rgba(251,248,255,0)' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', bgT:'rgba(19,19,24,0)' };
     return dark ? D : L;
   }
   renderVals() {
@@ -184,14 +152,7 @@ class Component extends DCLogic {
     const motion = this.props.motion ?? true;
     const c = this.palette(dark, accent);
     const s = this.state;
-    const nav = [
-      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
-      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
-      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
-      ['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],
-      ['Messages','M4 5h16v11H8l-4 4z'],
-      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
-    ].map(([label, d]) => ({ label, d, cur: 'false', bg: 'transparent', fg: c.onv, w: 500 }));
+
     const tabs = [['about','About'],['courses','Courses'],['badges','Badges'],['blog','Blog']].map(([v, label]) => {
       const on = s.tab === v;
       return { label, sel: on ? 'true' : 'false', fg: on ? c.p : c.onv, bar: on ? c.p : 'transparent', pick: () => this.setState({ tab: v }) };
@@ -210,7 +171,7 @@ class Component extends DCLogic {
       ['Full attendance','Locked','M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.400 6.800 19.100l1-5.800L3.500 9.200l5.900-.9z',false]
     ];
     return {
-      c, rootClass: motion ? '' : 'mm-still', ring: '2px solid ' + c.p, nav, tabs,
+      c, accent, dark, rootClass: motion ? '' : 'mm-still', tabs,
       isAbout: s.tab === 'about', isCourses: s.tab === 'courses', isBadges: s.tab === 'badges', isBlog: s.tab === 'blog',
       interests: ['Cell biology','Silk Road history','Short fiction','Data visualisation','Running','Piano'],
       contact: [
