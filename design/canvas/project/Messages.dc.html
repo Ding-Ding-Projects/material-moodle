@@ -51,7 +51,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
               </sc-for>
             </div>
           </div>
-          <div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:2px">
+          <div style="position:relative;flex:1;min-height:0">
+          <div style="height:100%;box-sizing:border-box;overflow:auto;padding-bottom:40px;display:flex;flex-direction:column;gap:2px">
             <sc-for list="{{convs}}" as="cv" hint-placeholder-count="6">
               <button type="button" class="mm-row" aria-current="{{cv.cur}}" onClick="{{cv.pick}}" style="min-height:72px;flex:none;width:100%;border:0;border-radius:20px;background:{{cv.bg}};color:{{c.on}};padding:12px 8px;text-align:left;display:flex;align-items:center;gap:12px">
                 <span style="width:48px;height:48px;flex:none;border-radius:24px;background:{{cv.avBg}};color:{{cv.avFg}};font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">{{cv.ini}}</span>
@@ -71,6 +72,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
               <p style="margin:8px 16px;font-size:14px;color:{{c.onv}}">No conversations match.</p>
             </sc-if>
           </div>
+          <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.lowFade}},{{c.low}})"></div>
+          </div>
         </section>
 
         <section aria-label="Conversation" style="flex:1;min-width:0;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;overflow:hidden">
@@ -79,8 +82,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
             <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:18px;font-weight:650;line-height:1.3">{{open.name}}</span><span style="font-size:13px;color:{{c.onv}}">{{open.sub}}</span></span>
             <button type="button" aria-label="Conversation details" aria-pressed="{{detailsPressed}}" onClick="{{onToggleDetails}}" style="width:48px;height:48px;flex:none;border:0;border-radius:24px;background:{{detailsBg}};color:{{detailsFg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 11v5M12 8h.01"></path></svg></button>
           </div>
-          <div style="flex:1;min-height:0;overflow:auto;padding:16px 24px;display:flex;flex-direction:column;gap:8px">
-            <div style="margin-top:auto"></div>
+          <div style="position:relative;flex:1;min-height:0">
+          <div class="mm-thread" style="height:100%;box-sizing:border-box;overflow:auto;padding:16px 24px 40px;display:flex;flex-direction:column-reverse">
+          <div style="display:flex;flex-direction:column;gap:8px;flex:none">
             <sc-for list="{{thread}}" as="m" hint-placeholder-count="6">
               <div style="display:flex;justify-content:{{m.justify}};flex:none">
                 <sc-if value="{{m.isSep}}" hint-placeholder-val="{{ false }}">
@@ -95,6 +99,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
                 </sc-if>
               </div>
             </sc-for>
+          </div>
+          </div>
+          <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.lowFade}},{{c.low}})"></div>
           </div>
           <div style="flex:none;padding:12px 16px 16px;display:flex;align-items:center;gap:8px">
             <button type="button" aria-label="Attach a file" style="width:48px;height:48px;flex:none;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5l-8 8a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.5 17a1.7 1.7 0 0 1-2.4-2.4L14.500 7.200"></path></svg></button>
@@ -135,6 +142,22 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
               </sc-for>
             </div>
           </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}};margin-bottom:8px">Pinned messages</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{open.pins}}" as="pn" hint-placeholder-count="2">
+                <div style="padding:12px 16px;border-radius:16px;background:{{c.high}}"><div style="font-size:14px;line-height:1.4">{{pn.text}}</div><div style="margin-top:4px;font-size:12px;color:{{c.onv}}">{{pn.when}}</div></div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}};margin-bottom:8px">Links</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{open.links}}" as="lk" hint-placeholder-count="2">
+                <a href="#" class="mm-row" style="min-height:48px;padding:0 8px;border-radius:16px;display:flex;align-items:center;gap:12px;color:{{c.p}};text-decoration:none;font-size:14px;font-weight:600"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg>{{lk}}</a>
+              </sc-for>
+            </div>
+          </div>
         </aside>
         </sc-if>
       </div>
@@ -170,6 +193,15 @@ class Component extends DCLogic {
       { id:'write', name:'Creative Writing circle', ini:'CW', kind:'group', star:false, tone:4, unread:0, time:'Fri', sub:'6 members',
         members:['Sofia Alvarez','Noah Bennett','Hana Sato','Mei Chan'], files:[['Short story draft.docx','52 KB'],['Feedback guide.pdf','140 KB'],['Reading list.pdf','61 KB']],
         msgs:[['sep','Friday'],['in','Sofia','Posted my short story draft for feedback.','15:30'],['in','Hana','I will read it tonight.','16:02'],['out','','I will add comments by Sunday.','16:40']] },
+      { id:'noah', name:'Noah Bennett', ini:'NB', kind:'private', star:false, tone:1, unread:0, time:'Wed', sub:'Classmate, ENG210',
+        members:['Noah Bennett','Mei Chan'], files:[['Poem swap.docx','28 KB']],
+        msgs:[['sep','Wednesday'],['in','Noah','Do you want to swap poems before the workshop?','13:20'],['out','','Yes, I will send mine tonight.','13:41']] },
+      { id:'library', name:'Library help desk', ini:'LH', kind:'private', star:false, tone:3, unread:0, time:'Tue', sub:'Riverside College',
+        members:['Library help desk','Mei Chan'], files:[],
+        msgs:[['sep','Tuesday'],['out','','Can I extend my loan on the Silk Road atlas?','10:02'],['in','Library','Your loan is extended until the 28th.','10:30']] },
+      { id:'ann', name:'Course announcements', ini:'CA', kind:'group', star:false, tone:4, unread:0, time:'Mon', sub:'All courses',
+        members:['Dr. Amara Okafor','Prof. Daniel Reyes','Mei Chan'], files:[['Term calendar.pdf','74 KB']],
+        msgs:[['sep','Monday'],['in','Amara','The lab session on Tuesday starts at 14:00 in room B2.','08:15']] },
       { id:'support', name:'Student support', ini:'SS', kind:'private', star:false, tone:0, unread:0, time:'Thu', sub:'Riverside College',
         members:['Student support','Mei Chan'], files:[],
         msgs:[['sep','Thursday'],['out','','Hello, I cannot see the Statistics forum.','11:12'],['in','Support','Thanks. The forum is now visible. Your request is resolved.','11:50']] }
@@ -223,7 +255,7 @@ class Component extends DCLogic {
       return { name: n, ini: n.replace(/^(Dr\.|Prof\.) /, '').split(' ').map((p) => p[0]).join('').slice(0, 2), bg: tt[0], fg: tt[1] };
     });
     return {
-      c, accent, dark, rootClass: motion ? '' : 'mm-still', convs, chips, noConvs: convs.length === 0,
+      c: Object.assign({}, c, { lowFade: c.low + '00' }), accent, dark, rootClass: motion ? '' : 'mm-still', convs, chips, noConvs: convs.length === 0,
       showDetails: s.details, detailsPressed: s.details ? 'true' : 'false', onToggleDetails: () => this.setState({ details: !s.details }),
       detailsBg: s.details ? c.sc : 'transparent', detailsFg: s.details ? c.onsc : c.onv,
       q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
@@ -237,7 +269,14 @@ class Component extends DCLogic {
         this.setState({ draft: '', sent: Object.assign({}, s.sent, { [cur.id]: prev.concat([{ text, time, own: true }]) }) });
       },
       thread,
-      open: { name: cur.name, ini: cur.ini, sub: cur.sub, avBg: t[0], avFg: t[1], members, files: cur.files.map((f) => ({ name: f[0], size: f[1] })) }
+      open: { name: cur.name, ini: cur.ini, sub: cur.sub, avBg: t[0], avFg: t[1], members, files: cur.files.map((f) => ({ name: f[0], size: f[1] })), pins: (this.pins()[cur.id] || this.pins().def).map((p) => ({ text: p[0], when: p[1] })), links: (cur.kind === 'group' ? ['Group workspace', 'Shared calendar'] : ['Course page', 'Support hours']) }
+    };
+  }
+  pins() {
+    return {
+      amara: [['Bring your lab notebook to the session on Tuesday.', 'Pinned Monday 09:34'], ['Send the draft before Tuesday 14:00.', 'Pinned today 10:41']],
+      lab: [['Microscope room booked for 15:00.', 'Pinned today 09:10'], ['Add your section to the shared file by 14:00.', 'Pinned today 09:15']],
+      def: [['Welcome and ground rules for this conversation.', 'Pinned last week']]
     };
   }
   pad(n) { return (n < 10 ? '0' : '') + n; }

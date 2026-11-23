@@ -34,7 +34,7 @@ button,input,select{font-family:inherit}
       <dc-import name="TopBar" title="Preferences" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import>
     </div>
 
-    <div style="flex:1;min-height:0;display:flex;gap:32px;padding:24px 32px;box-sizing:border-box">
+    <div style="flex:1;min-height:0;display:flex;gap:32px;padding:24px 32px 0;box-sizing:border-box">
       <nav aria-label="Settings sections" style="width:264px;flex:none;display:flex;flex-direction:column;gap:4px;align-self:flex-start">
         <sc-for list="{{sections}}" as="p" hint-placeholder-count="7">
           <button type="button" class="mm-btn" aria-current="{{p.current}}" onClick="{{p.pick}}" style="height:56px;padding:0 16px;border:0;border-radius:999px;background:{{p.bg}};color:{{p.fg}};display:flex;align-items:center;gap:16px;font-size:16px;font-weight:600;cursor:pointer;text-align:left">
@@ -43,15 +43,15 @@ button,input,select{font-family:inherit}
         </sc-for>
       </nav>
 
-      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:16px">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0">
         <div style="position:relative;flex:1;min-height:0">
-          <div class="mm-scroll" style="height:100%;overflow-y:auto;box-sizing:border-box;padding-bottom:32px;display:flex;flex-direction:column;gap:24px">
+          <div class="mm-scroll" style="height:100%;overflow-y:auto;box-sizing:border-box;padding-bottom:24px;display:flex;flex-direction:column;gap:24px">
             <div><h1 class="mm-headline">{{sectionName}}</h1><p style="margin:4px 0 0;color:{{c.onv}}">{{sectionIntro}}</p></div>
             <sc-if value="{{otherSection}}" hint-placeholder-val="{{ false }}">
               <div style="padding:32px;border-radius:28px;background:{{c.low}};color:{{c.onv}}">{{sectionName}} has its own page. This board shows the Display section.</div>
             </sc-if>
             <sc-if value="{{isDisplay}}" hint-placeholder-val="{{ true }}">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+              <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;gap:24px">
                 <div style="display:flex;flex-direction:column;gap:24px">
                 <section style="border-radius:28px;background:{{c.low}};padding:24px;display:flex;flex-direction:column;gap:12px">
                   <div class="mm-label">Theme</div>
@@ -106,9 +106,8 @@ button,input,select{font-family:inherit}
               </div>
             </sc-if>
           </div>
-          <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:32px;pointer-events:none;background:linear-gradient(to bottom,{{c.surfaceFade}},{{c.surface}})"></div>
         </div>
-        <div style="flex:none;height:72px;box-sizing:border-box;padding:0 12px 0 24px;border-radius:28px;background:{{c.cont}};display:flex;align-items:center;gap:8px">
+        <div style="flex:none;height:72px;box-sizing:border-box;padding:0 0 0 24px;border-top:1px solid {{c.ov}};background:{{c.surface}};display:flex;align-items:center;gap:8px">
           <span aria-live="polite" style="flex:1;font-size:14px;color:{{c.onv}}">{{status}}</span>
           <button type="button" class="mm-btn mm-label" onClick="{{reset}}" style="height:48px;padding:0 24px;border:1px solid {{c.outline}};border-radius:999px;background:transparent;color:{{c.on}};display:flex;align-items:center;gap:8px;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v5h5"></path></svg>Reset to defaults</button>
           <button type="button" class="mm-btn mm-label" aria-disabled="{{saveDisabled}}" onClick="{{save}}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{saveBg}};color:{{saveFg}};cursor:{{saveCursor}}">Save changes</button>

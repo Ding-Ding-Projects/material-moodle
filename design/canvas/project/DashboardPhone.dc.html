@@ -21,6 +21,8 @@ a{color:inherit;text-decoration:none}
 .mm-focus:focus-visible{outline:3px solid var(--mm-p);outline-offset:2px}
 .mm-scroll{scrollbar-width:none}
 .mm-scroll>*{flex:none}
+.mm-tsf:focus-within{outline:2px solid var(--mm-ring-top)}
+.mm-tsb:focus-visible{outline:3px solid var(--mm-ring-top);outline-offset:2px}
 </style>
 </helmet>
 <div class="{{rootClass}}" style="--mm-p:{{c.p}};width:390px;height:844px;box-sizing:border-box;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
@@ -28,7 +30,7 @@ a{color:inherit;text-decoration:none}
   <header style="height:64px;flex:none;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
     <h1 style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Home</h1>
     <div style="display:flex;align-items:center;gap:4px">
-      <button type="button" class="mm-focus" aria-label="Search" style="width:48px;height:48px;border:0;border-radius:24px;background:{{c.high}};color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <button type="button" class="mm-focus" aria-label="Search" aria-haspopup="dialog" onClick="{{openSearch}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg>
       </button>
       <button type="button" class="mm-focus" aria-label="More options" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
@@ -137,6 +139,16 @@ a{color:inherit;text-decoration:none}
   </main>
 
   <dc-import name="PhoneNav" active="home" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import>
+
+  <sc-if value="{{searchOpen}}" hint-placeholder-val="{{ false }}">
+    <div role="search" aria-label="Search" style="position:absolute;left:0;top:0;width:390px;height:64px;z-index:20;box-sizing:border-box;padding:0 8px;display:flex;align-items:center;gap:4px;background:{{c.bg}};--mm-ring-top:{{c.p}}">
+      <button type="button" class="mm-tsb" aria-label="Close search" onClick="{{closeSearch}}" style="width:48px;height:48px;flex:none;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>
+      <div class="mm-tsf" style="flex:1;min-width:0;height:48px;box-sizing:border-box;display:flex;align-items:center;padding:0 4px 0 16px;border-radius:999px;background:{{c.highest}}">
+        <label style="flex:1;min-width:0;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Search</span><input type="text" value="{{tsQ}}" onChange="{{onTsQ}}" placeholder="{{tsPlaceholder}}" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none"></label>
+        <button type="button" class="mm-tsb" aria-pressed="{{tsRegexStr}}" aria-label="Use a regular expression" onClick="{{toggleTsRe}}" style="width:48px;height:48px;flex:none;padding:0;border:0;background:transparent;display:grid;place-items:center;cursor:pointer"><span style="width:40px;height:40px;border-radius:50%;background:{{tsRegexBg}};color:{{tsRegexFg}};display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h.01M14 5v8M10.6 7l6.8 4M17.4 7l-6.8 4"></path></svg></span></button>
+      </div>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
@@ -147,6 +159,18 @@ class Component extends DCLogic {
       return { p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', t:'#FFB0CB', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', w:'#E9C16C', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', ec:'#93000A', onec:'#FFDAD6', bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', out:'#90909A', ov:'#45464F' };
     }
     return { p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', t:'#A23F6A', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#002111', w:'#8B5000', wc:'#FFE08A', onwc:'#3B2F00', err:'#BA1A1A', ec:'#FFDAD6', onec:'#410002', bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', out:'#767680', ov:'#C6C5D0' };
+  }
+  topSearch(c) {
+    const s = this.state;
+    return {
+      searchOpen: !!s.tsOpen, tsQ: s.tsQ || '', tsRegexStr: s.tsRe ? 'true' : 'false',
+      tsPlaceholder: s.tsRe ? 'Pattern, for example ^(c|b)' : 'Search courses, people and settings',
+      tsRegexBg: s.tsRe ? c.p : 'transparent', tsRegexFg: s.tsRe ? c.onp : c.onv,
+      openSearch: () => this.setState({ tsOpen: true }),
+      closeSearch: () => this.setState({ tsOpen: false, tsQ: '', tsRe: false }),
+      onTsQ: (e) => this.setState({ tsQ: e.target.value }),
+      toggleTsRe: () => this.setState({ tsRe: !s.tsRe })
+    };
   }
   renderVals() {
     const dark = this.props.dark ?? false;
@@ -198,6 +222,7 @@ class Component extends DCLogic {
 
     const circ = 2 * Math.PI * 52;
     return {
+      ...this.topSearch(c),
       c, accent, dark, rootClass: motion ? '' : 'mm-still',
       rows, nav, days, courses,
       ringDash: (circ * 0.53).toFixed(1) + ' ' + circ.toFixed(1)

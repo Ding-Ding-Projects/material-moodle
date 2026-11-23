@@ -54,15 +54,12 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
     <p style="margin:0;font-family:'Roboto Mono',monospace;font-size:14px">Mono 14 · Tue 14:00</p>
   </section>
 
-  <section class="mm-in" style="grid-column:span 4;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;justify-content:space-between;gap:12px;animation-delay:180ms">
+  <section class="mm-in" style="grid-column:span 4;min-height:0;padding:24px 24px 24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;justify-content:space-between;gap:12px;animation-delay:180ms">
     <h2 style="margin:0;font-size:20px;font-weight:650">Actions</h2>
     <div style="display:flex;flex-wrap:wrap;gap:10px">
       <button type="button" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.primary}};color:{{c.onPrimary}};font:inherit;font-size:14px;font-weight:600">Submit</button>
       <button type="button" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.secondaryContainer}};color:{{c.onSecondaryContainer}};font:inherit;font-size:14px;font-weight:600">Save draft</button>
       <button type="button" style="height:48px;padding:0 24px;border:1px solid {{c.outline}};border-radius:999px;background:transparent;color:{{c.onSurface}};font:inherit;font-size:14px;font-weight:600">Cancel</button>
-      <button type="button" aria-label="New" style="width:56px;height:56px;border:0;border-radius:16px;background:{{c.primaryContainer}};color:{{c.onPrimaryContainer}};display:grid;place-items:center">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
-      </button>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:8px">
       <sc-for list="{{chips}}" as="ch" hint-placeholder-count="4">
@@ -82,6 +79,9 @@ button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
           {{sw.label}}
         </button>
       </sc-for>
+      <button type="button" aria-label="New" style="margin-left:auto;width:56px;height:56px;border:0;border-radius:16px;background:{{c.primaryContainer}};color:{{c.onPrimaryContainer}};display:grid;place-items:center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      </button>
     </div>
   </section>
 
@@ -137,7 +137,7 @@ class Component extends DCLogic {
       sw('Primary','primary','onPrimary'), sw('Primary container','primaryContainer','onPrimaryContainer'),
       sw('Secondary container','secondaryContainer','onSecondaryContainer'), sw('Tertiary container','tertiaryContainer','onTertiaryContainer'),
       sw('Surface','surface','onSurface'), sw('Container low','low','onSurface'), sw('Container high','high','onSurface'), sw('Container highest','highest','onSurface'),
-      sw('Success container','successContainer','onSurface'), sw('Warning container','warningContainer','onSurface'), sw('Error container','errorContainer','onSurface'), sw('Outline','outline','onOutline')
+      sw('Success container','successContainer','onSurface'), sw('Warning container','warningContainer','onSurface'), sw('Error container','errorContainer','onSurface'), { name:'Outline', bg:c.outline, fg: dark ? '#131318' : '#FFFFFF', hex: String(c.outline).toUpperCase() }
     ];
     const modes = ['light','dark'].map((m) => {
       const on = (m === 'dark') === dark;

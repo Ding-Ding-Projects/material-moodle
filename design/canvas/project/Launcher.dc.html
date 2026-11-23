@@ -29,7 +29,7 @@ button,input,select{font-family:inherit}
 </style>
 </helmet>
 <div class="{{rootClass}}" style="position:relative;width:1440px;height:900px;overflow:hidden;display:flex;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
-  <div style="width:96px;flex:none;height:900px;position:relative;z-index:3">
+  <div style="width:96px;flex:none;height:900px;position:relative;z-index:1">
     <dc-import name="Rail" active="{{railActive}}" initials="MC" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import>
   </div>
 
@@ -75,7 +75,7 @@ button,input,select{font-family:inherit}
   <sc-if value="{{open}}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;left:0;top:0;width:1440px;height:900px;z-index:2">
       <div onClick="{{close}}" style="position:absolute;left:0;top:0;width:1440px;height:900px;background:{{scrim}}"></div>
-      <div role="dialog" aria-label="Everything in Riverside College" style="position:absolute;left:112px;top:48px;width:720px;height:796px;box-sizing:border-box;border-radius:32px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);padding:24px;display:flex;flex-direction:column;gap:16px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both">
+      <div role="dialog" aria-label="Everything in Riverside College" style="position:absolute;left:112px;top:48px;width:720px;height:796px;box-sizing:border-box;border-radius:32px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);padding:24px;overflow:hidden;display:flex;flex-direction:column;gap:16px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both">
         <div style="display:flex;align-items:center;gap:16px">
           <div style="flex:1;min-width:0"><div class="mm-title">Everything</div><div aria-live="polite" style="font-size:14px;color:{{c.onv}}">{{countText}}</div></div>
           <button type="button" class="mm-btn" onClick="{{close}}" aria-label="Close launcher" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
@@ -96,8 +96,8 @@ button,input,select{font-family:inherit}
             </button>
           </sc-for>
         </div>
-        <div style="position:relative;flex:1;min-height:0;margin:0 -8px">
-          <div class="mm-scroll" style="height:100%;overflow-y:auto;box-sizing:border-box;padding:4px 8px 48px">
+        <div style="position:relative;flex:1;min-height:0;margin:0 -24px -24px">
+          <div class="mm-scroll" style="height:100%;overflow-y:auto;box-sizing:border-box;padding:4px 24px 72px">
             <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
               <div style="padding:32px;border-radius:24px;background:{{c.cont}};text-align:center;color:{{c.onv}}">No feature matches. Try fewer words, or switch off the regular expression.</div>
             </sc-if>
@@ -118,7 +118,7 @@ button,input,select{font-family:inherit}
               </sc-for>
             </div>
           </div>
-          <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:48px;pointer-events:none;background:linear-gradient(to bottom,{{c.highFade}},{{c.high}})"></div>
+          <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:72px;pointer-events:none;background:linear-gradient(to bottom,{{c.highFade}},{{c.high}} 85%)"></div>
         </div>
       </div>
     </div>

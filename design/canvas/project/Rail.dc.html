@@ -14,7 +14,7 @@ body{margin:0}
 .mm-rail a:focus-visible,.mm-rail button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 </style>
 </helmet>
-<nav class="mm-rail" aria-label="Main" style="width:96px;height:{{height}}px;box-sizing:border-box;padding:24px 0;display:flex;flex-direction:column;align-items:center;gap:0;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.low}};color:{{c.onSurfaceVariant}}">
+<nav class="mm-rail" aria-label="Main" style="width:96px;height:{{height}}px;box-sizing:border-box;padding:24px 0;display:flex;flex-direction:column;align-items:center;gap:0;font-family:'Roboto Flex',system-ui,sans-serif;line-height:16px;font-size:12px;background:{{c.low}};color:{{c.onSurfaceVariant}}">
   <a href="#" aria-label="Riverside College home" style="width:48px;height:48px;border-radius:14px;background:{{c.primary}};color:{{c.onPrimary}};display:grid;place-items:center">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5M22 9v6"></path></svg>
   </a>
@@ -23,11 +23,11 @@ body{margin:0}
   </button>
   <div style="margin-top:32px;display:flex;flex-direction:column;gap:16px;align-items:center">
     <sc-for list="{{items}}" as="it" hint-placeholder-count="6">
-      <a href="#" aria-current="{{it.current}}" style="width:80px;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{it.fg}}">
+      <a href="#" aria-current="{{it.current}}" style="width:80px;height:52px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{it.fg}}">
         <span style="width:56px;height:32px;border-radius:16px;background:{{it.pill}};color:{{it.iconFg}};display:grid;place-items:center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.d}}"></path></svg>
         </span>
-        <span style="font-size:12px;font-weight:{{it.weight}};letter-spacing:.01em">{{it.label}}</span>
+        <span style="font-size:12px;line-height:16px;font-weight:{{it.weight}};letter-spacing:.01em">{{it.label}}</span>
       </a>
     </sc-for>
   </div>
@@ -61,7 +61,7 @@ class Component extends DCLogic {
     });
     return { c, items, height: this.props.height ?? 900, initials: this.props.initials ?? 'MC',
       settingsCurrent: active === 'settings' ? 'page' : 'false', settingsPill: active === 'settings' ? c.secondaryContainer : 'transparent',
-      avatarRing: active === 'profile' ? '0 0 0 3px ' + c.primary : 'none' };
+      avatarRing: 'none' };
   }
 }
 </script>
