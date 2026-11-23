@@ -88,7 +88,7 @@ define(['core/str'], function(Str) {
             }
             if (status) {
                 var ticket = ++announce;
-                Str.get_string('featurescount', 'theme_material', total).then(function(text) {
+                Str.get_string(total === 1 ? 'featurescountone' : 'featurescount', 'theme_material', total).then(function(text) {
                     if (ticket === announce) {
                         status.textContent = text;
                     }

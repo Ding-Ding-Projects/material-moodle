@@ -5,6 +5,19 @@
 A box is ticked only when the item is implemented and inspectable in the repository. Derived from
 [`COMPLETENESS.md`](COMPLETENESS.md); the ids in brackets are its row ids.
 
+## Redesign, 2026-11-23
+
+- [x] Redesign every page on the design canvas: 32 boards in `design/canvas` (desktop and phone for sign-in, dashboard, my courses, course, assignment, calendar, grades, messages, profile, preferences, site administration, the features launcher, all features, page states, foundations and the shared shell), two rounds of rendered review fixes
+- [x] New default blue palette, with an upgrade step for sites still on the old default seed
+- [x] Navigation rail on wide screens and bottom navigation on phones (checked at 1440 and 390 pixels on a test site)
+- [x] Features launcher and All features page (Chromium browser test passes for the launcher at 320, 390 and 1440 pixels; WebKit not yet run)
+- [ ] Slim the top bar to the design's title, floating search and three icon buttons, and move the remaining primary navigation into the rail
+- [ ] Apply the redesigned dashboard, my courses, course, assignment, calendar, grades, messages, profile, preferences and administration layouts to the real pages
+- [ ] Rebuild the features launcher in the redesigned bento style with one regex button (the current panel shows two regex controls)
+- [ ] Sign-in fields: icons cover the start of the placeholder text; move icons into their own slot
+- [ ] dockview workspaces for course pages and the desktop deployer, with the existing tab features layered on top (`dockview-workspace`)
+- [ ] Exercise the rich-text editor after the TinyMCE 8.10.2 update on a running site
+
 ## Phase 1: core plugins (web app)
 
 - [ ] Verify account-specific text size, line spacing and motion on the full accessibility and language matrix.

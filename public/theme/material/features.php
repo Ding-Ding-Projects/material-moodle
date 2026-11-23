@@ -52,6 +52,7 @@ $data = [
     'groups' => $groups,
     'page' => true,
     'total' => \theme_material\features::count($groups),
+    'onefeature' => \theme_material\features::count($groups) === 1,
     'offcount' => count(array_filter(array_merge(...array_column($groups, 'items') ?: [[]]),
         fn($item) => $item['off'])),
 ];

@@ -41,3 +41,4 @@ $string['rail_calendar'] = '日曆';
 $string['rail_grades'] = '成績';
 $string['rail_messages'] = '訊息';
 $string['rail_everything'] = '全部';
+$string['featurescountone'] = '顯示緊 1 個功能';

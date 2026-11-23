@@ -1,5 +1,21 @@
 # Material Moodle handoff
 
+## Redesign and launcher, 2026-11-23
+
+- The design lives in `design/canvas` at the repository root: `DESIGN-SPEC.md` (colours, type, shapes, shell),
+  `FIX-BRIEF.md` (review rules) and 32 boards in `project/`. Shared components `Rail`, `TopBar` and `PhoneNav` are
+  imported by every board, so the shell cannot drift. Boards were rendered locally and reviewed twice.
+- In the theme: the default seed is now `#3D5BD9` with reference roles from the spec (`classes/palette.php`);
+  `db/upgrade.php` moves sites still on `#8B5000` to it. The navigation rail (`classes/rail.php`,
+  `templates/rail.mustache`, `scss/rail.scss`) is added through the top-of-body hook and marks `<html data-mm-rail>`.
+  The features launcher (`classes/features.php`, `features.php`, `templates/features_*.mustache`, `amd/src/features.js`).
+- TinyMCE is 8.10.2 in `public/lib/editor/tiny/js/tinymce`; the editor itself has not been exercised since.
+- Verified on a throwaway Docker test site (theme copied into the container, upgrade run): rail position and active item
+  at 1440 and 390 pixels, no page errors, no sideways scrolling; launcher browser test in Chromium. Not verified: WebKit,
+  the real pages after the full redesign (not built yet), the editor.
+- Note for test sites on plain `http://localhost`: `cookiesecure` must be off or sign-in silently fails.
+- Remaining work is listed under "Redesign, 2026-11-23" in `ROADMAP.md`.
+
 ## Shared control design
 
 Theme version `2026112203` connects Moodle's component colours with the same seed palette used by

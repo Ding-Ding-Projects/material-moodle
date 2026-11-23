@@ -30,7 +30,7 @@
             {{/offcount}}
         </div>
         <p class="mm-launcher-invalid" data-features-invalid role="alert" hidden>{{#str}}featuresbadpattern, theme_material{{/str}}</p>
-        <p class="mm-features-count" role="status" data-features-status>{{#str}}featurescount, theme_material, {{total}}{{/str}}</p>
+        <p class="mm-features-count" role="status" data-features-status>{{#onefeature}}{{#str}}featurescountone, theme_material{{/str}}{{/onefeature}}{{^onefeature}}{{#str}}featurescount, theme_material, {{total}}{{/str}}{{/onefeature}}</p>
     </section>
     <div class="mm-features-layout">
         <nav class="mm-features-rail" aria-label="{{#str}}featuresgroups, theme_material{{/str}}">

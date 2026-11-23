@@ -90,7 +90,7 @@ for (const engine of engines) {
         els => els.map(el => el.dataset.featureGroup));
     assert.ok(groups.includes('learn') && groups.includes('admin'), 'Page groups');
     await page.fill('#mm-features-q', 'private files');
-    await page.waitForFunction(() => /^1\b/.test(document.querySelector('[data-features-status]').textContent));
+    await page.waitForFunction(() => /^1\b/.test(document.querySelector('[data-region="mm-features-page"] [data-features-status]').textContent));
     await page.fill('#mm-features-q', '');
     if (capture && engine === chromium) {
         await page.screenshot({path: `${out}features-page-1440.png`, fullPage: true});

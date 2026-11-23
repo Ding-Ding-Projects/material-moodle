@@ -276,3 +276,4 @@ $string['rail_calendar'] = 'Calendar';
 $string['rail_grades'] = 'Grades';
 $string['rail_messages'] = 'Messages';
 $string['rail_everything'] = 'Everything';
+$string['featurescountone'] = '1 feature shown';

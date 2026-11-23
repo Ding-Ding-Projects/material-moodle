@@ -81,7 +81,7 @@ $mm-bnav-height: 80px;
     color: var(--md-sys-color-on-tertiary-container);
     font-size: .875rem;
     font-weight: 700;
-    &[aria-current="page"] { box-shadow: 0 0 0 3px var(--md-sys-color-primary); }
+    &[aria-current="page"] { outline: 2px solid var(--md-sys-color-outline-variant); outline-offset: 2px; }
 }
 html[data-md-motion="off"] .mm-rail-pill { transition: none; }
 @media (prefers-reduced-motion: reduce) { .mm-rail-pill { transition: none; } }
