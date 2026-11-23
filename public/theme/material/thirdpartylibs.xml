@@ -15,4 +15,15 @@
       <copyright>Braille Institute of America, Inc.</copyright>
     </copyrights>
   </library>
+  <library>
+    <location>amd/src/vendor-dockview.js</location>
+    <name>dockview-core</name>
+    <description>Dockable, splittable tab panels used for the course workspace. The AMD wrapper replaces the UMD one; the library code is unchanged. Its stylesheet is included in scss/dockview.scss with the theme rules stripped.</description>
+    <license>MIT</license>
+    <version>8.9.1</version>
+    <repository>https://github.com/dockview/dockview</repository>
+    <copyrights>
+      <copyright>2021 mathuo</copyright>
+    </copyrights>
+  </library>
 </libraries>

@@ -56,9 +56,10 @@ $mm-topbar-height: 72px;
                 align-items: center;
                 gap: 4px;
                 .divider { display: none; }
-                // Icon buttons first: display settings, then notifications, then everything else.
+                // The search pill first, then the icon buttons: display settings, notifications, then the rest.
                 > * { order: 5; }
-                > .mm-display { order: 1; }
+                > .md-palette-trigger { order: 0; }
+                > .mm-display { order: 1; margin-inline-start: auto; }
                 > .popover-region-notifications, > #nav-notification-popover-container { order: 2; }
             }
 
@@ -140,18 +141,27 @@ $mm-topbar-height: 72px;
     }
 }
 @media (min-width: 1200px) {
-    html[data-mm-rail] body .navbar.fixed-top .md-palette-trigger {
-        position: absolute;
-        top: 8px;
-        inset-inline-start: 50%;
-        transform: translateX(-50%);
-        flex: none;
-        width: clamp(280px, calc(100vw - 96px - 700px), 560px);
-        height: 56px;
-        margin: 0;
-        padding: 0 12px 0 20px;
+    // The pill stays in the bar's flow and centres itself between the title and the icons with
+    // automatic margins, shrinking when space is short, so it can never sit underneath the icons.
+    // The pill lives inside Moodle's right-hand group: let that group take the free width and put the
+    // pill first, so it centres in the open space and the icons stay at the end.
+    html[data-mm-rail] body .navbar.fixed-top #usernavigation {
+        flex: 1 1 auto;
+        min-width: 0;
+        justify-content: flex-end;
     }
-    html[data-mm-rail] body.dir-rtl .navbar.fixed-top .md-palette-trigger { transform: translateX(50%); }
+    html[data-mm-rail] body .navbar.fixed-top .md-palette-trigger {
+        order: -1;
+        position: static;
+        transform: none;
+        flex: 0 1 560px;
+        min-width: 200px;
+        width: auto;
+        height: 56px;
+        margin-inline: auto;
+        padding: 0 12px 0 20px;
+        overflow: hidden;
+    }
 }
 
 @media (forced-colors: active) {

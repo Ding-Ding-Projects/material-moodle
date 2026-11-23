@@ -1,1 +1,2089 @@
-// Reserved for the redesign work; see design/canvas.
+// Redesign pass for real Moodle pages, following the boards in design/canvas/project.
+// CSS only. This file is compiled after every other theme stylesheet, so same-specificity rules here win; where an
+// earlier stylesheet uses !important, the matching property is repeated with !important below.
+//
+// Covered pages (scoped by Moodle's own body id or class):
+//   Dashboard            #page-my-index
+//   My courses           #page-my-courses
+//   Course               body.path-course-view
+//   Assignment           #page-mod-assign-view
+//   Calendar             #page-calendar-view
+//   Grades overview      #page-grade-report-overview-index
+//   Messages             #page-message-index
+//   Profile              #page-user-profile
+//   Preferences          #page-user-preferences
+//   Administration       body.path-admin
+//
+// Only the generated --md-sys-color-* properties are used for colour, so light, dark and any seed colour work.
+
+$rd-ease: cubic-bezier(.05, .7, .1, 1);
+$rd-spring: cubic-bezier(.2, 0, 0, 1.3);
+
+$rd-primary: var(--md-sys-color-primary);
+$rd-on-primary: var(--md-sys-color-on-primary);
+$rd-primary-c: var(--md-sys-color-primary-container);
+$rd-on-primary-c: var(--md-sys-color-on-primary-container);
+$rd-secondary-c: var(--md-sys-color-secondary-container);
+$rd-on-secondary-c: var(--md-sys-color-on-secondary-container);
+$rd-tertiary-c: var(--md-sys-color-tertiary-container);
+$rd-on-tertiary-c: var(--md-sys-color-on-tertiary-container);
+$rd-surface: var(--md-sys-color-surface);
+$rd-low: var(--md-sys-color-surface-container-low);
+$rd-container: var(--md-sys-color-surface-container);
+$rd-high: var(--md-sys-color-surface-container-high);
+$rd-highest: var(--md-sys-color-surface-container-highest);
+$rd-on: var(--md-sys-color-on-surface);
+$rd-on-v: var(--md-sys-color-on-surface-variant);
+$rd-outline: var(--md-sys-color-outline);
+$rd-outline-v: var(--md-sys-color-outline-variant);
+$rd-error: var(--md-sys-color-error);
+$rd-error-c: var(--md-sys-color-error-container);
+$rd-success: var(--md-sys-color-success);
+$rd-success-c: var(--md-sys-color-success-container);
+
+@keyframes rd-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+// Type recipes from the design spec.
+@mixin rd-display {
+    font-weight: 800;
+    font-stretch: 118%;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -.02em;
+}
+
+@mixin rd-headline {
+    font-weight: 750;
+    font-stretch: 112%;
+    font-size: clamp(1.625rem, 3vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -.01em;
+}
+
+@mixin rd-title {
+    font-weight: 650;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: 0;
+}
+
+@mixin rd-overline {
+    font-weight: 700;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+// A tonal card: no border, no shadow, 28px corners, 24px padding.
+@mixin rd-card($pad: 24px) {
+    border: 0;
+    border-radius: 28px;
+    background: $rd-low;
+    box-shadow: none;
+    padding: $pad;
+}
+
+// A status pill: 24px tall, 8px corners, fixed minimum width so a column of them lines up.
+@mixin rd-pill($bg: $rd-highest, $fg: $rd-on-v) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    min-height: 24px;
+    padding: 0 10px;
+    border-radius: 8px;
+    border: 0;
+    background: $bg;
+    color: $fg;
+    font-size: .75rem;
+    font-weight: 700;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+// A 40px tonal icon tile with 12px corners.
+@mixin rd-tile($bg: $rd-secondary-c, $fg: $rd-on-secondary-c) {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 12px;
+    background: $bg;
+    color: $fg;
+}
+
+// Full-round buttons, 48px tall. Filled, tonal and outlined variants map to Moodle's button classes.
+@mixin rd-buttons {
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .btn-link.btn-outline {
+        min-height: 48px;
+        padding: 0 24px;
+        border-radius: 999px;
+        font-size: .875rem;
+        font-weight: 600;
+        letter-spacing: .01em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: transform 200ms $rd-spring, background-color 160ms ease;
+    }
+
+    .btn-primary {
+        border: 0;
+        background: $rd-primary;
+        color: $rd-on-primary;
+    }
+
+    .btn-secondary {
+        border: 0;
+        background: $rd-secondary-c;
+        color: $rd-on-secondary-c;
+    }
+
+    .btn-outline-primary,
+    .btn-outline-secondary {
+        border: 1px solid $rd-outline;
+        background: transparent;
+        color: $rd-on;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+    }
+}
+
+// Text fields: 56px tall, 16px corners, tonal fill, a 2px primary indicator only on focus.
+@mixin rd-fields {
+    .form-control,
+    .custom-select,
+    .form-select {
+        min-height: 56px;
+        border: 0;
+        border-radius: 16px;
+        background-color: $rd-highest;
+        color: $rd-on;
+        box-shadow: inset 0 -1px 0 $rd-outline;
+        &:focus {
+            box-shadow: inset 0 -2px 0 $rd-primary;
+            outline: 0;
+        }
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+        border-radius: 16px 16px 0 0;
+    }
+}
+
+// Page headings: a headline, no hero panel.
+@mixin rd-plain-header {
+    #page-header {
+        background: transparent;
+        color: $rd-on;
+        border-radius: 0;
+        padding: 0 !important;
+        margin-bottom: 24px;
+        overflow: visible;
+        animation: none;
+        min-height: 0;
+
+        &::before,
+        &::after {
+            display: none;
+        }
+
+        h1,
+        .h2 {
+            @include rd-headline;
+            margin: 0;
+            color: $rd-on;
+        }
+    }
+}
+
+// A hero panel: 36px corners, display heading, tonal background.
+@mixin rd-hero($bg: $rd-primary-c, $fg: $rd-on-primary-c) {
+    #page-header {
+        position: relative;
+        border-radius: 36px;
+        background: $bg;
+        color: $fg;
+        min-height: 160px;
+        padding: 28px 40px !important;
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        animation: rd-in 420ms $rd-ease both;
+
+        h1,
+        .h2 {
+            @include rd-display;
+            margin: 2px 0 0;
+            color: inherit;
+        }
+
+        .page-context-header,
+        .breadcrumb,
+        .breadcrumb-item,
+        .breadcrumb-item a {
+            color: inherit;
+        }
+
+        .page-header-headings,
+        .page-context-header {
+            min-width: 0;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Blocks as cards, shared by the dashboard and the course overview.
+// ---------------------------------------------------------------------------------------------------------------
+
+@mixin rd-block-cards {
+    .block.card {
+        @include rd-card;
+        margin: 0;
+        animation: rd-in 420ms $rd-ease both;
+    }
+
+    .block .card-body {
+        padding: 0;
+    }
+
+    .block .block-header {
+        margin-bottom: 12px;
+        align-items: center;
+    }
+
+    .block .card-title,
+    .block .block-header h3,
+    .block .block-header h2 {
+        @include rd-title;
+        margin: 0;
+        color: $rd-on;
+    }
+
+    .block .card-text.content {
+        margin-top: 0 !important;
+    }
+
+    .block .list-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-radius: 0;
+    }
+
+    .block .list-group-item,
+    .block .list-group-item-action {
+        min-height: 72px;
+        padding: 12px 16px;
+        border: 0 !important;
+        border-radius: 20px !important;
+        background: $rd-container;
+        color: $rd-on;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .block .progress {
+        height: 8px;
+        border-radius: 999px;
+        background: $rd-highest;
+        overflow: hidden;
+    }
+
+    .block .progress-bar {
+        border-radius: 999px;
+        background: $rd-primary;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Course cards and list rows (core_course/coursecard, block_myoverview). Used by the dashboard and My courses.
+// ---------------------------------------------------------------------------------------------------------------
+
+@mixin rd-course-cards {
+    .card-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 24px;
+        margin: 0;
+
+        > .col {
+            width: auto;
+            max-width: none;
+            padding: 0;
+            margin: 0 !important;
+        }
+    }
+
+    .course-card {
+        width: 100%;
+        border: 0;
+        border-radius: 28px;
+        background: $rd-low;
+        overflow: hidden;
+        box-shadow: none;
+        animation: rd-in 420ms $rd-ease both;
+        transition: transform 200ms $rd-spring;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-img-top {
+            height: 140px;
+            border-radius: 0;
+            background-color: $rd-primary-c;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-info-container {
+            padding: 16px 24px 8px;
+        }
+
+        .coursename {
+            @include rd-title;
+            color: $rd-on;
+            text-decoration: none;
+        }
+
+        .text-muted,
+        .muted,
+        .categoryname {
+            color: $rd-on-v !important;
+            font-size: .875rem;
+        }
+
+        // The shortname reads as the course code: small, spaced, monospaced.
+        .text-muted.muted.d-flex.mb-1 {
+            font-family: 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace;
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        .card-footer,
+        .card-footer.bg-white,
+        .card-footer.menu {
+            border: 0 !important;
+            background: transparent !important;
+            padding: 8px 24px 16px;
+        }
+
+        .progress-text {
+            font-size: .875rem;
+            color: $rd-on-v;
+        }
+
+        .btn-icon,
+        .dropdown-toggle.btn-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+        }
+    }
+
+    // The list view: 72px rows with a tonal image tile.
+    .course-listitem {
+        min-height: 72px;
+        padding: 16px !important;
+        margin-bottom: 8px;
+        border: 0 !important;
+        border-radius: 20px !important;
+        background: $rd-low;
+
+        .list-image {
+            height: 72px;
+            border-radius: 16px;
+            background-color: $rd-primary-c;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .coursename {
+            @include rd-title;
+            color: $rd-on;
+            text-decoration: none;
+        }
+    }
+
+    // Filters: dropdown toggles become full-round outlined buttons, the search field a 56px pill.
+    [data-region="filter"],
+    .block-myoverview > .d-flex {
+        gap: 8px;
+    }
+
+    .dropdown-toggle.btn-outline-secondary,
+    [data-region="filter"] .btn-outline-secondary {
+        min-height: 48px;
+        border-radius: 999px;
+        border: 1px solid $rd-outline;
+        background: transparent;
+        color: $rd-on;
+        font-size: .875rem;
+        font-weight: 600;
+        padding: 0 20px;
+    }
+
+    [data-region="filter"] .input-group {
+        min-height: 56px;
+        border-radius: 999px;
+        background: $rd-highest;
+        overflow: hidden;
+    }
+
+    [data-region="filter"] .form-control,
+    [data-region="filter"] .btn {
+        min-height: 56px;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .dropdown-menu {
+        padding: 8px;
+        border: 0;
+        border-radius: 20px;
+        background: $rd-high;
+        box-shadow: 0 8px 28px rgba(27, 27, 33, .14);
+    }
+
+    .dropdown-item {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        border-radius: 14px;
+        font-size: .875rem;
+        font-weight: 600;
+        &.active,
+        &:active {
+            background: $rd-secondary-c;
+            color: $rd-on-secondary-c;
+        }
+    }
+
+    // "No courses" and similar empty states.
+    [data-region="empty-message"],
+    .text-xs-center.mt-3 {
+        padding: 48px;
+        border-radius: 28px;
+        background: $rd-low;
+        color: $rd-on-v;
+        text-align: center;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Dashboard: a hero, then a bento of cards.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-my-index {
+    @include rd-hero;
+    @include rd-block-cards;
+    @include rd-course-cards;
+    @include rd-buttons;
+
+    // Blocks sit in a 12 column bento on wide screens. The overview and anything unknown take the full row.
+    [data-region="blocks-column"] {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 16px;
+        align-items: start;
+
+        > * {
+            grid-column: 1 / -1;
+        }
+
+        > [data-block="timeline"] { grid-column: span 8; }
+        > [data-block="calendar_month"],
+        > [data-block="calendar_upcoming"] { grid-column: span 4; }
+        > [data-block="recentlyaccesseditems"],
+        > [data-block="recentlyaccessedcourses"],
+        > [data-block="recent_activity"] { grid-column: span 6; }
+    }
+
+    // The timeline: each event is a 72px row with the course image as a tonal tile.
+    .block_timeline {
+        .timeline-course-image {
+            @include rd-tile($rd-primary-c, $rd-on-primary-c);
+            padding: 0;
+            width: 40px;
+            height: 40px;
+        }
+
+        .event-name-container,
+        .timeline-name {
+            min-width: 0;
+        }
+
+        .timeline-action-button,
+        .timeline-action-button .btn {
+            min-height: 48px;
+            border-radius: 999px;
+        }
+
+        .list-group-item.timeline-event-list-item,
+        .timeline-event-list-item {
+            border-radius: 20px !important;
+        }
+
+        .badge {
+            @include rd-pill($rd-tertiary-c, $rd-on-tertiary-c);
+            min-width: 0;
+        }
+    }
+
+    // The month mini calendar in the side block: today is a round primary chip.
+    .block_calendar_month {
+        .calendarmonth td,
+        .calendarmonth th {
+            text-align: center;
+            border: 0;
+            padding: 2px;
+        }
+
+        .calendarmonth .today .day-number-circle,
+        .calendarmonth td.today {
+            background: $rd-primary;
+            color: $rd-on-primary;
+            border-radius: 16px;
+        }
+    }
+
+    // Progress shown as text by core is kept; any real bar gets the 8px full-round look from the block rules above.
+    .block-myoverview .progress-text {
+        font-weight: 600;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// My courses.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-my-courses {
+    @include rd-plain-header;
+    @include rd-course-cards;
+    @include rd-buttons;
+
+    .block-myoverview {
+        @include rd-card(0);
+        background: transparent;
+
+        hr.border-bottom {
+            display: none;
+        }
+    }
+
+    // The grouping and sort controls read as a chip row above the grid.
+    [data-region="filter"] {
+        margin: 0 0 24px !important;
+        flex-wrap: wrap;
+    }
+
+    .course-info-container .text-truncate {
+        white-space: normal;
+    }
+
+    .course-card .course-info-container .coursename .multiline {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Course page: tertiary hero, section cards, activity rows with tonal icon tiles, a tonal course index.
+// ---------------------------------------------------------------------------------------------------------------
+
+body.path-course-view {
+    @include rd-hero($rd-tertiary-c, $rd-on-tertiary-c);
+    @include rd-buttons;
+
+    // The hero carries the course code and name; the display size is too large for long course names here.
+    #page-header h1,
+    #page-header .h2 {
+        font-weight: 750;
+        font-stretch: 112%;
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
+        line-height: 1.1;
+        letter-spacing: -.01em;
+    }
+
+    #page-header {
+        min-height: 0;
+        padding: 28px 40px !important;
+    }
+
+    // Sections.
+    .course-section,
+    li.section.main {
+        @include rd-card(0);
+        margin-bottom: 16px;
+        border: 0 !important;
+        overflow: hidden;
+        animation: rd-in 420ms $rd-ease both;
+
+        .section-item,
+        .course-section-header {
+            border: 0 !important;
+        }
+
+        .course-section-header {
+            min-height: 72px;
+            padding: 16px 24px;
+            align-items: center;
+        }
+
+        .sectionname,
+        .sectionname a {
+            @include rd-title;
+            margin: 0;
+            color: $rd-on;
+        }
+
+        .section_availability,
+        .summary,
+        .no-overflow {
+            color: $rd-on-v;
+        }
+
+        .content,
+        [data-for="sectioninfo"] {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        ul[data-for="cmlist"] {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 0 16px 16px;
+        }
+    }
+
+    // Activities: 72px rows on a mid tonal surface, with a 40px tonal icon tile.
+    .activity-item {
+        min-height: 72px;
+        padding: 16px;
+        border: 0 !important;
+        border-radius: 20px;
+        background: $rd-container;
+        color: $rd-on;
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        transition: transform 200ms $rd-spring, background-color 160ms ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            background: $rd-high;
+        }
+
+        .activity-grid {
+            width: 100%;
+            align-items: center;
+        }
+
+        .activityname,
+        .activityname a,
+        .instancename {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.3;
+            color: $rd-on;
+        }
+
+        .activity-dates,
+        .activity-information,
+        .activity-description,
+        .activity-altcontent {
+            font-size: .875rem;
+            color: $rd-on-v;
+        }
+
+        .activityiconcontainer {
+            @include rd-tile;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 16px 0 0 !important;
+
+            &.assessment { background: $rd-tertiary-c; color: $rd-on-tertiary-c; }
+            &.collaboration,
+            &.interactivecontent { background: $rd-primary-c; color: $rd-on-primary-c; }
+            &.communication { background: $rd-success-c; color: $rd-success; }
+            &.administration,
+            &.interface { background: $rd-highest; color: $rd-on-v; }
+        }
+
+        .activityicon,
+        .activityiconcontainer img {
+            width: 22px;
+            height: 22px;
+        }
+
+        // Completion toggles: a 48px touch target, success tonal when done.
+        .activity-completion button,
+        .activity-completion .btn {
+            min-height: 48px;
+            border-radius: 999px;
+            font-size: .875rem;
+            font-weight: 600;
+        }
+
+        .completion_complete,
+        .btn-success {
+            background: $rd-success-c;
+            color: $rd-success;
+            border: 0;
+        }
+
+        .badge {
+            @include rd-pill($rd-secondary-c, $rd-on-secondary-c);
+            min-width: 0;
+        }
+    }
+
+    // Hidden-from-students activities keep a dimmed look so they stay distinguishable.
+    .activity-item.hiddenactivity {
+        background: $rd-low;
+        opacity: .82;
+    }
+
+    // The course index drawer: a tonal list, the current page as a secondary container row.
+    .courseindex {
+        .courseindex-section,
+        .courseindex-item {
+            border: 0;
+        }
+
+        .courseindex-link,
+        .courseindex-item-content {
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+            font-size: .875rem;
+            font-weight: 600;
+            color: $rd-on;
+        }
+
+        .courseindex-item.pageitem,
+        .courseindex-item.pageitem .courseindex-link {
+            background: $rd-secondary-c;
+            color: $rd-on-secondary-c;
+        }
+    }
+
+    .drawer.drawer-left {
+        background: $rd-low;
+        border: 0;
+        border-radius: 0 28px 28px 0;
+    }
+
+    // Section navigation (previous and next) as tonal full-round buttons.
+    .course-section-navigation,
+    .sectionnav,
+    .mod_navigation {
+        .btn,
+        a.btn {
+            min-height: 48px;
+            border-radius: 999px;
+            background: $rd-secondary-c;
+            color: $rd-on-secondary-c;
+            border: 0;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Assignment: instructions, status and grading as 28px cards.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-mod-assign-view {
+    @include rd-plain-header;
+    @include rd-buttons;
+    @include rd-fields;
+
+    // The page title carries the activity name.
+    #page-header h1,
+    #page-header .h2 {
+        @include rd-headline;
+    }
+
+    // Breadcrumb: 48px targets, the current page in bold.
+    .breadcrumb {
+        min-height: 48px;
+        align-items: center;
+        padding: 0;
+        margin: 0 0 8px;
+        background: transparent;
+        font-size: 1rem;
+        color: $rd-on-v;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 48px;
+            padding: 0 8px;
+            border-radius: 12px;
+            color: $rd-on-v;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: $rd-on;
+            font-weight: 600;
+        }
+    }
+
+    // Intro (instructions) and the status tables are tonal cards.
+    #intro,
+    .activity-description,
+    .box.generalbox,
+    .submissionsummarytable,
+    .submissionstatustable,
+    .gradingsummarytable,
+    .feedbacktable {
+        @include rd-card;
+        margin-bottom: 24px;
+        animation: rd-in 420ms $rd-ease both;
+    }
+
+    .submissionstatustable h3,
+    .gradingsummarytable h3,
+    .feedbacktable h3,
+    .submissionstatustable .submissionstatusheading,
+    .box h3 {
+        @include rd-title;
+        margin: 0 0 12px;
+    }
+
+    // Status tables become definition-style rows: label muted, value bold, no cell borders.
+    .generaltable.table,
+    .submissionsummarytable table,
+    .submissionstatustable table,
+    .gradingsummarytable table,
+    .feedbacktable table {
+        border: 0;
+        background: transparent;
+        margin: 0;
+
+        th,
+        td {
+            border: 0;
+            background: transparent;
+            padding: 8px 12px 8px 0;
+            font-size: 1rem;
+            line-height: 1.55;
+            vertical-align: top;
+        }
+
+        th.cell.c0,
+        td.cell.c0,
+        th.c0 {
+            width: 140px;
+            color: $rd-on-v;
+            font-weight: 400;
+        }
+
+        td.cell.c1,
+        td.c1 {
+            font-weight: 600;
+        }
+    }
+
+    // Status cells as 24px pills with container colours.
+    .submissionstatus,
+    .submissionstatussubmitted,
+    .submissionnotgraded,
+    .submissiongraded {
+        @include rd-pill($rd-highest, $rd-on-v);
+        padding: 0 10px !important;
+    }
+
+    .submissionstatussubmitted,
+    .submissiongraded,
+    .earlysubmission {
+        background: $rd-success-c !important;
+        color: $rd-success !important;
+    }
+
+    .overdue,
+    .latesubmission {
+        background: $rd-error-c !important;
+        color: $rd-error !important;
+    }
+
+    .submissionstatusdraft,
+    .submissionnoteditable {
+        background: $rd-tertiary-c !important;
+        color: $rd-on-tertiary-c !important;
+    }
+
+    // The editing form: submission area with a dashed drop zone, the editor as a tonal field.
+    .filemanager,
+    .fp-content,
+    .filepicker-filelist,
+    .dndupload-target,
+    .fp-navbar {
+        border-radius: 28px;
+    }
+
+    .filemanager.fm-noitems .fp-content,
+    .dndupload-message,
+    .fp-content.fp-dndupload,
+    .dndupload-arrow {
+        border: 2px dashed $rd-outline-v;
+        border-radius: 28px;
+        background: transparent;
+        color: $rd-on-v;
+        text-align: center;
+    }
+
+    .editor_atto,
+    .editor_tiny,
+    .tox-tinymce {
+        border: 0 !important;
+        border-radius: 16px 16px 0 0 !important;
+        background: $rd-highest;
+        overflow: hidden;
+    }
+
+    .editor_atto_toolbar,
+    .tox .tox-toolbar,
+    .tox .tox-toolbar__primary {
+        background: $rd-high !important;
+        border-bottom: 1px solid $rd-outline-v;
+    }
+
+    // Save and cancel row.
+    .mform .form-buttons,
+    .submissionlinks,
+    .singlebutton {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Calendar: headline, round navigation, full-round view selector, 16px day cells.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-calendar-view {
+    @include rd-plain-header;
+    @include rd-buttons;
+
+    .calendarwrapper {
+        .controls {
+            margin-bottom: 16px;
+        }
+
+        // One row: previous month, the month name centred, next month.
+        .calendar-controls {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .calendar-controls .arrow_link.previous { order: 0; }
+        .calendar-controls .arrow_link.next { order: 2; }
+
+        .calendar-controls h2.current,
+        .calendar-controls .current {
+            @include rd-headline;
+            margin: 0;
+            order: 1;
+            flex: 1 1 auto;
+            min-width: 0;
+            text-align: center;
+        }
+
+        .arrow_link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            min-height: 48px;
+            padding: 0 16px;
+            border-radius: 999px;
+            background: $rd-high;
+            color: $rd-on;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .arrow_link:hover {
+            background: $rd-highest;
+        }
+
+        .hide,
+        .calendar-controls > span.hide {
+            display: none;
+        }
+    }
+
+    // View selector, "New event" and the filter key.
+    #calendarviewdropdown {
+        min-height: 48px;
+        border-radius: 999px;
+    }
+
+    .maincalendar .header,
+    .header.d-flex {
+        gap: 12px;
+        padding: 0 0 16px !important;
+        align-items: center;
+    }
+
+    .calendar-event-filter,
+    .calendar_filters,
+    .eventlist .event {
+        font-size: .875rem;
+    }
+
+    // The month grid: 16px cells separated by tone, overline weekday headings.
+    table.calendarmonth {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 6px;
+        border: 0;
+        background: transparent;
+
+        thead th.header {
+            @include rd-overline;
+            color: $rd-on-v;
+            padding: 6px 8px;
+            border: 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        td {
+            height: 112px;
+            padding: 6px;
+            vertical-align: top;
+            border: 0;
+            border-radius: 16px;
+            background: $rd-low;
+            overflow: hidden;
+        }
+
+        td.dayblank {
+            background: transparent;
+        }
+
+        td.weekend {
+            background: $rd-container;
+        }
+
+        td.hasevent {
+            background: $rd-low;
+        }
+
+        td.clickable:hover {
+            background: $rd-high;
+        }
+
+        td.today {
+            background: $rd-primary-c;
+            color: $rd-on-primary-c;
+        }
+
+        .day-number-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        td.today .day-number-circle {
+            background: $rd-primary;
+            color: $rd-on-primary;
+        }
+
+        ul {
+            list-style: none;
+            margin: 4px 0 0;
+            padding: 0;
+        }
+
+        li[data-region="event-item"] a {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            padding: 2px 0;
+            font-size: .75rem;
+            line-height: 1.2;
+            font-weight: 600;
+            color: $rd-on;
+            text-decoration: none;
+        }
+
+        .calendar-circle {
+            flex: none;
+            width: 8px;
+            height: 8px;
+            margin-top: 3px;
+            border-radius: 4px;
+            background: $rd-primary;
+            overflow: hidden;
+        }
+
+        .calendar_event_course .calendar-circle,
+        .calendar_event_group .calendar-circle { background: $rd-success; }
+        .calendar_event_user .calendar-circle { background: $rd-primary; }
+        .calendar_event_site .calendar-circle { background: var(--md-sys-color-tertiary); }
+        .calendar_event_due .calendar-circle,
+        .calendar_event_expectcompletionon .calendar-circle { background: $rd-error; }
+
+        .eventname {
+            min-width: 0;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+
+    // Day and upcoming views: events are 28px cards.
+    .eventlist .event.card,
+    .calendar_event .card,
+    .event.card {
+        @include rd-card(0);
+        overflow: hidden;
+        margin-bottom: 16px;
+
+        .card-header {
+            border: 0;
+            padding: 16px 24px;
+            background: $rd-container;
+        }
+
+        .card-body {
+            padding: 16px 24px;
+        }
+
+        .card-footer {
+            border: 0;
+            background: transparent;
+            padding: 8px 24px 16px;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Grades overview: the course list as 68px rows with a mono grade pill.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-grade-report-overview-index {
+    @include rd-plain-header;
+    @include rd-buttons;
+
+    #region-main {
+        > .card,
+        > .box,
+        #overview-grade {
+            animation: rd-in 420ms $rd-ease both;
+        }
+    }
+
+    // The table sits in a 28px tonal panel; its columns line up like the board's graded items.
+    table#overview-grade {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 28px;
+        background: $rd-low;
+        overflow: hidden;
+
+        thead th,
+        th.header {
+            @include rd-overline;
+            padding: 16px 16px 12px;
+            border: 0;
+            border-bottom: 1px solid $rd-outline-v;
+            background: transparent !important;
+            color: $rd-on-v;
+        }
+
+        tbody td,
+        tbody th {
+            min-height: 68px;
+            height: 68px;
+            padding: 0 16px;
+            border: 0;
+            border-bottom: 1px solid $rd-outline-v;
+            background: transparent;
+            vertical-align: middle;
+            font-size: .9375rem;
+        }
+
+        tbody tr:last-child td,
+        tbody tr:last-child th {
+            border-bottom: 0;
+        }
+
+        tbody tr:hover td {
+            background: $rd-container;
+        }
+
+        td a {
+            font-weight: 600;
+            color: $rd-on;
+            text-decoration: none;
+        }
+
+        // Grade columns: monospaced, tonal pill at least 72px wide.
+        td.cell.c1,
+        td.c1,
+        td.cell.c2,
+        td.c2 {
+            font-family: 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace;
+            font-size: .875rem;
+            color: $rd-on-v;
+            white-space: nowrap;
+        }
+    }
+
+    // Pager and filters under the table.
+    .paging,
+    .pagination {
+        margin-top: 16px;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Messages (full-page messaging): conversation list, thread, composer.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-message-index {
+    @include rd-plain-header;
+    @include rd-buttons;
+
+    .message-app {
+        border: 0;
+        border-radius: 28px;
+        background: $rd-low;
+        overflow: hidden;
+        animation: rd-in 420ms $rd-ease both;
+
+        .header-container,
+        .footer-container {
+            background: $rd-low !important;
+            border: 0;
+            padding: 12px 16px;
+        }
+
+        .body-container {
+            background: transparent;
+        }
+
+        // Search field: 56px, 16px corners, tonal fill.
+        [data-region="view-overview-header"] .form-control,
+        input[type="text"].form-control,
+        input[type="search"] {
+            min-height: 56px;
+            border: 0;
+            border-radius: 16px;
+            background: $rd-highest;
+            box-shadow: none;
+        }
+
+        // Sections: 72px conversation rows with a 48px round avatar.
+        .section.card,
+        .section {
+            border: 0 !important;
+            background: transparent;
+        }
+
+        .card-header {
+            border: 0;
+            background: transparent;
+            padding: 0;
+        }
+
+        .overview-section-toggle {
+            min-height: 48px;
+            border-radius: 16px;
+            color: $rd-on;
+            font-weight: 650;
+        }
+
+        [data-region="view-overview-messages"] a.list-group-item,
+        a.list-group-item-action,
+        .list-group-item {
+            min-height: 72px;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 0 !important;
+            border-radius: 20px !important;
+            background: transparent;
+            color: $rd-on;
+            margin: 2px 6px;
+        }
+
+        a.list-group-item-action:hover,
+        a.list-group-item.active,
+        .list-group-item.active {
+            background: $rd-secondary-c !important;
+            color: $rd-on-secondary-c !important;
+        }
+
+        img.rounded-circle {
+            width: 48px;
+            height: 48px;
+            flex: none;
+        }
+
+        .badge.bg-primary,
+        .badge.rounded-pill {
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: 10px;
+            background: $rd-primary !important;
+            color: $rd-on-primary !important;
+            font-size: .75rem;
+            font-weight: 700;
+            line-height: 20px;
+        }
+
+        // Thread bubbles: 20px corners with one tight corner on the speaker's side.
+        .message {
+            max-width: 78%;
+            padding: 10px 16px !important;
+            font-size: .9375rem;
+            line-height: 1.45;
+            border-radius: 20px 20px 20px 6px !important;
+        }
+
+        .message.send,
+        [data-region="message"].send {
+            border-radius: 20px 20px 6px 20px !important;
+        }
+
+        .message .tail {
+            display: none;
+        }
+
+        // Day separators: a 10px chip.
+        [data-region="day-container"] > .day,
+        [data-region="day-container"] > div:first-child,
+        .day-container .day {
+            display: inline-flex;
+            align-items: center;
+            height: 28px;
+            padding: 0 12px;
+            border-radius: 10px;
+            background: $rd-highest;
+            color: $rd-on-v;
+            @include rd-overline;
+            line-height: 28px;
+        }
+
+        // Composer: a 56px full-round field and 48px icon buttons.
+        [data-region="send-message-txt"],
+        textarea {
+            min-height: 56px;
+            padding: 16px 24px;
+            border-radius: 28px !important;
+            background: $rd-high !important;
+            border: 0 !important;
+            box-shadow: none;
+        }
+
+        [data-action="send-message"],
+        .btn-icon {
+            width: 48px;
+            height: 48px;
+            min-height: 48px;
+            padding: 0;
+            border-radius: 24px;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Profile: a tonal hero with large shapes, then tonal info cards.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-user-profile {
+    @include rd-buttons;
+
+    #page-header {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        min-height: 200px;
+        padding: 0 40px !important;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        border-radius: 36px;
+        background: $rd-low;
+        color: $rd-on;
+        animation: rd-in 420ms $rd-ease both;
+
+        // Two big geometric shapes, as on the board.
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+            animation: none;
+        }
+
+        &::before {
+            right: -60px;
+            top: -80px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: $rd-primary-c;
+        }
+
+        &::after {
+            right: 150px;
+            bottom: -70px;
+            width: 150px;
+            height: 150px;
+            border-radius: 44px;
+            transform: rotate(14deg);
+            background: $rd-tertiary-c;
+        }
+
+        h1,
+        .h2 {
+            @include rd-display;
+            margin: 0;
+            color: $rd-on;
+        }
+
+        .userpicture,
+        img.userpicture,
+        .page-header-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            object-fit: cover;
+            background: $rd-tertiary-c;
+        }
+    }
+
+    // Profile categories are 28px cards; their headings are titles.
+    .profile_tree {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+        align-items: start;
+    }
+
+    .node_category.card {
+        @include rd-card;
+        display: block;
+        margin: 0 !important;
+        width: auto;
+        animation: rd-in 420ms $rd-ease both;
+
+        .card-body {
+            padding: 0;
+        }
+
+        h3,
+        h3.lead {
+            @include rd-title;
+            margin: 0 0 8px;
+            color: $rd-on;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        li {
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            font-size: .9375rem;
+        }
+
+        dl {
+            margin: 0;
+            display: grid;
+            grid-template-columns: minmax(96px, 140px) 1fr;
+            gap: 4px 12px;
+        }
+
+        dt {
+            color: $rd-on-v;
+            font-weight: 400;
+            font-size: .8125rem;
+        }
+
+        dd {
+            margin: 0;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        a {
+            color: $rd-primary;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    }
+
+    // Tabs under the hero keep a 3px indicator.
+    .secondary-navigation .nav-link {
+        min-height: 48px;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Preferences: groups of links as 28px cards in a grid.
+// ---------------------------------------------------------------------------------------------------------------
+
+#page-user-preferences {
+    @include rd-plain-header;
+    @include rd-buttons;
+    @include rd-fields;
+
+    #region-main .container-fluid > .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin: 0;
+
+        > [class*="col-"] {
+            width: auto;
+            max-width: none;
+            padding: 0;
+        }
+    }
+
+    #region-main .card.mb-3,
+    #region-main .card {
+        @include rd-card;
+        margin: 0 !important;
+        height: 100%;
+        animation: rd-in 420ms $rd-ease both;
+
+        .card-body {
+            padding: 0;
+        }
+
+        .card-title {
+            @include rd-title;
+            margin: 0 0 8px;
+        }
+
+        ul.card-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            margin: 0 !important;
+        }
+
+        li a {
+            display: flex;
+            align-items: center;
+            min-height: 48px;
+            padding: 0 12px;
+            margin: 0 -12px;
+            border-radius: 16px;
+            color: $rd-primary;
+            font-size: .9375rem;
+            font-weight: 600;
+            text-decoration: none;
+
+            &:hover {
+                background: $rd-container;
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Administration: a headline, a pill search, category cards, and tonal settings forms.
+// ---------------------------------------------------------------------------------------------------------------
+
+body.path-admin {
+    @include rd-plain-header;
+    @include rd-buttons;
+    @include rd-fields;
+
+    // The admin search: a 56px full-round field.
+    .simplesearchform .input-group,
+    #adminsearchform .input-group {
+        min-height: 56px;
+        border-radius: 999px;
+        background: $rd-highest;
+        overflow: hidden;
+    }
+
+    .simplesearchform .form-control,
+    .simplesearchform .btn,
+    #adminsearchform .form-control,
+    #adminsearchform .btn {
+        min-height: 56px;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    // Category link pages: each group of links is a card.
+    #region-main .tab-content .container-fluid > .row {
+        row-gap: 16px;
+    }
+
+    .tab-content ul.list-unstyled {
+        margin: 0 0 16px;
+        padding: 16px 20px;
+        border-radius: 28px;
+        background: $rd-low;
+
+        li a {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+            color: $rd-primary;
+            font-size: .875rem;
+            text-decoration: none;
+        }
+    }
+
+    .tab-content h3,
+    .tab-content h4,
+    .tab-content h5 {
+        @include rd-title;
+        margin: 16px 0 8px;
+    }
+
+    // Admin tabs: 48px pills.
+    .nav-tabs {
+        border: 0;
+        gap: 8px;
+
+        .nav-link {
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            border: 0;
+            border-radius: 999px;
+            font-weight: 600;
+            color: $rd-on-v;
+
+            &.active {
+                background: $rd-secondary-c;
+                color: $rd-on-secondary-c;
+            }
+        }
+    }
+
+    // Settings forms: one row per setting on a tonal surface.
+    .settingsform .form-item,
+    .admin_settingspage .form-item,
+    #adminsettings .form-item {
+        padding: 16px 24px;
+        margin: 0 0 8px;
+        border: 0;
+        border-radius: 20px;
+        background: $rd-low;
+        row-gap: 4px;
+    }
+
+    .form-label,
+    .form-item .form-label,
+    .form-item .form-shortname {
+        font-weight: 600;
+        font-size: .875rem;
+        letter-spacing: .01em;
+    }
+
+    .form-description,
+    .form-defaultinfo,
+    .form-setting .form-text {
+        color: $rd-on-v;
+        font-size: .875rem;
+    }
+
+    .settingsform h3,
+    .admintable h3 {
+        @include rd-title;
+    }
+
+    // Admin tables (plugins, users, environment): tonal header, no cell borders, 48px rows.
+    .admintable,
+    .generaltable,
+    table.table {
+        border: 0;
+        border-radius: 20px;
+        overflow: hidden;
+
+        th {
+            @include rd-overline;
+            background: $rd-container !important;
+            color: $rd-on-v;
+            border: 0;
+        }
+
+        td {
+            min-height: 48px;
+            border-color: $rd-outline-v;
+        }
+    }
+
+    // Notices and alerts keep their meaning colours as container fills.
+    .alert,
+    .notifysuccess,
+    .alert-success {
+        border: 0;
+        border-radius: 20px;
+    }
+
+    .alert-success,
+    .notifysuccess {
+        background: $rd-success-c;
+        color: $rd-success;
+    }
+
+    .alert-danger,
+    .alert-error,
+    .alert-warning {
+        background: $rd-error-c;
+        color: $rd-error;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Phones (360 to 390px): everything stacks, nothing scrolls sideways, targets are at least 48px.
+// ---------------------------------------------------------------------------------------------------------------
+
+@media (max-width: 767.98px) {
+    #page-my-index,
+    #page-my-courses,
+    body.path-course-view,
+    #page-mod-assign-view,
+    #page-calendar-view,
+    #page-grade-report-overview-index,
+    #page-message-index,
+    #page-user-profile,
+    #page-user-preferences,
+    body.path-admin {
+        #page,
+        #region-main,
+        #region-main-box,
+        #page-content {
+            max-width: 100%;
+            overflow-x: clip;
+        }
+
+        #page-header {
+            border-radius: 28px;
+            padding: 20px 20px !important;
+            min-height: 0;
+
+            h1,
+            .h2 {
+                font-size: clamp(1.75rem, 9vw, 2.5rem);
+                line-height: 1.05;
+            }
+        }
+
+        .btn,
+        .form-control,
+        .form-select,
+        .custom-select,
+        .nav-link,
+        .dropdown-item {
+            min-height: 48px;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-outline-primary,
+        .btn-outline-secondary {
+            padding: 0 20px;
+        }
+
+        .block.card,
+        .node_category.card,
+        .course-section,
+        li.section.main {
+            border-radius: 24px;
+        }
+
+        .block.card,
+        .node_category.card {
+            padding: 20px;
+        }
+
+        img,
+        video,
+        iframe,
+        .no-overflow {
+            max-width: 100%;
+        }
+
+        pre,
+        .table-responsive,
+        .no-overflow {
+            overflow-x: auto;
+        }
+    }
+
+    // Dashboard: one column.
+    #page-my-index [data-region="blocks-column"] {
+        grid-template-columns: minmax(0, 1fr);
+
+        > * ,
+        > [data-block] {
+            grid-column: 1 / -1 !important;
+        }
+    }
+
+    // Course cards and list rows: one column.
+    #page-my-index .card-grid,
+    #page-my-courses .card-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    #page-my-courses .course-listitem .row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    // Course: sections go edge to edge in the gutter, activity rows wrap their meta below the name.
+    body.path-course-view {
+        .course-section .content,
+        .course-section [data-for="sectioninfo"] {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .activity-item {
+            padding: 12px;
+            align-items: flex-start;
+        }
+
+        .activity-item .activity-grid {
+            row-gap: 8px;
+        }
+
+        .drawer.drawer-left {
+            border-radius: 0 24px 24px 0;
+        }
+    }
+
+    // Assignment: the status tables stack their label above the value.
+    #page-mod-assign-view {
+        .generaltable th.cell.c0,
+        .generaltable td.cell.c0,
+        .generaltable th.c0 {
+            width: auto;
+        }
+
+        .submissionstatustable table,
+        .submissionsummarytable table,
+        .gradingsummarytable table,
+        .feedbacktable table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        .breadcrumb {
+            flex-wrap: wrap;
+        }
+    }
+
+    // Calendar: the title wraps above the controls and day cells shrink to a number plus dots.
+    #page-calendar-view {
+        .calendarwrapper .calendar-controls h2.current,
+        .calendarwrapper .calendar-controls .current {
+            flex-basis: 100%;
+        }
+
+        table.calendarmonth {
+            border-spacing: 3px;
+
+            td {
+                height: 64px;
+                padding: 4px;
+                border-radius: 12px;
+            }
+
+            thead th.header {
+                padding: 4px 2px;
+                text-align: center;
+            }
+
+            .eventname {
+                display: none;
+            }
+
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+        }
+    }
+
+    // Grades overview: the table scrolls inside its own panel, never the page.
+    #page-grade-report-overview-index table#overview-grade {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        border-radius: 24px;
+    }
+
+    // Messages: the thread uses the full width.
+    #page-message-index .message-app .message {
+        max-width: 88%;
+    }
+
+    // Profile: the hero stacks, the shapes shrink.
+    #page-user-profile #page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 24px 20px !important;
+
+        &::before {
+            width: 200px;
+            height: 200px;
+            right: -70px;
+            top: -90px;
+        }
+
+        &::after {
+            width: 100px;
+            height: 100px;
+            right: 60px;
+            bottom: -50px;
+        }
+    }
+
+    #page-user-profile .profile_tree,
+    #page-user-preferences #region-main .container-fluid > .row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    // Admin: settings rows breathe less, tabs scroll inside their own row.
+    body.path-admin {
+        .settingsform .form-item,
+        .admin_settingspage .form-item,
+        #adminsettings .form-item {
+            padding: 12px 16px;
+        }
+
+        .nav-tabs {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .nav-tabs .nav-link {
+            white-space: nowrap;
+        }
+
+        .admintable,
+        table.generaltable {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Motion: the theme's motion switch and the system preference both stop every redesign animation.
+// ---------------------------------------------------------------------------------------------------------------
+
+html[data-md-motion="off"] #page,
+html[data-md-motion="off"] #page * {
+    animation: none !important;
+    transition: none !important;
+}
+
+html[data-md-motion="off"] #page .course-card:hover,
+html[data-md-motion="off"] #page .activity-item:hover,
+html[data-md-motion="off"] #page .btn-primary:hover,
+html[data-md-motion="off"] #page .btn-secondary:hover {
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #page,
+    #page * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    #page .course-card:hover,
+    #page .activity-item:hover,
+    #page .btn-primary:hover,
+    #page .btn-secondary:hover {
+        transform: none;
+    }
+}
+
+// Focus stays visible on every redesigned control.
+#page-my-index,
+#page-my-courses,
+body.path-course-view,
+#page-mod-assign-view,
+#page-calendar-view,
+#page-grade-report-overview-index,
+#page-message-index,
+#page-user-profile,
+#page-user-preferences,
+body.path-admin {
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    .btn:focus-visible {
+        outline: 3px solid $rd-primary;
+        outline-offset: 2px;
+    }
+}

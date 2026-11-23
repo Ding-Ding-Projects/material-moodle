@@ -38,4 +38,8 @@ $callbacks = [
         'hook' => \core\hook\output\before_standard_top_of_body_html_generation::class,
         'callback' => [\theme_material\hook_listener::class, 'before_top_of_body'],
     ],
+    [
+        'hook' => \core\hook\output\before_footer_html_generation::class,
+        'callback' => [\theme_material\hook_workspace::class, 'before_footer'],
+    ],
 ];

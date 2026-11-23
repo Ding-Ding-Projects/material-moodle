@@ -75,6 +75,8 @@ function theme_material_get_pre_scss($theme): string {
     $scss .= '$border-radius-lg: ' . (int) $settings->radius . "px;\n";
     $scss .= '$border-radius-sm: ' . max(4, (int) round($settings->radius / 3)) . "px;\n";
     $scss .= '$md-radius: ' . (int) $settings->radius . "px;\n";
+    // The redesigned top bar is 72px tall; Boost positions its drawers from this.
+    $scss .= "\$navbar-height: 72px;\n";
     if (!empty($theme->settings->scsspre)) {
         $scss .= $theme->settings->scsspre . "\n";
     }
@@ -133,4 +135,30 @@ function theme_material_pluginfile($course, $cm, $context, $filearea, $args, $fo
         return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     }
     send_file_not_found();
+}
+
+/**
+ * Declare the user preferences the course workspace saves through core_user_set_user_preferences.
+ *
+ * @return array
+ */
+function theme_material_user_preferences(): array {
+    $permission = function (stdClass $user, stdClass $preferenceuser): bool {
+        global $USER;
+        return !empty($USER->id) && (int) $USER->id === (int) $preferenceuser->id;
+    };
+    return [
+        'theme_material_workspace' => [
+            'type' => PARAM_ALPHA,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => 'workspace',
+            'permissioncallback' => $permission,
+        ],
+        'theme_material_workspace_layout' => [
+            'type' => PARAM_RAW,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => '',
+            'permissioncallback' => $permission,
+        ],
+    ];
 }

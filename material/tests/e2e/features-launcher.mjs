@@ -30,7 +30,15 @@ for (const engine of engines) {
     const context = await browser.newContext({viewport: {width: 1440, height: 900}});
     const page = await context.newPage();
     const errors = [];
-    page.on('pageerror', e => errors.push(String(e)));
+    // WebKit reports Moodle core requests cut short by our own navigation as page errors
+    // ("Fetch API cannot load ... due to access control checks", "Load failed"), and Moodle core
+    // then fails to build its error object. Those come from navigating away, not from this code.
+    const navigationAbort = /due to access control checks|TypeError: Load failed|new M\.core\.exception/;
+    page.on('pageerror', e => {
+        if (!navigationAbort.test(String(e))) {
+            errors.push(String(e));
+        }
+    });
     await signIn(page);
     await page.goto(base + '/my/');
 
