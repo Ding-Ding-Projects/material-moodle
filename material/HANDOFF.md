@@ -1,5 +1,21 @@
 # Material Moodle handoff
 
+## Finishing pass, 2026-11-23
+
+- Built: the slim top bar (`scss/topbar.scss`), the bento launcher, the sign-in fix (`scss/signin.scss`,
+  `templates/core/login_panel.mustache`), the page restyle (`scss/redesign.scss`), the dockview course workspace
+  (`amd/src/workspace.js`, `classes/hook_workspace.php`, `scss/dockview.scss`) and the deployer workspace
+  (`material/deployer`). Boost's `$navbar-height` is 72px. See `docs/course-workspace.md`.
+- Verified on a Docker test site: sign-in and ten pages without page errors or sideways scrolling at 1440 and 390
+  pixels; launcher and course workspace tests in Chromium and WebKit; the TinyMCE 8.10.2 editor saving bold text;
+  the golden coin dialog with a dim sum photo.
+- Not verified: the deployer in its packaged Electron window (its renderer was exercised in a browser with a stub),
+  dark mode across the restyled pages, and some page selectors the restyle could not confirm from templates
+  (timeline items, dashboard block columns, admin category tiles).
+- The private dockview fork `Ding-Ding-Projects/dockview` exists; the tab features are planned inside it.
+- Test sites on plain `http://localhost` need `cookiesecure` off. WebKit reports Moodle core requests cut short by
+  navigation as page errors; the tests ignore exactly that pattern.
+
 ## Redesign and launcher, 2026-11-23
 
 - The design lives in `design/canvas` at the repository root: `DESIGN-SPEC.md` (colours, type, shapes, shell),

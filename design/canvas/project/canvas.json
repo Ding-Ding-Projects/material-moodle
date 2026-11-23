@@ -506,7 +506,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "Dashboard for a learner. Greeting, what is due this week, courses to continue, progress and the week ahead. Try the This week / This month switch and the accent, dark and motion Tweaks. Not built yet in the theme.",
+      "text": "Dashboard for a learner. Greeting, what is due this week, courses to continue, progress and the week ahead. Try the This week / This month switch and the accent, dark and motion Tweaks. Built in the theme as a restyle of the real page (checked at 1440 pixels).",
       "page": "learning"
     },
     "n-DashboardPhonedchtml": {
@@ -514,7 +514,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "Dashboard on a phone with bottom navigation. Tap a course card to see its next activity. Not built yet in the theme.",
+      "text": "Dashboard on a phone with bottom navigation. Tap a course card to see its next activity. Built in the theme (checked at 390 pixels).",
       "page": "learning"
     },
     "n-MyCoursesdchtml": {
@@ -522,7 +522,7 @@
       "y": 1020,
       "w": 340,
       "fill": "blue",
-      "text": "My courses with filter chips and a grid or list view. Try the chips and the view switch. Not built yet.",
+      "text": "My courses with filter chips and a grid or list view. Try the chips and the view switch. Built in the theme.",
       "page": "learning"
     },
     "n-MyCoursesPhonedchtml": {
@@ -530,7 +530,7 @@
       "y": 1020,
       "w": 300,
       "fill": "teal",
-      "text": "My courses on a phone. Every desktop action stays reachable. Not built yet.",
+      "text": "My courses on a phone. Every desktop action stays reachable. Built in the theme.",
       "page": "learning"
     },
     "n-Coursedchtml": {
@@ -538,7 +538,7 @@
       "y": 2040,
       "w": 340,
       "fill": "blue",
-      "text": "A course page: index, hero with progress, tabs and sections of activities. Click a section in the index to fold it. Not built yet.",
+      "text": "A course page: index, hero with progress, tabs and sections of activities. Click a section in the index to fold it. Built in the theme.",
       "page": "learning"
     },
     "n-CoursePhonedchtml": {
@@ -546,7 +546,7 @@
       "y": 2040,
       "w": 300,
       "fill": "teal",
-      "text": "Course page on a phone with foldable sections. Not built yet.",
+      "text": "Course page on a phone with foldable sections. Built in the theme.",
       "page": "learning"
     },
     "n-Activitydchtml": {
@@ -554,7 +554,7 @@
       "y": 3060,
       "w": 340,
       "fill": "blue",
-      "text": "An assignment with instructions, upload area and the rich text editor (TinyMCE). Press Submit to see the submitted state. Not built yet.",
+      "text": "An assignment with instructions, upload area and the rich text editor (TinyMCE). Press Submit to see the submitted state. Built in the theme.",
       "page": "learning"
     },
     "n-ActivityPhonedchtml": {
@@ -562,7 +562,7 @@
       "y": 3060,
       "w": 300,
       "fill": "teal",
-      "text": "Assignment on a phone. Not built yet.",
+      "text": "Assignment on a phone. Built in the theme.",
       "page": "learning"
     },
     "title-plan": {
@@ -578,7 +578,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "Calendar with month, week and day views and an upcoming list. Switch views and pick a day. Not built yet.",
+      "text": "Calendar with month, week and day views and an upcoming list. Switch views and pick a day. Built in the theme.",
       "page": "plan"
     },
     "n-CalendarPhonedchtml": {
@@ -586,7 +586,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "Calendar on a phone: agenda list with a compact month strip. Not built yet.",
+      "text": "Calendar on a phone: agenda list with a compact month strip. Built in the theme.",
       "page": "plan"
     },
     "n-Gradesdchtml": {
@@ -594,7 +594,7 @@
       "y": 1020,
       "w": 340,
       "fill": "blue",
-      "text": "Grades overview with a ring per course. Pick a course to see its items. Not built yet.",
+      "text": "Grades overview with a ring per course. Pick a course to see its items. Built in the theme.",
       "page": "plan"
     },
     "n-GradesPhonedchtml": {
@@ -602,7 +602,7 @@
       "y": 1020,
       "w": 300,
       "fill": "teal",
-      "text": "Grades on a phone. Not built yet.",
+      "text": "Grades on a phone. Built in the theme.",
       "page": "plan"
     },
     "title-people": {
@@ -618,7 +618,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "Messages with conversation list, thread and details. Pick a conversation and send a message. Not built yet.",
+      "text": "Messages with conversation list, thread and details. Pick a conversation and send a message. Built in the theme.",
       "page": "people"
     },
     "n-MessagesPhonedchtml": {
@@ -626,7 +626,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "Messages on a phone: the list opens the thread. Not built yet.",
+      "text": "Messages on a phone: the list opens the thread. Built in the theme.",
       "page": "people"
     },
     "n-Profiledchtml": {
@@ -634,7 +634,7 @@
       "y": 1020,
       "w": 340,
       "fill": "blue",
-      "text": "Profile with tabs for about, courses, badges and blog. Switch tabs. Not built yet.",
+      "text": "Profile with tabs for about, courses, badges and blog. Switch tabs. Built in the theme.",
       "page": "people"
     },
     "n-ProfilePhonedchtml": {
@@ -642,7 +642,7 @@
       "y": 1020,
       "w": 300,
       "fill": "teal",
-      "text": "Profile on a phone. Not built yet.",
+      "text": "Profile on a phone. Built in the theme.",
       "page": "people"
     },
     "title-everything": {
@@ -658,7 +658,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "The features launcher open from the rail, with search, one regex switch and group chips. Fixes the doubled regex button found on the running site. The older launcher is in the theme today; this redesign is not built yet.",
+      "text": "The features launcher open from the rail, with search, one regex switch and group chips. Fixes the doubled regex button found on the running site. Built in the theme; the launcher test passes in Chromium and WebKit.",
       "page": "everything"
     },
     "n-LauncherPhonedchtml": {
@@ -666,7 +666,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "The launcher as a full-height sheet on a phone. Not built yet.",
+      "text": "The launcher as a full-height sheet on a phone. Built in the theme.",
       "page": "everything"
     },
     "n-AllFeaturesdchtml": {
@@ -674,7 +674,7 @@
       "y": 1020,
       "w": 340,
       "fill": "blue",
-      "text": "Every feature on one page with search, group list and the turned-off switch. Not built yet in this look.",
+      "text": "Every feature on one page with search, group list and the turned-off switch. Built in the theme.",
       "page": "everything"
     },
     "n-AllFeaturesPhonedchtml": {
@@ -682,7 +682,7 @@
       "y": 1020,
       "w": 300,
       "fill": "teal",
-      "text": "All features on a phone. Not built yet.",
+      "text": "All features on a phone. Built in the theme.",
       "page": "everything"
     },
     "title-settings": {
@@ -698,7 +698,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "Display preferences: theme, motion, text size and switches. The theme segment switches this board. Not built yet.",
+      "text": "Display preferences: theme, motion, text size and switches. The theme segment switches this board. Built in the theme.",
       "page": "settings"
     },
     "n-PreferencesPhonedchtml": {
@@ -706,7 +706,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "Preferences on a phone: a list that opens each section. Not built yet.",
+      "text": "Preferences on a phone: a list that opens each section. Built in the theme.",
       "page": "settings"
     },
     "n-Admindchtml": {
@@ -714,7 +714,7 @@
       "y": 1020,
       "w": 340,
       "fill": "blue",
-      "text": "Site administration with status cards and category tiles. Type in the search to filter. Not built yet.",
+      "text": "Site administration with status cards and category tiles. Type in the search to filter. Built in the theme.",
       "page": "settings"
     },
     "n-AdminPhonedchtml": {
@@ -722,7 +722,7 @@
       "y": 1020,
       "w": 300,
       "fill": "teal",
-      "text": "Site administration on a phone. Not built yet.",
+      "text": "Site administration on a phone. Built in the theme.",
       "page": "settings"
     },
     "title-extensions": {
@@ -778,7 +778,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "The student pass: passes left this quarter, leave and come back with a live timer. Out of passes never blocks a break: a bathroom break is a human right, with no grade penalty, ever. Try the passes Tweak at 0 to see the golden chance split. Not built yet.",
+      "text": "The student pass: passes left this quarter, leave and come back with a live timer. Out of passes never blocks a break: a bathroom break is a human right, with no grade penalty, ever. Try the passes Tweak at 0 to see the golden chance split. Built: two breaks and four webhooks checked on a test site.",
       "page": "bathroom"
     },
     "n-BathroomPassPhonedchtml": {
@@ -786,7 +786,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "The pass on a phone, with a calm full-screen panel while out of the room. Not built yet.",
+      "text": "The pass on a phone, with a calm full-screen panel while out of the room. Built in the bathroom pass plugin.",
       "page": "bathroom"
     },
     "n-BathroomPassSettingsdchtml": {
@@ -794,7 +794,7 @@
       "y": 1020,
       "w": 340,
       "fill": "blue",
-      "text": "Passes per period, the golden chance per extra break, the two Home Assistant webhooks with test buttons, who is out now and the history. Not built yet.",
+      "text": "Passes per period, the golden chance per extra break, the two Home Assistant webhooks with test buttons, who is out now and the history. Built in the bathroom pass plugin.",
       "page": "bathroom"
     },
     "n-BathroomPassSettingsPhonedchtml": {
@@ -802,7 +802,7 @@
       "y": 1020,
       "w": 300,
       "fill": "teal",
-      "text": "The settings stacked for a phone. Not built yet.",
+      "text": "The settings stacked for a phone. Built in the bathroom pass plugin.",
       "page": "bathroom"
     },
     "title-front": {
@@ -818,7 +818,7 @@
       "y": 0,
       "w": 340,
       "fill": "blue",
-      "text": "Sign in with passkey first, then username and password. Icons sit in their own slot, fixing the clipped placeholder seen on the running site. Try show password and an empty submit. Not built yet.",
+      "text": "Sign in with passkey first, then username and password. Icons sit in their own slot, fixing the clipped placeholder seen on the running site. Try show password and an empty submit. Built in the theme.",
       "page": "front"
     },
     "n-SignInPhonedchtml": {
@@ -826,7 +826,7 @@
       "y": 0,
       "w": 300,
       "fill": "teal",
-      "text": "Sign in on a phone. Not built yet.",
+      "text": "Sign in on a phone. Built in the theme.",
       "page": "front"
     },
     "title-states": {

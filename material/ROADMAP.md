@@ -10,15 +10,15 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [x] Redesign every page on the design canvas: 32 boards in `design/canvas` (desktop and phone for sign-in, dashboard, my courses, course, assignment, calendar, grades, messages, profile, preferences, site administration, the features launcher, all features, page states, foundations and the shared shell), two rounds of rendered review fixes
 - [x] New default blue palette, with an upgrade step for sites still on the old default seed
 - [x] Navigation rail on wide screens and bottom navigation on phones (checked at 1440 and 390 pixels on a test site)
-- [x] Features launcher and All features page (Chromium browser test passes for the launcher at 320, 390 and 1440 pixels; WebKit not yet run)
-- [ ] Slim the top bar to the design's title, floating search and three icon buttons, and move the remaining primary navigation into the rail
-- [ ] Apply the redesigned dashboard, my courses, course, assignment, calendar, grades, messages, profile, preferences and administration layouts to the real pages
-- [ ] Rebuild the features launcher in the redesigned bento style with one regex button (the current panel shows two regex controls)
-- [ ] Sign-in fields: icons cover the start of the placeholder text; move icons into their own slot
-- [ ] dockview workspaces for course pages and the desktop deployer, with the existing tab features layered on top (`dockview-workspace`)
-- [ ] Exercise the rich-text editor after the TinyMCE 8.10.2 update on a running site
+- [x] Features launcher and All features page (browser test passes in Chromium and WebKit at 320, 390 and 1440 pixels)
+- [x] Slim the top bar to the design's title, floating search pill and icon buttons; primary navigation moves into the rail and extra entries into the launcher's More group (checked at 1440, 1024 and 800 pixels)
+- [x] Apply the redesigned dashboard, my courses, course, assignment, calendar, grades, messages, profile, preferences and administration layouts to the real pages (CSS restyle; no page errors or sideways scrolling at 1440 and 390 pixels)
+- [x] Rebuild the features launcher in the redesigned bento style with one regex button (launcher test passes in Chromium and WebKit)
+- [x] Sign-in fields: icons sit in their own slot, so the placeholder is never covered
+- [x] dockview workspaces for course pages (checked in Chromium and WebKit) and the desktop deployer (11 new tests pass; not yet run in the packaged Electron window), with the tab features layered on top (`dockview-workspace`)
+- [x] Exercise the rich-text editor after the TinyMCE 8.10.2 update on a running site (8.10.2 served; bold text typed, saved and read back)
 - [x] Due date extensions: allowance per period (3 per month by default, up to unlimited), instant, dice, coin and wheel rules decided on the server, kept-denial zero grade with revoke, wheel deductions through a grade penalty plugin, teacher rules and log (checked on a test site)
-- [x] Due date extensions: golden coin chance from extra bathroom breaks and a dim sum from the public catalog (server path checked; the golden dialog not yet run in a browser)
+- [x] Due date extensions: golden coin chance from extra bathroom breaks and a dim sum from the public catalog (server path and golden dialog checked; the dialog fits the window)
 - [x] Bathroom pass: passes per period, leave and back with two Home Assistant webhooks, never refused, golden chance for the coin (checked on a test site with a local webhook receiver)
 
 ## Phase 1: core plugins (web app)
