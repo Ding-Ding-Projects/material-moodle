@@ -42,6 +42,9 @@
   public hostname the dark mode and course workspace tests passed; the states test passed on its second run (the
   first run timed out once at 390 pixels while waiting for a page over the internet). The temporary administrator
   and course were deleted afterwards.
+- The installed deployer (from the built installer) ran its Save and finish later step and then its read-only
+  connection test against the owner's server with an SSH key: it reported the server's Debian 13 and Docker
+  29.6.1, with no page errors.
 - Not verified: some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
