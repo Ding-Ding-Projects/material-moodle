@@ -1,0 +1,20 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-22T12:00:00Z"},
+  "title": "Material Moodle features launcher",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 900, "title": "Desktop: features launcher open", "is_interactive": true, "radius": 16},
+    "Phone.dc.html": {"x": 1520, "y": 0, "w": 390, "h": 844, "title": "Phone: launcher sheet", "is_interactive": true, "radius": 28},
+    "AllFeatures.dc.html": {"x": 0, "y": 1020, "w": 1440, "h": 1640, "title": "All features page", "expand": "fill", "is_interactive": true}
+  },
+  "order": ["Main.dc.html", "Phone.dc.html", "AllFeatures.dc.html"],
+  "notes": {
+    "title": {"x": 0, "y": -300, "text": "Every Moodle feature, one tap away", "kind": "title1", "maxW": 1910},
+    "mainNote": {"x": 1990, "y": 0, "w": 340, "fill": "orange", "text": "Desktop launcher. The grid button in the top bar opens a panel listing every Moodle feature this person may use, grouped, with a search box and the .* regex switch. Try: type 'grade', switch on .* and type '^(c|b)', or pick a group chip. Items the site has turned off stay listed with the reason, and administrators get a 'Turn on' link. Unbuilt: keyboard arrow navigation between tiles is drawn in the theme, not here."},
+    "phoneNote": {"x": 1990, "y": 520, "w": 340, "fill": "teal", "text": "Phone. The same list as a bottom sheet with 48 px rows, so nothing hides at 390 px. Groups fold. Try: tap a group heading to fold it, or search."},
+    "pageNote": {"x": 1520, "y": 1020, "w": 360, "fill": "blue", "text": "All features page (/theme/material/features.php). Every feature as a card with what it does, where it lives and whether it is on. Left rail jumps to a group and wraps above the cards on phones. Try: the 'Show turned-off features' switch and the search. Context groups ('This course') appear only inside a course."}
+  },
+  "designSystems": []
+}
