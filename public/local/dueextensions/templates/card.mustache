@@ -1,0 +1,59 @@
+{{!
+    @template local_dueextensions/card
+
+    The student's due date extension card and its dialog on an assignment page.
+
+    Example context (json):
+    {
+        "cmid": 5, "mode": "dice", "rule": "Roll a 6-sided die", "lefttext": "2 of 3 left this month",
+        "tokens": [{"used": false}, {"used": false}, {"used": true}], "duetext": "Tuesday, 24 November 2026, 14:00",
+        "canuse": true, "blocker": "", "button": "Roll for an extension", "dicesides": 6, "wheel": "[]",
+        "deniedcounts": true, "unlimited": false
+    }
+}}
+<section class="mm-ext" data-region="local-dueextensions" data-cmid="{{cmid}}" data-mode="{{mode}}"
+         data-sides="{{dicesides}}" data-wheel="{{wheel}}" aria-labelledby="mm-ext-title" hidden>
+    <div class="mm-ext-head">
+        <h3 id="mm-ext-title" class="mm-ext-title">{{#str}}cardtitle, local_dueextensions{{/str}}</h3>
+        <p class="mm-ext-left" data-region="left">{{lefttext}}</p>
+        {{^unlimited}}
+        <span class="mm-ext-tokens" aria-hidden="true" data-region="tokens">{{#tokens}}<span class="mm-ext-token{{#used}} is-used{{/used}}"></span>{{/tokens}}</span>
+        {{/unlimited}}
+    </div>
+    <p class="mm-ext-rule">{{rule}}</p>
+    {{#odds}}
+    <div class="mm-ext-odds" role="img" aria-label="{{oddstext}}">
+        <span class="mm-ext-odds-heads" style="flex-grow: {{heads}}"></span>{{#golden}}<span class="mm-ext-odds-golden" style="flex-grow: {{golden}}"></span>{{/golden}}<span class="mm-ext-odds-tails" style="flex-grow: {{tails}}"></span>
+    </div>
+    <p class="mm-ext-odds-text">{{oddstext}}</p>
+    {{/odds}}
+    {{#duetext}}<p class="mm-ext-due">{{#str}}currentdue, local_dueextensions{{/str}} <strong data-region="due">{{duetext}}</strong></p>{{/duetext}}
+    {{#canuse}}
+    <button type="button" class="btn btn-secondary mm-ext-open" data-action="open">{{#str}}useextension, local_dueextensions{{/str}}</button>
+    {{/canuse}}
+    {{^canuse}}
+    <p class="mm-ext-blocked">{{blocker}}</p>
+    {{/canuse}}
+
+    <dialog class="mm-ext-dialog" data-region="dialog" aria-labelledby="mm-ext-dialog-title">
+        <h2 id="mm-ext-dialog-title" class="mm-ext-dialog-title">{{#str}}dialogtitle, local_dueextensions{{/str}}</h2>
+        <p class="mm-ext-rule">{{rule}}</p>
+        <div class="mm-ext-stage" data-region="stage" aria-hidden="true"></div>
+        <p class="mm-ext-result" data-region="result" role="status" aria-live="polite"></p>
+        <figure class="mm-ext-dish" data-region="dish" hidden>
+            <img alt="" loading="lazy" referrerpolicy="no-referrer">
+            <figcaption></figcaption>
+        </figure>
+        <p class="mm-ext-fair">{{#str}}fairnote, local_dueextensions{{/str}}</p>
+        {{#chance}}{{#deniedcounts}}<p class="mm-ext-fair">{{#str}}deniedcountsnote, local_dueextensions{{/str}}</p>{{/deniedcounts}}{{^deniedcounts}}<p class="mm-ext-warning">{{#str}}keepnote, local_dueextensions{{/str}}</p>{{/deniedcounts}}{{/chance}}
+        <div class="mm-ext-actions">
+            <button type="button" class="btn btn-outline-secondary" data-action="close">{{#str}}cancel{{/str}}</button>
+            <button type="button" class="btn btn-primary" data-action="go">{{button}}</button>
+        </div>
+    </dialog>
+</section>
+{{#js}}
+    require(['local_dueextensions/card'], function(Card) {
+        Card.init(document.querySelector('[data-region="local-dueextensions"]'));
+    });
+{{/js}}
