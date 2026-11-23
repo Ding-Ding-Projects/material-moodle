@@ -36,8 +36,13 @@
   backed up (database dump, Moodle data and settings), switched to the image built from `8754b8d` by changing only
   `MOODLE_IMAGE`, upgraded and came back healthy with its data. The states, dark mode and course workspace tests
   passed on that live site using a temporary administrator and course, both deleted afterwards.
-- Not verified: a named tunnel on the owner's Cloudflare domain (needs the owner's Cloudflare sign-in), and some
-  page selectors the restyle could not confirm from templates
+- Named tunnel on the owner's domain: a Cloudflare-managed tunnel with its DNS record was created through the
+  Cloudflare API with the owner's existing token, and the owner's deployment now runs the `tunnel` profile with
+  `MOODLE_WWWROOT=auto`, so the LAN address and the public HTTPS hostname each keep their own address. Over the
+  public hostname the dark mode and course workspace tests passed; the states test passed on its second run (the
+  first run timed out once at 390 pixels while waiting for a page over the internet). The temporary administrator
+  and course were deleted afterwards.
+- Not verified: some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
   (built in a separate session); its remaining items are in that fork's roadmap.
