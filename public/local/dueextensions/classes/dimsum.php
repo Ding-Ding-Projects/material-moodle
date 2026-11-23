@@ -38,13 +38,17 @@ class dimsum {
      * @return array[]
      */
     public static function dishes(): array {
+        global $CFG;
         $cache = \cache::make('local_dueextensions', 'dimsum');
-        $dishes = $cache->get('dishes');
-        if (is_array($dishes)) {
-            return $dishes;
+        $cached = $cache->get('dishes');
+        // A full list is kept for a day (the cache's own lifetime); an empty one is retried after an hour.
+        if (is_array($cached) && isset($cached['dishes'])
+                && ($cached['dishes'] || time() - (int) $cached['at'] < HOURSECS)) {
+            return $cached['dishes'];
         }
         $dishes = [];
         try {
+            require_once($CFG->libdir . '/filelib.php');
             $curl = new \curl(['cache' => false]);
             $body = $curl->get(self::INDEX, [], ['CURLOPT_TIMEOUT' => 5, 'CURLOPT_CONNECTTIMEOUT' => 3]);
             $json = json_decode((string) $body, true);
@@ -63,8 +67,8 @@ class dimsum {
         } catch (\Throwable $e) {
             debugging('Dim sum catalog unavailable: ' . $e->getMessage(), DEBUG_DEVELOPER);
         }
-        // Cache an empty list for a short time too, so an offline site does not retry on every flip.
-        $cache->set('dishes', $dishes);
+        // An empty list is cached too, so an offline site does not retry on every flip.
+        $cache->set('dishes', ['at' => time(), 'dishes' => $dishes]);
         return $dishes;
     }
 

@@ -1,0 +1,79 @@
+/* Bathroom pass card, following design/canvas BathroomPass boards. */
+.mm-bp {
+    margin: 0 0 1.5rem;
+    padding: 24px 32px;
+    border-radius: 28px;
+    background: var(--md-sys-color-surface-container-low, #f5f2fb);
+    color: var(--md-sys-color-on-surface, #1b1b21);
+    transition: background-color .3s cubic-bezier(.2, 0, 0, 1);
+}
+.mm-bp[data-state="out"] {
+    background: var(--md-sys-color-primary-container, #dde1ff);
+    color: var(--md-sys-color-on-primary-container, #001454);
+}
+.mm-bp[data-state="out"] .mm-bp-extra, .mm-bp[data-state="out"] .mm-bp-legend { color: inherit; }
+.mm-bp[data-state="normal"] [data-when="out"],
+.mm-bp[data-state="out"] [data-when="normal"],
+.mm-bp:not([data-humanright="true"]) [data-when="humanright"] { display: none; }
+.mm-bp-pane { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.mm-bp-text { flex: 1 1 240px; min-width: 0; }
+.mm-bp-title { margin: 0; font-size: 1.25rem; font-weight: 650; }
+.mm-bp-left { margin: 6px 0 0; font-weight: 600; }
+.mm-bp-icons { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.mm-bp-icons[hidden] { display: none; }
+.mm-bp-icon {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--md-sys-color-primary, #3d5bd9);
+}
+.mm-bp-icon.is-used {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--md-sys-color-outline, #767680);
+}
+.mm-bp-button { min-height: 48px; min-width: 48px; border-radius: 999px; padding-inline: 28px; }
+.mm-bp-back { min-height: 56px; font-size: 1.125rem; padding-inline: 36px; }
+.mm-bp-eyebrow {
+    margin: 0; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+}
+.mm-bp-clock {
+    margin: 4px 0; font-size: 3rem; line-height: 1.1; font-weight: 750; font-variant-numeric: tabular-nums;
+}
+.mm-bp-note { margin: 0; }
+.mm-bp-human {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--md-sys-color-outline-variant, #c6c5d0);
+}
+.mm-bp-humanright { margin: 0; font-weight: 600; }
+.mm-bp-extra { margin: 8px 0 0; color: var(--md-sys-color-on-surface-variant, #45464f); }
+.mm-bp-bar {
+    display: flex; height: 10px; margin-top: 14px; max-width: 420px;
+    border-radius: 999px; overflow: hidden;
+    background: var(--md-sys-color-surface-container-highest, #e3e1ea);
+}
+.mm-bp-bar-heads { background: var(--md-sys-color-primary, #3d5bd9); transition: flex-grow .4s cubic-bezier(.2, 0, 0, 1); }
+.mm-bp-bar-golden { background: #e8b100; transition: flex-grow .4s cubic-bezier(.2, 0, 0, 1); }
+.mm-bp-bar-tails { background: var(--md-sys-color-outline, #767680); }
+.mm-bp-legend {
+    display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 10px 0 0; padding: 0; list-style: none;
+    font-size: .875rem; color: var(--md-sys-color-on-surface-variant, #45464f);
+}
+.mm-bp-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.mm-bp-dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.mm-bp-dot-heads { background: var(--md-sys-color-primary, #3d5bd9); }
+.mm-bp-dot-golden { background: #e8b100; }
+.mm-bp-dot-tails { background: var(--md-sys-color-outline, #767680); }
+.mm-bp-table td, .mm-bp-table th { vertical-align: middle; }
+
+html[data-md-motion="off"] .mm-bp,
+html[data-md-motion="off"] .mm-bp-bar-heads,
+html[data-md-motion="off"] .mm-bp-bar-golden { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+    .mm-bp, .mm-bp-bar-heads, .mm-bp-bar-golden { transition: none; }
+}
+@media (forced-colors: active) {
+    .mm-bp-icon { background: CanvasText; }
+    .mm-bp-icon.is-used { background: Canvas; box-shadow: inset 0 0 0 2px CanvasText; }
+}
+@media (max-width: 575.98px) {
+    .mm-bp { padding: 20px 16px; }
+    .mm-bp-button { width: 100%; }
+}

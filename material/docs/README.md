@@ -28,7 +28,7 @@ behaviour together with what exists today.
 | Article | Status |
 | --- | --- |
 | [Due date extensions](due-date-extensions.md) | Available |
-| Bathroom pass | In progress |
+| [Bathroom pass](bathroom-pass.md) | Available |
 
 ## Signing in
 

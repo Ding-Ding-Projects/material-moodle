@@ -1,0 +1,56 @@
+{{!
+    @template local_bathroompass/card
+
+    The student's bathroom pass card on a course page.
+
+    Example context (json):
+    {
+        "courseid": 2, "state": "normal", "humanrightattr": "true", "timeout": 0, "now": 1790000000, "unlimited": false,
+        "lefttext": "No passes left this quarter", "iconslabel": "0 of 5 passes left",
+        "icons": [{"full": false}, {"full": false}, {"full": false}, {"full": false}, {"full": false}],
+        "humanrighttext": "You are out of passes, and you can still go. Using the bathroom is a human right and you will never be refused. No grade penalty, ever.",
+        "extratext": "Each extra break this quarter turns 5% of your heads chance on due date extension coin flips into a golden chance. Golden still grants the extension and shows you a dim sum.",
+        "heads": 45, "golden": 5, "tails": 50, "barlabel": "Coin flip chances: heads 45 percent, golden 5 percent, tails 50 percent",
+        "legendheads": "Heads 45%", "legendgolden": "Golden 5%", "legendtails": "Tails 50%", "outnote": ""
+    }
+}}
+<section class="mm-bp" data-region="local-bathroompass" data-courseid="{{courseid}}" data-state="{{state}}"
+         data-humanright="{{humanrightattr}}" data-timeout="{{timeout}}" data-now="{{now}}"
+         aria-labelledby="mm-bp-title" hidden>
+    <div class="mm-bp-main">
+        <div class="mm-bp-pane" data-when="normal">
+            <div class="mm-bp-text">
+                <h3 id="mm-bp-title" class="mm-bp-title">{{#str}}cardtitle, local_bathroompass{{/str}}</h3>
+                <p class="mm-bp-left" data-region="left">{{lefttext}}</p>
+                <span class="mm-bp-icons" role="img" aria-label="{{iconslabel}}" data-region="icons"{{#unlimited}} hidden{{/unlimited}}>{{#icons}}<span class="mm-bp-icon{{^full}} is-used{{/full}}"></span>{{/icons}}</span>
+            </div>
+            <button type="button" class="btn btn-primary mm-bp-button" data-action="leave">{{#str}}leavebutton, local_bathroompass{{/str}}</button>
+        </div>
+        <div class="mm-bp-pane" data-when="out">
+            <div class="mm-bp-text">
+                <p class="mm-bp-eyebrow">{{#str}}outofroom, local_bathroompass{{/str}}</p>
+                <p class="mm-bp-clock" data-region="clock" aria-hidden="true">00:00</p>
+                <p class="mm-bp-note" data-region="outnote">{{outnote}}</p>
+            </div>
+            <button type="button" class="btn btn-primary mm-bp-button mm-bp-back" data-action="back">{{#str}}backbutton, local_bathroompass{{/str}}</button>
+        </div>
+    </div>
+    <div class="mm-bp-human" data-when="humanright">
+        <p class="mm-bp-humanright" data-region="humanright">{{humanrighttext}}</p>
+        <p class="mm-bp-extra" data-region="extra">{{extratext}}</p>
+        <div class="mm-bp-bar" role="img" aria-label="{{barlabel}}" data-region="bar">
+            <span class="mm-bp-bar-heads" data-region="bar-heads" style="flex-grow: {{heads}}"></span><span class="mm-bp-bar-golden" data-region="bar-golden" style="flex-grow: {{golden}}"></span><span class="mm-bp-bar-tails" data-region="bar-tails" style="flex-grow: {{tails}}"></span>
+        </div>
+        <ul class="mm-bp-legend">
+            <li><span class="mm-bp-dot mm-bp-dot-heads"></span><span data-region="legend-heads">{{legendheads}}</span></li>
+            <li><span class="mm-bp-dot mm-bp-dot-golden"></span><span data-region="legend-golden">{{legendgolden}}</span></li>
+            <li><span class="mm-bp-dot mm-bp-dot-tails"></span><span data-region="legend-tails">{{legendtails}}</span></li>
+        </ul>
+    </div>
+    <p class="sr-only visually-hidden" role="status" aria-live="polite" data-region="status"></p>
+</section>
+{{#js}}
+    require(['local_bathroompass/card'], function(Card) {
+        Card.init(document.querySelector('[data-region="local-bathroompass"]'));
+    });
+{{/js}}

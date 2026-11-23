@@ -1,0 +1,130 @@
+// This file is part of Moodle and is distributed under the GNU GPL v3 or later.
+/**
+ * Student bathroom pass card: leave, live timer, come back and the pass and coin chance display.
+ *
+ * @module     local_bathroompass/card
+ * @copyright  2026 Ding Ding Projects
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+define(['core/ajax', 'core/notification'], function(Ajax, Notification) {
+    function pad(n) {
+        return (n < 10 ? '0' : '') + n;
+    }
+
+    function clockText(secs) {
+        var total = Math.max(0, secs);
+        var hours = Math.floor(total / 3600);
+        var text = pad(Math.floor((total % 3600) / 60)) + ':' + pad(total % 60);
+        return hours > 0 ? hours + ':' + text : text;
+    }
+
+    return {init: function(card) {
+        if (!card || card.dataset.ready) {
+            return;
+        }
+        card.dataset.ready = 'true';
+        // Put the card at the top of the course content.
+        var anchor = document.querySelector('.course-content') || document.querySelector('#region-main');
+        if (anchor && anchor.parentNode) {
+            if (anchor.matches('#region-main')) {
+                anchor.insertBefore(card, anchor.firstChild);
+            } else {
+                anchor.parentNode.insertBefore(card, anchor);
+            }
+        }
+        card.hidden = false;
+
+        var courseid = parseInt(card.dataset.courseid, 10);
+        var leave = card.querySelector('[data-action="leave"]');
+        var back = card.querySelector('[data-action="back"]');
+        var clock = card.querySelector('[data-region="clock"]');
+        var status = card.querySelector('[data-region="status"]');
+        var timer = null;
+        var timeout = 0;
+        var offset = 0;
+
+        var text = function(region, value) {
+            var node = card.querySelector('[data-region="' + region + '"]');
+            if (node) {
+                node.textContent = value;
+            }
+        };
+
+        var tick = function() {
+            clock.textContent = clockText(Math.floor(Date.now() / 1000 + offset - timeout));
+        };
+
+        var startTimer = function() {
+            window.clearInterval(timer);
+            timer = null;
+            if (card.dataset.state === 'out') {
+                tick();
+                timer = window.setInterval(tick, 1000);
+            }
+        };
+
+        /** Show the state the server returned. */
+        var apply = function(s) {
+            card.dataset.state = s.out ? 'out' : 'normal';
+            card.dataset.humanright = s.humanright ? 'true' : 'false';
+            timeout = s.timeout;
+            offset = s.now - Date.now() / 1000;
+            text('left', s.lefttext);
+            text('outnote', s.outnote);
+            text('humanright', s.humanrighttext);
+            text('extra', s.extratext);
+            text('legend-heads', s.legendheads);
+            text('legend-golden', s.legendgolden);
+            text('legend-tails', s.legendtails);
+            card.querySelector('[data-region="bar"]').setAttribute('aria-label', s.barlabel);
+            card.querySelector('[data-region="bar-heads"]').style.flexGrow = s.heads;
+            card.querySelector('[data-region="bar-golden"]').style.flexGrow = s.golden;
+            card.querySelector('[data-region="bar-tails"]').style.flexGrow = s.tails;
+            var icons = card.querySelector('[data-region="icons"]');
+            icons.textContent = '';
+            s.icons.forEach(function(icon) {
+                var span = document.createElement('span');
+                span.className = 'mm-bp-icon' + (icon.full ? '' : ' is-used');
+                icons.appendChild(span);
+            });
+            icons.setAttribute('aria-label', s.iconslabel);
+            icons.hidden = s.left === -1;
+            startTimer();
+        };
+
+        var run = function(method, button, other) {
+            button.disabled = true;
+            return Ajax.call([{methodname: method, args: {courseid: courseid}}])[0].then(function(s) {
+                apply(s);
+                button.disabled = false;
+                other.focus();
+                return s;
+            }).catch(function(err) {
+                button.disabled = false;
+                Notification.exception(err);
+            });
+        };
+
+        leave.addEventListener('click', function() {
+            run('local_bathroompass_leave', leave, back).then(function(s) {
+                if (s) {
+                    status.textContent = s.outnote;
+                }
+                return s;
+            });
+        });
+        back.addEventListener('click', function() {
+            run('local_bathroompass_back', back, leave).then(function(s) {
+                if (s && s.message) {
+                    status.textContent = s.message;
+                    Notification.addNotification({message: s.message, type: 'success'});
+                }
+                return s;
+            });
+        });
+
+        timeout = parseInt(card.dataset.timeout, 10) || 0;
+        offset = (parseInt(card.dataset.now, 10) || 0) - Date.now() / 1000;
+        startTimer();
+    }};
+});
