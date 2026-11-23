@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Site administration phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button,input,select{font-family:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-still *{animation:none!important;transition:none!important}
+.mm-headline{font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1;margin:0}
+.mm-title{font-weight:650;font-size:20px;line-height:1.3}
+.mm-label{font-weight:600;font-size:14px;letter-spacing:.01em}
+.mm-mono{font-family:'Roboto Mono',monospace}
+.mm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mm-btn:focus-visible,.mm-link:focus-visible{outline:3px solid var(--mm-ring);outline-offset:2px}
+.mm-field:focus-within{outline:2px solid var(--mm-ring)}
+.mm-scroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="position:relative;width:390px;height:844px;overflow:hidden;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
+  <header style="position:absolute;left:0;top:0;width:390px;height:64px;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px;box-sizing:border-box;z-index:2;background:{{c.surface}}">
+    <div class="mm-title" style="flex:1">Administration</div>
+    <button type="button" class="mm-btn" aria-label="More actions" aria-haspopup="menu" aria-expanded="{{menuStr}}" onClick="{{toggleMenu}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
+    <span role="img" aria-label="Admin User" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">AU</span>
+  </header>
+
+  <main class="mm-scroll" style="position:absolute;left:0;top:64px;width:390px;height:700px;overflow-y:auto;box-sizing:border-box;padding:0 16px 24px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h1 class="mm-headline">Site administration</h1>
+      <div class="mm-field" style="height:56px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 20px 0 16px;border-radius:999px;background:{{c.highest}}">
+        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+        <label style="flex:1;min-width:0;display:flex"><span class="mm-sr">Search all settings</span><input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="Search all settings" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none"></label>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <section style="border-radius:24px;background:{{c.low}};padding:16px;display:flex;flex-direction:column;gap:2px"><span class="mm-label" style="color:{{c.onv}}">Moodle version</span><span style="font-size:26px;line-height:1.1;font-weight:750;font-stretch:112%">6.0</span></section>
+        <section style="border-radius:24px;background:{{c.low}};padding:16px;display:flex;flex-direction:column;gap:2px"><span class="mm-label" style="color:{{c.onv}}">Cron</span><span style="font-size:14px;font-weight:600;line-height:1.3">Last ran 2 minutes ago</span><span class="mm-label" style="align-self:flex-start;margin-top:4px;padding:2px 8px;border-radius:8px;background:{{c.sucC}};color:{{c.onsucC}}">Success</span></section>
+        <section style="border-radius:24px;background:{{c.warnC}};color:{{c.onwarnC}};padding:16px;display:flex;flex-direction:column;gap:2px"><span class="mm-label">Needs attention</span><span style="font-size:14px;font-weight:600;line-height:1.3">1 notification</span><button type="button" class="mm-btn mm-label" style="align-self:flex-start;height:48px;margin:0 0 -16px -12px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:{{c.onwarnC}};text-decoration:underline;cursor:pointer">Review it</button></section>
+        <section style="border-radius:24px;background:{{c.low}};padding:16px;display:flex;flex-direction:column;gap:2px"><span class="mm-label" style="color:{{c.onv}}">Disk use</span><span style="font-size:14px;font-weight:600;line-height:1.3">38 GB of 120 GB</span><div style="margin-top:10px;height:8px;border-radius:999px;background:{{c.highest}}"><div style="width:32%;height:8px;border-radius:999px;background:{{c.primary}}"></div></div></section>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px"><h2 class="mm-title" style="margin:0">Categories</h2><span aria-live="polite" style="font-size:14px;color:{{c.onv}}">{{countText}}</span></div>
+      <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div style="padding:32px;border-radius:28px;background:{{c.low}};text-align:center;color:{{c.onv}}">No category or setting matches that search.</div></sc-if>
+      <sc-for list="{{tiles}}" as="t" hint-placeholder-count="10">
+        <section style="border-radius:28px;background:{{c.low}};padding:16px 16px 8px;display:flex;flex-direction:column;gap:4px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{t.delay}}">
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="width:48px;height:48px;flex:none;border-radius:16px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg></span>
+            <h3 class="mm-title" style="margin:0">{{t.name}}</h3>
+          </div>
+          <ul style="list-style:none;margin:4px 0 0;padding:0">
+            <sc-for list="{{t.links}}" as="l" hint-placeholder-count="3">
+              <li><a href="#" class="mm-link" style="display:flex;align-items:center;min-height:48px;padding:0 4px;font-size:15px;color:{{c.primary}};text-decoration:none">{{l}}</a></li>
+            </sc-for>
+          </ul>
+        </section>
+      </sc-for>
+    </div>
+  </main>
+
+  <sc-if value="{{menu}}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:0;top:0;width:390px;height:844px;z-index:4">
+      <div onClick="{{toggleMenu}}" style="position:absolute;left:0;top:0;width:390px;height:844px"></div>
+      <div role="menu" aria-label="More actions" style="position:absolute;right:8px;top:56px;width:248px;box-sizing:border-box;padding:8px 0;border-radius:20px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both">
+        <sc-for list="{{menuItems}}" as="m" hint-placeholder-count="6">
+          <button type="button" role="menuitem" class="mm-btn" onClick="{{toggleMenu}}" style="width:100%;height:48px;padding:0 16px;border:0;background:transparent;color:{{c.on}};display:flex;align-items:center;gap:16px;font-size:16px;cursor:pointer;text-align:left"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{c.onv}}"><path d="{{m.d}}"></path></svg>{{m.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <nav aria-label="Main navigation" style="position:absolute;left:0;bottom:0;width:390px;height:80px;box-sizing:border-box;background:{{c.cont}};display:flex;z-index:3">
+    <sc-for list="{{nav}}" as="r" hint-placeholder-count="5">
+      <button type="button" class="mm-btn" aria-label="{{r.label}}" style="flex:1;border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{c.on}}">
+        <span style="width:64px;height:32px;border-radius:16px;background:{{r.bg}};color:{{r.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
+        <span style="font-size:12px;font-weight:600;line-height:15px">{{r.label}}</span>
+      </button>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { q: '', menu: false }; }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const L = { pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', sucC:'#B7F1CF', onsucC:'#002111', warnC:'#FFE08A', onwarnC:'#251A00', err:'#BA1A1A', surface:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', onp:'#FFFFFF' };
+    const D = { pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', sucC:'#005234', onsucC:'#B7F1CF', warnC:'#5B4300', onwarnC:'#FFE08A', err:'#FFB4AB', surface:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', onp:'#002388' };
+    const c = Object.assign({}, dark ? D : L, { primary: dark ? '#B8C3FF' : accent });
+    const s = this.state;
+    const NL = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z']];
+    const nav = NL.map(([label, d]) => ({ label, d, bg: label === 'Everything' ? c.sc : 'transparent', fg: label === 'Everything' ? c.onsc : c.onv }));
+    const menuItems = [['Search','M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4'],['New','M12 5v14M5 12h14'],['Display settings','M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6'],['Notifications, 1 new','M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4'],['Help','M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01'],['Settings','M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3']].map(([label, d]) => ({ label, d }));
+    const T = [
+      ['Users','M9 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM2 20a7 7 0 0 1 14 0M16 4a3.5 3.5 0 0 1 0 7',['Browse list of users','Add a new user','Permissions']],
+      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5',['Manage courses','Add a category','Backups']],
+      ['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2',['Grade settings','Scales','Grade letters']],
+      ['Plugins','M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z',['Plugins overview','Install plugins','Authentication']],
+      ['Appearance','M12 3a9 9 0 1 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h2a3 3 0 0 0 3-3 9 9 0 0 0-8-11zM7.5 11h.01M10 7h.01M15 7h.01',['Themes','Navigation','Additional HTML']],
+      ['Server','M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01',['System paths','HTTP','Scheduled tasks']],
+      ['Security','M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',['Site security settings','IP blocker','Passkey settings']],
+      ['Reports','M5 3h14v18H5zM9 16v-3M12 16V9M15 16v-5',['Logs','Live logs','Config changes']],
+      ['Development','M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16',['Debugging','Purge caches','Experimental']],
+      ['Notifications','M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4',['Notifications','Message outputs','Email settings']]
+    ];
+    const q = s.q.trim().toLowerCase();
+    const tiles = T.filter((t) => !q || t[0].toLowerCase().indexOf(q) !== -1 || t[2].some((l) => l.toLowerCase().indexOf(q) !== -1))
+      .map((t, i) => ({ name: t[0], d: t[1], links: t[2], delay: Math.min(i, 6) * 40 + 'ms' }));
+    return {
+      c, rootClass: motion ? '' : 'mm-still', nav, menuItems, tiles, empty: tiles.length === 0,
+      menu: s.menu, menuStr: s.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !s.menu }),
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      countText: tiles.length + ' of 10'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>States phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button,input,select{font-family:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-still *{animation:none!important;transition:none!important}
+.mm-display{font-weight:800;font-stretch:118%;font-size:40px;line-height:1.02;letter-spacing:-.02em;margin:0}
+.mm-headline{font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1;margin:0}
+.mm-title{font-weight:650;font-size:20px;line-height:1.3}
+.mm-label{font-weight:600;font-size:14px;letter-spacing:.01em}
+.mm-over{font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.mm-mono{font-family:'Roboto Mono',monospace}
+.mm-btn:focus-visible{outline:3px solid var(--mm-ring);outline-offset:2px}
+.mm-scroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="position:relative;width:390px;height:844px;overflow:hidden;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
+  <header style="position:absolute;left:0;top:0;width:390px;height:64px;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px;box-sizing:border-box;z-index:2;background:{{c.surface}}">
+    <div class="mm-title" style="flex:1">States</div>
+    <button type="button" class="mm-btn" aria-label="More actions" aria-haspopup="menu" aria-expanded="{{menuStr}}" onClick="{{toggleMenu}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
+    <span role="img" aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</span>
+  </header>
+
+  <main class="mm-scroll" aria-label="Four example states, one per screen" style="position:absolute;left:0;top:64px;width:390px;height:700px;overflow-y:auto;scroll-snap-type:y mandatory">
+    <sc-for list="{{cards}}" as="k" hint-placeholder-count="4">
+      <section style="height:700px;box-sizing:border-box;padding:0 16px 16px;scroll-snap-align:start">
+        <div style="height:100%;box-sizing:border-box;border-radius:36px;background:{{c.low}};padding:16px;display:flex;flex-direction:column;gap:16px">
+          <div aria-hidden="true" style="height:250px;flex:none;border-radius:28px;background:{{k.bg}};position:relative;overflow:hidden">
+            <sc-for list="{{k.shapes}}" as="sh" hint-placeholder-count="4">
+              <span style="position:absolute;left:{{sh.l}}px;top:{{sh.t}}px;width:{{sh.w}}px;height:{{sh.h}}px;border-radius:{{sh.r}};background:{{sh.bg}};transform:rotate({{sh.rot}}deg)"></span>
+            </sc-for>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center;padding:0 8px">
+            <span class="mm-over" style="color:{{k.tone}}">{{k.kind}} <span class="mm-mono" style="font-weight:400;color:{{c.onv}}">{{k.index}} of 4</span></span>
+            <sc-if value="{{k.big}}" hint-placeholder-val="{{ false }}"><span class="mm-display" style="color:{{k.tone}}">404</span></sc-if>
+            <h2 class="mm-headline">{{k.title}}</h2>
+            <p style="margin:0;color:{{c.onv}}">{{k.body}}</p>
+            <div><button type="button" class="mm-btn mm-label" onClick="{{k.act}}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{k.btnBg}};color:{{k.btnFg}};cursor:pointer">{{k.button}}</button></div>
+          </div>
+          <span aria-hidden="true" class="mm-label" style="text-align:center;color:{{c.onv}}">{{k.hint}}</span>
+        </div>
+      </section>
+    </sc-for>
+  </main>
+
+  <sc-if value="{{snack}}" hint-placeholder-val="{{ true }}">
+    <div role="status" style="position:absolute;left:16px;right:16px;bottom:96px;height:48px;box-sizing:border-box;padding:0 8px 0 16px;border-radius:12px;background:{{c.on}};color:{{c.surface}};display:flex;align-items:center;gap:8px;font-size:14px;box-shadow:0 8px 28px rgba(27,27,33,.14);z-index:3;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both"><span style="flex:1">{{snackText}}</span><button type="button" class="mm-btn mm-label" onClick="{{dismiss}}" style="height:48px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:{{c.inv}};cursor:pointer">Dismiss</button></div>
+  </sc-if>
+
+  <sc-if value="{{menu}}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:0;top:0;width:390px;height:844px;z-index:4">
+      <div onClick="{{toggleMenu}}" style="position:absolute;left:0;top:0;width:390px;height:844px"></div>
+      <div role="menu" aria-label="More actions" style="position:absolute;right:8px;top:56px;width:248px;box-sizing:border-box;padding:8px 0;border-radius:20px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both">
+        <sc-for list="{{menuItems}}" as="m" hint-placeholder-count="6">
+          <button type="button" role="menuitem" class="mm-btn" onClick="{{toggleMenu}}" style="width:100%;height:48px;padding:0 16px;border:0;background:transparent;color:{{c.on}};display:flex;align-items:center;gap:16px;font-size:16px;cursor:pointer;text-align:left"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{c.onv}}"><path d="{{m.d}}"></path></svg>{{m.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <nav aria-label="Main navigation" style="position:absolute;left:0;bottom:0;width:390px;height:80px;box-sizing:border-box;background:{{c.cont}};display:flex;z-index:3">
+    <sc-for list="{{nav}}" as="r" hint-placeholder-count="5">
+      <button type="button" class="mm-btn" aria-label="{{r.label}}" style="flex:1;border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{c.on}}">
+        <span style="width:64px;height:32px;border-radius:16px;background:{{r.bg}};color:{{r.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
+        <span style="font-size:12px;font-weight:600;line-height:15px">{{r.label}}</span>
+      </button>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { snack: '', menu: false }; }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const L = { pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', tert:'#A23F6A', suc:'#1F7A4D', sucC:'#B7F1CF', onsucC:'#002111', warnC:'#FFE08A', onwarnC:'#251A00', err:'#BA1A1A', errC:'#FFDAD6', onerrC:'#410002', surface:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', onp:'#FFFFFF', inv:'#B8C3FF' };
+    const D = { pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', tert:'#FFB0CB', suc:'#7CDBA6', sucC:'#005234', onsucC:'#B7F1CF', warnC:'#5B4300', onwarnC:'#FFE08A', err:'#FFB4AB', errC:'#93000A', onerrC:'#FFDAD6', surface:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', onp:'#002388', inv:'#2440BF' };
+    const c = Object.assign({}, dark ? D : L, { primary: dark ? '#B8C3FF' : accent });
+    const s = this.state;
+    const NL = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z']];
+    const nav = NL.map(([label, d]) => ({ label, d, bg: label === 'Courses' ? c.sc : 'transparent', fg: label === 'Courses' ? c.onsc : c.onv }));
+    const menuItems = [['Search','M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4'],['New','M12 5v14M5 12h14'],['Display settings','M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6'],['Notifications, 1 new','M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4'],['Help','M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Settings','M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3']].map(([label, d]) => ({ label, d }));
+    const say = (t) => () => this.setState({ snack: t });
+    const cards = [
+      { kind: 'Empty course', title: 'Nothing here yet', body: 'Introduction to Biology has no activities. Add a first one so learners have something to open.', button: 'Add an activity', bg: c.pc, tone: c.primary, btnBg: c.primary, btnFg: c.onp, act: say('Opening the activity chooser'),
+        shapes: [{ l: 40, t: 50, w: 130, h: 130, r: '50%', bg: c.primary, rot: 0 }, { l: 160, t: 120, w: 110, h: 110, r: '28px', bg: c.tc, rot: 14 }, { l: 230, t: 30, w: 100, h: 44, r: '999px', bg: c.sc, rot: -8 }] },
+      { kind: 'Nothing due', title: 'You are all caught up', body: 'No assignments or quizzes are due this week. Enjoy the quiet, or plan ahead.', button: 'Open calendar', bg: c.sucC, tone: c.suc, btnBg: c.suc, btnFg: dark ? '#003822' : '#FFFFFF', act: say('Opening your calendar'),
+        shapes: [{ l: 90, t: 40, w: 150, h: 150, r: '50%', bg: c.suc, rot: 0 }, { l: 132, t: 100, w: 66, h: 34, r: '0 0 34px 34px', bg: c.sucC, rot: 0 }, { l: 250, t: 150, w: 80, h: 80, r: '22px', bg: c.pc, rot: 18 }] },
+      { kind: 'Page not found', title: 'We cannot find that page', body: 'The link may be old, or the page may have moved. Check the address or start from your dashboard.', button: 'Go to dashboard', bg: c.errC, tone: c.err, big: true, btnBg: c.primary, btnFg: c.onp, act: say('Going to your dashboard'),
+        shapes: [{ l: 40, t: 40, w: 120, h: 120, r: '30px', bg: c.err, rot: -10 }, { l: 200, t: 110, w: 100, h: 100, r: '50%', bg: c.onerrC, rot: 0 }, { l: 60, t: 190, w: 170, h: 40, r: '999px', bg: c.tc, rot: 6 }] },
+      { kind: 'You are offline', title: 'No connection', body: 'Your changes are saved on this device and will sync when you are back online.', button: 'Try again', bg: c.warnC, tone: c.onwarnC, btnBg: c.primary, btnFg: c.onp, act: say('Trying to reconnect'),
+        shapes: [{ l: 90, t: 140, w: 180, h: 90, r: '90px 90px 0 0', bg: c.onwarnC, rot: 0 }, { l: 132, t: 80, w: 96, h: 48, r: '48px 48px 0 0', bg: c.onwarnC, rot: 0 }, { l: 270, t: 30, w: 50, h: 50, r: '50%', bg: c.err, rot: 0 }] }
+    ].map((k, i) => Object.assign({ big: false, index: i + 1, hint: i < 3 ? 'Swipe up for the next state' : 'End of the examples' }, k));
+    return {
+      c, rootClass: motion ? '' : 'mm-still', nav, menuItems, cards,
+      menu: s.menu, menuStr: s.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !s.menu }),
+      snack: !!s.snack, snackText: s.snack, dismiss: () => this.setState({ snack: '' })
+    };
+  }
+}
+</script>
+</body>
+</html>

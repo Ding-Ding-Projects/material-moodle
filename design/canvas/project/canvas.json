@@ -254,6 +254,16 @@
       "is_interactive": true,
       "radius": 16
     },
+    "PreferencesPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: preferences",
+      "page": "settings",
+      "is_interactive": true,
+      "radius": 28
+    },
     "Admin.dc.html": {
       "x": 0,
       "y": 1020,
@@ -263,6 +273,16 @@
       "page": "settings",
       "is_interactive": true,
       "radius": 16
+    },
+    "AdminPhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: site administration",
+      "page": "settings",
+      "is_interactive": true,
+      "radius": 28
     },
     "SignIn.dc.html": {
       "x": 0,
@@ -293,6 +313,16 @@
       "page": "states",
       "is_interactive": true,
       "radius": 16
+    },
+    "StatesPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: states",
+      "page": "states",
+      "is_interactive": true,
+      "radius": 28
     },
     "Foundations.dc.html": {
       "x": 0,
@@ -327,10 +357,13 @@
     "AllFeatures.dc.html",
     "AllFeaturesPhone.dc.html",
     "Preferences.dc.html",
+    "PreferencesPhone.dc.html",
     "Admin.dc.html",
+    "AdminPhone.dc.html",
     "SignIn.dc.html",
     "SignInPhone.dc.html",
     "States.dc.html",
+    "StatesPhone.dc.html",
     "Foundations.dc.html"
   ],
   "notes": {
@@ -542,12 +575,28 @@
       "text": "Display preferences: theme, motion, text size and switches. The theme segment switches this board. Not built yet.",
       "page": "settings"
     },
+    "n-PreferencesPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "Preferences on a phone: a list that opens each section. Not built yet.",
+      "page": "settings"
+    },
     "n-Admindchtml": {
       "x": 1520,
       "y": 1020,
       "w": 340,
       "fill": "blue",
       "text": "Site administration with status cards and category tiles. Type in the search to filter. Not built yet.",
+      "page": "settings"
+    },
+    "n-AdminPhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "Site administration on a phone. Not built yet.",
       "page": "settings"
     },
     "title-front": {
@@ -588,6 +637,14 @@
       "w": 340,
       "fill": "blue",
       "text": "Four states every page can reach. Press each button to see its confirmation. Not built yet.",
+      "page": "states"
+    },
+    "n-StatesPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "The same states on a phone. Not built yet.",
       "page": "states"
     },
     "title-foundations": {
