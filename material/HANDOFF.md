@@ -29,8 +29,11 @@
   (`8754b8d`) ran healthy. A redeploy kept the database password. On that live copy the states, dark mode and
   course workspace tests passed. This found that missing `.php` files got Apache's bare 404 because the
   `ErrorDocument` line had been removed; it is back in `material/docker/apache.conf`.
-- Not verified: a deployment to a real external server or through a Cloudflare tunnel (needs the owner's server and
-  Cloudflare account), and some page selectors the restyle could not confirm from templates
+- Quick link check: a fresh copy was deployed the same way, then the deployer's quick link job opened a temporary
+  `trycloudflare.com` address. Through that public HTTPS address the states, dark mode and course workspace tests
+  passed; the copy and its link were deleted afterwards.
+- Not verified: a deployment to the owner's own server and a named tunnel on the owner's Cloudflare domain (both
+  need the owner's accounts), and some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
   (built in a separate session); its remaining items are in that fork's roadmap.
