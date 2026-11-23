@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Launcher</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button,input,select{font-family:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-still *{animation:none!important;transition:none!important}
+.mm-display{font-weight:800;font-stretch:118%;font-size:56px;line-height:1.02;letter-spacing:-.02em;margin:0}
+.mm-headline{font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1;margin:0}
+.mm-title{font-weight:650;font-size:20px;line-height:1.3}
+.mm-label{font-weight:600;font-size:14px;letter-spacing:.01em}
+.mm-over{font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.mm-mono{font-family:'Roboto Mono',monospace}
+.mm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mm-tile{transition:transform .3s cubic-bezier(.2,0,0,1.4)}
+.mm-tile:hover{transform:translateY(-2px)}
+.mm-tile a:focus-visible,.mm-btn:focus-visible{outline:3px solid var(--mm-ring);outline-offset:2px}
+.mm-field:focus-within{outline:2px solid var(--mm-ring)}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="position:relative;width:1440px;height:900px;overflow:hidden;display:flex;background:{{c.surface}};color:{{c.on}};font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;--mm-ring:{{c.primary}}">
+  <nav aria-label="Main navigation" style="width:96px;flex:none;height:900px;box-sizing:border-box;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:12px;position:relative;z-index:3">
+    <span aria-hidden="true" style="width:48px;height:48px;border-radius:16px;background:{{c.primary}};color:{{c.onp}};display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg></span>
+    <button type="button" class="mm-btn" aria-label="New" style="width:56px;height:56px;flex:none;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+    <sc-for list="{{rail}}" as="r" hint-placeholder-count="6">
+      <button type="button" class="mm-btn" onClick="{{r.onClick}}" aria-label="{{r.label}}" style="border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:{{c.on}}">
+        <span style="width:56px;height:32px;border-radius:16px;background:{{r.bg}};color:{{r.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
+        <span style="font-size:12px;font-weight:600;line-height:15px">{{r.label}}</span>
+      </button>
+    </sc-for>
+    <span style="flex:1"></span>
+    <button type="button" class="mm-btn" aria-label="Settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3"></path></svg></button>
+    <span role="img" aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</span>
+  </nav>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px;box-sizing:border-box">
+      <div class="mm-title" style="flex:1 1 0">Home</div>
+      <label class="mm-field" style="width:560px;flex:none;height:56px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 16px;border-radius:999px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14)">
+        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+        <span class="mm-sr">Search courses, people and settings</span>
+        <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none">
+        <span class="mm-mono" style="font-size:12px;padding:4px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Ctrl K</span>
+      </label>
+      <div style="flex:1 1 0;display:flex;justify-content:flex-end;gap:4px">
+        <button type="button" class="mm-btn" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"></path></svg></button>
+        <button type="button" class="mm-btn" aria-label="Notifications, 1 new" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;right:11px;top:10px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span></button>
+        <button type="button" class="mm-btn" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
+      </div>
+    </header>
+    <main style="flex:1;min-height:0;overflow:hidden;padding:8px 32px 24px;box-sizing:border-box">
+      <div style="max-width:1180px;display:flex;flex-direction:column;gap:24px">
+        <h1 class="mm-headline">Good morning, Mei</h1>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+          <sc-for list="{{courses}}" as="k" hint-placeholder-count="4">
+            <div style="border-radius:28px;background:{{c.low}};overflow:hidden;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{k.delay}}">
+              <div style="height:140px;background:{{k.bg}};position:relative;overflow:hidden">
+                <span style="position:absolute;right:-24px;top:-24px;width:140px;height:140px;border-radius:{{k.r}};background:{{k.shape}};opacity:.6"></span>
+                <span class="mm-mono" style="position:absolute;left:20px;bottom:16px;font-size:14px;font-weight:600;color:{{k.on}}">{{k.code}}</span>
+              </div>
+              <div style="padding:16px 20px 20px;display:flex;flex-direction:column;gap:12px">
+                <div class="mm-title">{{k.name}}</div>
+                <div style="height:8px;border-radius:999px;background:{{c.highest}}"><div style="height:8px;border-radius:999px;background:{{c.primary}};width:{{k.pct}}%"></div></div>
+                <div class="mm-label" style="color:{{c.onv}}">{{k.pct}}% complete</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border-radius:28px;background:{{c.low}};padding:16px 24px">
+          <div class="mm-title" style="padding:8px 0">Coming up</div>
+          <sc-for list="{{upcoming}}" as="u" hint-placeholder-count="3">
+            <div style="height:72px;display:flex;align-items:center;gap:16px">
+              <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM9 11h6M9 15h6"></path></svg></span>
+              <span style="flex:1;min-width:0"><span style="display:block;font-weight:600">{{u.title}}</span><span style="display:block;font-size:14px;color:{{c.onv}}">{{u.sub}}</span></span>
+              <span class="mm-label" style="padding:2px 8px;border-radius:8px;background:{{u.bg}};color:{{u.fg}}">{{u.pill}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <sc-if value="{{open}}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;left:0;top:0;width:1440px;height:900px;z-index:2">
+      <div onClick="{{close}}" style="position:absolute;left:0;top:0;width:1440px;height:900px;background:{{scrim}}"></div>
+      <div role="dialog" aria-label="Everything in Riverside College" style="position:absolute;left:112px;top:48px;width:720px;height:796px;box-sizing:border-box;border-radius:32px;background:{{c.high}};box-shadow:0 8px 28px rgba(27,27,33,.14);padding:24px;display:flex;flex-direction:column;gap:16px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="flex:1;min-width:0"><div class="mm-title">Everything</div><div aria-live="polite" style="font-size:14px;color:{{c.onv}}">{{countText}}</div></div>
+          <button type="button" class="mm-btn" onClick="{{close}}" aria-label="Close launcher" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        </div>
+        <div class="mm-field" style="height:56px;flex:none;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 8px 0 16px;border-radius:999px;background:{{c.highest}}">
+          <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+          <label style="flex:1;min-width:0;display:flex"><span class="mm-sr">Find a feature</span><input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="{{placeholder}}" style="flex:1;min-width:0;height:48px;border:0;background:transparent;font-size:16px;color:{{c.on}};outline:none"></label>
+          <button type="button" class="mm-btn mm-mono" aria-pressed="{{regexStr}}" aria-label="Use a regular expression" onClick="{{toggleRegex}}" style="min-width:48px;height:40px;padding:0 12px;border:0;border-radius:12px;background:{{regexBg}};color:{{regexFg}};box-shadow:{{regexShadow}};font-weight:600;font-size:16px;cursor:pointer">.*</button>
+        </div>
+        <sc-if value="{{invalid}}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="margin:-8px 0 0;padding:0 16px;font-size:14px;color:{{c.err}}">That pattern is incomplete. Every feature stays listed until it is fixed.</p>
+        </sc-if>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{chips}}" as="ch" hint-placeholder-count="7">
+            <button type="button" class="mm-btn" aria-pressed="{{ch.pressed}}" onClick="{{ch.pick}}" style="height:36px;padding:0 12px;border-radius:10px;border:{{ch.border}};background:{{ch.bg}};color:{{ch.fg}};display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;cursor:pointer">
+              <sc-if value="{{ch.on}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+              {{ch.label}}
+            </button>
+          </sc-for>
+        </div>
+        <div style="flex:1;min-height:0;overflow-y:auto;margin:0 -8px;padding:4px 8px">
+          <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+            <div style="padding:32px;border-radius:24px;background:{{c.cont}};text-align:center;color:{{c.onv}}">No feature matches. Try fewer words, or switch off the regular expression.</div>
+          </sc-if>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:dense;grid-auto-rows:minmax(112px,auto);gap:12px">
+            <sc-for list="{{items}}" as="it" hint-placeholder-count="8">
+              <div class="mm-tile" style="position:relative;grid-column:span {{it.span}};box-sizing:border-box;padding:16px;border-radius:24px;background:{{it.bg}};border:{{it.border}};color:{{it.fg}};display:flex;flex-direction:{{it.dir}};align-items:{{it.align}};gap:12px;animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both;animation-delay:{{it.delay}}">
+                <sc-if value="{{it.link}}" hint-placeholder-val="{{ true }}"><a href="#" aria-label="{{it.label}}" style="position:absolute;left:0;top:0;right:0;bottom:0;border-radius:24px"></a></sc-if>
+                <span style="width:48px;height:48px;flex:none;border-radius:16px;background:{{it.iconBg}};color:{{it.iconFg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.d}}"></path></svg></span>
+                <span style="display:flex;flex-direction:column;gap:2px;flex:{{it.textFlex}};min-width:0">
+                  <span style="font-size:15px;font-weight:600;line-height:1.3">{{it.label}}</span>
+                  <sc-if value="{{it.hasDesc}}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;line-height:1.4">{{it.desc}}</span></sc-if>
+                  <sc-if value="{{it.off}}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:{{c.onv}}">Off for this site</span></sc-if>
+                </span>
+                <sc-if value="{{it.off}}" hint-placeholder-val="{{ false }}"><button type="button" class="mm-btn mm-label" onClick="{{it.turnOn}}" style="position:relative;z-index:1;height:48px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:{{c.primary}};cursor:pointer">Turn on</button></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: true, q: '', regex: false, group: 'all', on: {} }; }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const L = { pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', tert:'#A23F6A', suc:'#1F7A4D', sucC:'#B7F1CF', onsucC:'#002111', warnC:'#FFE08A', onwarnC:'#251A00', err:'#BA1A1A', surface:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', onp:'#FFFFFF' };
+    const D = { pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', tert:'#FFB0CB', suc:'#7CDBA6', sucC:'#005234', onsucC:'#B7F1CF', warnC:'#5B4300', onwarnC:'#FFE08A', err:'#FFB4AB', surface:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', onp:'#002388' };
+    const c = Object.assign({}, dark ? D : L, { primary: dark ? '#B8C3FF' : accent });
+    const s = this.state;
+    const toggleOpen = () => this.setState({ open: !s.open });
+    const RL = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z']];
+    const active = s.open ? 'Everything' : 'Home';
+    const rail = RL.map(([label, d]) => ({ label, d, bg: label === active ? c.sc : 'transparent', fg: label === active ? c.onsc : c.onv, onClick: label === 'Everything' ? toggleOpen : () => {} }));
+    const GL = [['all','All'],['learn','Learning'],['progress','Progress'],['talk','Talk'],['content','Content'],['account','Account'],['admin','Administration']];
+    const F = [
+      ['calendar','learn','Calendar','Deadlines and events by month, week or day','/calendar/view.php','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',0,1],
+      ['grades','progress','Grades','Your grades in every course','/grade/report/overview','M4 20V10M10 20V4M16 20v-8M22 20H2',0,1],
+      ['dashboard','learn','Dashboard','Timeline, recent items and course overview','/my/','M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z',0,0],
+      ['courses','learn','My courses','Every course you are enrolled in','/my/courses.php','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5',0,0],
+      ['find','learn','Find a course','Search every course on this site','/course/search.php','M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4',0,0],
+      ['all','learn','All courses','Browse courses by category','/course/index.php','M3 6h6l2 2h10v11H3z',0,0],
+      ['badges','progress','Badges','Badges you have earned','/badges/mybadges.php','M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z',0,0],
+      ['plans','progress','Learning plans','Competencies and plans assigned to you','/admin/tool/lp/plans.php','M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z',0,0],
+      ['reports','progress','Reports','Custom reports shared with you','/reportbuilder/index.php','M5 3h14v18H5zM9 16v-3M12 16V9M15 16v-5',0,0],
+      ['messages','talk','Messages','Private and group conversations','/message/index.php','M4 5h16v11H8l-4 4z',0,0],
+      ['notifications','talk','Notifications','Everything Moodle has told you','/message/output/popup/notifications.php','M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4',0,0],
+      ['blogs','talk','Blogs','Site and course blog entries','/blog/index.php','M4 20h4L19 9l-4-4L4 16zM14 6l4 4',1,0],
+      ['notes','talk','Notes','Notes teachers keep about learners','/notes/index.php','M5 3h10l4 4v14H5zM9 11h6M9 15h6',1,0],
+      ['tags','talk','Tags','Find anything by tag','/tag/search.php','M3 12V4h8l10 10-8 8zM7.5 7.5h.01',0,0],
+      ['files','content','Private files','Files only you can see','/user/files.php','M3 6h6l2 2h10v11H3z',0,0],
+      ['bank','content','Content bank','H5P and other reusable content','/contentbank/index.php','M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10',0,0],
+      ['profile','account','Profile','How others see you','/user/profile.php','M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21a8 8 0 0 1 16 0',0,0],
+      ['prefs','account','Preferences','Language, forums, editor and calendar choices','/user/preferences.php','M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3',0,0],
+      ['passkeys','account','Passkeys','Sign in without a password','/auth/passkey/manage.php','M7.5 9a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zM11 13L21 3M17 7l3 3',0,0],
+      ['data','account','Data requests','Export or delete your data','/admin/tool/dataprivacy/mydatarequests.php','M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',0,0],
+      ['support','account','Contact site support','Ask the people who run this site','/user/contactsitesupport.php','M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 17h.01',0,0],
+      ['siteadmin','admin','Site administration','Search every setting','/admin/search.php','M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3',0,0],
+      ['users','admin','Users','Browse, add and edit accounts','/admin/user.php','M9 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM2 20a7 7 0 0 1 14 0',0,0],
+      ['addstudent','admin','Add a student','Create an account and share its sign-in','/local/materialtools/newstudent.php','M9 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM2 20a7 7 0 0 1 14 0M19 8v6M16 11h6',0,0],
+      ['manage','admin','Manage courses','Courses and categories','/course/management.php','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5M9 8h6',0,0],
+      ['logs','admin','Logs','Who did what, and when','/report/log/index.php','M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',0,0],
+      ['plugins','admin','Plugins','Installed plugins and updates','/admin/plugins.php','M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z',0,0],
+      ['wording','admin','Site wording','Rename roles, activities and labels','/local/materialtools/wording.php','M4 6V4h16v2M12 4v16M9 20h6',0,0]
+    ];
+    let test = null, invalid = false;
+    if (s.q) {
+      if (s.regex) { try { const r = new RegExp(s.q, 'i'); test = (t) => r.test(t); } catch (e) { invalid = true; } }
+      else { const q = s.q.toLowerCase(); test = (t) => t.toLowerCase().indexOf(q) !== -1; }
+    }
+    const rows = F.filter((r) => (s.group === 'all' || r[1] === s.group) && (!test || test(r[2] + ' ' + r[3] + ' ' + r[4])))
+      .sort((a, b) => b[7] - a[7]);
+    const items = rows.map((r, i) => {
+      const off = !!r[6] && !s.on[r[0]];
+      const pin = !!r[7];
+      const row = pin || off;
+      return {
+        label: r[2], desc: r[3], d: r[5], off, link: !off, hasDesc: pin,
+        span: row ? 2 : 1, dir: row ? 'row' : 'column', align: row ? 'center' : 'flex-start', textFlex: row ? '1 1 0' : '0 1 auto',
+        bg: off ? 'transparent' : pin ? c.pc : c.cont, border: off ? '1px dashed ' + c.outline : '1px solid transparent',
+        fg: pin ? c.onpc : c.on, iconBg: off ? c.highest : pin ? c.primary : c.sc, iconFg: off ? c.onv : pin ? c.onp : c.onsc,
+        delay: Math.min(i, 12) * 30 + 'ms',
+        turnOn: () => this.setState({ on: Object.assign({}, s.on, { [r[0]]: true }) })
+      };
+    });
+    const chips = GL.map(([id, label]) => ({
+      label, on: s.group === id, pressed: s.group === id ? 'true' : 'false',
+      bg: s.group === id ? c.sc : 'transparent', fg: s.group === id ? c.onsc : c.onv,
+      border: s.group === id ? '1px solid transparent' : '1px solid ' + c.outline,
+      pick: () => this.setState({ group: id })
+    }));
+    const courses = [
+      { name: 'Introduction to Biology', code: 'BIO101', pct: 68, bg: c.pc, shape: c.primary, on: c.onpc, r: '50%' },
+      { name: 'World History', code: 'HIS120', pct: 42, bg: c.tc, shape: c.tert, on: c.ontc, r: '36px' },
+      { name: 'Creative Writing', code: 'ENG210', pct: 85, bg: c.sucC, shape: c.suc, on: c.onsucC, r: '50%' },
+      { name: 'Statistics with Python', code: 'STA230', pct: 15, bg: c.warnC, shape: c.outline, on: c.onwarnC, r: '36px' }
+    ].map((k, i) => Object.assign(k, { delay: i * 60 + 'ms' }));
+    const upcoming = [
+      { title: 'Cell structure lab report', sub: 'BIO101 · Tue 14:00', pill: 'Due soon', bg: c.warnC, fg: c.onwarnC },
+      { title: 'Essay draft: the Silk Road', sub: 'HIS120 · Thu 23:59', pill: 'Due soon', bg: c.warnC, fg: c.onwarnC },
+      { title: 'Quiz 3: probability', sub: 'STA230 · Fri 10:00', pill: 'Quiz', bg: c.sc, fg: c.onsc }
+    ];
+    return {
+      c, rootClass: motion ? '' : 'mm-still', rail, courses, upcoming, chips, items,
+      open: s.open, close: () => this.setState({ open: false }),
+      scrim: dark ? 'rgba(0,0,0,.5)' : 'rgba(27,27,33,.32)',
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      placeholder: s.regex ? 'Pattern, for example ^(c|b)' : 'Find a feature',
+      regexStr: s.regex ? 'true' : 'false', regexBg: s.regex ? c.primary : c.high,
+      regexFg: s.regex ? c.onp : c.onv, regexShadow: s.regex ? 'none' : 'inset 0 -2px 0 ' + c.ov,
+      toggleRegex: () => this.setState({ regex: !s.regex }), invalid,
+      empty: items.length === 0,
+      countText: items.length === 1 ? '1 feature shown' : items.length + ' features shown'
+    };
+  }
+}
+</script>
+</body>
+</html>

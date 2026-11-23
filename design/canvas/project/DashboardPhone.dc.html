@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dashboard, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit}
+a{color:inherit;text-decoration:none}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-still .mm-in{animation:none}
+.mm-still *{transition:none !important}
+.mm-focus:focus-visible{outline:3px solid var(--mm-p);outline-offset:2px}
+.mm-scroll{scrollbar-width:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--mm-p:{{c.p}};width:390px;height:844px;box-sizing:border-box;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
+
+  <header style="height:64px;flex:none;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
+    <h1 style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Home</h1>
+    <div style="display:flex;align-items:center;gap:4px">
+      <button type="button" class="mm-focus" aria-label="Search" style="width:48px;height:48px;border:0;border-radius:24px;background:{{c.high}};color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg>
+      </button>
+      <div role="img" aria-label="Mei Chan" style="width:40px;height:40px;margin-left:4px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:650">MC</div>
+    </div>
+  </header>
+
+  <main class="mm-scroll" style="flex:1;min-height:0;overflow:auto;padding:0 16px 24px;display:flex;flex-direction:column;gap:16px">
+
+    <section class="mm-in" style="position:relative;overflow:hidden;box-sizing:border-box;padding:24px;border-radius:36px;background:{{c.pc}};color:{{c.onpc}}">
+      <div aria-hidden="true" style="position:absolute;right:-44px;top:-52px;width:150px;height:150px;border-radius:75px;background:{{c.sc}}"></div>
+      <div style="position:relative">
+        <div style="font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Monday 23 November</div>
+        <h2 style="margin:4px 0 0;font-weight:800;font-stretch:118%;font-size:40px;line-height:1.02;letter-spacing:-0.02em">Good afternoon, Mei</h2>
+        <p style="margin:12px 0 16px;font-size:16px;line-height:1.55">3 items due this week. Next up: Cell structure lab report, Tue 14:00.</p>
+        <a href="#" class="mm-focus" style="display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:999px;background:{{c.bg}};color:{{c.on}};font-weight:600;font-size:14px;letter-spacing:.01em">Resume Introduction to Biology</a>
+      </div>
+    </section>
+
+    <section class="mm-in" aria-labelledby="due-h" style="animation-delay:70ms;background:{{c.low}};border-radius:28px;padding:20px 16px;box-sizing:border-box">
+      <h2 id="due-h" style="margin:0 0 12px 8px;font-weight:650;font-size:20px;line-height:1.3">Due this week</h2>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+          <li style="display:flex;align-items:center;gap:12px;min-height:72px;box-sizing:border-box;padding:12px;border-radius:20px;background:{{c.cont}}">
+            <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{r.tileBg}};color:{{r.tileFg}};display:flex;align-items:center;justify-content:center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg>
+            </span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-weight:600;font-size:15px;line-height:1.3">{{r.title}}</span>
+              <span style="display:block;font-size:13px;color:{{c.onv}}"><span style="font-family:'Roboto Mono',monospace">{{r.code}}</span> &middot; {{r.when}}</span>
+            </span>
+            <span style="height:24px;box-sizing:border-box;padding:0 8px;border-radius:8px;display:inline-flex;align-items:center;background:{{r.pillBg}};color:{{r.pillFg}};font-weight:600;font-size:12px;white-space:nowrap">{{r.status}}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="cont-h">
+      <h2 id="cont-h" style="margin:8px 8px 12px;font-weight:650;font-size:20px;line-height:1.3">Continue learning</h2>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{courses}}" as="co" hint-placeholder-count="4">
+          <div class="mm-in" style="animation-delay:{{co.delay}};background:{{c.low}};border-radius:28px;overflow:hidden">
+            <button type="button" class="mm-focus" aria-expanded="{{co.expanded}}" onClick="{{co.toggle}}" style="display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer">
+              <div aria-hidden="true" style="position:relative;height:140px;background:{{co.bg}};overflow:hidden">
+                <div style="position:absolute;right:-28px;bottom:-40px;width:150px;height:150px;border-radius:{{co.radius}};background:{{co.shape}}"></div>
+              </div>
+              <div style="padding:16px 20px 20px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                  <span style="font-family:'Roboto Mono',monospace;font-size:12px;font-weight:600;color:{{c.onv}}">{{co.code}}</span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.onv}}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate({{co.rot}});transition:transform 240ms cubic-bezier(.2,0,0,1.2)"><path d="M6 9l6 6 6-6"></path></svg>
+                </div>
+                <div style="margin:2px 0 12px;font-weight:650;font-size:20px;line-height:1.3">{{co.title}}</div>
+                <div style="height:8px;border-radius:999px;background:{{c.highest}};overflow:hidden" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{co.pct}}" aria-label="{{co.title}} progress">
+                  <div style="height:100%;width:{{co.pctW}};border-radius:999px;background:{{c.p}}"></div>
+                </div>
+                <div style="margin-top:8px;font-size:14px;color:{{c.onv}}">{{co.pct}}% complete</div>
+              </div>
+            </button>
+            <sc-if value="{{co.isOpen}}" hint-placeholder-val="{{ false }}">
+              <div class="mm-in" style="margin:0 12px 12px;padding:16px;border-radius:20px;background:{{c.cont}}">
+                <div style="font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Next activity</div>
+                <div style="margin:4px 0 2px;font-weight:600;font-size:16px;line-height:1.3">{{co.nextTitle}}</div>
+                <div style="font-size:14px;color:{{c.onv}}"><span style="font-family:'Roboto Mono',monospace">{{co.nextWhen}}</span></div>
+                <a href="#" class="mm-focus" style="margin-top:12px;display:inline-flex;align-items:center;height:48px;padding:0 24px;box-sizing:border-box;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-weight:600;font-size:14px;letter-spacing:.01em">Open course</a>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="mm-in" aria-labelledby="prog-h" style="background:{{c.low}};border-radius:28px;padding:20px;box-sizing:border-box;display:flex;align-items:center;gap:20px">
+      <div style="position:relative;width:104px;height:104px;flex:none">
+        <svg width="104" height="104" viewBox="0 0 128 128" role="img" aria-label="53 percent complete across 4 courses">
+          <circle cx="64" cy="64" r="52" fill="none" stroke="{{c.highest}}" stroke-width="6"></circle>
+          <circle cx="64" cy="64" r="52" fill="none" stroke="{{c.p}}" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{ringDash}}" transform="rotate(-90 64 64)"></circle>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">53%</div>
+      </div>
+      <div>
+        <h2 id="prog-h" style="margin:0 0 4px;font-weight:650;font-size:20px;line-height:1.3">Progress</h2>
+        <p style="margin:0;font-size:14px;color:{{c.onv}}">Average across your 4 courses. Creative Writing leads at 85%.</p>
+      </div>
+    </section>
+
+    <section class="mm-in" aria-labelledby="cal-h" style="background:{{c.low}};border-radius:28px;padding:20px;box-sizing:border-box">
+      <h2 id="cal-h" style="margin:0 0 2px;font-weight:650;font-size:20px;line-height:1.3">Calendar</h2>
+      <div style="font-size:14px;color:{{c.onv}}">23 to 29 November</div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:16px;text-align:center">
+        <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <span style="font-size:12px;font-weight:600;color:{{c.onv}}">{{d.l}}</span>
+            <span style="width:36px;height:36px;border-radius:18px;display:flex;align-items:center;justify-content:center;background:{{d.bg}};color:{{d.fg}};font-weight:600;font-size:14px;font-family:'Roboto Mono',monospace">{{d.n}}</span>
+            <span style="width:6px;height:6px;border-radius:3px;background:{{d.dot}}"></span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+
+  <nav aria-label="Main" style="height:80px;flex:none;box-sizing:border-box;background:{{c.cont}};display:flex;align-items:center;justify-content:space-around;padding:0 4px">
+    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+      <a href="#" class="mm-focus" aria-current="{{n.current}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;width:72px;min-height:48px;border-radius:12px">
+        <span style="width:64px;height:32px;border-radius:16px;background:{{n.pill}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
+        </span>
+        <span style="font-size:12px;line-height:16px;font-weight:{{n.weight}};color:{{n.labelFg}}">{{n.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: 'BIO101' }; }
+  palette(dark, accent) {
+    if (dark) {
+      return { p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', t:'#FFB0CB', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', w:'#E9C16C', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', ec:'#93000A', onec:'#FFDAD6', bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', out:'#90909A', ov:'#45464F' };
+    }
+    return { p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', t:'#A23F6A', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#002111', w:'#8B5000', wc:'#FFE08A', onwc:'#3B2F00', err:'#BA1A1A', ec:'#FFDAD6', onec:'#410002', bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', out:'#767680', ov:'#C6C5D0' };
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+
+    const iconDoc = 'M6 3h9l4 4v14H6zM14 3v5h5M9 13h6M9 17h6';
+    const iconPen = 'M4 20h4L19 9l-4-4L4 16zM14 6l4 4';
+    const iconQuiz = 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01';
+    const rows = [
+      { title:'Cell structure lab report', code:'BIO101', when:'Tue 14:00', d:iconDoc, tileBg:c.pc, tileFg:c.onpc, status:'Due soon', pillBg:c.wc, pillFg:c.onwc },
+      { title:'Essay draft: the Silk Road', code:'HIS120', when:'Thu 23:59', d:iconPen, tileBg:c.tc, tileFg:c.ontc, status:'Upcoming', pillBg:c.high, pillFg:c.onv },
+      { title:'Quiz 3: probability', code:'STA230', when:'Fri 10:00', d:iconQuiz, tileBg:c.wc, tileFg:c.onwc, status:'Upcoming', pillBg:c.high, pillFg:c.onv }
+    ];
+
+    const navDefs = [
+      ['Home', 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z'],
+      ['Courses', 'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
+      ['Calendar', 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['Messages', 'M4 5h16v11H8l-4 4z'],
+      ['Everything', 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
+    ];
+    const nav = navDefs.map(([label, d]) => {
+      const on = label === 'Home';
+      return { label, d, current: on ? 'page' : 'false', pill: on ? c.sc : 'transparent', fg: on ? c.onsc : c.onv, labelFg: on ? c.on : c.onv, weight: on ? 700 : 500 };
+    });
+
+    const dayDefs = [['Mo', 23], ['Tu', 24], ['We', 25], ['Th', 26], ['Fr', 27], ['Sa', 28], ['Su', 29]];
+    const dueDays = [24, 26, 27];
+    const days = dayDefs.map(([l, n]) => ({ l, n, bg: n === 23 ? c.p : 'transparent', fg: n === 23 ? c.onp : c.on, dot: dueDays.indexOf(n) !== -1 ? c.t : 'transparent' }));
+
+    const courseDefs = [
+      ['Introduction to Biology', 'BIO101', 68, c.pc, c.p, '75px', 'Cell structure lab report', 'Due Tue 14:00'],
+      ['World History', 'HIS120', 42, c.tc, c.t, '36px', 'Essay draft: the Silk Road', 'Due Thu 23:59'],
+      ['Creative Writing', 'ENG210', 85, c.okc, c.ok, '75px', 'Workshop: opening scene', 'Wed 11:00'],
+      ['Statistics with Python', 'STA230', 15, c.wc, c.w, '36px', 'Quiz 3: probability', 'Fri 10:00']
+    ];
+    const courses = courseDefs.map(([title, code, pct, bg, shape, radius, nextTitle, nextWhen], i) => {
+      const isOpen = s.open === code;
+      return {
+        title, code, pct, pctW: pct + '%', bg, shape, radius, nextTitle, nextWhen,
+        delay: (140 + i * 70) + 'ms',
+        isOpen, expanded: isOpen ? 'true' : 'false', rot: isOpen ? '180deg' : '0deg',
+        toggle: () => this.setState({ open: isOpen ? '' : code })
+      };
+    });
+
+    const circ = 2 * Math.PI * 52;
+    return {
+      c, rootClass: motion ? '' : 'mm-still',
+      rows, nav, days, courses,
+      ringDash: (circ * 0.53).toFixed(1) + ' ' + circ.toFixed(1)
+    };
+  }
+}
+</script>
+</body>
+</html>

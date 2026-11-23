@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Course page, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in{animation:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
+
+  <nav aria-label="Primary" style="width:96px;flex:none;height:900px;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:16px 0">
+    <div style="width:48px;height:48px;border-radius:14px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"></path></svg>
+    </div>
+    <button type="button" aria-label="New" style="width:56px;height:56px;border-radius:16px;border:0;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+    </button>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
+        <a href="#" aria-current="{{n.cur}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;width:80px;min-height:56px;text-decoration:none;color:{{c.on}}">
+          <span style="width:56px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
+          </span>
+          <span style="font-size:12px;font-weight:{{n.w}}">{{n.label}}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="flex:1"></div>
+    <button type="button" aria-label="Settings" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:8px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
+    </button>
+    <div aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</div>
+  </nav>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px">
+      <div style="flex:1;font-weight:650;font-size:20px;line-height:1.3">Introduction to Biology</div>
+      <label style="flex:none;width:560px;height:56px;border-radius:28px;background:{{c.high}};box-shadow:{{c.shadow}};display:flex;align-items:center;padding:0 16px 0 8px;color:{{c.onv}}">
+        <span style="width:48px;display:flex;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+        <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search courses, people and settings</span>
+        <input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
+        <kbd style="font-family:'Roboto Mono',monospace;font-size:12px;padding:4px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Ctrl K</kbd>
+      </label>
+      <div style="flex:1;display:flex;justify-content:flex-end;gap:4px">
+        <button type="button" aria-label="Display settings" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"></path></svg></button>
+        <button type="button" aria-label="Notifications, new" style="position:relative;width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;top:11px;right:12px;width:8px;height:8px;border-radius:4px;background:{{c.err}}"></span></button>
+        <button type="button" aria-label="Help" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
+      </div>
+    </header>
+
+    <main style="flex:1;overflow:auto;padding:0 32px 32px">
+      <div style="max-width:1180px;margin:0 auto;display:flex;gap:24px;align-items:flex-start">
+
+        <aside aria-label="Course index" style="position:sticky;top:0;flex:none;width:280px;padding:20px 12px;border-radius:28px;background:{{c.low}}">
+          <h2 style="margin:0 0 8px;padding:0 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Course index</h2>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <sc-for list="{{index}}" as="s" hint-placeholder-count="3">
+              <button type="button" aria-expanded="{{s.expandedStr}}" onClick="{{s.toggle}}" style="width:100%;min-height:64px;padding:8px 12px;border:0;border-radius:20px;background:{{s.bg}};color:{{c.on}};display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer">
+                <span style="flex:none;width:28px;height:28px;border-radius:14px;border:2px solid {{s.ring}};background:{{s.fill}};color:{{c.okc}};display:flex;align-items:center;justify-content:center">
+                  <sc-if value="{{s.done}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:14px;font-weight:600;line-height:1.3">{{s.title}}</span>
+                  <span style="display:block;font-size:12px;color:{{c.onv}}">{{s.count}}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </aside>
+
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:24px">
+          <section class="mm-in" style="display:flex;align-items:center;gap:24px;padding:32px 40px;border-radius:36px;background:{{c.tc}};color:{{c.ontc}}">
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">BIO101</div>
+              <h1 style="margin:8px 0 4px;font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1">Introduction to Biology</h1>
+              <div style="font-size:16px;line-height:1.55">Taught by Dr. Priya Nair</div>
+              <div style="display:flex;gap:12px;margin-top:20px">
+                <button type="button" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Participants</button>
+                <button type="button" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Grades</button>
+              </div>
+            </div>
+            <div role="img" aria-label="68 percent complete" style="position:relative;flex:none;width:112px;height:112px">
+              <svg width="112" height="112" viewBox="0 0 112 112" aria-hidden="true">
+                <circle cx="56" cy="56" r="48" fill="none" stroke="currentColor" stroke-opacity=".18" stroke-width="8"></circle>
+                <circle cx="56" cy="56" r="48" fill="none" stroke="{{c.t}}" stroke-width="8" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="96.5" transform="rotate(-90 56 56)"></circle>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-size:24px;font-weight:750;font-stretch:112%;line-height:1">68%</span><span style="font-size:12px;margin-top:2px">complete</span></div>
+            </div>
+          </section>
+
+          <div role="tablist" aria-label="Course sections" style="display:flex;gap:8px">
+            <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+              <button type="button" role="tab" aria-selected="{{tab.sel}}" onClick="{{tab.pick}}" style="min-height:48px;padding:0 16px;border:0;background:transparent;color:{{tab.fg}};font-size:14px;font-weight:600;letter-spacing:.01em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer">
+                <span>{{tab.label}}</span>
+                <span style="width:32px;height:4px;border-radius:2px;background:{{tab.bar}}"></span>
+              </button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{notCourse}}" hint-placeholder-val="{{ false }}">
+            <section style="padding:24px;border-radius:28px;background:{{c.low}}">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Viewing</div>
+              <h2 style="margin:4px 0 8px;font-weight:650;font-size:20px;line-height:1.3">{{tabLabel}}</h2>
+              <p style="margin:0;font-size:16px;line-height:1.55;color:{{c.onv}}">This tab is not drawn on this board. Choose Course to see the sections and activities.</p>
+            </section>
+          </sc-if>
+
+          <sc-if value="{{isCourse}}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <sc-for list="{{sections}}" as="s" hint-placeholder-count="3">
+                <section class="mm-in" style="animation-delay:{{s.delay}};border-radius:28px;background:{{c.low}};overflow:hidden">
+                  <button type="button" aria-expanded="{{s.expandedStr}}" onClick="{{s.toggle}}" style="width:100%;min-height:72px;padding:16px 24px;border:0;background:transparent;color:{{c.on}};display:flex;align-items:center;gap:16px;text-align:left;cursor:pointer">
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font-weight:650;font-size:20px;line-height:1.3">{{s.title}}</span>
+                      <span style="display:block;font-size:14px;color:{{c.onv}}">{{s.count}}</span>
+                    </span>
+                    <span style="flex:none;color:{{c.onv}};transform:rotate({{s.rot}});transition:transform 200ms">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+                    </span>
+                  </button>
+                  <sc-if value="{{s.open}}" hint-placeholder-val="{{ true }}">
+                    <ul style="list-style:none;margin:0;padding:0 16px 16px;display:flex;flex-direction:column;gap:8px">
+                      <sc-for list="{{s.rows}}" as="r" hint-placeholder-count="3">
+                        <li style="min-height:72px;padding:16px;border-radius:20px;background:{{c.c}};display:flex;align-items:center;gap:16px">
+                          <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg>
+                          </span>
+                          <span style="flex:1;min-width:0">
+                            <a href="#" style="display:block;font-size:16px;font-weight:600;line-height:1.3;color:{{c.on}};text-decoration:none">{{r.title}}</a>
+                            <span style="display:block;font-size:14px;color:{{c.onv}}">{{r.kind}}</span>
+                          </span>
+                          <span style="flex:none;font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">{{r.due}}</span>
+                          <span style="flex:none;height:24px;padding:0 10px;border-radius:8px;background:{{r.bg}};color:{{r.fg}};font-size:12px;font-weight:700;display:flex;align-items:center;min-width:64px;justify-content:center">{{r.status}}</span>
+                        </li>
+                      </sc-for>
+                    </ul>
+                  </sc-if>
+                </section>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: '', tab: 'Course', collapsed: { w1: true, w2: false, w3: false } };
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', c:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', t:'#A23F6A', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#00210F', err:'#BA1A1A', shadow:'0 8px 28px rgba(27,27,33,.14)' };
+    const D = { bg:'#131318', low:'#1B1B21', c:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', t:'#FFB0CB', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', err:'#FFB4AB', shadow:'0 8px 28px rgba(0,0,0,.4)' };
+    return dark ? D : L;
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const icons = {
+      assignment: 'M6 3h9l4 4v14H6zM9 12h7M9 16h7',
+      quiz: 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01',
+      forum: 'M4 5h16v11H8l-4 4z',
+      page: 'M5 3h14v18H5zM9 8h6M9 12h6M9 16h4',
+      file: 'M13 3H6v18h12V8zM13 3v5h5'
+    };
+    const kinds = { assignment:'Assignment', quiz:'Quiz', forum:'Forum', page:'Page', file:'File' };
+    const data = [
+      { id:'w1', title:'Week 1: What is life?', acts:[
+        ['page','Welcome and course outline','No deadline',true],
+        ['file','Reading: characteristics of life','No deadline',true],
+        ['forum','Introduce yourself','No deadline',true],
+        ['quiz','Quiz 1: the scientific method','Done',true] ] },
+      { id:'w2', title:'Week 2: Cells', acts:[
+        ['page','Cell structure notes','No deadline',true],
+        ['assignment','Cell structure lab report','Tue 14:00',false],
+        ['quiz','Quiz 2: organelles','Thu 10:00',false] ] },
+      { id:'w3', title:'Week 3: Genetics', acts:[
+        ['page','Mendel and inheritance','No deadline',false],
+        ['forum','Genetics questions and answers','No deadline',false],
+        ['assignment','Punnett square worksheet','Fri 23:59',false] ] }
+    ];
+    const sections = data.map((d, i) => {
+      const done = d.acts.filter((a) => a[3]).length;
+      const open = !s.collapsed[d.id];
+      return {
+        id: d.id, title: d.title, delay: (i * 70) + 'ms', open, expandedStr: open ? 'true' : 'false',
+        count: done + ' of ' + d.acts.length + ' done', allDone: done === d.acts.length,
+        rot: open ? '180deg' : '0deg',
+        toggle: () => this.setState({ collapsed: { ...s.collapsed, [d.id]: open } }),
+        rows: d.acts.map((a) => ({
+          d: icons[a[0]], kind: kinds[a[0]], title: a[1], due: a[2] === 'Done' ? '' : a[2],
+          status: a[3] ? 'Done' : 'To do', bg: a[3] ? c.okc : c.highest, fg: a[3] ? c.onokc : c.onv
+        }))
+      };
+    });
+    const index = sections.map((x) => ({
+      title: x.title, count: x.count, done: x.allDone, expandedStr: x.expandedStr, toggle: x.toggle,
+      bg: x.open ? c.c : 'transparent', ring: x.allDone ? c.ok : c.outline, fill: x.allDone ? c.ok : 'transparent'
+    }));
+    const tabNames = ['Course', 'Participants', 'Grades', 'Reports', 'More'];
+    const nav = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']].map(([label, d]) => {
+      const a = label === 'Courses';
+      return { label, d, cur: a ? 'page' : 'false', bg: a ? c.sc : 'transparent', fg: a ? c.onsc : c.onv, w: a ? 700 : 500 };
+    });
+    return {
+      c, nav, rootClass: motion ? '' : 'mm-still',
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      sections, index,
+      tabs: tabNames.map((t) => {
+        const on = s.tab === t;
+        return { label: t, sel: on ? 'true' : 'false', fg: on ? c.p : c.onv, bar: on ? c.p : 'transparent', pick: () => this.setState({ tab: t }) };
+      }),
+      tabLabel: s.tab, isCourse: s.tab === 'Course', notCourse: s.tab !== 'Course'
+    };
+  }
+}
+</script>
+</body>
+</html>

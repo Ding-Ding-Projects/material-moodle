@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Assignment page, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in{animation:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
+
+  <nav aria-label="Primary" style="width:96px;flex:none;height:900px;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:16px 0">
+    <div style="width:48px;height:48px;border-radius:14px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"></path></svg>
+    </div>
+    <button type="button" aria-label="New" style="width:56px;height:56px;border-radius:16px;border:0;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+    </button>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
+        <a href="#" aria-current="{{n.cur}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;width:80px;min-height:56px;text-decoration:none;color:{{c.on}}">
+          <span style="width:56px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
+          </span>
+          <span style="font-size:12px;font-weight:{{n.w}}">{{n.label}}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="flex:1"></div>
+    <button type="button" aria-label="Settings" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:8px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
+    </button>
+    <div aria-label="Mei Chan" style="width:40px;height:40px;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MC</div>
+  </nav>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px">
+      <div style="flex:1;font-weight:650;font-size:20px;line-height:1.3">Assignment</div>
+      <label style="flex:none;width:560px;height:56px;border-radius:28px;background:{{c.high}};box-shadow:{{c.shadow}};display:flex;align-items:center;padding:0 16px 0 8px;color:{{c.onv}}">
+        <span style="width:48px;display:flex;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+        <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search courses, people and settings</span>
+        <input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
+        <kbd style="font-family:'Roboto Mono',monospace;font-size:12px;padding:4px 8px;border-radius:8px;background:{{c.highest}};color:{{c.onv}}">Ctrl K</kbd>
+      </label>
+      <div style="flex:1;display:flex;justify-content:flex-end;gap:4px">
+        <button type="button" aria-label="Display settings" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"></path></svg></button>
+        <button type="button" aria-label="Notifications, new" style="position:relative;width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;top:11px;right:12px;width:8px;height:8px;border-radius:4px;background:{{c.err}}"></span></button>
+        <button type="button" aria-label="Help" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
+      </div>
+    </header>
+
+    <main style="flex:1;overflow:auto;padding:0 32px 32px">
+      <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:16px">
+        <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:14px;color:{{c.onv}}">
+          <a href="#" style="min-height:32px;display:flex;align-items:center;color:{{c.onv}}">Courses</a><span aria-hidden="true">/</span>
+          <a href="#" style="min-height:32px;display:flex;align-items:center;color:{{c.onv}}">Introduction to Biology</a><span aria-hidden="true">/</span>
+          <a href="#" style="min-height:32px;display:flex;align-items:center;color:{{c.onv}}">Week 2: Cells</a><span aria-hidden="true">/</span>
+          <span aria-current="page" style="color:{{c.on}};font-weight:600">Cell structure lab report</span>
+        </nav>
+        <h1 class="mm-in" style="margin:0;font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1">Cell structure lab report</h1>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="height:24px;padding:0 10px;border-radius:8px;background:{{c.wc}};color:{{c.onwc}};font-size:12px;font-weight:700;display:flex;align-items:center">Due Tue 14:00</span>
+          <span role="status" style="height:24px;padding:0 10px;border-radius:8px;background:{{statusBg}};color:{{statusFg}};font-size:12px;font-weight:700;display:flex;align-items:center">{{statusText}}</span>
+        </div>
+
+        <div style="display:flex;gap:24px;align-items:flex-start;margin-top:8px">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:24px">
+            <section class="mm-in" style="padding:24px;border-radius:28px;background:{{c.low}}">
+              <h2 style="margin:0 0 12px;font-weight:650;font-size:20px;line-height:1.3">Instructions</h2>
+              <p style="margin:0 0 12px;font-size:16px;line-height:1.55">Write a lab report on the onion cell slides you prepared in the Week 2 practical. Describe what you observed under each magnification and label the visible structures.</p>
+              <p style="margin:0 0 12px;font-size:16px;line-height:1.55">Your report should include an aim, a short method, labelled drawings, a results table and a conclusion of about 400 words that explains how cell structure supports function.</p>
+              <p style="margin:0 0 20px;font-size:16px;line-height:1.55">Submit one file or type directly into the text box. You may save a draft and return before the deadline.</p>
+              <div style="display:flex;align-items:center;gap:16px;min-height:72px;padding:16px;border-radius:20px;background:{{c.c}}">
+                <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3H6v18h12V8zM13 3v5h5"></path></svg></span>
+                <span style="flex:1;min-width:0"><span style="display:block;font-size:16px;font-weight:600">Lab report template.docx</span><span style="display:block;font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">48 KB</span></span>
+                <button type="button" aria-label="Download Lab report template.docx" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"></path></svg></button>
+              </div>
+            </section>
+
+            <section class="mm-in" style="animation-delay:80ms;padding:24px;border-radius:28px;background:{{c.low}}">
+              <h2 style="margin:0 0 12px;font-weight:650;font-size:20px;line-height:1.3">Grading</h2>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><span style="height:24px;padding:0 10px;border-radius:8px;background:{{c.highest}};color:{{c.onv}};font-size:12px;font-weight:700;display:flex;align-items:center">Not graded</span></div>
+              <dl style="margin:0;display:grid;grid-template-columns:140px 1fr;row-gap:8px;font-size:16px;line-height:1.55">
+                <dt style="color:{{c.onv}}">Grade</dt><dd style="margin:0;font-family:'Roboto Mono',monospace">-- / 100</dd>
+                <dt style="color:{{c.onv}}">Grader</dt><dd style="margin:0">Dr. Priya Nair</dd>
+                <dt style="color:{{c.onv}}">Feedback</dt><dd style="margin:0">No feedback yet</dd>
+              </dl>
+            </section>
+          </div>
+
+          <aside aria-label="Your submission" style="position:sticky;top:0;flex:none;width:440px">
+            <section class="mm-in" style="padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:16px">
+              <h2 style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Your submission</h2>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px;border-radius:28px;border:2px dashed {{c.ov}};text-align:center;color:{{c.onv}}">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"></path></svg>
+                <div style="font-size:16px;line-height:1.4;color:{{c.on}}">Drag files here to upload</div>
+                <button type="button" style="height:48px;padding:0 24px;border:1px solid {{c.outline}};border-radius:999px;background:transparent;color:{{c.on}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Choose files</button>
+                <div style="font-size:12px">One file, up to 20 MB. PDF or DOCX.</div>
+              </div>
+              <div>
+                <label for="otext" style="display:block;margin-bottom:8px;font-size:14px;font-weight:600;letter-spacing:.01em">Online text</label>
+                <div style="border-radius:16px;background:{{c.highest}};overflow:hidden">
+                  <div role="toolbar" aria-label="Text formatting" style="display:flex;gap:4px;padding:4px 8px;border-bottom:1px solid {{c.ov}}">
+                    <button type="button" aria-label="Bold" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h6a3.5 3.5 0 0 1 0 7H7zM7 11h7a3.5 3.5 0 0 1 0 7H7z"></path></svg></button>
+                    <button type="button" aria-label="Italic" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4h8M6 20h8M14 4l-4 16"></path></svg></button>
+                    <button type="button" aria-label="Bulleted list" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"></path></svg></button>
+                    <button type="button" aria-label="Link" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></button>
+                  </div>
+                  <textarea id="otext" value="{{text}}" onChange="{{onText}}" placeholder="Type your report here" style="display:block;width:100%;height:120px;padding:16px;border:0;background:transparent;resize:none;font:inherit;font-size:16px;line-height:1.55;color:{{c.on}};outline:none"></textarea>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px">
+                <button type="button" onClick="{{submit}}" style="flex:1;height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">{{submitLabel}}</button>
+                <button type="button" onClick="{{saveDraft}}" style="flex:1;height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Save draft</button>
+              </div>
+              <sc-if value="{{draftSaved}}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:14px;color:{{c.onv}}">Draft saved at <span style="font-family:'Roboto Mono',monospace">13:42</span></div>
+              </sc-if>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <sc-if value="{{snack}}" hint-placeholder-val="{{ true }}">
+    <div role="status" class="mm-in" style="position:absolute;left:calc(50% + 48px);bottom:32px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;min-height:56px;padding:0 8px 0 24px;border-radius:16px;background:{{c.on}};color:{{c.bg}};box-shadow:{{c.shadow}};font-size:14px">
+      <span style="margin-right:16px">Submission received. Dr. Priya Nair can see it now.</span>
+      <button type="button" onClick="{{undo}}" style="min-height:48px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:{{c.pc}};font-size:14px;font-weight:700;cursor:pointer">Undo</button>
+      <button type="button" aria-label="Dismiss message" onClick="{{dismiss}}" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.bg}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: '', text: '', submitted: false, snack: false, draftSaved: false };
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', c:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', t:'#A23F6A', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#00210F', wc:'#FFE08A', onwc:'#3A2C00', err:'#BA1A1A', shadow:'0 8px 28px rgba(27,27,33,.14)' };
+    const D = { bg:'#131318', low:'#1B1B21', c:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', t:'#FFB0CB', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB', shadow:'0 8px 28px rgba(0,0,0,.4)' };
+    return dark ? D : L;
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const nav = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']].map(([label, d]) => {
+      const a = label === 'Courses';
+      return { label, d, cur: a ? 'page' : 'false', bg: a ? c.sc : 'transparent', fg: a ? c.onsc : c.onv, w: a ? 700 : 500 };
+    });
+    return {
+      c, nav, rootClass: motion ? '' : 'mm-still',
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      text: s.text, onText: (e) => this.setState({ text: e.target.value }),
+      statusText: s.submitted ? 'Submitted' : 'Not submitted',
+      statusBg: s.submitted ? c.okc : c.highest, statusFg: s.submitted ? c.onokc : c.onv,
+      submitLabel: s.submitted ? 'Submitted' : 'Submit',
+      submit: () => this.setState({ submitted: true, snack: true }),
+      saveDraft: () => this.setState({ draftSaved: true }),
+      draftSaved: s.draftSaved, snack: s.snack,
+      undo: () => this.setState({ submitted: false, snack: false }),
+      dismiss: () => this.setState({ snack: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

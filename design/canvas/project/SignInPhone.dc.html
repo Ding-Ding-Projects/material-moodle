@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit}
+a{color:inherit}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-still .mm-in{animation:none}
+.mm-still *{transition:none !important}
+.mm-focus:focus-visible{outline:3px solid var(--mm-p);outline-offset:2px}
+.mm-field:focus-within{box-shadow:inset 0 -2px 0 var(--mm-p)}
+.mm-press{transition:transform 200ms cubic-bezier(.2,0,0,1.3)}
+.mm-press:active{transform:scale(.98)}
+.mm-still .mm-press:active{transform:none}
+.mm-scroll{scrollbar-width:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--mm-p:{{c.p}};width:390px;height:844px;box-sizing:border-box;position:relative;overflow:hidden;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
+
+  <section aria-label="Riverside College" style="position:absolute;left:0;top:0;right:0;height:250px;box-sizing:border-box;padding:24px 16px;background:{{c.p}};color:{{c.onp}};overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;right:-70px;top:-70px;width:210px;height:210px;border-radius:105px;background:{{c.pc}}"></div>
+    <div aria-hidden="true" style="position:absolute;right:70px;top:120px;width:70px;height:70px;border-radius:22px;background:{{c.tc}};transform:rotate(14deg)"></div>
+    <div style="position:relative;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:12px;background:{{c.bg}};color:{{c.p}};display:flex;align-items:center;justify-content:center">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
+      </div>
+      <div style="font-weight:650;font-size:20px;line-height:1.3">Riverside College</div>
+    </div>
+    <h1 class="mm-in" style="position:relative;margin:24px 0 0;max-width:300px;font-weight:800;font-stretch:118%;font-size:40px;line-height:1.02;letter-spacing:-0.02em">Pick up where you left off.</h1>
+  </section>
+
+  <main class="mm-scroll" style="position:absolute;left:0;right:0;top:196px;bottom:0;overflow:auto;padding:0 16px 24px">
+    <div class="mm-in" style="animation-delay:80ms;box-sizing:border-box;padding:24px 20px 12px;border-radius:28px;background:{{c.low}}">
+      <h2 style="margin:0 0 20px;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Sign in</h2>
+
+      <button type="button" class="mm-focus mm-press" style="width:100%;height:56px;display:flex;align-items:center;justify-content:center;gap:12px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-weight:600;font-size:16px;letter-spacing:.01em;cursor:pointer">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 11v3a6 6 0 0 1-1 3.5M8 14.5V11a4 4 0 0 1 8 0M5 11a7 7 0 0 1 14 0v2M16 13.5c0 3-1 5.2-2.5 7M8 20c1-1.5 1.5-3 1.5-5M19 13c0 2-.3 3.5-.8 5"></path></svg>
+        Sign in with a passkey
+      </button>
+
+      <div style="display:flex;align-items:center;gap:12px;margin:20px 0;color:{{c.onv}};font-size:14px">
+        <span style="flex:1;height:1px;background:{{c.ov}}"></span>
+        <span>or use your username</span>
+        <span style="flex:1;height:1px;background:{{c.ov}}"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div>
+          <label for="si-user" style="display:block;margin-bottom:6px;font-weight:600;font-size:14px;letter-spacing:.01em">Username</label>
+          <div class="mm-field" style="display:flex;align-items:center;height:56px;box-sizing:border-box;border-radius:16px;background:{{c.highest}}">
+            <span aria-hidden="true" style="width:24px;height:24px;margin:0 12px 0 16px;flex:none;color:{{c.onv}};display:flex">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21a8 8 0 0 1 16 0"></path></svg>
+            </span>
+            <input id="si-user" type="text" autocomplete="username" value="{{user}}" onChange="{{onUser}}" style="flex:1;min-width:0;height:100%;border:0;outline:none;background:transparent;font:inherit;font-size:16px;color:{{c.on}}">
+          </div>
+        </div>
+        <div>
+          <label for="si-pass" style="display:block;margin-bottom:6px;font-weight:600;font-size:14px;letter-spacing:.01em">Password</label>
+          <div class="mm-field" style="display:flex;align-items:center;height:56px;box-sizing:border-box;border-radius:16px;background:{{c.highest}}">
+            <span aria-hidden="true" style="width:24px;height:24px;margin:0 12px 0 16px;flex:none;color:{{c.onv}};display:flex">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h12v9H6zM8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+            </span>
+            <input id="si-pass" type="{{pwType}}" autocomplete="current-password" value="{{pass}}" onChange="{{onPass}}" style="flex:1;min-width:0;height:100%;border:0;outline:none;background:transparent;font:inherit;font-size:16px;color:{{c.on}}">
+            <button type="button" class="mm-focus" aria-label="{{eyeLabel}}" aria-pressed="{{showStr}}" onClick="{{toggleShow}}" style="width:48px;height:48px;margin-right:4px;flex:none;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{eyeD}}"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin:4px 0 12px;display:flex;justify-content:flex-end">
+        <a href="#" class="mm-focus" style="display:inline-flex;align-items:center;min-height:48px;padding:0 8px;border-radius:12px;color:{{c.p}};font-weight:600;font-size:14px;letter-spacing:.01em">Forgot password?</a>
+      </div>
+
+      <sc-if value="{{showMsg}}" hint-placeholder-val="{{ true }}">
+        <div role="alert" class="mm-in" style="margin:0 0 16px;display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:16px;background:{{msgBg}};color:{{msgFg}};font-size:14px;line-height:1.4">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="{{msgIcon}}"></path></svg>
+          <span>{{msg}}</span>
+        </div>
+      </sc-if>
+
+      <button type="button" class="mm-focus mm-press" onClick="{{submit}}" style="width:100%;height:56px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-weight:600;font-size:16px;letter-spacing:.01em;cursor:pointer">Sign in</button>
+
+      <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;font-size:14px">
+        <a href="#" class="mm-focus" style="display:inline-flex;align-items:center;min-height:48px;padding:0 8px;border-radius:12px;color:{{c.onv}};font-weight:500">Cookies notice</a>
+        <a href="#" class="mm-focus" style="display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 8px;border-radius:12px;color:{{c.onv}};font-weight:500">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"></path></svg>
+          English
+        </a>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { user: '', pass: '', show: false, msg: '', kind: '' }; }
+  palette(dark, accent) {
+    if (dark) {
+      return { p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', t:'#FFB0CB', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', err:'#FFB4AB', ec:'#93000A', onec:'#FFDAD6', bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', out:'#90909A', ov:'#45464F' };
+    }
+    return { p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', t:'#A23F6A', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#002111', err:'#BA1A1A', ec:'#FFDAD6', onec:'#410002', bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', out:'#767680', ov:'#C6C5D0' };
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const isErr = s.kind === 'err';
+    return {
+      c, rootClass: motion ? '' : 'mm-still',
+      user: s.user, pass: s.pass,
+      onUser: (e) => this.setState({ user: e.target.value }),
+      onPass: (e) => this.setState({ pass: e.target.value }),
+      pwType: s.show ? 'text' : 'password',
+      showStr: s.show ? 'true' : 'false',
+      eyeLabel: s.show ? 'Hide password' : 'Show password',
+      eyeD: s.show
+        ? 'M3 3l18 18M10.6 6.2A9.6 9.6 0 0 1 12 6c6 0 10 6 10 6a17 17 0 0 1-3.2 3.7M6.6 7.6C4 9.3 2 12 2 12s4 6 10 6c1.5 0 2.8-.4 4-.9M9.9 9.9a3 3 0 0 0 4.2 4.2'
+        : 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z',
+      toggleShow: () => this.setState({ show: !s.show }),
+      showMsg: !!s.msg,
+      msg: s.msg,
+      msgBg: isErr ? c.ec : c.okc, msgFg: isErr ? c.onec : c.onokc,
+      msgIcon: isErr ? 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 8v5M12 16h.01' : 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM8 12l3 3 5-6',
+      submit: () => {
+        if (!s.user.trim() || !s.pass) {
+          this.setState({ kind: 'err', msg: 'Enter your username and password to continue.' });
+        } else {
+          this.setState({ kind: 'ok', msg: 'Signed in as ' + s.user.trim() + '. Opening your dashboard.' });
+        }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

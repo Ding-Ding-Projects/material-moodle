@@ -1,0 +1,345 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-23T05:30:00Z"
+  },
+  "title": "Material Moodle redesign",
+  "launch": {
+    "view": "canvas",
+    "page": "learning"
+  },
+  "pages": [
+    {
+      "id": "learning",
+      "name": "Learning"
+    },
+    {
+      "id": "plan",
+      "name": "Planning and progress"
+    },
+    {
+      "id": "people",
+      "name": "People"
+    },
+    {
+      "id": "everything",
+      "name": "Everything"
+    },
+    {
+      "id": "settings",
+      "name": "Settings and administration"
+    },
+    {
+      "id": "front",
+      "name": "Front door"
+    },
+    {
+      "id": "states",
+      "name": "States"
+    },
+    {
+      "id": "foundations",
+      "name": "Foundations"
+    }
+  ],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Dashboard",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "DashboardPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: dashboard",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "MyCourses.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "My courses",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "Course.dc.html": {
+      "x": 0,
+      "y": 2040,
+      "w": 1440,
+      "h": 900,
+      "title": "Course page",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "CoursePhone.dc.html": {
+      "x": 1940,
+      "y": 2040,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: course page",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Activity.dc.html": {
+      "x": 0,
+      "y": 3060,
+      "w": 1440,
+      "h": 900,
+      "title": "Assignment",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "Calendar.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Calendar",
+      "page": "plan",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "Grades.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "Grades",
+      "page": "plan",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "Launcher.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Features launcher",
+      "page": "everything",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "SignIn.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Sign in",
+      "page": "front",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "SignInPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: sign in",
+      "page": "front",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Foundations.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Material 3 foundations",
+      "page": "foundations",
+      "is_interactive": true,
+      "radius": 16
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "DashboardPhone.dc.html",
+    "MyCourses.dc.html",
+    "Course.dc.html",
+    "CoursePhone.dc.html",
+    "Activity.dc.html",
+    "Calendar.dc.html",
+    "Grades.dc.html",
+    "Launcher.dc.html",
+    "SignIn.dc.html",
+    "SignInPhone.dc.html",
+    "Foundations.dc.html"
+  ],
+  "notes": {
+    "title-learning": {
+      "x": 0,
+      "y": -300,
+      "text": "Learning: dashboard, courses and activities",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "learning"
+    },
+    "n-Maindchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Dashboard for a learner. Greeting, what is due this week, courses to continue, progress and the week ahead. Try the This week / This month switch and the accent, dark and motion Tweaks. Not built yet in the theme.",
+      "page": "learning"
+    },
+    "n-DashboardPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "Dashboard on a phone with bottom navigation. Tap a course card to see its next activity. Not built yet in the theme.",
+      "page": "learning"
+    },
+    "n-MyCoursesdchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "My courses with filter chips and a grid or list view. Try the chips and the view switch. Not built yet.",
+      "page": "learning"
+    },
+    "n-Coursedchtml": {
+      "x": 1520,
+      "y": 2040,
+      "w": 340,
+      "fill": "blue",
+      "text": "A course page: index, hero with progress, tabs and sections of activities. Click a section in the index to fold it. Not built yet.",
+      "page": "learning"
+    },
+    "n-CoursePhonedchtml": {
+      "x": 2410,
+      "y": 2040,
+      "w": 300,
+      "fill": "teal",
+      "text": "Course page on a phone with foldable sections. Not built yet.",
+      "page": "learning"
+    },
+    "n-Activitydchtml": {
+      "x": 1520,
+      "y": 3060,
+      "w": 340,
+      "fill": "blue",
+      "text": "An assignment with instructions, upload area and the rich text editor (TinyMCE). Press Submit to see the submitted state. Not built yet.",
+      "page": "learning"
+    },
+    "title-plan": {
+      "x": 0,
+      "y": -300,
+      "text": "Planning and progress: calendar and grades",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "plan"
+    },
+    "n-Calendardchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Calendar with month, week and day views and an upcoming list. Switch views and pick a day. Not built yet.",
+      "page": "plan"
+    },
+    "n-Gradesdchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "Grades overview with a ring per course. Pick a course to see its items. Not built yet.",
+      "page": "plan"
+    },
+    "title-people": {
+      "x": 0,
+      "y": -300,
+      "text": "People: messages and profiles",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "people"
+    },
+    "title-everything": {
+      "x": 0,
+      "y": -300,
+      "text": "Everything: the features launcher and page",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "everything"
+    },
+    "n-Launcherdchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "The features launcher open from the rail, with search, one regex switch and group chips. Fixes the doubled regex button found on the running site. The older launcher is in the theme today; this redesign is not built yet.",
+      "page": "everything"
+    },
+    "title-settings": {
+      "x": 0,
+      "y": -300,
+      "text": "Settings and administration",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "settings"
+    },
+    "title-front": {
+      "x": 0,
+      "y": -300,
+      "text": "Front door: sign in",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "front"
+    },
+    "n-SignIndchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Sign in with passkey first, then username and password. Icons sit in their own slot, fixing the clipped placeholder seen on the running site. Try show password and an empty submit. Not built yet.",
+      "page": "front"
+    },
+    "n-SignInPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "Sign in on a phone. Not built yet.",
+      "page": "front"
+    },
+    "title-states": {
+      "x": 0,
+      "y": -300,
+      "text": "States: empty, done, not found and offline",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "states"
+    },
+    "title-foundations": {
+      "x": 0,
+      "y": -300,
+      "text": "Foundations: colour, type, shape and components",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "foundations"
+    },
+    "n-Foundationsdchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Colour roles, type scale, shapes and core controls that every page uses. Switch light and dark on the board; the accent Tweak recolours primary. Spec: design/canvas/DESIGN-SPEC.md.",
+      "page": "foundations"
+    }
+  },
+  "designSystems": []
+}

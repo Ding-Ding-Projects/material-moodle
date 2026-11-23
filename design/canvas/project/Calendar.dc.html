@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calendar, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in{animation:none}
+.mm-still *{transition:none!important;animation:none!important}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--fx);outline-offset:2px}
+.mm-field:focus-within{box-shadow:inset 0 -2px 0 var(--fx)}
+.mm-cell{transition:box-shadow .2s ease}
+.mm-cell:hover{box-shadow:inset 0 0 0 2px var(--hv)}
+.mm-row:hover{background:var(--hv)}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--fx:{{c.p}};--hv:{{c.highest}};width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
+
+  <nav aria-label="Main navigation" style="width:96px;height:900px;flex:none;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:20px 0 16px">
+    <a href="#" aria-label="Riverside College home" style="width:48px;height:48px;border-radius:14px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
+    </a>
+    <button type="button" aria-label="New" style="margin-top:20px;width:56px;height:56px;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+    </button>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;align-items:center">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
+        <a href="#" aria-current="{{n.cur}}" style="width:88px;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{c.on}}">
+          <span style="width:56px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
+          </span>
+          <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="flex:1"></div>
+    <button type="button" aria-label="Settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
+    </button>
+    <button type="button" aria-label="Account: Mei Chan" style="margin-top:8px;width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px;display:flex;align-items:center;justify-content:center">MC</button>
+  </nav>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px">
+      <div style="flex:1;font-size:20px;line-height:1.3;font-weight:650">Calendar</div>
+      <label class="mm-field" style="position:relative;width:560px;height:56px;border-radius:28px;background:{{c.high}};display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 8px 28px rgba(27,27,33,.14)">
+        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+        <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search courses, people and settings</span>
+        <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
+        <span style="flex:none;height:28px;padding:0 10px;border-radius:8px;background:{{c.highest}};color:{{c.onv}};font-family:'Roboto Mono',monospace;font-size:12px;display:flex;align-items:center">Ctrl K</span>
+      </label>
+      <div style="flex:1;display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"></path></svg></button>
+        <button type="button" aria-label="Notifications, 1 new" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span></button>
+        <button type="button" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
+      </div>
+    </header>
+
+    <main style="flex:1;min-height:0;padding:0 32px 32px">
+      <div style="max-width:1180px;height:100%;display:flex;flex-direction:column;gap:16px">
+
+        <div style="height:64px;flex:none;display:flex;align-items:center;gap:12px">
+          <h2 style="margin:0 12px 0 0;font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1;min-width:270px">{{heading}}</h2>
+          <button type="button" aria-label="Previous" onClick="{{onPrev}}" style="width:48px;height:48px;border:0;border-radius:24px;background:{{c.high}};color:{{c.on}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <button type="button" aria-label="Next" onClick="{{onNext}}" style="width:48px;height:48px;border:0;border-radius:24px;background:{{c.high}};color:{{c.on}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+          <button type="button" onClick="{{onToday}}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em">Today</button>
+          <div style="flex:1"></div>
+          <div role="group" aria-label="Calendar view" style="display:flex;height:48px;border-radius:999px;border:1px solid {{c.outline}};overflow:hidden">
+            <sc-for list="{{segs}}" as="sg" hint-placeholder-count="3">
+              <button type="button" aria-pressed="{{sg.pressed}}" onClick="{{sg.pick}}" style="height:46px;padding:0 20px;border:0;border-left:{{sg.bl}};background:{{sg.bg}};color:{{sg.fg}};font-size:14px;font-weight:600;letter-spacing:.01em;display:flex;align-items:center;gap:8px">
+                <sc-if value="{{sg.on}}" hint-placeholder-val="{{ false }}">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                </sc-if>
+                {{sg.label}}
+              </button>
+            </sc-for>
+          </div>
+          <button type="button" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:14px;font-weight:600;letter-spacing:.01em;display:flex;align-items:center;gap:8px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+            New event
+          </button>
+        </div>
+
+        <div style="flex:1;min-height:0;display:flex;gap:24px">
+
+          <section aria-label="{{gridLabel}}" style="flex:1;min-width:0;height:100%">
+            <sc-if value="{{isMonth}}" hint-placeholder-val="{{ true }}">
+              <div style="height:100%;display:grid;grid-template-rows:32px repeat(6,minmax(0,1fr));gap:6px">
+                <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+                  <sc-for list="{{dows}}" as="w" hint-placeholder-count="7">
+                    <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}};padding:6px 8px">{{w}}</div>
+                  </sc-for>
+                </div>
+                <div style="grid-row:2 / span 6;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:6px">
+                  <sc-for list="{{cells}}" as="cell" hint-placeholder-count="42">
+                    <button type="button" class="mm-cell mm-in" aria-label="{{cell.aria}}" aria-pressed="{{cell.pressed}}" onClick="{{cell.pick}}" style="animation-delay:{{cell.delay}};min-width:0;min-height:0;border:0;border-radius:16px;background:{{cell.bg}};padding:8px;text-align:left;display:flex;flex-direction:column;gap:4px;overflow:hidden;color:{{c.on}}">
+                      <span style="width:32px;height:32px;flex:none;border-radius:16px;background:{{cell.numBg}};color:{{cell.numFg}};font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">{{cell.num}}</span>
+                      <sc-for list="{{cell.pills}}" as="pl" hint-placeholder-count="2">
+                        <span style="display:block;width:100%;height:22px;flex:none;padding:0 8px;border-radius:8px;background:{{pl.bg}};color:{{pl.fg}};font-size:12px;font-weight:600;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{pl.text}}</span>
+                      </sc-for>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{isWeek}}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;border-radius:28px;background:{{c.low}};overflow:hidden;display:flex;flex-direction:column">
+                <div style="height:96px;flex:none;display:flex;padding-left:56px">
+                  <sc-for list="{{days}}" as="dy" hint-placeholder-count="7">
+                    <div style="flex:1;min-width:0;padding:10px 4px 0;display:flex;flex-direction:column;align-items:center;gap:2px">
+                      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">{{dy.dow}}</span>
+                      <span style="width:32px;height:32px;border-radius:16px;background:{{dy.numBg}};color:{{dy.numFg}};font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">{{dy.num}}</span>
+                      <sc-for list="{{dy.due}}" as="du" hint-placeholder-count="1">
+                        <span style="display:block;width:100%;height:20px;padding:0 6px;border-radius:7px;background:{{du.bg}};color:{{du.fg}};font-size:11px;font-weight:600;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{du.text}}</span>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="position:relative;height:600px;flex:none">
+                  <sc-for list="{{hours}}" as="hr" hint-placeholder-count="11">
+                    <div style="position:absolute;left:0;right:0;top:{{hr.top}};height:1px;background:{{c.ov}}"></div>
+                    <span style="position:absolute;left:8px;top:{{hr.labelTop}};font-family:'Roboto Mono',monospace;font-size:11px;color:{{c.onv}}">{{hr.label}}</span>
+                  </sc-for>
+                  <div style="position:absolute;left:56px;right:0;top:0;bottom:0;display:flex">
+                    <sc-for list="{{days}}" as="dy" hint-placeholder-count="7">
+                      <div style="flex:1;min-width:0;position:relative;border-left:1px solid {{c.ov}}">
+                        <sc-for list="{{dy.blocks}}" as="b" hint-placeholder-count="2">
+                          <div class="mm-in" style="position:absolute;left:3px;right:3px;top:{{b.top}};height:{{b.h}};padding:6px 8px;border-radius:10px;background:{{b.bg}};color:{{b.fg}};overflow:hidden">
+                            <div style="font-family:'Roboto Mono',monospace;font-size:11px;line-height:14px">{{b.time}}</div>
+                            <div style="font-size:12px;font-weight:600;line-height:15px">{{b.title}}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+          </section>
+
+          <aside aria-label="Upcoming events" style="width:320px;flex:none;height:100%;border-radius:28px;background:{{c.low}};padding:24px;display:flex;flex-direction:column;gap:16px;overflow:hidden">
+            <div>
+              <h3 style="margin:0;font-size:20px;line-height:1.3;font-weight:650">{{panel.heading}}</h3>
+              <p style="margin:4px 0 0;font-size:14px;color:{{c.onv}}">{{panel.sub}}</p>
+            </div>
+            <sc-if value="{{panel.empty}}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:16px;border-radius:20px;background:{{c.cont}};font-size:14px;color:{{c.onv}}">Nothing is scheduled for this day. Pick another day to see its events.</p>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:8px;overflow:auto">
+              <sc-for list="{{panel.items}}" as="it" hint-placeholder-count="4">
+                <div class="mm-row mm-in" style="animation-delay:{{it.delay}};min-height:72px;padding:12px;border-radius:20px;display:flex;align-items:center;gap:12px">
+                  <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{it.bg}};color:{{it.fg}};font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">{{it.num}}</span>
+                  <span style="flex:1;min-width:0;display:flex;flex-direction:column">
+                    <span style="font-size:15px;font-weight:600;line-height:1.3">{{it.title}}</span>
+                    <span style="font-size:13px;color:{{c.onv}}">{{it.when}}, <span style="font-family:'Roboto Mono',monospace">{{it.time}}</span></span>
+                  </span>
+                  <span style="flex:none;height:24px;padding:0 8px;border-radius:8px;background:{{it.bg}};color:{{it.fg}};font-family:'Roboto Mono',monospace;font-size:11px;line-height:24px">{{it.code}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { view: 'month', selMs: new Date(2026, 10, 23, 12).getTime(), picked: false };
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    return dark ? D : L;
+  }
+  pad(n) { return (n < 10 ? '0' : '') + n; }
+  key(d) { return d.getFullYear() + '-' + this.pad(d.getMonth() + 1) + '-' + this.pad(d.getDate()); }
+  addDays(d, n) { const r = new Date(d.getTime()); r.setDate(r.getDate() + n); return r; }
+  parse(k) { return new Date(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10), 12); }
+  events() {
+    return [
+      { k:'2026-11-02', time:'09:00', title:'Lecture: tissues', code:'BIO101' },
+      { k:'2026-11-03', time:'11:00', title:'Lab session', code:'BIO101' },
+      { k:'2026-11-05', time:'15:00', title:'Writing workshop', code:'ENG210' },
+      { k:'2026-11-09', time:'10:00', title:'Seminar: trade routes', code:'HIS120' },
+      { k:'2026-11-12', time:'13:30', title:'Python lab', code:'STA230' },
+      { k:'2026-11-16', time:'09:00', title:'Lecture: genetics', code:'BIO101' },
+      { k:'2026-11-18', time:'16:00', title:'Peer review', code:'ENG210' },
+      { k:'2026-11-20', time:'11:00', title:'Quiz 2: sampling', code:'STA230' },
+      { k:'2026-11-23', time:'09:00', title:'Lecture: cell membranes', code:'BIO101' },
+      { k:'2026-11-23', time:'15:00', title:'Workshop: short fiction', code:'ENG210' },
+      { k:'2026-11-24', time:'14:00', title:'Cell structure lab report', code:'BIO101' },
+      { k:'2026-11-25', time:'11:00', title:'Writing office hours', code:'ENG210' },
+      { k:'2026-11-26', time:'23:59', title:'Essay draft: the Silk Road', code:'HIS120' },
+      { k:'2026-11-27', time:'10:00', title:'Quiz 3: probability', code:'STA230' },
+      { k:'2026-11-30', time:'10:00', title:'Seminar: the Silk Road', code:'HIS120' }
+    ];
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const sel = new Date(s.selMs);
+    const today = new Date(2026, 10, 23, 12);
+    const todayKey = this.key(today);
+    const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const DN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const D3 = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const colours = { BIO101:[c.pc,c.onpc], HIS120:[c.tc,c.ontc], ENG210:[c.okc,c.onokc], STA230:[c.wc,c.onwc] };
+    const evs = this.events();
+    const byKey = (k) => evs.filter((e) => e.k === k).sort((a, b) => (a.time < b.time ? -1 : 1));
+    const view = s.view;
+
+    const nav = [
+      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
+      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
+      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],
+      ['Messages','M4 5h16v11H8l-4 4z'],
+      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
+    ].map(([label, d]) => {
+      const on = label === 'Calendar';
+      return { label, d, cur: on ? 'page' : 'false', bg: on ? c.sc : 'transparent', fg: on ? c.onsc : c.onv, w: on ? 700 : 500 };
+    });
+
+    const segs = [['month','Month'],['week','Week'],['day','Day']].map(([v, label], i) => {
+      const on = view === v;
+      return { label, on, pressed: on ? 'true' : 'false', bg: on ? c.sc : 'transparent', fg: on ? c.onsc : c.on, bl: i === 0 ? '0' : '1px solid ' + c.outline, pick: () => this.setState({ view: v }) };
+    });
+
+    const shift = (dir) => {
+      let r;
+      if (view === 'month') r = new Date(sel.getFullYear(), sel.getMonth() + dir, 1, 12);
+      else if (view === 'week') r = this.addDays(sel, 7 * dir);
+      else r = this.addDays(sel, dir);
+      this.setState({ selMs: r.getTime(), picked: true });
+    };
+
+    // Month grid
+    const first = new Date(sel.getFullYear(), sel.getMonth(), 1, 12);
+    const start = this.addDays(first, -((first.getDay() + 6) % 7));
+    const cells = [];
+    for (let i = 0; i < 42; i++) {
+      const d = this.addDays(start, i);
+      const k = this.key(d);
+      const list = byKey(k);
+      const inMonth = d.getMonth() === sel.getMonth();
+      const isToday = k === todayKey;
+      const isSel = s.picked && k === this.key(sel);
+      const n = list.length;
+      cells.push({
+        num: d.getDate(),
+        aria: DN[d.getDay()] + ' ' + d.getDate() + ' ' + MN[d.getMonth()] + ', ' + (n === 0 ? 'no events' : n + (n === 1 ? ' event' : ' events')),
+        pressed: isSel ? 'true' : 'false',
+        bg: isSel ? c.sc : (inMonth ? c.cont : c.low),
+        numBg: isToday ? c.p : 'transparent',
+        numFg: isToday ? c.onp : (inMonth ? c.on : c.outline),
+        delay: (i * 12) + 'ms',
+        pills: list.slice(0, 2).map((e) => ({ text: n > 2 ? e.title : e.title, bg: colours[e.code][0], fg: colours[e.code][1] })),
+        pick: () => this.setState({ selMs: d.getTime(), picked: true })
+      });
+    }
+
+    // Week and day columns
+    const isWeek = view !== 'month';
+    const base = view === 'week' ? this.addDays(sel, -((sel.getDay() + 6) % 7)) : sel;
+    const count = view === 'week' ? 7 : 1;
+    const days = [];
+    for (let i = 0; i < count; i++) {
+      const d = this.addDays(base, i);
+      const k = this.key(d);
+      const list = byKey(k);
+      const isToday = k === todayKey;
+      const inRange = (e) => { const h = +e.time.slice(0, 2); return h >= 8 && h < 18; };
+      days.push({
+        dow: view === 'week' ? D3[d.getDay()] : DN[d.getDay()],
+        num: d.getDate(),
+        numBg: isToday ? c.p : 'transparent',
+        numFg: isToday ? c.onp : c.on,
+        due: list.filter((e) => !inRange(e)).map((e) => ({ text: e.time + ' ' + e.title, bg: colours[e.code][0], fg: colours[e.code][1] })),
+        blocks: list.filter(inRange).map((e) => {
+          const mins = (+e.time.slice(0, 2) - 8) * 60 + (+e.time.slice(3));
+          return { top: mins + 'px', h: '56px', time: e.time, title: e.title, bg: colours[e.code][0], fg: colours[e.code][1] };
+        })
+      });
+    }
+    const hours = [];
+    for (let i = 0; i <= 10; i++) hours.push({ top: (i * 60) + 'px', labelTop: (i * 60 + 3) + 'px', label: this.pad(8 + i) + ':00' });
+
+    // Right panel
+    const pItem = (e, i) => {
+      const d = this.parse(e.k);
+      return { num: d.getDate(), title: e.title, when: D3[d.getDay()] + ' ' + d.getDate() + ' ' + MN[d.getMonth()].slice(0, 3), time: e.time, code: e.code, bg: colours[e.code][0], fg: colours[e.code][1], delay: (i * 60) + 'ms' };
+    };
+    let panel;
+    if (s.picked) {
+      const list = byKey(this.key(sel));
+      const isT = this.key(sel) === todayKey;
+      panel = { heading: isT ? 'Today' : DN[sel.getDay()] + ' ' + sel.getDate() + ' ' + MN[sel.getMonth()], sub: list.length === 0 ? 'No events' : list.length + (list.length === 1 ? ' event' : ' events'), items: list.map(pItem), empty: list.length === 0 };
+    } else {
+      const list = evs.filter((e) => e.k >= todayKey).sort((a, b) => ((a.k + a.time) < (b.k + b.time) ? -1 : 1)).slice(0, 6);
+      panel = { heading: 'Upcoming', sub: 'Next ' + list.length + ' events from today', items: list.map(pItem), empty: false };
+    }
+
+    return {
+      c, rootClass: motion ? '' : 'mm-still', ring: 'none', nav, segs,
+      heading: MN[sel.getMonth()] + ' ' + sel.getFullYear(),
+      onPrev: () => shift(-1), onNext: () => shift(1),
+      onToday: () => this.setState({ selMs: today.getTime(), picked: false }),
+      isMonth: view === 'month', isWeek,
+      gridLabel: view === 'month' ? 'Month view' : (view === 'week' ? 'Week view' : 'Day view'),
+      dows: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      cells, days, hours, panel
+    };
+  }
+}
+</script>
+</body>
+</html>
