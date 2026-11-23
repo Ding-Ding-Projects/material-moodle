@@ -16,7 +16,14 @@
   `node_modules/electron` had no binary; it was extracted from the local Electron download cache.
 - `npm run dist` builds `Material Moodle Deployer Setup 1.0.0.exe` (98 MB) and the portable
   `Material Moodle Deployer 1.0.0.exe` (90 MB), unsigned; the built app in `dist/win-unpacked` passed the same
-  workspace checks on a hidden desktop. The installer was built but not installed on this computer.
+  workspace checks on a hidden desktop. The installer was then
+  installed silently on this computer (per user, `AppData\Local\Programs\material-moodle-deployer`, with an
+  uninstall entry) and the installed app passed the same checks.
+- Deployer tests: `npm test` on Windows passes 53 with 9 skipped (the eight end-to-end engine tests need a Linux
+  host, plus one Linux-only test); `npm run test:linux` runs the whole suite in a Linux container and passes 61
+  with 1 skipped (Docker Compose is not in that container). The shell tests use Git's `sh.exe` on Windows. The
+  engine failures seen on Linux came from `fake-docker.sh` being checked out with CRLF line endings; a
+  `.gitattributes` beside the fixtures now keeps them LF.
 - Not verified: some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer

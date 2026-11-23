@@ -10,7 +10,10 @@ const { Engine } = require('../src/lib/engine');
 const { SshSession } = require('../src/lib/ssh');
 const { envToObject } = require('../src/lib/envfile');
 
-const PASSWORD = 'pa$$ word';
+const PASSWORD = 'pa$ word';
+// The fixture server stands in for a Linux host: a real POSIX shell, Unix paths and executable shell scripts.
+// Windows has none of these, so run this file through `npm run test:linux`, which uses a Linux container.
+const linuxOnly = process.platform === 'win32' ? { skip: 'needs a Linux host; run npm run test:linux' } : {};
 
 async function setup(extraEnv = {}) {
   const home = fs.mkdtempSync(path.join(os.tmpdir(), 'mmd-home-'));
@@ -46,7 +49,7 @@ test.before(() => {
   require('node:child_process').execFileSync(process.execPath, [path.join(__dirname, '..', 'scripts', 'sync-stack.js')]);
 });
 
-test('connection test reports the server and remembers its key', async () => {
+test('connection test reports the server and remembers its key', linuxOnly, async () => {
   const s = await setup();
   try {
     const r = await s.engine.test(s.cfg);
@@ -58,7 +61,7 @@ test('connection test reports the server and remembers its key', async () => {
   } finally { s.done(); }
 });
 
-test('a changed server key stops the connection', async () => {
+test('a changed server key stops the connection', linuxOnly, async () => {
   const s = await setup();
   try {
     s.hosts['127.0.0.1:' + s.cfg.port] = 'SHA256:somethingElse';
@@ -66,7 +69,7 @@ test('a changed server key stops the connection', async () => {
   } finally { s.done(); }
 });
 
-test('exec feeds stdin, reports exit codes and streams lines', async () => {
+test('exec feeds stdin, reports exit codes and streams lines', linuxOnly, async () => {
   const s = await setup();
   try {
     const session = new SshSession({ get() {}, set() {} });
@@ -80,7 +83,7 @@ test('exec feeds stdin, reports exit codes and streams lines', async () => {
   } finally { s.done(); }
 });
 
-test('deploy runs every step, uploads the stack and never logs secrets', async () => {
+test('deploy runs every step, uploads the stack and never logs secrets', linuxOnly, async () => {
   const s = await setup();
   try {
     s.engine.setServer(s.cfg);
@@ -108,7 +111,7 @@ test('deploy runs every step, uploads the stack and never logs secrets', async (
   } finally { s.done(); }
 });
 
-test('a failed step reports fixes and retry continues from that step', async () => {
+test('a failed step reports fixes and retry continues from that step', linuxOnly, async () => {
   const s = await setup({ FAKE_UP_FAIL_ONCE: path.join(os.tmpdir(), 'mmd-up-fail-' + process.pid + '-' + Date.now()) });
   try {
     s.engine.setServer(s.cfg);
@@ -126,7 +129,7 @@ test('a failed step reports fixes and retry continues from that step', async () 
   } finally { s.done(); }
 });
 
-test('the image is built from source when pulling fails', async () => {
+test('the image is built from source when pulling fails', linuxOnly, async () => {
   const s = await setup({ FAKE_PULL_FAIL: '1' });
   try {
     // git clone is replaced by a local fake so the test does not need the network.
@@ -140,7 +143,7 @@ test('the image is built from source when pulling fails', async () => {
   } finally { s.done(); }
 });
 
-test('tunnel jobs need a deployment first', async () => {
+test('tunnel jobs need a deployment first', linuxOnly, async () => {
   const s = await setup();
   try {
     s.engine.setServer(s.cfg);
@@ -150,7 +153,7 @@ test('tunnel jobs need a deployment first', async () => {
   } finally { s.done(); }
 });
 
-test('quick link, guided named tunnel and token tunnel all complete', async () => {
+test('quick link, guided named tunnel and token tunnel all complete', linuxOnly, async () => {
   const s = await setup();
   try {
     s.engine.setServer(s.cfg);

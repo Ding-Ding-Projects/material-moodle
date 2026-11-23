@@ -15,7 +15,8 @@
     "test": "node --test \"test/*.test.js\"",
     "screenshots": "node scripts/screenshots.js",
     "predist": "npm run sync-stack && npm run sync-vendor && npm run make-icon",
-    "dist": "electron-builder --publish never"
+    "dist": "electron-builder --publish never",
+    "test:linux": "node scripts/test-linux.js"
   },
   "dependencies": {
     "dockview-core": "8.9.1",

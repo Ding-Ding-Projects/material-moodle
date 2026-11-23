@@ -1,0 +1,2 @@
+# Fixture scripts run under a POSIX shell, so they must keep LF line endings on Windows checkouts too.
+*.sh text eol=lf

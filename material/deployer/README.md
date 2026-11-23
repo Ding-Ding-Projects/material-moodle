@@ -1,7 +1,7 @@
 # Material Moodle Deployer
 
 Desktop app (Electron) that deploys the Material Moodle stack to any SSH server and publishes it through a
-Cloudflare tunnel. Run it with `npm start`, test with `npm test`, package with `npm run dist`.
+Cloudflare tunnel. Run it with `npm start`, test with `npm test` (on Windows the end-to-end engine tests skip; `npm run test:linux` runs everything in a Linux container), package with `npm run dist`.
 
 ## Workspace: movable tabs, splits and docking
 
