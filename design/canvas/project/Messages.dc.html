@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Messages, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in{animation:none}
+.mm-still *{transition:none!important;animation:none!important}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--fx);outline-offset:2px}
+.mm-field:focus-within{box-shadow:inset 0 -2px 0 var(--fx)}
+.mm-row{transition:background-color .2s ease}
+.mm-row:hover{background:var(--hv)}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--fx:{{c.p}};--hv:{{c.high}};width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
+
+  <nav aria-label="Main navigation" style="width:96px;height:900px;flex:none;background:{{c.low}};display:flex;flex-direction:column;align-items:center;padding:20px 0 16px">
+    <a href="#" aria-label="Riverside College home" style="width:48px;height:48px;border-radius:14px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
+    </a>
+    <button type="button" aria-label="New" style="margin-top:20px;width:56px;height:56px;border:0;border-radius:16px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+    </button>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;align-items:center">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
+        <a href="#" aria-current="{{n.cur}}" style="width:88px;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{c.on}}">
+          <span style="width:56px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg>
+          </span>
+          <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="flex:1"></div>
+    <button type="button" aria-label="Settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
+    </button>
+    <button type="button" aria-label="Account: Mei Chan" style="margin-top:8px;width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px;display:flex;align-items:center;justify-content:center">MC</button>
+  </nav>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <header style="height:72px;flex:none;display:flex;align-items:center;gap:16px;padding:0 32px">
+      <div style="flex:1;font-size:20px;line-height:1.3;font-weight:650">Messages</div>
+      <label class="mm-field" style="position:relative;width:560px;height:56px;border-radius:28px;background:{{c.high}};display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 8px 28px rgba(27,27,33,.14)">
+        <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+        <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search courses, people and settings</span>
+        <input type="text" placeholder="Search courses, people and settings" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
+        <span style="flex:none;height:28px;padding:0 10px;border-radius:8px;background:{{c.highest}};color:{{c.onv}};font-family:'Roboto Mono',monospace;font-size:12px;display:flex;align-items:center">Ctrl K</span>
+      </label>
+      <div style="flex:1;display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" aria-label="Display settings" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"></path></svg></button>
+        <button type="button" aria-label="Notifications, 1 new" style="position:relative;width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4"></path></svg><span style="position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:5px;background:{{c.err}}"></span></button>
+        <button type="button" aria-label="Help" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg></button>
+      </div>
+    </header>
+
+    <main style="flex:1;min-height:0;padding:0 32px 32px">
+      <div style="height:100%;display:flex;gap:16px">
+
+        <section aria-label="Conversations" style="width:320px;flex:none;border-radius:28px;background:{{c.low}};padding:16px 8px 8px;display:flex;flex-direction:column;gap:12px;overflow:hidden">
+          <div style="padding:0 8px;display:flex;flex-direction:column;gap:12px">
+            <label class="mm-field" style="position:relative;height:56px;border-radius:16px;background:{{c.highest}};display:flex;align-items:center;gap:8px;padding:0 16px">
+              <span style="width:24px;height:24px;flex:none;color:{{c.onv}};display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></span>
+              <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search messages</span>
+              <input type="text" value="{{q}}" onChange="{{onQ}}" placeholder="Search messages" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
+            </label>
+            <div role="group" aria-label="Filter conversations" style="display:flex;gap:8px">
+              <sc-for list="{{chips}}" as="ch" hint-placeholder-count="3">
+                <button type="button" aria-pressed="{{ch.pressed}}" onClick="{{ch.pick}}" style="height:36px;padding:0 12px;border-radius:10px;border:{{ch.border}};background:{{ch.bg}};color:{{ch.fg}};font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px">
+                  <sc-if value="{{ch.on}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+                  {{ch.label}}
+                </button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:2px">
+            <sc-for list="{{convs}}" as="cv" hint-placeholder-count="6">
+              <button type="button" class="mm-row" aria-current="{{cv.cur}}" onClick="{{cv.pick}}" style="min-height:72px;flex:none;width:100%;border:0;border-radius:20px;background:{{cv.bg}};color:{{c.on}};padding:12px 8px;text-align:left;display:flex;align-items:center;gap:12px">
+                <span style="width:48px;height:48px;flex:none;border-radius:24px;background:{{cv.avBg}};color:{{cv.avFg}};font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">{{cv.ini}}</span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column">
+                  <span style="font-size:15px;font-weight:650;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{cv.name}}</span>
+                  <span style="font-size:13px;line-height:1.35;color:{{c.onv}};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{cv.preview}}</span>
+                </span>
+                <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+                  <span style="font-family:'Roboto Mono',monospace;font-size:12px;color:{{c.onv}}">{{cv.time}}</span>
+                  <sc-if value="{{cv.hasUnread}}" hint-placeholder-val="{{ true }}">
+                    <span style="min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:{{c.p}};color:{{c.onp}};font-size:12px;font-weight:700;line-height:24px;text-align:center">{{cv.unread}}</span>
+                  </sc-if>
+                </span>
+              </button>
+            </sc-for>
+            <sc-if value="{{noConvs}}" hint-placeholder-val="{{ false }}">
+              <p style="margin:8px 16px;font-size:14px;color:{{c.onv}}">No conversations match.</p>
+            </sc-if>
+          </div>
+        </section>
+
+        <section aria-label="Conversation" style="flex:1;min-width:0;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;overflow:hidden">
+          <div style="height:72px;flex:none;padding:0 24px;display:flex;align-items:center;gap:12px">
+            <span style="width:48px;height:48px;border-radius:24px;background:{{open.avBg}};color:{{open.avFg}};font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">{{open.ini}}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:18px;font-weight:650;line-height:1.3">{{open.name}}</span><span style="font-size:13px;color:{{c.onv}}">{{open.sub}}</span></span>
+          </div>
+          <div style="flex:1;min-height:0;overflow:auto;padding:8px 24px;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{thread}}" as="m" hint-placeholder-count="6">
+              <div style="display:flex;justify-content:{{m.justify}};flex:none">
+                <sc-if value="{{m.isSep}}" hint-placeholder-val="{{ false }}">
+                  <span style="margin:8px 0;height:28px;padding:0 12px;border-radius:10px;background:{{c.highest}};color:{{c.onv}};font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:28px">{{m.label}}</span>
+                </sc-if>
+                <sc-if value="{{m.isMsg}}" hint-placeholder-val="{{ true }}">
+                  <div class="mm-in" style="max-width:78%;display:flex;flex-direction:column;align-items:{{m.align}};gap:2px">
+                    <sc-if value="{{m.showName}}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:600;color:{{c.onv}};padding:0 8px">{{m.name}}</span></sc-if>
+                    <div style="padding:10px 16px;border-radius:{{m.radius}};background:{{m.bg}};color:{{m.fg}};font-size:15px;line-height:1.45">{{m.text}}</div>
+                    <span style="font-family:'Roboto Mono',monospace;font-size:11px;color:{{c.onv}};padding:0 8px">{{m.time}}</span>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;padding:12px 16px 16px;display:flex;align-items:center;gap:8px">
+            <button type="button" aria-label="Attach a file" style="width:48px;height:48px;flex:none;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5l-8 8a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.5 17a1.7 1.7 0 0 1-2.4-2.4L14.500 7.200"></path></svg></button>
+            <label class="mm-field" style="position:relative;flex:1;min-width:0;height:56px;border-radius:28px;background:{{c.high}};display:flex;align-items:center;padding:0 24px">
+              <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Write a message</span>
+              <input type="text" value="{{draft}}" onChange="{{onDraft}}" placeholder="Write a message" style="flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:{{c.on}};outline:none">
+            </label>
+            <button type="button" aria-label="Send message" onClick="{{onSend}}" style="width:56px;height:56px;flex:none;border:0;border-radius:28px;background:{{c.p}};color:{{c.onp}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L20 4l-5 16-3-7z"></path></svg></button>
+          </div>
+        </section>
+
+        <aside aria-label="Conversation details" style="width:280px;flex:none;border-radius:28px;background:{{c.low}};padding:24px;display:flex;flex-direction:column;gap:20px;overflow:auto">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
+            <span style="width:80px;height:80px;border-radius:40px;background:{{open.avBg}};color:{{open.avFg}};font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center">{{open.ini}}</span>
+            <span style="font-size:20px;font-weight:650;line-height:1.3">{{open.name}}</span>
+            <span style="font-size:13px;color:{{c.onv}}">{{open.sub}}</span>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}};margin-bottom:8px">Members</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{open.members}}" as="mb" hint-placeholder-count="4">
+                <div style="min-height:48px;display:flex;align-items:center;gap:12px">
+                  <span style="width:36px;height:36px;flex:none;border-radius:18px;background:{{mb.bg}};color:{{mb.fg}};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">{{mb.ini}}</span>
+                  <span style="font-size:14px;font-weight:500">{{mb.name}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}};margin-bottom:8px">Shared files</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{open.files}}" as="f" hint-placeholder-count="3">
+                <div class="mm-row" style="min-height:56px;padding:0 8px;border-radius:16px;display:flex;align-items:center;gap:12px">
+                  <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{c.pc}};color:{{c.onpc}};display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM9 11h6M9 15h6"></path></svg></span>
+                  <span style="min-width:0;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:600;line-height:1.3;word-break:break-word">{{f.name}}</span><span style="font-family:'Roboto Mono',monospace;font-size:11px;color:{{c.onv}}">{{f.size}}</span></span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { open: 'amara', filter: 'all', q: '', draft: '', sent: {}, read: {} };
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    return dark ? D : L;
+  }
+  convs() {
+    return [
+      { id:'amara', name:'Dr. Amara Okafor', ini:'AO', kind:'private', star:true, tone:0, unread:2, time:'10:42', sub:'Biology teacher, BIO101',
+        members:['Dr. Amara Okafor','Mei Chan'], files:[['Lab report rubric.pdf','212 KB'],['Microscope guide.pdf','1.4 MB']],
+        msgs:[['sep','Yesterday'],['in','Amara','Thanks for sending the plan for your lab report.','17:20'],['out','','You are welcome. I will finish the discussion section tonight.','17:34'],['sep','Today'],['in','Amara','Your outline looks good. Please send the draft before Tuesday 14:00.','10:41'],['in','Amara','Add one sentence on the control group.','10:42']] },
+      { id:'lab', name:'BIO101 Lab group 3', ini:'L3', kind:'group', star:false, tone:1, unread:5, time:'09:15', sub:'4 members',
+        members:['Liam Park','Priya Nair','Sofia Alvarez','Mei Chan'], files:[['Group data.xlsx','86 KB'],['Slide outline.docx','44 KB']],
+        msgs:[['sep','Today'],['in','Liam','I booked the microscope room for 15:00.','09:10'],['in','Priya','Great. I will bring the slides.','09:12'],['out','','I can bring the sample labels.','09:14'],['in','Sofia','Please add your section to the shared file by 14:00.','09:15']] },
+      { id:'daniel', name:'Prof. Daniel Reyes', ini:'DR', kind:'private', star:false, tone:2, unread:0, time:'Sun', sub:'History teacher, HIS120',
+        members:['Prof. Daniel Reyes','Mei Chan'], files:[['Silk Road reading list.pdf','320 KB']],
+        msgs:[['sep','Sunday'],['in','Daniel','Remember the Silk Road essay draft is due Thursday at 23:59.','18:20'],['out','','Thank you. May I include a map as an appendix?','18:41'],['in','Daniel','Yes, a short appendix is welcome.','19:02']] },
+      { id:'priya', name:'Priya Nair', ini:'PN', kind:'private', star:true, tone:3, unread:1, time:'08:03', sub:'Classmate, STA230',
+        members:['Priya Nair','Mei Chan'], files:[['Probability cheat sheet.pdf','98 KB']],
+        msgs:[['sep','Today'],['in','Priya','Want to revise probability together before Friday?','08:03']] },
+      { id:'write', name:'Creative Writing circle', ini:'CW', kind:'group', star:false, tone:4, unread:0, time:'Fri', sub:'6 members',
+        members:['Sofia Alvarez','Noah Bennett','Hana Sato','Mei Chan'], files:[['Short story draft.docx','52 KB'],['Feedback guide.pdf','140 KB'],['Reading list.pdf','61 KB']],
+        msgs:[['sep','Friday'],['in','Sofia','Posted my short story draft for feedback.','15:30'],['in','Hana','I will read it tonight.','16:02'],['out','','I will add comments by Sunday.','16:40']] },
+      { id:'support', name:'Student support', ini:'SS', kind:'private', star:false, tone:0, unread:0, time:'Thu', sub:'Riverside College',
+        members:['Student support','Mei Chan'], files:[],
+        msgs:[['sep','Thursday'],['out','','Hello, I cannot see the Statistics forum.','11:12'],['in','Support','Thanks. The forum is now visible. Your request is resolved.','11:50']] }
+    ];
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const tones = [[c.pc,c.onpc],[c.tc,c.ontc],[c.okc,c.onokc],[c.wc,c.onwc],[c.sc,c.onsc]];
+    const nav = [
+      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
+      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
+      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],
+      ['Messages','M4 5h16v11H8l-4 4z'],
+      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
+    ].map(([label, d]) => { const on = label === 'Messages'; return { label, d, cur: on ? 'page' : 'false', bg: on ? c.sc : 'transparent', fg: on ? c.onsc : c.onv, w: on ? 700 : 500 }; });
+    const all = this.convs();
+    const lastOf = (cv) => {
+      const extra = s.sent[cv.id] || [];
+      if (extra.length) return extra[extra.length - 1];
+      const m = cv.msgs.filter((x) => x[0] !== 'sep');
+      const l = m[m.length - 1];
+      return { text: l[2], time: l[3], own: l[0] === 'out' };
+    };
+    const q = s.q.toLowerCase();
+    const list = all.filter((cv) => (s.filter === 'all' || (s.filter === 'starred' ? cv.star : cv.kind === s.filter)) && (!q || (cv.name + ' ' + lastOf(cv).text).toLowerCase().indexOf(q) > -1));
+    const convs = list.map((cv) => {
+      const l = lastOf(cv);
+      const un = s.read[cv.id] ? 0 : cv.unread;
+      const on = cv.id === s.open;
+      const t = tones[cv.tone];
+      return { name: cv.name, ini: cv.ini, preview: (l.own ? 'You: ' : '') + l.text, time: s.sent[cv.id] && s.sent[cv.id].length ? l.time : cv.time, unread: un, hasUnread: un > 0, cur: on ? 'true' : 'false', bg: on ? c.sc : 'transparent', avBg: t[0], avFg: t[1], pick: () => this.setState({ open: cv.id, read: Object.assign({}, s.read, { [cv.id]: true }) }) };
+    });
+    const chips = [['private','Private'],['group','Group'],['starred','Starred']].map(([v, label]) => {
+      const on = s.filter === v;
+      return { label, on, pressed: on ? 'true' : 'false', bg: on ? c.sc : 'transparent', fg: on ? c.onsc : c.onv, border: on ? '1px solid transparent' : '1px solid ' + c.outline, pick: () => this.setState({ filter: on ? 'all' : v }) };
+    });
+    const cur = all.filter((x) => x.id === s.open)[0];
+    const t = tones[cur.tone];
+    const isGroup = cur.kind === 'group';
+    const thread = [];
+    cur.msgs.concat((s.sent[cur.id] || []).map((m) => ['out', '', m.text, m.time])).forEach((m) => {
+      if (m[0] === 'sep') { thread.push({ isSep: true, isMsg: false, label: m[1], justify: 'center' }); return; }
+      const own = m[0] === 'out';
+      thread.push({
+        isSep: false, isMsg: true, justify: own ? 'flex-end' : 'flex-start', align: own ? 'flex-end' : 'flex-start',
+        text: m[2], time: m[3], name: m[1], showName: !own && isGroup,
+        bg: own ? c.p : c.high, fg: own ? c.onp : c.on,
+        radius: own ? '20px 20px 6px 20px' : '20px 20px 20px 6px'
+      });
+    });
+    const members = cur.members.map((n, i) => {
+      const tt = tones[(i + cur.tone) % 5];
+      return { name: n, ini: n.replace(/^(Dr\.|Prof\.) /, '').split(' ').map((p) => p[0]).join('').slice(0, 2), bg: tt[0], fg: tt[1] };
+    });
+    return {
+      c, rootClass: motion ? '' : 'mm-still', ring: 'none', nav, convs, chips, noConvs: convs.length === 0,
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      draft: s.draft, onDraft: (e) => this.setState({ draft: e.target.value }),
+      onSend: () => {
+        const text = s.draft.trim();
+        if (!text) return;
+        const d = new Date();
+        const time = this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
+        const prev = s.sent[cur.id] || [];
+        this.setState({ draft: '', sent: Object.assign({}, s.sent, { [cur.id]: prev.concat([{ text, time, own: true }]) }) });
+      },
+      thread,
+      open: { name: cur.name, ini: cur.ini, sub: cur.sub, avBg: t[0], avFg: t[1], members, files: cur.files.map((f) => ({ name: f[0], size: f[1] })) }
+    };
+  }
+  pad(n) { return (n < 10 ? '0' : '') + n; }
+}
+</script>
+</body>
+</html>

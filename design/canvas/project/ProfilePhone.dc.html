@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mm-sheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-sheet{animation:mm-sheet 320ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in,.mm-still .mm-sheet{animation:none}
+.mm-still *{transition:none!important;animation:none!important}
+button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:2px}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--fx:{{c.p}};width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
+
+  <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px">
+    <h1 style="flex:1;margin:0;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Profile</h1>
+    <button type="button" aria-label="More actions" aria-expanded="{{sheetStr}}" onClick="{{openSheet}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
+    <button type="button" aria-label="Account: Mei Chan" aria-current="page" style="width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px">MC</button>
+  </header>
+
+  <main style="flex:1;min-height:0;overflow:auto;padding:0 16px 16px">
+    <section style="position:relative;border-radius:36px;background:{{c.low}};overflow:hidden;padding:24px 20px;display:flex;flex-direction:column;gap:8px">
+      <span style="position:absolute;right:-50px;top:-60px;width:200px;height:200px;border-radius:100px;background:{{c.pc}}"></span>
+      <span style="position:relative;width:96px;height:96px;border-radius:48px;background:{{c.tc}};color:{{c.ontc}};font-size:36px;font-weight:800;font-stretch:118%;display:flex;align-items:center;justify-content:center">MC</span>
+      <h2 style="position:relative;margin:8px 0 0;font-weight:800;font-stretch:118%;font-size:40px;line-height:1.02;letter-spacing:-0.02em">Mei Chan</h2>
+      <p style="position:relative;margin:0;font-size:14px;color:{{c.onv}}">Learner at Riverside College, Toronto</p>
+      <div style="position:relative;display:flex;gap:8px;margin-top:8px">
+        <button type="button" style="flex:1;height:48px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em">Edit profile</button>
+        <button type="button" style="flex:1;height:48px;border:1px solid {{c.outline}};border-radius:999px;background:transparent;color:{{c.on}};font-size:14px;font-weight:600;letter-spacing:.01em">Message</button>
+      </div>
+    </section>
+
+    <div role="tablist" aria-label="Profile sections" style="margin-top:12px;height:48px;display:flex;border-bottom:1px solid {{c.ov}}">
+      <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{tb.sel}}" onClick="{{tb.pick}}" style="position:relative;flex:1;min-width:0;height:48px;border:0;background:transparent;color:{{tb.fg}};font-size:14px;font-weight:600;letter-spacing:.01em">
+          {{tb.label}}
+          <span style="position:absolute;left:8px;right:8px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:{{tb.bar}}"></span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px">
+      <sc-if value="{{isAbout}}" hint-placeholder-val="{{ true }}">
+        <div class="mm-in" style="padding:20px;border-radius:28px;background:{{c.low}}">
+          <h3 style="margin:0 0 8px;font-size:20px;line-height:1.3;font-weight:650">About</h3>
+          <p style="margin:0;font-size:15px;color:{{c.onv}}">Second-year student combining biology and history. I am learning Python to make better charts.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+            <sc-for list="{{interests}}" as="topic" hint-placeholder-count="6">
+              <span style="height:36px;padding:0 14px;border-radius:10px;border:1px solid {{c.outline}};font-size:14px;font-weight:500;display:flex;align-items:center">{{topic}}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div class="mm-in" style="animation-delay:60ms;padding:20px;border-radius:28px;background:{{c.low}}">
+          <h3 style="margin:0 0 4px;font-size:20px;line-height:1.3;font-weight:650">Contact details</h3>
+          <sc-for list="{{contact}}" as="ct" hint-placeholder-count="4">
+            <div style="min-height:60px;display:flex;align-items:center;gap:12px">
+              <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ct.d}}"></path></svg></span>
+              <span style="min-width:0;display:flex;flex-direction:column"><span style="font-size:13px;color:{{c.onv}}">{{ct.label}}</span><span style="font-size:15px;font-weight:600;word-break:break-word">{{ct.value}}</span></span>
+            </div>
+          </sc-for>
+        </div>
+        <div class="mm-in" style="animation-delay:120ms;padding:20px;border-radius:28px;background:{{c.low}}">
+          <h3 style="margin:0 0 8px;font-size:20px;line-height:1.3;font-weight:650">Login activity</h3>
+          <sc-for list="{{logins}}" as="lg" hint-placeholder-count="3">
+            <div style="min-height:56px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid {{c.ov}}"><span style="font-size:13px;color:{{c.onv}}">{{lg.label}}</span><span style="font-family:'Roboto Mono',monospace;font-size:14px">{{lg.value}}</span></div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isCourses}}" hint-placeholder-val="{{ false }}">
+        <sc-for list="{{courses}}" as="co" hint-placeholder-count="4">
+          <div class="mm-in" style="animation-delay:{{co.delay}};padding:20px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="width:48px;height:48px;flex:none;border-radius:{{co.shape}};background:{{co.bg}};color:{{co.fg}};font-family:'Roboto Mono',monospace;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center">{{co.code}}</span>
+              <span style="font-size:17px;line-height:1.3;font-weight:650">{{co.name}}</span>
+            </div>
+            <div style="height:8px;border-radius:4px;background:{{c.highest}};overflow:hidden"><div style="width:{{co.pct}};height:8px;border-radius:4px;background:{{c.p}}"></div></div>
+            <span style="font-size:13px;color:{{c.onv}}">{{co.pct}} complete</span>
+          </div>
+        </sc-for>
+      </sc-if>
+
+      <sc-if value="{{isBadges}}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+          <sc-for list="{{badges}}" as="bd" hint-placeholder-count="8">
+            <div class="mm-in" style="animation-delay:{{bd.delay}};padding:20px 12px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;opacity:{{bd.op}}">
+              <span style="width:72px;height:72px;border-radius:{{bd.shape}};background:{{bd.bg}};color:{{bd.fg}};display:flex;align-items:center;justify-content:center"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{bd.d}}"></path></svg></span>
+              <span style="font-size:14px;font-weight:650;line-height:1.3">{{bd.name}}</span>
+              <span style="font-family:'Roboto Mono',monospace;font-size:11px;color:{{c.onv}}">{{bd.date}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isBlog}}" hint-placeholder-val="{{ false }}">
+        <sc-for list="{{posts}}" as="ps" hint-placeholder-count="2">
+          <article class="mm-in" style="padding:20px;border-radius:28px;background:{{c.low}}">
+            <div style="font-family:'Roboto Mono',monospace;font-size:12px;color:{{c.onv}}">{{ps.date}}</div>
+            <h3 style="margin:4px 0 8px;font-size:20px;line-height:1.3;font-weight:650">{{ps.title}}</h3>
+            <p style="margin:0;font-size:15px;color:{{c.onv}}">{{ps.body}}</p>
+          </article>
+        </sc-for>
+      </sc-if>
+    </div>
+  </main>
+
+  <nav aria-label="Main navigation" style="height:80px;flex:none;background:{{c.cont}};display:flex;align-items:center;justify-content:space-around;padding:0 4px">
+    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+      <a href="#" aria-current="{{n.cur}}" style="width:72px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:{{c.on}}">
+        <span style="width:64px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg></span>
+        <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+
+  <sc-if value="{{sheet}}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:0;top:0;right:0;bottom:0">
+      <button type="button" aria-label="Close menu" onClick="{{closeSheet}}" style="position:absolute;left:0;top:0;width:100%;height:100%;border:0;background:rgba(27,27,33,.4)"></button>
+      <div class="mm-sheet" role="dialog" aria-label="Profile actions" style="position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;border-radius:32px 32px 0 0;background:{{c.high}}">
+        <div style="width:32px;height:4px;border-radius:2px;background:{{c.outline}};margin:0 auto 12px"></div>
+        <sc-for list="{{sheetItems}}" as="si" hint-placeholder-count="4">
+          <button type="button" onClick="{{closeSheet}}" style="width:100%;height:56px;border:0;border-radius:16px;background:transparent;color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{si.d}}"></path></svg>{{si.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'about', sheet: false }; }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    return dark ? D : L;
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const nav = [
+      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
+      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
+      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['Messages','M4 5h16v11H8l-4 4z'],
+      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
+    ].map(([label, d]) => ({ label, d, cur: 'false', bg: 'transparent', fg: c.onv, w: 500 }));
+    const tabs = [['about','About'],['courses','Courses'],['badges','Badges'],['blog','Blog']].map(([v, label]) => {
+      const on = s.tab === v;
+      return { label, sel: on ? 'true' : 'false', fg: on ? c.p : c.onv, bar: on ? c.p : 'transparent', pick: () => this.setState({ tab: v }) };
+    });
+    const tones = [[c.pc,c.onpc],[c.tc,c.ontc],[c.okc,c.onokc],[c.wc,c.onwc],[c.sc,c.onsc]];
+    const shapes = ['44px','28px','50%','22px'];
+    const courseList = [['BIO101','Introduction to Biology',68],['HIS120','World History',42],['ENG210','Creative Writing',85],['STA230','Statistics with Python',15]];
+    const badgeList = [
+      ['First sign-in','02 Sep 2026','M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',true],
+      ['Lab safety','14 Sep 2026','M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3',true],
+      ['Quiz streak','30 Oct 2026','M13 2L5 14h6l-1 8 8-12h-6z',true],
+      ['Forum helper','06 Nov 2026','M4 5h16v11H8l-4 4z',true],
+      ['Draft finished','18 Nov 2026','M5 3h10l4 4v14H5zM9 12l2 2 4-4',true],
+      ['Early bird','20 Nov 2026','M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zM12 8v4l3 2',true],
+      ['Python starter','Locked','M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 6l-3 12',false],
+      ['Full attendance','Locked','M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z',false]
+    ];
+    return {
+      c, rootClass: motion ? '' : 'mm-still', ring: '2px solid ' + c.p, nav, tabs,
+      isAbout: s.tab === 'about', isCourses: s.tab === 'courses', isBadges: s.tab === 'badges', isBlog: s.tab === 'blog',
+      interests: ['Cell biology','Silk Road history','Short fiction','Data visualisation','Running','Piano'],
+      contact: [
+        { label:'Email', value:'mei.chan@riverside.edu', d:'M4 6h16v12H4zM4 7l8 6 8-6' },
+        { label:'City and country', value:'Toronto, Canada', d:'M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11zM12 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4' },
+        { label:'Time zone', value:'America/Toronto (24-hour clock)', d:'M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zM12 8v4l3 2' }
+      ],
+      logins: [
+        { label:'First access', value:'02 Sep 2026, 08:41' },
+        { label:'Last access', value:'23 Nov 2026, 07:58' },
+        { label:'Last IP address', value:'203.0.113.24' }
+      ],
+      courses: courseList.map(([code, name, p], i) => ({ code, name, pct: p + '%', bg: tones[i][0], fg: tones[i][1], shape: shapes[i], delay: (i * 60) + 'ms' })),
+      badges: badgeList.map(([name, date, d, got], i) => ({ name, date, d, shape: shapes[i % 4], bg: got ? tones[i % 5][0] : c.highest, fg: got ? tones[i % 5][1] : c.onv, op: got ? 1 : 0.7, delay: (i * 40) + 'ms' })),
+      posts: [
+        { date:'14 Nov 2026', title:'Notes from the cell lab', body:'This week I stained onion cells for the first time. The nucleus is much easier to find once the focus is right.' },
+        { date:'02 Nov 2026', title:'Reading the Silk Road', body:'A short list of the sources I am using for my essay draft, and why trade routes make a good lens for history.' }
+      ],
+      sheet: s.sheet, sheetStr: s.sheet ? 'true' : 'false',
+      sheetItems: [
+        { label:'Edit profile', d:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4' },
+        { label:'Send message', d:'M4 5h16v11H8l-4 4z' },
+        { label:'Preferences', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4' },
+        { label:'Sign out', d:'M9 4H5v16h4M16 8l4 4-4 4M20 12H9' }
+      ],
+      openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

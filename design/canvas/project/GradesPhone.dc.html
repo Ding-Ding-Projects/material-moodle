@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Grades, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mm-sheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-sheet{animation:mm-sheet 320ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in,.mm-still .mm-sheet{animation:none}
+.mm-still *{transition:none!important;animation:none!important}
+button:focus-visible,a:focus-visible{outline:3px solid var(--fx);outline-offset:2px}
+.mm-ring{transition:stroke-dashoffset .5s cubic-bezier(.05,.7,.1,1)}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--fx:{{c.p}};width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;font-size:16px;line-height:1.55;background:{{c.bg}};color:{{c.on}}">
+
+  <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px">
+    <h1 style="flex:1;margin:0;font-weight:750;font-stretch:112%;font-size:26px;line-height:1.1">Grades</h1>
+    <button type="button" aria-label="Search" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"></path></svg></button>
+    <button type="button" aria-label="More actions" aria-expanded="{{sheetStr}}" onClick="{{openSheet}}" style="width:48px;height:48px;border:0;border-radius:24px;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5h.01M12 12h.01M12 19h.01"></path></svg></button>
+    <button type="button" aria-label="Account: Mei Chan" style="width:40px;height:40px;border:0;border-radius:20px;background:{{c.tc}};color:{{c.ontc}};font-size:14px;font-weight:700;outline:{{ring}};outline-offset:2px">MC</button>
+  </header>
+
+  <main style="flex:1;min-height:0;overflow:auto;padding:0 0 16px">
+    <div role="group" aria-label="Courses" style="display:flex;gap:12px;overflow-x:auto;padding:4px 16px 8px">
+      <sc-for list="{{courses}}" as="co" hint-placeholder-count="4">
+        <button type="button" class="mm-in" aria-pressed="{{co.pressed}}" onClick="{{co.pick}}" style="animation-delay:{{co.delay}};flex:none;width:148px;height:176px;border:0;border-radius:28px;background:{{co.bg}};color:{{co.fg}};padding:16px;text-align:left;display:flex;flex-direction:column;justify-content:space-between">
+          <span style="position:relative;width:72px;height:72px;display:block">
+            <svg width="72" height="72" viewBox="0 0 80 80" aria-hidden="true">
+              <circle cx="40" cy="40" r="34" fill="none" stroke="{{co.track}}" stroke-width="6"></circle>
+              <circle class="mm-ring" cx="40" cy="40" r="34" fill="none" stroke="{{c.p}}" stroke-width="6" stroke-linecap="round" stroke-dasharray="213.63" stroke-dashoffset="{{co.off}}" transform="rotate(-90 40 40)"></circle>
+            </svg>
+            <span style="position:absolute;left:0;top:0;width:72px;height:72px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:750;font-stretch:112%">{{co.letter}}</span>
+          </span>
+          <span style="display:flex;flex-direction:column">
+            <span style="font-size:14px;font-weight:650;line-height:1.25">{{co.name}}</span>
+            <span style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:.85">{{co.code}}</span>
+            <span style="font-size:18px;font-weight:650;line-height:1.3">{{co.pctText}}</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+
+    <section aria-label="Graded items" style="margin:8px 16px 0">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px">
+        <h2 style="margin:0;font-size:20px;line-height:1.3;font-weight:650">{{sel.name}}</h2>
+        <span style="flex:none;height:28px;padding:0 10px;border-radius:10px;background:{{c.pc}};color:{{c.onpc}};font-family:'Roboto Mono',monospace;font-size:13px;line-height:28px">{{sel.pctText}}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+          <div class="mm-in" style="animation-delay:{{r.delay}};padding:12px 16px;border-radius:20px;background:{{c.low}};display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:12px;min-height:48px">
+              <span style="width:40px;height:40px;flex:none;border-radius:12px;background:{{r.tileBg}};color:{{r.tileFg}};display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:600;line-height:1.3">{{r.name}}</span><span style="font-size:13px;color:{{c.onv}}">{{r.type}}, weight <span style="font-family:'Roboto Mono',monospace">{{r.weight}}</span></span></span>
+              <span style="flex:none;height:24px;padding:0 8px;border-radius:8px;background:{{r.gBg}};color:{{r.gFg}};font-family:'Roboto Mono',monospace;font-size:12px;line-height:24px">{{r.grade}}</span>
+            </div>
+            <p style="margin:0;font-size:13px;line-height:1.4;color:{{c.onv}}">{{r.feedback}}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+
+  <nav aria-label="Main navigation" style="height:80px;flex:none;background:{{c.cont}};display:flex;align-items:center;justify-content:space-around;padding:0 4px">
+    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+      <a href="#" aria-current="{{n.cur}}" style="width:72px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:{{c.on}}">
+        <span style="width:64px;height:32px;border-radius:16px;background:{{n.bg}};color:{{n.fg}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.d}}"></path></svg></span>
+        <span style="font-size:12px;line-height:16px;font-weight:{{n.w}}">{{n.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+
+  <sc-if value="{{sheet}}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:0;top:0;right:0;bottom:0">
+      <button type="button" aria-label="Close menu" onClick="{{closeSheet}}" style="position:absolute;left:0;top:0;width:100%;height:100%;border:0;background:rgba(27,27,33,.4)"></button>
+      <div class="mm-sheet" role="dialog" aria-label="Grades actions" style="position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;border-radius:32px 32px 0 0;background:{{c.high}}">
+        <div style="width:32px;height:4px;border-radius:2px;background:{{c.outline}};margin:0 auto 12px"></div>
+        <sc-for list="{{sheetItems}}" as="si" hint-placeholder-count="4">
+          <button type="button" onClick="{{closeSheet}}" style="width:100%;height:56px;border:0;border-radius:16px;background:transparent;color:{{c.on}};font-size:16px;text-align:left;display:flex;align-items:center;gap:16px;padding:0 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{si.d}}"></path></svg>{{si.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { sel: 'BIO101', sheet: false }; }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', cont:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', okc:'#B7F1CF', onokc:'#002111', wc:'#FFE08A', onwc:'#241A00', err:'#BA1A1A' };
+    const D = { bg:'#131318', low:'#1B1B21', cont:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', err:'#FFB4AB' };
+    return dark ? D : L;
+  }
+  data() {
+    return [
+      { code:'BIO101', name:'Introduction to Biology', pct:88.2, letter:'A-', items:[
+        ['Cell structure lab report','Assignment','15%','46 / 50','Clear method. Tighten the discussion of controls.'],
+        ['Quiz 1: cell biology','Quiz','10%','9 / 10','Well done.'],
+        ['Quiz 2: genetics','Quiz','10%','8 / 10','Review dominant and recessive crosses.'],
+        ['Lab practical','Assignment','20%','41 / 50','Good technique. Label diagrams fully.'],
+        ['Lab forum posts','Forum','5%','5 / 5','Thoughtful replies to classmates.'],
+        ['Final exam','Exam','40%','Not graded','Opens on 12 December.'] ] },
+      { code:'HIS120', name:'World History', pct:81.0, letter:'B-', items:[
+        ['Source analysis 1','Assignment','15%','38 / 50','Solid sources. Link each one to your argument.'],
+        ['Quiz 1: ancient empires','Quiz','10%','7 / 10','Check the timeline of the Han dynasty.'],
+        ['Seminar discussion','Forum','10%','9 / 10','Strong contributions.'],
+        ['Essay draft: the Silk Road','Assignment','25%','Not graded','Due Thu 26 Nov, 23:59.'],
+        ['Final exam','Exam','40%','Not graded','Opens on 14 December.'] ] },
+      { code:'ENG210', name:'Creative Writing', pct:93.5, letter:'A', items:[
+        ['Flash fiction','Assignment','15%','47 / 50','Vivid images and a confident ending.'],
+        ['Workshop reflection','Assignment','10%','19 / 20','Insightful and well organised.'],
+        ['Peer review 1','Forum','10%','10 / 10','Specific, kind and useful feedback.'],
+        ['Short story','Assignment','35%','88 / 100','Strong voice. Trim the middle section.'],
+        ['Portfolio','Assignment','30%','Not graded','Due Fri 11 December.'] ] },
+      { code:'STA230', name:'Statistics with Python', pct:72.4, letter:'C', items:[
+        ['Notebook 1: summaries','Assignment','10%','17 / 20','Good plots. Explain your choice of bins.'],
+        ['Quiz 1: descriptive stats','Quiz','10%','6 / 10','Revisit the median and quartiles.'],
+        ['Quiz 2: sampling','Quiz','10%','7 / 10','Improving. Watch sampling bias.'],
+        ['Quiz 3: probability','Quiz','10%','Not graded','Fri 27 Nov, 10:00.'],
+        ['Project proposal','Assignment','20%','Not graded','Due 4 December.'],
+        ['Final exam','Exam','40%','Not graded','Opens on 15 December.'] ] }
+    ];
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const nav = [
+      ['Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
+      ['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
+      ['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['Messages','M4 5h16v11H8l-4 4z'],
+      ['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
+    ].map(([label, d]) => ({ label, d, cur: 'false', bg: 'transparent', fg: c.onv, w: 500 }));
+    const icons = { Assignment:'M5 3h10l4 4v14H5zM9 11h6M9 15h6', Quiz:'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01', Forum:'M4 5h16v11H8l-4 4z', Exam:'M9 4h6v3H9zM6 5h12v16H6zM9 12h6M9 16h4' };
+    const tiles = { Assignment:[c.pc,c.onpc], Quiz:[c.wc,c.onwc], Forum:[c.okc,c.onokc], Exam:[c.tc,c.ontc] };
+    const data = this.data();
+    const courses = data.map((d, i) => {
+      const on = s.sel === d.code;
+      return { name: d.name, code: d.code, letter: d.letter, pctText: d.pct.toFixed(1) + '%', off: (213.63 * (1 - d.pct / 100)).toFixed(2), pressed: on ? 'true' : 'false', bg: on ? c.pc : c.low, fg: on ? c.onpc : c.on, track: on ? c.bg : c.highest, delay: (i * 60) + 'ms', pick: () => this.setState({ sel: d.code }) };
+    });
+    const cur = data.filter((d) => d.code === s.sel)[0];
+    const rows = cur.items.map(([name, type, weight, grade, feedback], i) => {
+      let gBg = c.highest, gFg = c.onv;
+      if (grade.indexOf('/') > -1) {
+        const parts = grade.split(' / ');
+        const p = (+parts[0]) / (+parts[1]);
+        if (p >= 0.85) { gBg = c.okc; gFg = c.onokc; } else if (p >= 0.7) { gBg = c.pc; gFg = c.onpc; } else { gBg = c.wc; gFg = c.onwc; }
+      }
+      return { name, type, weight, grade, feedback, d: icons[type], tileBg: tiles[type][0], tileFg: tiles[type][1], gBg, gFg, delay: (i * 40) + 'ms' };
+    });
+    return {
+      c, rootClass: motion ? '' : 'mm-still', ring: 'none', nav, courses, rows,
+      sel: { name: cur.name, pctText: cur.pct.toFixed(1) + '% ' + cur.letter },
+      sheet: s.sheet, sheetStr: s.sheet ? 'true' : 'false',
+      sheetItems: [
+        { label:'Export grades', d:'M12 4v11M7 10l5 5 5-5M5 20h14' },
+        { label:'Grade settings', d:'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4' },
+        { label:'Message teacher', d:'M4 5h16v11H8l-4 4z' },
+        { label:'Help with grades', d:'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01' }
+      ],
+      openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

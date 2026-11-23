@@ -74,6 +74,16 @@
       "is_interactive": true,
       "radius": 16
     },
+    "MyCoursesPhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: my courses",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 28
+    },
     "Course.dc.html": {
       "x": 0,
       "y": 2040,
@@ -104,6 +114,16 @@
       "is_interactive": true,
       "radius": 16
     },
+    "ActivityPhone.dc.html": {
+      "x": 1940,
+      "y": 3060,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: assignment",
+      "page": "learning",
+      "is_interactive": true,
+      "radius": 28
+    },
     "Calendar.dc.html": {
       "x": 0,
       "y": 0,
@@ -113,6 +133,16 @@
       "page": "plan",
       "is_interactive": true,
       "radius": 16
+    },
+    "CalendarPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: calendar",
+      "page": "plan",
+      "is_interactive": true,
+      "radius": 28
     },
     "Grades.dc.html": {
       "x": 0,
@@ -124,6 +154,56 @@
       "is_interactive": true,
       "radius": 16
     },
+    "GradesPhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: grades",
+      "page": "plan",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Messages.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Messages",
+      "page": "people",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "MessagesPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: messages",
+      "page": "people",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Profile.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "Profile",
+      "page": "people",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "ProfilePhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: profile",
+      "page": "people",
+      "is_interactive": true,
+      "radius": 28
+    },
     "Launcher.dc.html": {
       "x": 0,
       "y": 0,
@@ -131,6 +211,56 @@
       "h": 900,
       "title": "Features launcher",
       "page": "everything",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "LauncherPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: features launcher",
+      "page": "everything",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "AllFeatures.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "All features page",
+      "page": "everything",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "AllFeaturesPhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: all features",
+      "page": "everything",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Preferences.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Preferences: display",
+      "page": "settings",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "Admin.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "Site administration",
+      "page": "settings",
       "is_interactive": true,
       "radius": 16
     },
@@ -154,6 +284,16 @@
       "is_interactive": true,
       "radius": 28
     },
+    "States.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Empty, done, not found and offline",
+      "page": "states",
+      "is_interactive": true,
+      "radius": 16
+    },
     "Foundations.dc.html": {
       "x": 0,
       "y": 0,
@@ -169,14 +309,28 @@
     "Main.dc.html",
     "DashboardPhone.dc.html",
     "MyCourses.dc.html",
+    "MyCoursesPhone.dc.html",
     "Course.dc.html",
     "CoursePhone.dc.html",
     "Activity.dc.html",
+    "ActivityPhone.dc.html",
     "Calendar.dc.html",
+    "CalendarPhone.dc.html",
     "Grades.dc.html",
+    "GradesPhone.dc.html",
+    "Messages.dc.html",
+    "MessagesPhone.dc.html",
+    "Profile.dc.html",
+    "ProfilePhone.dc.html",
     "Launcher.dc.html",
+    "LauncherPhone.dc.html",
+    "AllFeatures.dc.html",
+    "AllFeaturesPhone.dc.html",
+    "Preferences.dc.html",
+    "Admin.dc.html",
     "SignIn.dc.html",
     "SignInPhone.dc.html",
+    "States.dc.html",
     "Foundations.dc.html"
   ],
   "notes": {
@@ -212,6 +366,14 @@
       "text": "My courses with filter chips and a grid or list view. Try the chips and the view switch. Not built yet.",
       "page": "learning"
     },
+    "n-MyCoursesPhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "My courses on a phone. Every desktop action stays reachable. Not built yet.",
+      "page": "learning"
+    },
     "n-Coursedchtml": {
       "x": 1520,
       "y": 2040,
@@ -236,6 +398,14 @@
       "text": "An assignment with instructions, upload area and the rich text editor (TinyMCE). Press Submit to see the submitted state. Not built yet.",
       "page": "learning"
     },
+    "n-ActivityPhonedchtml": {
+      "x": 2410,
+      "y": 3060,
+      "w": 300,
+      "fill": "teal",
+      "text": "Assignment on a phone. Not built yet.",
+      "page": "learning"
+    },
     "title-plan": {
       "x": 0,
       "y": -300,
@@ -252,6 +422,14 @@
       "text": "Calendar with month, week and day views and an upcoming list. Switch views and pick a day. Not built yet.",
       "page": "plan"
     },
+    "n-CalendarPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "Calendar on a phone: agenda list with a compact month strip. Not built yet.",
+      "page": "plan"
+    },
     "n-Gradesdchtml": {
       "x": 1520,
       "y": 1020,
@@ -260,12 +438,52 @@
       "text": "Grades overview with a ring per course. Pick a course to see its items. Not built yet.",
       "page": "plan"
     },
+    "n-GradesPhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "Grades on a phone. Not built yet.",
+      "page": "plan"
+    },
     "title-people": {
       "x": 0,
       "y": -300,
       "text": "People: messages and profiles",
       "kind": "title1",
       "maxW": 2700,
+      "page": "people"
+    },
+    "n-Messagesdchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Messages with conversation list, thread and details. Pick a conversation and send a message. Not built yet.",
+      "page": "people"
+    },
+    "n-MessagesPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "Messages on a phone: the list opens the thread. Not built yet.",
+      "page": "people"
+    },
+    "n-Profiledchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "Profile with tabs for about, courses, badges and blog. Switch tabs. Not built yet.",
+      "page": "people"
+    },
+    "n-ProfilePhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "Profile on a phone. Not built yet.",
       "page": "people"
     },
     "title-everything": {
@@ -284,12 +502,52 @@
       "text": "The features launcher open from the rail, with search, one regex switch and group chips. Fixes the doubled regex button found on the running site. The older launcher is in the theme today; this redesign is not built yet.",
       "page": "everything"
     },
+    "n-LauncherPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "The launcher as a full-height sheet on a phone. Not built yet.",
+      "page": "everything"
+    },
+    "n-AllFeaturesdchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "Every feature on one page with search, group list and the turned-off switch. Not built yet in this look.",
+      "page": "everything"
+    },
+    "n-AllFeaturesPhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "All features on a phone. Not built yet.",
+      "page": "everything"
+    },
     "title-settings": {
       "x": 0,
       "y": -300,
       "text": "Settings and administration",
       "kind": "title1",
       "maxW": 2700,
+      "page": "settings"
+    },
+    "n-Preferencesdchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Display preferences: theme, motion, text size and switches. The theme segment switches this board. Not built yet.",
+      "page": "settings"
+    },
+    "n-Admindchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "Site administration with status cards and category tiles. Type in the search to filter. Not built yet.",
       "page": "settings"
     },
     "title-front": {
@@ -322,6 +580,14 @@
       "text": "States: empty, done, not found and offline",
       "kind": "title1",
       "maxW": 2700,
+      "page": "states"
+    },
+    "n-Statesdchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "Four states every page can reach. Press each button to see its confirmation. Not built yet.",
       "page": "states"
     },
     "title-foundations": {
