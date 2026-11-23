@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bathroom pass settings, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in{animation:none}
+.mm-field{height:56px;border-radius:16px;background:var(--hi);display:flex;align-items:center;padding:0 16px;gap:8px}
+.mm-field:focus-within{box-shadow:inset 0 -2px 0 var(--p)}
+.mm-field input,.mm-field select{flex:1;min-width:0;height:100%;border:0;background:transparent;font:inherit;font-size:16px;color:inherit;outline:none}
+.mm-field select{appearance:none;-webkit-appearance:none;cursor:pointer}
+.mm-field select option{color:#1B1B21;background:#FFFFFF}
+.mm-hs{scrollbar-width:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--hi:{{c.highest}};--p:{{c.p}};width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
+
+  <header style="height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px">
+    <button type="button" aria-label="Back to the course" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.on}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>
+    <div style="flex:1;min-width:0;font-weight:650;font-size:20px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Bathroom pass</div>
+    <button type="button" aria-label="More options" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg></button>
+  </header>
+
+  <div role="tablist" aria-label="Bathroom pass sections" style="flex:none;display:flex;gap:8px;padding:0 16px">
+    <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="2">
+      <button type="button" role="tab" aria-selected="{{tab.sel}}" onClick="{{tab.pick}}" style="flex:none;height:48px;padding:6px 0;border:0;background:transparent;cursor:pointer">
+        <span style="height:36px;padding:0 16px;border-radius:10px;border:1px solid {{tab.border}};background:{{tab.bg}};color:{{tab.fg}};font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px">
+          <sc-if value="{{tab.on}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>{{tab.label}}
+        </span>
+      </button>
+    </sc-for>
+  </div>
+
+  <main class="mm-hs" style="flex:1;min-height:0;overflow:auto;padding:8px 16px 16px">
+
+    <sc-if value="{{isSettings}}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+
+        <section class="mm-in" aria-labelledby="h-passes" style="padding:20px;border-radius:28px;background:{{c.low}}">
+          <h2 id="h-passes" style="margin:0 0 12px;font-weight:650;font-size:18px;line-height:1.3">Passes per student</h2>
+          <div style="font-size:14px;font-weight:600;letter-spacing:.01em">Number of passes</div>
+          <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <button type="button" aria-label="Fewer passes" onClick="{{passesDown}}" style="width:48px;height:48px;border:0;border-radius:50%;background:{{c.sc}};color:{{c.onsc}};display:grid;place-items:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+            <div aria-live="polite" style="flex:1;text-align:center;font-family:'Roboto Mono',monospace;font-weight:600;font-size:28px">{{passes}}</div>
+            <button type="button" aria-label="More passes" onClick="{{passesUp}}" style="width:48px;height:48px;border:0;border-radius:50%;background:{{c.sc}};color:{{c.onsc}};display:grid;place-items:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+          </div>
+          <label style="display:block;margin-top:16px">
+            <span style="display:block;margin-bottom:8px;font-size:14px;font-weight:600;letter-spacing:.01em">Per period</span>
+            <span class="mm-field" style="color:{{c.on}}">
+              <select onChange="{{pickPeriod}}">
+                <sc-for list="{{periods}}" as="o" hint-placeholder-count="5">
+                  <option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option>
+                </sc-for>
+              </select>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M6 9l6 6 6-6"></path></svg>
+            </span>
+          </label>
+          <p style="margin:12px 0 0;font-size:14px;line-height:1.5;color:{{c.onv}}">{{passSummary}} Running out never blocks a break.</p>
+        </section>
+
+        <section class="mm-in" aria-labelledby="h-coin" style="animation-delay:70ms;padding:20px;border-radius:28px;background:{{c.low}}">
+          <h2 id="h-coin" style="margin:0 0 4px;font-weight:650;font-size:18px;line-height:1.3">Extension coin flip</h2>
+          <p style="margin:0 0 12px;font-size:14px;line-height:1.5;color:{{c.onv}}">Each extra break turns part of the heads chance into a golden chance. Golden still grants the extension and shows the student a dim sum. There is no grade penalty, ever.</p>
+          <div style="font-size:14px;font-weight:600;letter-spacing:.01em">Heads chance moved to golden per extra break</div>
+          <div style="margin-top:2px;font-size:14px;color:{{c.onv}}">Heads never goes below {{floor}}%.</div>
+          <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <button type="button" aria-label="Move less to golden" onClick="{{redDown}}" style="width:48px;height:48px;border:0;border-radius:50%;background:{{c.sc}};color:{{c.onsc}};display:grid;place-items:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+            <div aria-live="polite" style="flex:1;text-align:center;font-family:'Roboto Mono',monospace;font-weight:600;font-size:24px">{{reduction}}%</div>
+            <button type="button" aria-label="Move more to golden" onClick="{{redUp}}" style="width:48px;height:48px;border:0;border-radius:50%;background:{{c.sc}};color:{{c.onsc}};display:grid;place-items:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+          </div>
+          <div style="margin-top:16px;padding:16px;border-radius:20px;background:{{c.c}}">
+            <label for="prev" style="display:block;font-size:14px;font-weight:600;letter-spacing:.01em">Preview after <span style="font-family:'Roboto Mono',monospace">{{prevExtra}}</span> extra {{prevWord}}</label>
+            <input id="prev" type="range" min="0" max="8" value="{{prevExtra}}" onInput="{{onPrev}}" style="margin:8px 0 0;width:100%;height:32px;accent-color:{{c.p}}">
+            <div role="img" aria-label="{{barLabel}}" style="margin-top:4px;height:12px;display:flex;gap:2px;border-radius:999px;overflow:hidden">
+              <div style="width:{{barH}};background:{{c.p}}"></div>
+              <div style="width:{{barG}};background:{{c.gold}}"></div>
+              <div style="width:{{barT}};background:{{c.outline}}"></div>
+            </div>
+            <ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{legend}}" as="l" hint-placeholder-count="3">
+                <li style="display:flex;align-items:center;gap:8px;font-size:14px"><span aria-hidden="true" style="flex:none;width:12px;height:12px;border-radius:4px;background:{{l.color}}"></span>{{l.text}}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mm-in" aria-labelledby="h-hooks" style="animation-delay:140ms;padding:20px;border-radius:28px;background:{{c.low}}">
+          <h2 id="h-hooks" style="margin:0 0 4px;font-weight:650;font-size:18px;line-height:1.3">Classroom webhooks</h2>
+          <p style="margin:0 0 16px;font-size:14px;line-height:1.5;color:{{c.onv}}">Home Assistant listens at these addresses. Set them separately.</p>
+          <sc-for list="{{hooks}}" as="h" hint-placeholder-count="2">
+            <div style="margin-bottom:16px">
+              <label style="display:block">
+                <span style="display:block;margin-bottom:8px;font-size:14px;font-weight:600;letter-spacing:.01em">{{h.label}}</span>
+                <span class="mm-field" style="color:{{c.on}}">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.onv}}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg>
+                  <input type="url" value="{{h.url}}" onInput="{{h.onUrl}}" placeholder="https://homeassistant.local:8123/api/webhook/...">
+                </span>
+              </label>
+              <div style="margin-top:8px;display:flex;align-items:center;gap:12px">
+                <button type="button" aria-label="{{h.testLabel}}" onClick="{{h.test}}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Send test</button>
+                <span role="status" style="min-width:72px;height:32px;padding:0 12px;border-radius:10px;background:{{h.bg}};color:{{h.fg}};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{h.icon}}"></path></svg>{{h.status}}
+                </span>
+              </div>
+            </div>
+          </sc-for>
+        </section>
+
+        <section class="mm-in" style="animation-delay:210ms;padding:20px;border-radius:28px;background:{{c.low}}">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="flex:1;min-width:0">
+              <div id="sw-name" style="font-weight:650;font-size:16px;line-height:1.3">Include the student's first name in webhooks</div>
+              <p style="margin:4px 0 0;font-size:14px;line-height:1.5;color:{{c.onv}}">Off by default. When off, webhooks only say that a student left or came back, with no name. Turn it on only if your school allows names on the classroom display.</p>
+            </div>
+            <button type="button" role="switch" aria-checked="{{nameOnStr}}" aria-labelledby="sw-name" onClick="{{toggleName}}" style="flex:none;width:56px;height:48px;padding:0;border:0;background:transparent;cursor:pointer;display:grid;place-items:center">
+              <span style="width:52px;height:32px;border-radius:16px;border:2px solid {{swBorder}};background:{{swTrack}};display:flex;align-items:center;justify-content:{{swJustify}};padding:0 {{swPad}}">
+                <span style="width:{{swThumb}};height:{{swThumb}};border-radius:50%;background:{{swKnob}}"></span>
+              </span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isNow}}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <section class="mm-in" aria-labelledby="h-now" style="padding:20px;border-radius:28px;background:{{c.low}}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <h2 id="h-now" style="margin:0;font-weight:650;font-size:18px;line-height:1.3">Out of the room now</h2>
+            <span style="min-width:72px;height:24px;padding:0 8px;border-radius:8px;background:{{c.warnc}};color:{{c.onwarn}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{outCount}} out</span>
+          </div>
+          <ul style="list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{now}}" as="n" hint-placeholder-count="2">
+              <li style="padding:12px 12px 12px 16px;border-radius:20px;background:{{c.c}}">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-size:16px;font-weight:600;line-height:1.3">{{n.name}}</span>
+                    <span style="display:block;font-size:13px;color:{{c.onv}}">Left at <span style="font-family:'Roboto Mono',monospace">{{n.left}}</span></span>
+                  </span>
+                  <span role="timer" aria-label="{{n.timerLabel}}" style="flex:none;font-family:'Roboto Mono',monospace;font-weight:600;font-size:20px">{{n.timer}}</span>
+                </div>
+                <button type="button" aria-label="{{n.markLabel}}" onClick="{{n.mark}}" style="margin-top:8px;width:100%;height:48px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Mark as back</button>
+              </li>
+            </sc-for>
+          </ul>
+          <sc-if value="{{noneOut}}" hint-placeholder-val="{{ false }}">
+            <p style="margin:12px 0 0;font-size:16px;line-height:1.55;color:{{c.onv}}">Everyone is in the room.</p>
+          </sc-if>
+        </section>
+
+        <section class="mm-in" aria-labelledby="h-hist" style="animation-delay:70ms;padding:20px;border-radius:28px;background:{{c.low}}">
+          <h2 id="h-hist" style="margin:0 0 12px;font-weight:650;font-size:18px;line-height:1.3">History</h2>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{history}}" as="r" hint-placeholder-count="5">
+              <li style="min-height:72px;padding:12px 16px;border-radius:20px;background:{{c.c}};display:flex;align-items:center;gap:12px">
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:15px;font-weight:600;line-height:1.3">{{r.name}}</span>
+                  <span style="display:block;font-family:'Roboto Mono',monospace;font-size:12px;color:{{c.onv}}">{{r.left}} to {{r.back}}, {{r.dur}}</span>
+                </span>
+                <span style="flex:none;min-width:72px;height:24px;padding:0 8px;border-radius:8px;background:{{r.bg}};color:{{r.fg}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{r.over}}</span>
+              </li>
+            </sc-for>
+          </ul>
+          <p style="margin:8px 0 0;font-size:12px;color:{{c.onv}}">The pill says whether the break was over the allowance.</p>
+        </section>
+      </div>
+    </sc-if>
+  </main>
+
+  <sc-if value="{{isSettings}}" hint-placeholder-val="{{ true }}">
+    <div style="flex:none;height:72px;padding:12px 16px;background:{{c.high}};display:flex;align-items:center;gap:8px">
+      <span role="status" style="flex:1;min-width:0;font-size:13px;font-weight:600;line-height:1.3">{{saveText}}</span>
+      <button type="button" aria-label="Discard changes" onClick="{{discard}}" style="flex:none;height:48px;padding:0 16px;border:1px solid {{c.outline}};border-radius:999px;background:transparent;color:{{c.on}};font-size:14px;font-weight:600;cursor:pointer">Discard</button>
+      <button type="button" aria-label="Save settings" onClick="{{save}}" style="flex:none;height:48px;padding:0 20px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:14px;font-weight:600;cursor:pointer">Save</button>
+    </div>
+  </sc-if>
+
+  <dc-import name="PhoneNav" active="courses" accent="{{accent}}" dark="{{dark}}" hint-size="390px,80px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"tab":{"editor":"enum","options":["settings","now"],"default":"settings","section":"View"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: null, passes: 5, period: 'Quarter', reduction: 5, prevExtra: 1, nameOn: false, dirty: false, saved: false,
+      urlLeave: 'https://homeassistant.local:8123/api/webhook/room-left', urlBack: 'https://homeassistant.local:8123/api/webhook/room-back',
+      test: { leave: { s: 'ok', code: 200 }, back: { s: 'fail', code: 503 } },
+      ticks: 0,
+      out: [{ id: 'a', name: 'Arjun Patel', left: '10:12', base: 451 }, { id: 'b', name: 'Sofia Rossi', left: '10:26', base: 78 }],
+      history: [
+        { name: 'Noor Haddad', left: '09:58', back: '10:04', dur: '06:02', over: false },
+        { name: 'Liam O’Connor', left: '09:41', back: '09:46', dur: '04:50', over: true },
+        { name: 'Jin Park', left: '09:30', back: '09:33', dur: '03:11', over: false },
+        { name: 'Mei Chan', left: '09:12', back: '09:17', dur: '05:24', over: false },
+        { name: 'Arjun Patel', left: '08:55', back: '09:03', dur: '08:07', over: true }
+      ]
+    };
+    this.timers = {};
+    this.clock = setInterval(() => this.setState({ ticks: this.state.ticks + 1 }), 1000);
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', c:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', p:accent, onp:'#FFFFFF', sc:'#DEE1F9', onsc:'#171B2C', okc:'#B7F1CF', onokc:'#00210F', errc:'#FFDAD6', onerrc:'#410002', warnc:'#FFE08A', onwarn:'#241A00', gold:'#E8B100' };
+    const D = { bg:'#131318', low:'#1B1B21', c:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', p:'#B8C3FF', onp:'#002388', sc:'#42455A', onsc:'#DEE1F9', okc:'#005234', onokc:'#B7F1CF', errc:'#93000A', onerrc:'#FFDAD6', warnc:'#5B4300', onwarn:'#FFE08A', gold:'#FFC933' };
+    return dark ? D : L;
+  }
+  fmt(n) { return String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0'); }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const tab = s.tab ?? (this.props.tab ?? 'settings');
+    const touch = (patch) => this.setState({ ...patch, dirty: true, saved: false });
+    const floor = 25;
+    const heads = Math.max(floor, 50 - s.reduction * s.prevExtra);
+    const golden = 50 - heads;
+    const periodsList = ['Week', 'Month', 'Quarter', 'Half year', 'Whole course'];
+    const periodText = { 'Week': 'week', 'Month': 'month', 'Quarter': 'quarter', 'Half year': 'half year', 'Whole course': 'whole course' }[s.period];
+
+    const chip = (t) => {
+      if (t.s === 'ok') return { status: 'Delivered ' + t.code, bg: c.okc, fg: c.onokc, icon: 'M5 12l5 5 9-10' };
+      if (t.s === 'fail') return { status: 'Failed ' + t.code, bg: c.errc, fg: c.onerrc, icon: 'M6 6l12 12M18 6L6 18' };
+      return { status: 'Sending', bg: c.highest, fg: c.onv, icon: 'M12 6v6l4 2' };
+    };
+    const sendTest = (k) => {
+      this.setState({ test: { ...s.test, [k]: { s: 'sending', code: 0 } } });
+      clearTimeout(this.timers[k]);
+      this.timers[k] = setTimeout(() => this.setState({ test: { ...this.state.test, [k]: { s: 'ok', code: 200 } } }), 700);
+    };
+    const hooks = [
+      { k: 'leave', label: 'When a student leaves', url: s.urlLeave, onUrl: (e) => touch({ urlLeave: e.target.value }) },
+      { k: 'back', label: 'When a student comes back', url: s.urlBack, onUrl: (e) => touch({ urlBack: e.target.value }) }
+    ].map((h) => ({ ...h, testLabel: 'Send test: ' + h.label, test: () => sendTest(h.k), ...chip(s.test[h.k]) }));
+
+    const now = s.out.map((n) => ({
+      name: n.name, left: n.left, timer: this.fmt(n.base + s.ticks), timerLabel: n.name + ' out for ' + this.fmt(n.base + s.ticks),
+      markLabel: 'Mark ' + n.name + ' as back',
+      mark: () => {
+        const d = n.base + this.state.ticks;
+        this.setState({ out: this.state.out.filter((x) => x.id !== n.id), history: [{ name: n.name, left: n.left, back: '10:34', dur: this.fmt(d), over: false }, ...this.state.history] });
+      }
+    }));
+    const history = s.history.map((r) => ({ ...r, over: r.over ? 'Over' : 'Within', bg: r.over ? c.warnc : c.highest, fg: r.over ? c.onwarn : c.onv }));
+
+    return {
+      c, accent, dark, rootClass: motion ? '' : 'mm-still',
+      tabs: [['settings', 'Settings'], ['now', 'Now and history']].map(([k, label]) => {
+        const on = tab === k;
+        return { label, on, sel: on ? 'true' : 'false', bg: on ? c.sc : 'transparent', fg: on ? c.onsc : c.onv, border: on ? c.sc : c.outline, pick: () => this.setState({ tab: k }) };
+      }),
+      isSettings: tab === 'settings', isNow: tab === 'now',
+      passes: s.passes, passesDown: () => touch({ passes: Math.max(0, s.passes - 1) }), passesUp: () => touch({ passes: Math.min(20, s.passes + 1) }),
+      periods: periodsList.map((v) => ({ v, sel: v === s.period })),
+      pickPeriod: (e) => touch({ period: e.target.value }),
+      passSummary: s.passes + (s.passes === 1 ? ' pass' : ' passes') + ' each ' + periodText + ' for every student in this course.',
+      reduction: s.reduction, floor,
+      redDown: () => touch({ reduction: Math.max(0, s.reduction - 1) }), redUp: () => touch({ reduction: Math.min(10, s.reduction + 1) }),
+      prevExtra: s.prevExtra, prevWord: s.prevExtra === 1 ? 'break' : 'breaks',
+      onPrev: (e) => this.setState({ prevExtra: Number(e.target.value) }),
+      barH: heads + '%', barG: golden + '%', barT: '50%',
+      barLabel: 'Coin flip chances: heads ' + heads + ' percent, golden ' + golden + ' percent, tails 50 percent',
+      legend: [{ color: c.p, text: 'Heads ' + heads + '%' }, { color: c.gold, text: 'Golden ' + golden + '%' }, { color: c.outline, text: 'Tails 50%' }],
+      hooks,
+      nameOnStr: s.nameOn ? 'true' : 'false', toggleName: () => touch({ nameOn: !s.nameOn }),
+      swTrack: s.nameOn ? c.p : c.highest, swBorder: s.nameOn ? c.p : c.outline, swKnob: s.nameOn ? c.onp : c.outline,
+      swThumb: s.nameOn ? '24px' : '16px', swJustify: s.nameOn ? 'flex-end' : 'flex-start', swPad: s.nameOn ? '2px' : '6px',
+      saveText: s.dirty ? 'You have unsaved changes' : (s.saved ? 'All changes saved' : 'No changes yet'),
+      save: () => this.setState({ dirty: false, saved: true }),
+      discard: () => this.setState({ passes: 5, period: 'Quarter', reduction: 5, nameOn: false, urlLeave: 'https://homeassistant.local:8123/api/webhook/room-left', urlBack: 'https://homeassistant.local:8123/api/webhook/room-back', dirty: false, saved: false }),
+      now, noneOut: s.out.length === 0, outCount: s.out.length, history
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Due date extension, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in{animation:none}
+@keyframes mm-tumble{0%{transform:rotate(0) scale(1)}25%{transform:rotate(190deg) scale(1.12) translateY(-18px)}50%{transform:rotate(380deg) scale(.96)}75%{transform:rotate(560deg) scale(1.08) translateY(-10px)}100%{transform:rotate(720deg) scale(1)}}
+.mm-tumble{animation:mm-tumble 1600ms cubic-bezier(.2,.7,.2,1) both}
+@keyframes mm-hop{0%{transform:translateY(0)}40%{transform:translateY(-32px)}70%{transform:translateY(0)}82%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+.mm-hop{animation:mm-hop 1600ms ease-in-out both}
+@keyframes mm-pop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:none}}
+.mm-pop{animation:mm-pop 280ms cubic-bezier(.05,.7,.1,1) both}
+@keyframes mm-sheet{from{transform:translateY(100%)}to{transform:none}}
+.mm-sheet{animation:mm-sheet 320ms cubic-bezier(.05,.7,.1,1) both}
+@keyframes mm-burst{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+.mm-burst{animation:mm-burst 1100ms cubic-bezier(.1,.7,.2,1) both}
+@keyframes mm-shine{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.mm-shine{animation:mm-shine 900ms ease-in-out 2}
+.mm-still .mm-tumble,.mm-still .mm-hop,.mm-still .mm-pop,.mm-still .mm-sheet,.mm-still .mm-burst,.mm-still .mm-shine{animation:none}
+button:disabled{cursor:default}
+
+.mm-ed{border-bottom:1px solid var(--mm-o)}
+.mm-ed:focus-within{border-bottom:2px solid var(--mm-p)}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="--mm-p:{{c.p}};--mm-o:{{c.outline}};width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
+
+  <dc-import name="Rail" active="courses" initials="MC" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <dc-import name="TopBar" title="Cell structure lab report" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import>
+
+    <main style="flex:1;min-height:0;overflow:hidden;padding:24px 32px 32px;display:flex;flex-direction:column;gap:8px">
+        <nav aria-label="Breadcrumb" style="flex:none;height:48px;display:flex;align-items:center;gap:4px;font-size:16px;color:{{c.onv}};white-space:nowrap">
+          <a href="#" style="min-height:48px;padding:0 8px;display:flex;align-items:center;color:{{c.onv}};text-decoration:none;border-radius:12px">Courses</a><span aria-hidden="true">/</span>
+          <a href="#" style="min-height:48px;padding:0 8px;display:flex;align-items:center;color:{{c.onv}};text-decoration:none;border-radius:12px">Introduction to Biology</a><span aria-hidden="true">/</span>
+          <a href="#" style="min-height:48px;padding:0 8px;display:flex;align-items:center;color:{{c.onv}};text-decoration:none;border-radius:12px">Week 2: Cells</a><span aria-hidden="true">/</span>
+          <span aria-current="page" style="padding:0 8px;color:{{c.on}};font-weight:600">Cell structure lab report</span>
+        </nav>
+        <div style="flex:none;display:flex;align-items:center;gap:16px;margin-bottom:8px">
+          <h1 class="mm-in" style="margin:0;font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1">Cell structure lab report</h1>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="min-width:72px;height:24px;padding:0 10px;box-sizing:border-box;border-radius:8px;background:{{c.wc}};color:{{c.onwc}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{dueChip}}</span>
+            <sc-if value="{{extended}}" hint-placeholder-val="{{ false }}"><span style="min-width:72px;height:24px;padding:0 10px;box-sizing:border-box;border-radius:8px;background:{{c.pc}};color:{{c.onpc}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{extChip}}</span></sc-if>
+            <span role="status" style="min-width:72px;height:24px;padding:0 10px;box-sizing:border-box;border-radius:8px;background:{{statusBg}};color:{{statusFg}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{statusText}}</span>
+          </div>
+        </div>
+
+        <div style="flex:1;min-height:0;display:flex;gap:24px;align-items:stretch">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:24px">
+            <section class="mm-in" style="flex:none;padding:24px;border-radius:28px;background:{{c.low}}">
+              <h2 style="margin:0 0 12px;font-weight:650;font-size:20px;line-height:1.3">Instructions</h2>
+              <p style="margin:0 0 12px;font-size:16px;line-height:1.55">Write a lab report on the onion cell slides you prepared in the Week 2 practical. Describe what you observed under each magnification and label the visible structures.</p>
+              <p style="margin:0 0 12px;font-size:16px;line-height:1.55">Your report should include an aim, a short method, labelled drawings, a results table and a conclusion of about 400 words that explains how cell structure supports function.</p>
+              <p style="margin:0 0 20px;font-size:16px;line-height:1.55">Submit one file or type directly into the text box. You may save a draft and return before the deadline.</p>
+              <div style="display:flex;align-items:center;gap:16px;min-height:72px;padding:16px;border-radius:20px;background:{{c.c}}">
+                <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3H6v18h12V8zM13 3v5h5"></path></svg></span>
+                <span style="flex:1;min-width:0"><span style="display:block;font-size:16px;font-weight:600">Lab report template.docx</span><span style="display:block;font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">48 KB</span></span>
+                <button type="button" aria-label="Download Lab report template.docx" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"></path></svg></button>
+              </div>
+            </section>
+
+            <section class="mm-in" aria-labelledby="grade-h" style="animation-delay:80ms;flex:1;min-height:0;padding:24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <h2 id="grade-h" style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Grading</h2>
+                <span style="min-width:72px;height:24px;padding:0 10px;box-sizing:border-box;border-radius:8px;background:{{c.highest}};color:{{c.onv}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">Not graded</span>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:8px;padding:16px 20px;border-radius:20px;background:{{c.c}}">
+                <span style="font-family:'Roboto Mono',monospace;font-weight:600;font-size:32px;line-height:1.1;color:{{c.onv}}">--</span>
+                <span style="font-size:16px;color:{{c.onv}}">out of 100</span>
+              </div>
+              <dl style="margin:0;display:grid;grid-template-columns:140px 1fr;row-gap:8px;font-size:16px;line-height:1.55">
+                <dt style="color:{{c.onv}}">Grader</dt><dd style="margin:0;font-weight:600">Dr. Priya Nair</dd>
+                <dt style="color:{{c.onv}}">Feedback</dt><dd style="margin:0">No feedback yet</dd>
+              </dl>
+              <div style="margin-top:auto">
+                <div class="mm-over" style="margin-bottom:8px;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Rubric</div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+                  <div style="padding:12px 16px;border-radius:16px;background:{{c.c}}"><div style="font-size:14px;font-weight:600">Aim and method</div><div style="font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">20 points</div></div>
+                  <div style="padding:12px 16px;border-radius:16px;background:{{c.c}}"><div style="font-size:14px;font-weight:600">Drawings</div><div style="font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">25 points</div></div>
+                  <div style="padding:12px 16px;border-radius:16px;background:{{c.c}}"><div style="font-size:14px;font-weight:600">Results</div><div style="font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">30 points</div></div>
+                  <div style="padding:12px 16px;border-radius:16px;background:{{c.c}}"><div style="font-size:14px;font-weight:600">Conclusion</div><div style="font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">25 points</div></div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside aria-label="Extension and submission" style="flex:none;width:440px;display:flex;flex-direction:column;gap:16px">
+<section class="mm-in" aria-labelledby="ext-h" style="flex:none;padding:20px 24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:8px">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <h2 id="ext-h" style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Due date extension</h2>
+    <div role="img" aria-label="{{leftLabel}}" style="display:flex;gap:8px">
+      <sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span style="width:16px;height:16px;box-sizing:border-box;border-radius:50%;background:{{d.bg}};border:2px solid {{d.bd}}"></span></sc-for>
+    </div>
+  </div>
+  <p style="margin:0;font-size:16px;font-weight:600;line-height:1.4">{{leftHead}}</p>
+  <p style="margin:0 0 8px;font-size:14px;line-height:1.45;color:{{c.onv}}">{{cardRule}}</p>
+  <button type="button" aria-haspopup="dialog" disabled="{{noTokens}}" onClick="{{openDlg}}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:{{btnBg}};color:{{btnFg}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Use an extension</button>
+</section>
+
+            <section class="mm-in" style="animation-delay:80ms;flex:1;min-height:0;overflow:hidden;padding:20px 24px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column;gap:16px">
+              <h2 style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Your submission</h2>
+              <div style="flex:none;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:20px;border:2px dashed {{c.ov}};color:{{c.onv}}">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"></path></svg>
+                <div style="flex:1;min-width:0;font-size:14px;line-height:1.4"><span style="display:block;color:{{c.on}};font-size:16px">Drag a file here</span><span style="display:block;font-size:12px">One file, up to 20 MB. PDF or DOCX.</span></div>
+                <button type="button" style="flex:none;height:48px;padding:0 20px;border:1px solid {{c.outline}};border-radius:999px;background:transparent;color:{{c.on}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Choose files</button>
+              </div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+                <label for="otext" style="flex:none;display:block;margin-bottom:8px;font-size:14px;font-weight:600;letter-spacing:.01em">Online text</label>
+                <div class="mm-ed" style="flex:1;min-height:0;display:flex;flex-direction:column;border-radius:16px 16px 0 0;background:{{c.highest}};overflow:hidden">
+                  <div role="toolbar" aria-label="Text formatting" style="flex:none;display:flex;gap:4px;padding:4px 8px;background:{{c.high}};border-bottom:1px solid {{c.ov}}">
+                    <button type="button" aria-label="Bold" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h6a3.5 3.5 0 0 1 0 7H7zM7 11h7a3.5 3.5 0 0 1 0 7H7z"></path></svg></button>
+                    <button type="button" aria-label="Italic" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4h8M6 20h8M14 4l-4 16"></path></svg></button>
+                    <button type="button" aria-label="Bulleted list" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"></path></svg></button>
+                    <button type="button" aria-label="Link" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.onv}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></button>
+                  </div>
+                  <textarea id="otext" value="{{text}}" onChange="{{onText}}" placeholder="Type your report here" style="display:block;flex:1;min-height:64px;width:100%;box-sizing:border-box;padding:16px;border:0;background:transparent;resize:none;font:inherit;font-size:16px;line-height:1.55;color:{{c.on}};outline:none"></textarea>
+                </div>
+              </div>
+              <div style="flex:none;display:flex;gap:12px">
+                <button type="button" onClick="{{submit}}" style="flex:1;height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">{{submitLabel}}</button>
+                <button type="button" onClick="{{saveDraft}}" style="flex:1;height:48px;padding:0 24px;border:0;border-radius:999px;background:{{c.sc}};color:{{c.onsc}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Save draft</button>
+              </div>
+              <sc-if value="{{draftSaved}}" hint-placeholder-val="{{ false }}">
+                <div style="flex:none;font-size:14px;color:{{c.onv}}">Draft saved at <span style="font-family:'Roboto Mono',monospace">13:42</span></div>
+              </sc-if>
+            </section>
+          </aside>
+        </div>
+    </main>
+  </div>
+
+  <sc-if value="{{showDialog}}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:30;display:flex;align-items:{{dlgAlign}};justify-content:center">
+    <button type="button" aria-label="Close dialog" onClick="{{closeDlg}}" style="position:absolute;inset:0;width:100%;height:100%;border:0;background:rgba(0,0,0,.42);cursor:pointer"></button>
+    <div role="dialog" aria-modal="true" aria-labelledby="dlg-h" class="{{dlgClass}}" style="position:relative;{{dlgSize}};box-sizing:border-box;padding:{{dlgPad}};border-radius:{{dlgRadius}};background:{{c.high}};box-shadow:{{c.shadow}};display:flex;flex-direction:column;gap:12px;overflow:auto">
+      
+      <h2 id="dlg-h" style="margin:0;font-weight:650;font-size:20px;line-height:1.3">Use an extension</h2>
+      <div role="img" aria-label="{{stageLabel}}" style="position:relative;height:236px;flex:none;display:flex;align-items:center;justify-content:center">
+  <sc-if value="{{isInstant}}" hint-placeholder-val="{{ false }}">
+    <div style="width:168px;height:168px;border-radius:50%;background:{{c.pc}};color:{{c.onpc}};display:grid;place-items:center"><svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{instPath}}"></path></svg></div>
+  </sc-if>
+  <sc-if value="{{isDice}}" hint-placeholder-val="{{ true }}">
+    <div class="{{diceClass}}" style="width:148px;height:148px;border-radius:32px;background:{{c.pc}};padding:26px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center">
+      <sc-for list="{{pips}}" as="p" hint-placeholder-count="9"><span style="width:22px;height:22px;border-radius:50%;background:{{p.bg}}"></span></sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{isCoin}}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;height:236px;display:flex;flex-direction:column;align-items:center;padding-top:36px;box-sizing:border-box">
+      <div style="perspective:700px">
+        <div class="{{hopClass}}">
+          <div style="position:relative;width:140px;height:140px;transform-style:preserve-3d;transform:rotateX({{coinRot}}deg);transition:{{trans}}">
+            <div style="position:absolute;inset:0;border-radius:50%;background:{{c.wc}};color:{{c.onwc}};display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden">
+              <div style="width:110px;height:110px;border-radius:50%;border:4px solid {{c.onwc}};display:grid;place-items:center;font-weight:800;font-stretch:118%;font-size:48px;box-sizing:border-box">H</div>
+            </div>
+            <div class="{{shineClass}}" style="position:absolute;inset:0;border-radius:50%;background:{{backBg}};color:{{backFg}};display:grid;place-items:center;transform:rotateX(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden">
+              <div style="width:110px;height:110px;border-radius:50%;border:4px solid {{backFg}};display:grid;place-items:center;font-weight:800;font-stretch:118%;font-size:48px;box-sizing:border-box">
+                <sc-if value="{{backStar}}" hint-placeholder-val="{{ false }}"><svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></sc-if>
+                <sc-if value="{{backLetter}}" hint-placeholder-val="{{ true }}"><span>T</span></sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="width:224px;margin-top:12px">
+        <div role="img" aria-label="Odds: heads 45%, golden 5%, tails 50%" style="display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px">
+          <span style="flex:45;background:{{c.p}}"></span><span style="flex:5;background:{{c.gold}}"></span><span style="flex:50;background:{{c.outline}}"></span>
+        </div>
+        <div aria-hidden="true" style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:{{c.onv}}"><span>Heads 45%</span><span>Golden 5%</span><span>Tails 50%</span></div>
+      </div>
+      <sc-if value="{{celebrate}}" hint-placeholder-val="{{ false }}">
+        <div aria-hidden="true" style="position:absolute;left:50%;top:106px;width:0;height:0;pointer-events:none">
+          <sc-for list="{{bursts}}" as="b" hint-placeholder-count="12"><span class="mm-burst" style="position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:{{b.bg}};--dx:{{b.dx}}px;--dy:{{b.dy}}px;animation-delay:{{b.delay}}ms"></span></sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+  <sc-if value="{{isWheel}}" hint-placeholder-val="{{ false }}">
+    <div style="position:relative;width:260px;height:236px">
+      <svg width="28" height="24" viewBox="0 0 28 24" aria-hidden="true" style="position:absolute;left:116px;top:0;z-index:2"><path d="M2 2h24L14 22z" fill="{{c.on}}"></path></svg>
+      <div style="position:absolute;top:12px;width:224px;height:224px;left:18px;transform:rotate({{wheelRot}}deg);transition:{{trans}}">
+        <svg width="224" height="224" viewBox="0 0 260 260" aria-hidden="true" style="display:block;font-family:'Roboto Flex',system-ui,sans-serif">
+          <sc-for list="{{segs}}" as="g" hint-placeholder-count="6">
+            <path d="{{g.d}}" fill="{{g.fill}}" stroke="{{c.high}}" stroke-width="2"></path>
+            <g transform="{{g.tf}}"><text x="0" y="-86" text-anchor="middle" fill="{{g.fg}}" font-size="15" font-weight="700">{{g.l1}}</text><text x="0" y="-66" text-anchor="middle" fill="{{g.fg}}" font-size="13" font-weight="600">{{g.l2}}</text></g>
+          </sc-for>
+          <circle cx="130" cy="130" r="18" fill="{{c.high}}"></circle>
+        </svg>
+      </div>
+    </div>
+  </sc-if>
+</div>
+
+      <div style="min-height:168px;flex:none;display:flex;flex-direction:column;gap:12px">
+  <sc-if value="{{phaseIdle}}" hint-placeholder-val="{{ true }}">
+    <div>
+      <p style="margin:0 0 8px;font-size:16px;line-height:1.55">{{ruleText}}</p>
+      <p style="margin:0;font-size:14px;line-height:1.5;color:{{c.onv}}">{{idleNote}}</p>
+    </div>
+  </sc-if>
+  <sc-if value="{{phaseRun}}" hint-placeholder-val="{{ false }}">
+    <p role="status" style="margin:0;font-size:16px;line-height:1.55">{{busyText}}</p>
+  </sc-if>
+  <sc-if value="{{phaseDone}}" hint-placeholder-val="{{ false }}">
+    <div role="status" aria-live="polite" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <sc-if value="{{granted}}" hint-placeholder-val="{{ true }}"><span style="min-width:72px;height:24px;padding:0 10px;box-sizing:border-box;border-radius:8px;background:{{c.okc}};color:{{c.onokc}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">Granted</span></sc-if>
+        <sc-if value="{{denied}}" hint-placeholder-val="{{ false }}"><span style="min-width:72px;height:24px;padding:0 10px;box-sizing:border-box;border-radius:8px;background:{{c.errc}};color:{{c.onerrc}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">Denied</span></sc-if>
+        <span style="font-weight:750;font-stretch:112%;font-size:24px;line-height:1.2">{{resHead}}</span>
+      </div>
+      <sc-if value="{{granted}}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="font-size:14px;color:{{c.onv}}">New due date</div>
+          <div style="font-family:'Roboto Mono',monospace;font-weight:600;font-size:22px;line-height:1.3">{{resDue}}</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{chips}}" as="ch" hint-placeholder-count="2"><span style="height:32px;padding:0 12px;border-radius:10px;background:{{ch.bg}};color:{{ch.fg}};font-size:14px;font-weight:600;display:flex;align-items:center">{{ch.t}}</span></sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{denied}}" hint-placeholder-val="{{ false }}">
+        <p style="margin:0;font-size:16px;line-height:1.55">{{deniedText}}</p>
+      </sc-if>
+      <sc-if value="{{golden}}" hint-placeholder-val="{{ false }}">
+        <div class="{{shineClass}}" style="display:flex;align-items:center;gap:16px;padding:12px 16px;border-radius:20px;background:{{c.c}}">
+          <span style="flex:none;width:88px;height:72px;border-radius:16px;background:{{c.wc}};display:grid;place-items:center">
+            <svg width="72" height="60" viewBox="0 0 72 60" role="img" aria-label="Illustration of a siu mai dumpling in a steamer">
+              <ellipse cx="36" cy="50" rx="30" ry="6" fill="#B9884C"></ellipse>
+              <rect x="10" y="40" width="52" height="10" rx="5" fill="#D6A25E"></rect>
+              <path d="M16 40 L20 22 Q36 14 52 22 L56 40 Z" fill="#F0B94F"></path>
+              <path d="M20 22 Q36 10 52 22 Q36 28 20 22 Z" fill="#E9A23B"></path>
+              <circle cx="36" cy="19" r="4" fill="#3F8F5A"></circle>
+              <rect x="22" y="31" width="28" height="3" rx="1.5" fill="#D6962F"></rect>
+            </svg>
+          </span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Golden prize</span>
+            <span style="display:block;font-size:18px;font-weight:650;line-height:1.3">Siu mai <span lang="yue">燒賣</span></span>
+          </span>
+        </div>
+      </sc-if>
+      <p style="margin:0;font-size:14px;color:{{c.onv}}">{{afterText}}</p>
+    </div>
+  </sc-if>
+</div>
+
+      <p style="margin:0;font-size:12px;line-height:1.4;color:{{c.onv}}">The result is decided fairly by the site before the animation starts.</p>
+      <div style="flex:none;display:flex;justify-content:flex-end;gap:8px">
+        <sc-if value="{{cancelVisible}}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{closeDlg}}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:transparent;color:{{c.p}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">Cancel</button>
+        </sc-if>
+        <button type="button" disabled="{{actDisabled}}" onClick="{{act}}" style="min-width:112px;height:48px;padding:0 24px;border:0;border-radius:999px;background:{{actBg}};color:{{actFg}};font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer">{{actLabel}}</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+  <sc-if value="{{snack}}" hint-placeholder-val="{{ true }}">
+    <div role="status" class="mm-in" style="position:absolute;left:calc(50% + 48px);bottom:32px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;min-height:56px;padding:0 8px 0 24px;border-radius:16px;background:{{c.on}};color:{{c.bg}};box-shadow:{{c.shadow}};font-size:14px">
+      <span style="margin-right:16px">Submission received. Dr. Priya Nair can see it now.</span>
+      <button type="button" onClick="{{undo}}" style="min-height:48px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:{{c.pc}};font-size:14px;font-weight:700;cursor:pointer">Undo</button>
+      <button type="button" aria-label="Dismiss message" onClick="{{dismiss}}" style="width:48px;height:48px;border-radius:24px;border:0;background:transparent;color:{{c.bg}};display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["instant","dice","coin","wheel"],"default":"dice","section":"Extension"},"tokens":{"editor":"int","default":2,"section":"Extension"},"coinresult":{"editor":"enum","options":["heads","tails","golden"],"default":"heads","section":"Extension"},"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: '', text: '', submitted: false, snack: false, draftSaved: false, open: false, phase: 'idle', res: null, used: 0, added: 0, attempts: 0, face: 5, coinRot: 0, wheelRot: 0 };
+    this.iv = null; this.to = null;
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', c:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', ov:'#C6C5D0', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', t:'#A23F6A', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#00210F', wc:'#FFE08A', onwc:'#3A2C00', gold:'#F2C230', ongold:'#3A2C00', err:'#BA1A1A', errc:'#FFDAD6', onerrc:'#410002', shadow:'0 8px 28px rgba(27,27,33,.14)' };
+    const D = { bg:'#131318', low:'#1B1B21', c:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', ov:'#45464F', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', t:'#FFB0CB', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', wc:'#5B4300', onwc:'#FFE08A', gold:'#E0B42A', ongold:'#2B2000', err:'#FFB4AB', errc:'#93000A', onerrc:'#FFDAD6', shadow:'0 8px 28px rgba(0,0,0,.4)' };
+    return dark ? D : L;
+  }
+  fmtDue(extra) {
+    const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const d = new Date(2026, 10, 24 + extra, 14, 0);
+    return { short: DAYS[d.getDay()] + ' 14:00', long: DAYS[d.getDay()] + ' ' + d.getDate() + ' ' + MON[d.getMonth()] + ', 14:00' };
+  }
+  wheelSegs() {
+    return [
+      { d:1, p:0, fill:'pc', on:'onpc' }, { d:2, p:0, fill:'sc', on:'onsc' }, { d:3, p:5, fill:'tc', on:'ontc' },
+      { d:5, p:10, fill:'okc', on:'onokc' }, { d:7, p:15, fill:'wc', on:'onwc' }, { d:0, p:0, denied:true, fill:'errc', on:'onerrc' }
+    ];
+  }
+  // The server decides; the animation only reveals it.
+  decide(mode, n) {
+    if (mode === 'instant') return { mode, granted:true, days:2, ded:0, head:'Extension granted' };
+    if (mode === 'dice') { const v = [4,2,6,3,5,1][n % 6]; return { mode, granted:true, days:v, ded:0, face:v, head:'You rolled a ' + v }; }
+    if (mode === 'coin') { const o = this.props.coinresult ?? 'heads'; const h = o !== 'tails'; return { mode, outcome:o, golden:o === 'golden', granted:h, days:h ? 3 : 0, ded:0, head:o === 'golden' ? 'Golden coin' : o === 'heads' ? 'Heads' : 'Tails' }; }
+    const idx = [2,0,5,3,1,4][n % 6]; const sg = this.wheelSegs()[idx];
+    return { mode, granted:!sg.denied, days:sg.d, ded:sg.p, idx, head: sg.denied ? 'Denied' : sg.d + (sg.d === 1 ? ' day' : ' days') + (sg.p ? ', ' + sg.p + '% off' : '') };
+  }
+  settle(res) { const s = this.state; return { phase:'done', used:s.used + 1, added:s.added + (res.granted ? res.days : 0) }; }
+  clearTimers() { clearInterval(this.iv); clearTimeout(this.to); }
+  openDlg() { this.clearTimers(); this.setState({ open:true, phase:'idle', res:null, coinRot:0, wheelRot:0 }); }
+  closeDlg() { if (this.state.phase === 'run') return; this.clearTimers(); this.setState({ open:false, phase:'idle', res:null }); }
+  begin() {
+    const s = this.state; if (s.phase === 'run') return;
+    const mode = this.props.mode ?? 'dice', motion = this.props.motion ?? true;
+    const res = this.decide(mode, s.attempts);
+    const patch = { attempts:s.attempts + 1, res };
+    if (mode === 'coin') patch.coinRot = (Math.floor(s.coinRot / 360) + 5) * 360 + (res.outcome === 'heads' ? 0 : 180);
+    if (mode === 'wheel') patch.wheelRot = (Math.floor(s.wheelRot / 360) + 5) * 360 + (360 - (res.idx * 60 + 30));
+    if (mode === 'instant' || !motion) { this.setState(Object.assign(patch, this.settle(res))); return; }
+    patch.phase = 'run';
+    this.setState(patch);
+    if (mode === 'dice') this.iv = setInterval(() => this.setState({ face: 1 + Math.floor(Math.random() * 6) }), 110);
+    this.to = setTimeout(() => { clearInterval(this.iv); this.setState(this.settle(res)); }, 1600);
+  }
+  ext(c) {
+    const s = this.state;
+    const mode = this.props.mode ?? 'dice', motion = this.props.motion ?? true;
+    const TOTAL = 3;
+    const tokens = Math.max(0, Math.min(TOTAL, Math.round(Number(this.props.tokens ?? 2))));
+    const left = Math.max(0, tokens - s.used);
+    const valid = s.res && s.res.mode === mode;
+    const phase = valid ? s.phase : 'idle';
+    const res = valid ? s.res : null;
+    const info = {
+      instant: { rule:'Ask for an extension: you get 2 more days, every time', act:'Extend', busy:'Extending', note:'' },
+      dice: { rule:'Roll a 6-sided die: the due date moves by the number rolled', act:'Roll', busy:'Rolling', note:'' },
+      coin: { rule:'Flip a coin: heads gives you 3 more days, tails gives you none, a golden coin gives you the days and a dim sum', act:'Flip', busy:'Flipping', note:' A denied attempt uses one too.' },
+      wheel: { rule:'Spin the wheel: it lands on 1 to 7 days, some with a grade deduction, or Denied', act:'Spin', busy:'Spinning', note:' A denied attempt uses one too.' }
+    }[mode];
+    const due = this.fmtDue(s.added);
+    const done = phase === 'done', run = phase === 'run';
+    const granted = done && res.granted;
+    const faceNum = run ? s.face : (res && res.face) || 5;
+    const pat = { 1:[4], 2:[0,8], 3:[0,4,8], 4:[0,2,6,8], 5:[0,2,4,6,8], 6:[0,2,3,5,6,8] }[faceNum];
+    const pips = [0,1,2,3,4,5,6,7,8].map(i => ({ bg: pat.indexOf(i) >= 0 ? c.onpc : 'transparent' }));
+    const segs = this.wheelSegs().map((sg, i) => {
+      const pt = a => { const r = a * Math.PI / 180; return [(130 + 124 * Math.sin(r)).toFixed(2), (130 - 124 * Math.cos(r)).toFixed(2)]; };
+      const p0 = pt(i * 60), p1 = pt(i * 60 + 60);
+      return { d:'M130 130L' + p0[0] + ' ' + p0[1] + 'A124 124 0 0 1 ' + p1[0] + ' ' + p1[1] + 'Z', fill:c[sg.fill], fg:c[sg.on], tf:'translate(130 130) rotate(' + (i * 60 + 30) + ')',
+        l1: sg.denied ? 'Denied' : sg.d + (sg.d === 1 ? ' day' : ' days'), l2: sg.denied ? '' : (sg.p ? '-' + sg.p + '%' : '0%') };
+    });
+    const dots = [0,1,2].map(i => ({ bg: i < left ? c.p : 'transparent', bd: i < left ? c.p : c.outline }));
+    const trans = run ? 'transform 1600ms cubic-bezier(.2,.8,.2,1)' : 'none';
+    const chips = [];
+    if (granted) {
+      chips.push({ t:'+' + res.days + (res.days === 1 ? ' day' : ' days'), bg:c.pc, fg:c.onpc });
+      chips.push(res.ded ? { t:res.ded + '% grade deduction', bg:c.wc, fg:c.onwc } : { t:'No grade deduction', bg:c.highest, fg:c.onv });
+    }
+    const golden = done && !!res.golden;
+    const celebrate = golden && motion;
+    const bursts = [0,1,2,3,4,5,6,7,8,9,10,11].map(i => { const a = i * 30 * Math.PI / 180, r = 86 + (i % 3) * 22; return { dx:Math.round(r * Math.sin(a)), dy:Math.round(-r * Math.cos(a)), bg:[c.gold, c.t, c.p][i % 3], delay:(i % 4) * 40 }; });
+    const leftNow = left;
+    const stageLabel = mode === 'dice' ? 'Die showing ' + faceNum : mode === 'coin' ? (run ? 'Coin in the air' : done ? res.outcome === 'golden' ? 'Golden coin with a star' : 'Coin showing ' + res.head : 'Coin') : mode === 'wheel' ? (run ? 'Wheel spinning' : done ? 'Wheel stopped on ' + res.head : 'Prize wheel') : 'Instant extension';
+    return {
+      mode, showDialog: s.open, isInstant: mode === 'instant', isDice: mode === 'dice', isCoin: mode === 'coin', isWheel: mode === 'wheel',
+      phaseIdle: !done && !run, phaseRun: run, phaseDone: done, granted, denied: done && !res.granted,
+      canUse: left > 0, noTokens: left === 0,
+      leftHead: left === 0 ? 'No extensions left this month' : left + ' of ' + TOTAL + ' left this month',
+      cardRule: left === 0 ? 'The next one arrives on 1 December.' : info.rule,
+      ruleText: info.rule, idleNote: 'This uses one of your ' + left + ' remaining extensions.' + info.note,
+      busyText: info.busy + '. The result is already decided.', resHead: res ? res.head : '', resDue: due.long,
+      afterText: leftNow + ' of ' + TOTAL + ' left this month',
+      deniedText: 'Your due date has not changed. This attempt used one extension.',
+      actLabel: done ? 'Done' : run ? info.busy : info.act, actDisabled: run, cancelVisible: !done && !run,
+      begin: () => this.begin(), openDlg: () => this.openDlg(), closeDlg: () => this.closeDlg(), finish: () => this.closeDlg(),
+      act: () => { if (done) this.closeDlg(); else this.begin(); },
+      golden, celebrate, bursts, shineClass: golden && motion ? 'mm-shine' : '', backStar: golden, backLetter: !golden, backBg: golden ? c.gold : c.wc, backFg: golden ? c.ongold : c.onwc,
+      btnBg: left > 0 ? c.sc : c.highest, btnFg: left > 0 ? c.onsc : c.onv, actBg: run ? c.highest : c.p, actFg: run ? c.onv : c.onp,
+      dots, leftLabel: left + ' of ' + TOTAL + ' left', chips, pips, segs, stageLabel,
+      diceClass: run ? 'mm-tumble' : '', hopClass: run ? 'mm-hop' : '', trans, coinRot: s.coinRot, wheelRot: s.wheelRot,
+      instPath: granted ? 'M5 12l5 5 9-10' : 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 7v5l3 2',
+      dueChip: 'Due ' + (s.added ? due.short : 'Tue 14:00'), extended: s.added > 0, extChip: 'Extended +' + s.added + (s.added === 1 ? ' day' : ' days')
+    };
+  }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const nav = [['Home','M4 11l8-7 8 7v9H4zM10 20v-6h4v6'],['Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],['Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],['Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],['Messages','M4 5h16v11H8l-4 4z'],['Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']].map(([label, d]) => {
+      const a = label === 'Courses';
+      return { label, d, cur: a ? 'page' : 'false', bg: a ? c.sc : 'transparent', fg: a ? c.onsc : c.onv, w: a ? 700 : 500 };
+    });
+    return Object.assign({}, this.ext(c), {
+      c, accent, dark, rootClass: motion ? '' : 'mm-still',
+      dlgAlign: 'center', dlgSize: 'width:480px;max-height:860px', dlgPad: '24px', dlgRadius: '28px', dlgClass: 'mm-pop',
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      text: s.text, onText: (e) => this.setState({ text: e.target.value }),
+      statusText: s.submitted ? 'Submitted' : 'Not submitted',
+      statusBg: s.submitted ? c.okc : c.highest, statusFg: s.submitted ? c.onokc : c.onv,
+      submitLabel: s.submitted ? 'Submitted' : 'Submit',
+      submit: () => this.setState({ submitted: true, snack: true }),
+      saveDraft: () => this.setState({ draftSaved: true }),
+      draftSaved: s.draftSaved, snack: s.snack,
+      undo: () => this.setState({ submitted: false, snack: false }),
+      dismiss: () => this.setState({ snack: false })
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bathroom pass, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@keyframes mm-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mm-pop{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.mm-in{animation:mm-in 420ms cubic-bezier(.05,.7,.1,1) both}
+.mm-pop{animation:mm-pop 320ms cubic-bezier(.05,.7,.1,1) both}
+.mm-still .mm-in,.mm-still .mm-pop{animation:none}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="width:1440px;height:900px;position:relative;overflow:hidden;display:flex;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.bg}};color:{{c.on}}">
+
+  <dc-import name="Rail" active="courses" initials="MC" accent="{{accent}}" dark="{{dark}}" hint-size="96px,900px"></dc-import>
+
+  <div style="flex:1;min-width:0;height:900px;display:flex;flex-direction:column">
+    <dc-import name="TopBar" title="Introduction to Biology" accent="{{accent}}" dark="{{dark}}" hint-size="1344px,72px"></dc-import>
+
+    <main style="flex:1;min-height:0;overflow:hidden;padding:24px 32px 32px">
+      <div style="height:100%;display:flex;gap:24px;align-items:stretch">
+
+        <aside aria-label="Course index" style="flex:none;width:280px;padding:20px 12px;border-radius:28px;background:{{c.low}};display:flex;flex-direction:column">
+          <h2 style="margin:0 0 8px;padding:0 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Course index</h2>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <sc-for list="{{index}}" as="s" hint-placeholder-count="2">
+              <button type="button" onClick="{{s.toggle}}" aria-expanded="{{s.expandedStr}}" style="width:100%;min-height:64px;padding:8px 12px;border:0;border-radius:20px;background:{{s.bg}};color:{{c.on}};display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer">
+                <span style="flex:none;width:28px;height:28px;border-radius:14px;border:2px solid {{s.ring}};background:{{s.fill}};color:{{c.okc}};display:flex;align-items:center;justify-content:center">
+                  <sc-if value="{{s.done}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:14px;font-weight:600;line-height:1.3">{{s.title}}</span>
+                  <span style="display:block;font-size:12px;color:{{c.onv}}">{{s.count}}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="flex:1"></div>
+          <div style="margin:16px 4px 0;padding:16px;border-radius:20px;background:{{c.c}}">
+            <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Course progress</div>
+            <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68" aria-label="Course progress" style="margin-top:12px;height:8px;border-radius:999px;background:{{c.highest}};overflow:hidden"><div style="width:68%;height:100%;border-radius:999px;background:{{c.p}}"></div></div>
+            <div style="margin-top:8px;font-size:14px;color:{{c.onv}}">13 of 19 activities done</div>
+          </div>
+        </aside>
+
+        <div style="flex:1;min-width:0;position:relative">
+        <div style="height:100%;overflow:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:24px;padding-bottom:48px">
+
+          <section class="mm-in" style="flex:none;display:flex;align-items:center;gap:24px;padding:20px 40px;border-radius:36px;background:{{c.tc}};color:{{c.ontc}}">
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">BIO101</div>
+              <h1 style="margin:6px 0 2px;font-weight:750;font-stretch:112%;font-size:32px;line-height:1.1">Introduction to Biology</h1>
+              <div style="font-size:16px;line-height:1.55">Taught by Dr. Priya Nair</div>
+            </div>
+            <div style="flex:none;font-size:14px;font-weight:600">68% complete</div>
+          </section>
+
+          <section class="mm-in" aria-labelledby="bp-title" style="animation-delay:70ms;flex:none;border-radius:28px;background:{{cardBg}};color:{{cardFg}};padding:24px 32px">
+
+            <sc-if value="{{notOut}}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;align-items:center;gap:32px">
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Bathroom pass</div>
+                  <h2 id="bp-title" style="margin:4px 0 12px;font-weight:750;font-stretch:112%;font-size:28px;line-height:1.15">{{leftText}}</h2>
+                  <div role="img" aria-label="{{iconsLabel}}" style="display:flex;gap:8px">
+                    <sc-for list="{{icons}}" as="p" hint-placeholder-count="5">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="{{p.fill}}" stroke="{{p.stroke}}" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z"></path></svg>
+                    </sc-for>
+                  </div>
+                </div>
+                <button type="button" aria-label="Leave for the bathroom" onClick="{{leave}}" style="flex:none;height:64px;padding:0 36px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:18px;font-weight:650;display:flex;align-items:center;gap:12px;cursor:pointer">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h9"></path></svg>
+                  Leave for the bathroom
+                </button>
+              </div>
+
+              <sc-if value="{{humanRight}}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:20px;padding:20px 24px;border-radius:20px;background:{{c.c}};display:flex;gap:32px;align-items:flex-start">
+                  <div style="flex:1;min-width:0">
+                    <p style="margin:0;font-size:16px;line-height:1.55;font-weight:600">You are out of passes, and you can still go. Using the bathroom is a human right and you will never be refused.</p>
+                    <p style="margin:8px 0 0;font-size:14px;line-height:1.55;color:{{c.onv}}">{{extraLine}}</p>
+                  </div>
+                  <div style="flex:none;width:300px">
+                    <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{c.onv}}">Extension coin flip</div>
+                    <div role="img" aria-label="{{barLabel}}" style="margin-top:8px;height:12px;display:flex;gap:2px;border-radius:999px;overflow:hidden">
+                      <div style="width:{{barH}};background:{{c.p}}"></div>
+                      <div style="width:{{barG}};background:{{c.gold}}"></div>
+                      <div style="width:{{barT}};background:{{c.outline}}"></div>
+                    </div>
+                    <ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:4px">
+                      <sc-for list="{{legend}}" as="l" hint-placeholder-count="3">
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px"><span aria-hidden="true" style="width:12px;height:12px;border-radius:4px;background:{{l.color}}"></span>{{l.text}}</li>
+                      </sc-for>
+                    </ul>
+                    <div style="margin-top:8px;font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">Coin flip heads chance: {{heads}}%</div>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{isOut}}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:32px">
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Out of the room</div>
+                  <div role="timer" aria-label="Time out of the room" style="margin:4px 0;font-family:'Roboto Mono',monospace;font-weight:600;font-size:56px;line-height:1.1">{{clock}}</div>
+                  <p style="margin:0;font-size:16px;line-height:1.55">Your teacher can see that you stepped out. {{outNote}}</p>
+                </div>
+                <button type="button" aria-label="I'm back" onClick="{{back}}" style="flex:none;height:72px;padding:0 48px;border:0;border-radius:999px;background:{{c.p}};color:{{c.onp}};font-size:22px;font-weight:650;display:flex;align-items:center;gap:12px;cursor:pointer">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+                  I'm back
+                </button>
+              </div>
+            </sc-if>
+          </section>
+
+          <div role="tablist" aria-label="Course sections" style="flex:none;display:flex;gap:8px">
+            <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+              <button type="button" role="tab" aria-selected="{{tab.sel}}" style="min-height:48px;padding:0 16px;border:0;background:transparent;color:{{tab.fg}};font-size:14px;font-weight:600;letter-spacing:.01em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer">
+                <span>{{tab.label}}</span>
+                <span style="width:32px;height:4px;border-radius:2px;background:{{tab.bar}}"></span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="flex:none;display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{sections}}" as="s" hint-placeholder-count="2">
+              <section class="mm-in" style="animation-delay:{{s.delay}};border-radius:28px;background:{{c.low}};overflow:hidden">
+                <button type="button" aria-expanded="{{s.expandedStr}}" onClick="{{s.toggle}}" style="width:100%;min-height:72px;padding:16px 24px;border:0;background:transparent;color:{{c.on}};display:flex;align-items:center;gap:16px;text-align:left;cursor:pointer">
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-weight:650;font-size:20px;line-height:1.3">{{s.title}}</span>
+                    <span style="display:block;font-size:14px;color:{{c.onv}}">{{s.count}}</span>
+                  </span>
+                  <span style="flex:none;color:{{c.onv}};transform:rotate({{s.rot}});transition:transform 200ms"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span>
+                </button>
+                <sc-if value="{{s.open}}" hint-placeholder-val="{{ true }}">
+                  <ul style="list-style:none;margin:0;padding:0 16px 16px;display:flex;flex-direction:column;gap:8px">
+                    <sc-for list="{{s.rows}}" as="r" hint-placeholder-count="3">
+                      <li style="min-height:72px;padding:16px;border-radius:20px;background:{{c.c}};display:flex;align-items:center;gap:16px">
+                        <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{c.sc}};color:{{c.onsc}};display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
+                        <span style="flex:1;min-width:0">
+                          <a href="#" style="display:block;font-size:16px;font-weight:600;line-height:1.3;color:{{c.on}};text-decoration:none">{{r.title}}</a>
+                          <span style="display:block;font-size:14px;color:{{c.onv}}">{{r.kind}}</span>
+                        </span>
+                        <span style="flex:none;font-family:'Roboto Mono',monospace;font-size:13px;color:{{c.onv}}">{{r.due}}</span>
+                        <span style="flex:none;min-width:72px;height:24px;padding:0 8px;border-radius:8px;background:{{r.bg}};color:{{r.fg}};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{r.status}}</span>
+                      </li>
+                    </sc-for>
+                  </ul>
+                </sc-if>
+              </section>
+            </sc-for>
+          </div>
+        </div>
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:48px;pointer-events:none;background:linear-gradient(to bottom,transparent,{{c.bg}})"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <sc-if value="{{snackOn}}" hint-placeholder-val="{{ false }}">
+    <div class="mm-pop" role="status" style="position:absolute;left:128px;bottom:32px;min-height:56px;padding:0 8px 0 24px;border-radius:16px;background:{{c.inverse}};color:{{c.onInverse}};display:flex;align-items:center;gap:16px;box-shadow:{{c.shadow}};font-size:15px">
+      <span>{{snack}}</span>
+      <button type="button" aria-label="Dismiss message" onClick="{{dismiss}}" style="height:48px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:{{c.inverseAction}};font-size:14px;font-weight:650;cursor:pointer">Dismiss</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"passes":{"editor":"int","default":3,"section":"Bathroom pass"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    // The demo timer starts at 04:07 so pressing "I'm back" a few seconds later reads "4 min 12 s".
+    this.state = { out: false, secs: 247, used: 0, snack: '', snackOn: false, collapsed: { w2: false, w3: true } };
+    this.tick = null;
+    this.snackTimer = null;
+  }
+  palette(dark, accent) {
+    const L = { bg:'#FBF8FF', low:'#F5F2FB', c:'#EFEDF6', high:'#E9E7F0', highest:'#E3E1EA', on:'#1B1B21', onv:'#45464F', outline:'#767680', p:accent, onp:'#FFFFFF', pc:'#DDE1FF', onpc:'#001454', sc:'#DEE1F9', onsc:'#171B2C', tc:'#FFD9E3', ontc:'#3E0021', ok:'#1F7A4D', okc:'#B7F1CF', onokc:'#00210F', gold:'#E8B100', inverse:'#303036', onInverse:'#F2EFF7', inverseAction:'#B8C3FF', shadow:'0 8px 28px rgba(27,27,33,.14)' };
+    const D = { bg:'#131318', low:'#1B1B21', c:'#1F1F25', high:'#2A292F', highest:'#34343A', on:'#E4E1E9', onv:'#C6C5D0', outline:'#90909A', p:'#B8C3FF', onp:'#002388', pc:'#2440BF', onpc:'#DDE1FF', sc:'#42455A', onsc:'#DEE1F9', tc:'#842653', ontc:'#FFD9E3', ok:'#7CDBA6', okc:'#005234', onokc:'#B7F1CF', gold:'#FFC933', inverse:'#E4E1E9', onInverse:'#303036', inverseAction:'#3D5BD9', shadow:'0 8px 28px rgba(0,0,0,.4)' };
+    return dark ? D : L;
+  }
+  fmt(n) { return String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0'); }
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const motion = this.props.motion ?? true;
+    const c = this.palette(dark, accent);
+    const s = this.state;
+    const total = 5;
+    const base = Math.max(0, Math.min(total, Math.round(this.props.passes ?? 3)));
+    const left = Math.max(0, base - s.used);
+    const extra = (base === 0 ? 1 : 0) + Math.max(0, s.used - base);
+    const heads = Math.max(25, 50 - 5 * extra);
+    const golden = 50 - heads;
+    const humanRight = left === 0;
+
+    const leave = () => {
+      clearInterval(this.tick);
+      this.tick = setInterval(() => this.setState({ secs: this.state.secs + 1 }), 1000);
+      this.setState({ out: true, secs: 247, snackOn: false });
+    };
+    const back = () => {
+      clearInterval(this.tick);
+      const t = this.state.secs;
+      clearTimeout(this.snackTimer);
+      this.snackTimer = setTimeout(() => this.setState({ snackOn: false }), 5000);
+      this.setState({ out: false, used: this.state.used + 1, snackOn: true, snack: 'Welcome back. Break took ' + Math.floor(t / 60) + ' min ' + (t % 60) + ' s.' });
+    };
+
+    const icons = [];
+    for (let i = 0; i < total; i++) {
+      const has = i < left;
+      icons.push({ fill: has ? c.p : 'none', stroke: has ? c.p : c.outline });
+    }
+    const ic = { assignment: 'M6 3h9l4 4v14H6zM9 12h7M9 16h7', quiz: 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01', forum: 'M4 5h16v11H8l-4 4z', page: 'M5 3h14v18H5zM9 8h6M9 12h6M9 16h4' };
+    const data = [
+      { id: 'w2', title: 'Week 2: Cells', acts: [['page', 'Page', 'Cell structure notes', 'No deadline', true], ['assignment', 'Assignment', 'Cell structure lab report', 'Tue 14:00', false], ['quiz', 'Quiz', 'Quiz 2: organelles', 'Thu 10:00', false]] },
+      { id: 'w3', title: 'Week 3: Genetics', acts: [['page', 'Page', 'Mendel and inheritance', 'No deadline', false], ['forum', 'Forum', 'Genetics questions and answers', 'No deadline', false], ['assignment', 'Assignment', 'Punnett square worksheet', 'Fri 23:59', false]] }
+    ];
+    const sections = data.map((d, i) => {
+      const done = d.acts.filter((a) => a[4]).length;
+      const open = !s.collapsed[d.id];
+      return {
+        title: d.title, delay: (140 + i * 70) + 'ms', open, expandedStr: open ? 'true' : 'false', rot: open ? '180deg' : '0deg',
+        count: done + ' of ' + d.acts.length + ' done', allDone: done === d.acts.length,
+        toggle: () => this.setState({ collapsed: { ...s.collapsed, [d.id]: open } }),
+        rows: d.acts.map((a) => ({ d: ic[a[0]], kind: a[1], title: a[2], due: a[3], status: a[4] ? 'Done' : 'To do', bg: a[4] ? c.okc : c.highest, fg: a[4] ? c.onokc : c.onv }))
+      };
+    });
+    return {
+      c, accent, dark, rootClass: motion ? '' : 'mm-still', sections,
+      index: sections.map((x) => ({ title: x.title, count: x.count, done: x.allDone, expandedStr: x.expandedStr, toggle: x.toggle, bg: x.open ? c.c : 'transparent', ring: x.allDone ? c.ok : c.outline, fill: x.allDone ? c.ok : 'transparent' })),
+      tabs: ['Course', 'Participants', 'Grades', 'Reports', 'More'].map((t) => ({ label: t, sel: t === 'Course' ? 'true' : 'false', fg: t === 'Course' ? c.p : c.onv, bar: t === 'Course' ? c.p : 'transparent' })),
+      isOut: s.out, notOut: !s.out, humanRight, icons,
+      cardBg: s.out ? c.pc : c.low, cardFg: s.out ? c.onpc : c.on,
+      leftText: humanRight ? 'No passes left this quarter' : left + ' of ' + total + ' left this quarter',
+      iconsLabel: left + ' of ' + total + ' passes left',
+      clock: this.fmt(s.secs),
+      outNote: humanRight ? 'This break does not use a pass.' : 'This break uses one of your ' + left + ' remaining passes.',
+      heads, golden,
+      extraLine: 'Each extra break this quarter turns 5% of your heads chance on due date extension coin flips into a golden chance. Golden still grants the extension and shows you a dim sum. No grade penalty, ever.',
+      barH: heads + '%', barG: golden + '%', barT: '50%',
+      barLabel: 'Coin flip chances: heads ' + heads + ' percent, golden ' + golden + ' percent, tails 50 percent',
+      legend: [{ color: c.p, text: 'Heads ' + heads + '%' }, { color: c.gold, text: 'Golden ' + golden + '% (extension plus a dim sum)' }, { color: c.outline, text: 'Tails 50%' }],
+      snackOn: s.snackOn, snack: s.snack, leave, back,
+      dismiss: () => { clearTimeout(this.snackTimer); this.setState({ snackOn: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

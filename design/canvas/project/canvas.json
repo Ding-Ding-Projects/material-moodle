@@ -31,6 +31,14 @@
       "name": "Settings and administration"
     },
     {
+      "id": "extensions",
+      "name": "Due date extensions"
+    },
+    {
+      "id": "bathroom",
+      "name": "Bathroom pass"
+    },
+    {
       "id": "front",
       "name": "Front door"
     },
@@ -284,6 +292,86 @@
       "is_interactive": true,
       "radius": 28
     },
+    "Extension.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Assignment with an extension card",
+      "page": "extensions",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "ExtensionPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: extension card",
+      "page": "extensions",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "ExtensionSettings.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "Teacher extension rules",
+      "page": "extensions",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "ExtensionSettingsPhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: teacher extension rules",
+      "page": "extensions",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "BathroomPass.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Course page with a bathroom pass",
+      "page": "bathroom",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "BathroomPassPhone.dc.html": {
+      "x": 1940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: bathroom pass",
+      "page": "bathroom",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "BathroomPassSettings.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 1440,
+      "h": 900,
+      "title": "Teacher bathroom pass settings",
+      "page": "bathroom",
+      "is_interactive": true,
+      "radius": 16
+    },
+    "BathroomPassSettingsPhone.dc.html": {
+      "x": 1940,
+      "y": 1020,
+      "w": 390,
+      "h": 844,
+      "title": "Phone: bathroom pass settings",
+      "page": "bathroom",
+      "is_interactive": true,
+      "radius": 28
+    },
     "SignIn.dc.html": {
       "x": 0,
       "y": 0,
@@ -387,6 +475,14 @@
     "PreferencesPhone.dc.html",
     "Admin.dc.html",
     "AdminPhone.dc.html",
+    "Extension.dc.html",
+    "ExtensionPhone.dc.html",
+    "ExtensionSettings.dc.html",
+    "ExtensionSettingsPhone.dc.html",
+    "BathroomPass.dc.html",
+    "BathroomPassPhone.dc.html",
+    "BathroomPassSettings.dc.html",
+    "BathroomPassSettingsPhone.dc.html",
     "SignIn.dc.html",
     "SignInPhone.dc.html",
     "States.dc.html",
@@ -628,6 +724,86 @@
       "fill": "teal",
       "text": "Site administration on a phone. Not built yet.",
       "page": "settings"
+    },
+    "title-extensions": {
+      "x": 0,
+      "y": -300,
+      "text": "Due date extensions: dice, coin and wheel",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "extensions"
+    },
+    "n-Extensiondchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "The student card on an assignment: extensions left this month, the rule, and the dialog where the die, coin or wheel lands on the result the site already chose. Try the mode, tokens and coinresult Tweaks, including the golden coin with its dim sum. Built in the theme: the card, dialog and all three modes (checked on a test site).",
+      "page": "extensions"
+    },
+    "n-ExtensionPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "The same card on a phone, with the dialog as a bottom sheet.",
+      "page": "extensions"
+    },
+    "n-ExtensionSettingsdchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "The teacher page: allowance per student (default 3 per month, up to unlimited), the period, how extensions are decided, the wheel editor, the denied-attempt rule, and the log with revoke. Built in the theme as a Moodle form and log (checked on a test site).",
+      "page": "extensions"
+    },
+    "n-ExtensionSettingsPhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "The rules and log stacked for a phone.",
+      "page": "extensions"
+    },
+    "title-bathroom": {
+      "x": 0,
+      "y": -300,
+      "text": "Bathroom pass: always granted",
+      "kind": "title1",
+      "maxW": 2700,
+      "page": "bathroom"
+    },
+    "n-BathroomPassdchtml": {
+      "x": 1520,
+      "y": 0,
+      "w": 340,
+      "fill": "blue",
+      "text": "The student pass: passes left this quarter, leave and come back with a live timer. Out of passes never blocks a break: a bathroom break is a human right, with no grade penalty, ever. Try the passes Tweak at 0 to see the golden chance split. Not built yet.",
+      "page": "bathroom"
+    },
+    "n-BathroomPassPhonedchtml": {
+      "x": 2410,
+      "y": 0,
+      "w": 300,
+      "fill": "teal",
+      "text": "The pass on a phone, with a calm full-screen panel while out of the room. Not built yet.",
+      "page": "bathroom"
+    },
+    "n-BathroomPassSettingsdchtml": {
+      "x": 1520,
+      "y": 1020,
+      "w": 340,
+      "fill": "blue",
+      "text": "Passes per period, the golden chance per extra break, the two Home Assistant webhooks with test buttons, who is out now and the history. Not built yet.",
+      "page": "bathroom"
+    },
+    "n-BathroomPassSettingsPhonedchtml": {
+      "x": 2410,
+      "y": 1020,
+      "w": 300,
+      "fill": "teal",
+      "text": "The settings stacked for a phone. Not built yet.",
+      "page": "bathroom"
     },
     "title-front": {
       "x": 0,
