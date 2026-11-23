@@ -56,4 +56,29 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         return $this->render_from_template('theme_material/display_menu', $context);
     }
+
+    /**
+     * Put the features launcher in front of the other toolbar items.
+     *
+     * @return string
+     */
+    public function navbar_plugin_output() {
+        $output = parent::navbar_plugin_output();
+        if (!isloggedin() || isguestuser() || during_initial_install()) {
+            return $output;
+        }
+        $course = $this->page->course ?? null;
+        $groups = \theme_material\features::groups($course);
+        if (!$groups) {
+            return $output;
+        }
+        $context = [
+            'groups' => $groups,
+            'chips' => array_map(fn($g) => ['key' => $g['key'], 'label' => $g['label']], $groups),
+            'pageurl' => (new \moodle_url('/theme/material/features.php',
+                $course && $course->id != SITEID ? ['course' => $course->id] : []))->out(false),
+            'page' => false,
+        ];
+        return $this->render_from_template('theme_material/features_launcher', $context) . $output;
+    }
 }

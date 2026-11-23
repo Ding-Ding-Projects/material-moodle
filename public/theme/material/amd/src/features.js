@@ -1,0 +1,165 @@
+// This file is part of Moodle and is distributed under the GNU GPL v3 or later.
+/**
+ * Search, group chips and keyboard movement for the features launcher and the All features page.
+ *
+ * @module     theme_material/features
+ * @copyright  2026 Ding Ding Projects
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+define(['core/str'], function(Str) {
+    var MAX_PATTERN = 200;
+
+    /**
+     * Build a test function for the current query.
+     *
+     * @param {string} query
+     * @param {boolean} regex
+     * @returns {{test: Function|null, invalid: boolean}}
+     */
+    function matcher(query, regex) {
+        if (!query) {
+            return {test: null, invalid: false};
+        }
+        if (regex) {
+            if (query.length > MAX_PATTERN) {
+                return {test: null, invalid: true};
+            }
+            try {
+                var pattern = new RegExp(query, 'iu');
+                return {test: function(text) {
+                    return pattern.test(text);
+                }, invalid: false};
+            } catch (e) {
+                return {test: null, invalid: true};
+            }
+        }
+        var needle = query.toLocaleLowerCase();
+        return {test: function(text) {
+            return text.toLocaleLowerCase().indexOf(needle) !== -1;
+        }, invalid: false};
+    }
+
+    return {init: function(root) {
+        if (!root || root.dataset.featuresReady) {
+            return;
+        }
+        root.dataset.featuresReady = 'true';
+        var input = root.querySelector('[data-features-query]');
+        var regexButton = root.querySelector('[data-features-regex]');
+        var invalidNote = root.querySelector('[data-features-invalid]');
+        var empty = root.querySelector('[data-features-empty]');
+        var status = root.querySelector('[data-features-status]');
+        var showOff = root.querySelector('[data-features-showoff]');
+        var chips = root.querySelectorAll('[data-features-chip]');
+        var state = {group: '', regex: false};
+        var announce = 0;
+
+        var apply = function() {
+            var m = matcher(input ? input.value.trim() : '', state.regex);
+            if (invalidNote) {
+                invalidNote.hidden = !m.invalid;
+            }
+            if (input) {
+                input.setAttribute('aria-invalid', m.invalid ? 'true' : 'false');
+            }
+            var total = 0;
+            root.querySelectorAll('[data-feature-group]').forEach(function(group) {
+                var inGroup = !state.group || group.dataset.featureGroup === state.group;
+                var shown = 0;
+                group.querySelectorAll('[data-feature]').forEach(function(item) {
+                    var visible = inGroup && (!m.test || m.test(item.dataset.search || '')) &&
+                        !(showOff && !showOff.checked && item.classList.contains('is-off'));
+                    item.hidden = !visible;
+                    shown += visible ? 1 : 0;
+                });
+                group.hidden = shown === 0;
+                total += shown;
+                var rail = root.querySelector('[data-features-rail="' + group.dataset.featureGroup + '"]');
+                if (rail) {
+                    rail.hidden = shown === 0;
+                    var count = rail.querySelector('.mm-features-rail-count');
+                    if (count) {
+                        count.textContent = String(shown);
+                    }
+                }
+            });
+            if (empty) {
+                empty.hidden = total !== 0;
+            }
+            if (status) {
+                var ticket = ++announce;
+                Str.get_string('featurescount', 'theme_material', total).then(function(text) {
+                    if (ticket === announce) {
+                        status.textContent = text;
+                    }
+                    return text;
+                }).catch(function() {
+                    return '';
+                });
+            }
+        };
+
+        if (input) {
+            input.addEventListener('input', apply);
+        }
+        if (showOff) {
+            showOff.addEventListener('change', apply);
+        }
+        if (regexButton) {
+            regexButton.addEventListener('click', function() {
+                state.regex = !state.regex;
+                regexButton.setAttribute('aria-pressed', String(state.regex));
+                regexButton.classList.toggle('is-on', state.regex);
+                apply();
+                if (input) {
+                    input.focus();
+                }
+            });
+        }
+        chips.forEach(function(chip) {
+            chip.addEventListener('click', function() {
+                state.group = chip.dataset.featuresChip;
+                chips.forEach(function(other) {
+                    other.setAttribute('aria-pressed', String(other === chip));
+                });
+                apply();
+            });
+        });
+
+        // Arrow keys move between the visible features; Home and End jump to the ends.
+        root.addEventListener('keydown', function(e) {
+            if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].indexOf(e.key) === -1) {
+                return;
+            }
+            var links = Array.prototype.filter.call(root.querySelectorAll('.mm-feature-link[href], .mm-feature-enable'),
+                function(link) {
+                    return link.offsetParent !== null;
+                });
+            var index = links.indexOf(document.activeElement);
+            if (document.activeElement === input && e.key === 'ArrowDown' && links.length) {
+                e.preventDefault();
+                links[0].focus();
+                return;
+            }
+            if (index === -1) {
+                return;
+            }
+            e.preventDefault();
+            var next = {ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1}[e.key];
+            var target = e.key === 'Home' ? 0 : e.key === 'End' ? links.length - 1 : index + next;
+            if (target < 0 && input) {
+                input.focus();
+            } else if (links[target]) {
+                links[target].focus();
+            }
+        });
+
+        // The toolbar panel puts the cursor in its search box when it opens.
+        var toggle = root.querySelector('.mm-launcher-toggle');
+        if (toggle && input) {
+            toggle.addEventListener('shown.bs.dropdown', function() {
+                input.focus();
+            });
+        }
+    }};
+});

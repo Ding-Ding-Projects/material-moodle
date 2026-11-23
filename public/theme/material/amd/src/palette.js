@@ -114,7 +114,7 @@ define(['core/ajax'], function(Ajax) {
         var seen = {};
         var out = [];
         var scopes = '.primary-navigation, .secondary-navigation, .courseindex, #page-header, .usermenu, ' +
-            '.drawer, #region-main nav, .breadcrumb, .moremenu, #page-footer';
+            '.drawer, #region-main nav, .breadcrumb, .moremenu, #page-footer, .mm-launcher-panel';
         document.querySelectorAll(scopes).forEach(function(scope) {
             scope.querySelectorAll('a[href]').forEach(function(a) {
                 var label = (a.getAttribute('aria-label') || a.textContent || '').replace(/\s+/g, ' ').trim();

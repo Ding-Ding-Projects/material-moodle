@@ -1,0 +1,42 @@
+{{!
+    @template theme_material/features_list
+
+    Feature groups shared by the toolbar launcher and the All features page.
+
+    Context variables required for this template:
+    * groups - array of {id, key, label, intro, count, items}
+    * page - true on the full page, where descriptions and locations are shown
+
+    Example context (json):
+    {
+        "page": false,
+        "groups": [{"id": "mm-features-learn", "key": "learn", "label": "Learning", "intro": "Courses", "count": 1,
+            "items": [{"key": "calendar", "label": "Calendar", "desc": "Events", "icon": "M4 6h16v14H4z",
+                "url": "/calendar/view.php", "where": "/calendar/view.php", "off": false, "enableurl": ""}]}]
+    }
+}}
+{{#groups}}
+<section class="mm-features-group" id="{{id}}{{^page}}-menu{{/page}}" data-feature-group="{{key}}" aria-labelledby="{{id}}{{^page}}-menu{{/page}}-title">
+    <h2 class="mm-features-group-title" id="{{id}}{{^page}}-menu{{/page}}-title">{{label}}</h2>
+    {{#page}}<p class="mm-features-group-intro">{{intro}}</p>{{/page}}
+    <ul class="mm-features-grid" role="list">
+        {{#items}}
+        <li class="mm-feature{{#off}} is-off{{/off}}" data-feature="{{key}}" data-search="{{label}} {{desc}}">
+            {{^off}}<a class="mm-feature-link" href="{{url}}"{{^page}} title="{{desc}}"{{/page}}>{{/off}}
+            {{#off}}<div class="mm-feature-link" aria-disabled="true">{{/off}}
+                <span class="mm-feature-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="{{icon}}"/></svg>
+                </span>
+                <span class="mm-feature-text">
+                    <span class="mm-feature-label">{{label}}</span>
+                    {{#page}}<span class="mm-feature-desc">{{desc}}</span>
+                    <span class="mm-feature-where">{{where}}</span>{{/page}}
+                    {{#off}}<span class="mm-feature-off">{{#str}}featureoff, theme_material{{/str}}</span>{{/off}}
+                </span>
+            {{^off}}</a>{{/off}}
+            {{#off}}</div>{{#enableurl}}<a class="mm-feature-enable" href="{{enableurl}}">{{#str}}featureturnon, theme_material, {{label}}{{/str}}</a>{{/enableurl}}{{/off}}
+        </li>
+        {{/items}}
+    </ul>
+</section>
+{{/groups}}

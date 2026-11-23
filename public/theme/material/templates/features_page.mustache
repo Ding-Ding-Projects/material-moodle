@@ -1,0 +1,49 @@
+{{!
+    @template theme_material/features_page
+
+    The All features page: every Moodle feature the person can reach, with search and group navigation.
+
+    Context variables required for this template:
+    * groups - feature groups, see theme_material/features_list
+    * page - always true here
+    * total - number of features listed
+    * offcount - number of features the site has switched off
+
+    Example context (json):
+    {"page": true, "total": 0, "offcount": 0, "groups": []}
+}}
+<div class="mm-features" data-region="mm-features-page">
+    <section class="mm-features-hero">
+        <p class="mm-features-lead">{{#str}}featureslead, theme_material{{/str}}</p>
+        <div class="mm-launcher-search mm-features-search">
+            <label class="visually-hidden" for="mm-features-q">{{#str}}featuresfind, theme_material{{/str}}</label>
+            <input type="search" id="mm-features-q" class="form-control" data-features-query
+                   placeholder="{{#str}}featuresfind, theme_material{{/str}}" autocomplete="off">
+            <button type="button" class="btn mm-launcher-regex" data-features-regex aria-pressed="false"
+                    title="{{#str}}useregex, theme_material{{/str}}"><span aria-hidden="true">.*</span>
+                <span class="visually-hidden">{{#str}}useregex, theme_material{{/str}}</span></button>
+            {{#offcount}}
+            <div class="form-check form-switch mm-features-showoff">
+                <input class="form-check-input" type="checkbox" role="switch" id="mm-features-showoff" data-features-showoff checked>
+                <label class="form-check-label" for="mm-features-showoff">{{#str}}featuresshowoff, theme_material{{/str}}</label>
+            </div>
+            {{/offcount}}
+        </div>
+        <p class="mm-launcher-invalid" data-features-invalid role="alert" hidden>{{#str}}featuresbadpattern, theme_material{{/str}}</p>
+        <p class="mm-features-count" role="status" data-features-status>{{#str}}featurescount, theme_material, {{total}}{{/str}}</p>
+    </section>
+    <div class="mm-features-layout">
+        <nav class="mm-features-rail" aria-label="{{#str}}featuresgroups, theme_material{{/str}}">
+            {{#groups}}<a href="#{{id}}" data-features-rail="{{key}}"><span>{{label}}</span><span class="mm-features-rail-count">{{count}}</span></a>{{/groups}}
+        </nav>
+        <div class="mm-features-body" data-features-body>
+            {{> theme_material/features_list }}
+            <p class="mm-launcher-empty" data-features-empty hidden>{{#str}}featuresnone, theme_material{{/str}}</p>
+        </div>
+    </div>
+</div>
+{{#js}}
+    require(['theme_material/features'], function(Features) {
+        Features.init(document.querySelector('[data-region="mm-features-page"]'));
+    });
+{{/js}}
