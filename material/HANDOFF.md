@@ -24,7 +24,13 @@
   with 1 skipped (Docker Compose is not in that container). The shell tests use Git's `sh.exe` on Windows. The
   engine failures seen on Linux came from `fake-docker.sh` being checked out with CRLF line endings; a
   `.gitattributes` beside the fixtures now keeps them LF.
-- Not verified: some page selectors the restyle could not confirm from templates
+- Live deployment check: the deployer engine deployed to a clean SSH and Docker server (a throwaway `docker:dind`
+  container) over SSH. All six steps completed, no password reached the log, and the published image
+  (`8754b8d`) ran healthy. A redeploy kept the database password. On that live copy the states, dark mode and
+  course workspace tests passed. This found that missing `.php` files got Apache's bare 404 because the
+  `ErrorDocument` line had been removed; it is back in `material/docker/apache.conf`.
+- Not verified: a deployment to a real external server or through a Cloudflare tunnel (needs the owner's server and
+  Cloudflare account), and some page selectors the restyle could not confirm from templates
   (timeline items, dashboard block columns, admin category tiles).
 - The private dockview fork `Ding-Ding-Projects/dockview` now carries the tab features as its own material layer
   (built in a separate session); its remaining items are in that fork's roadmap.
