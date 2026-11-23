@@ -161,5 +161,13 @@ define(['core/str'], function(Str) {
                 input.focus();
             });
         }
+        // The close button on the phone sheet closes the dropdown and returns focus to its toggle.
+        var closeButton = root.querySelector('[data-features-close]');
+        if (closeButton && toggle) {
+            closeButton.addEventListener('click', function() {
+                toggle.click();
+                toggle.focus();
+            });
+        }
     }};
 });

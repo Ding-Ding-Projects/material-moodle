@@ -26,26 +26,40 @@
     </button>
     <div id="mm-launcher-panel" class="dropdown-menu dropdown-menu-end mm-launcher-panel" role="dialog"
          aria-labelledby="mm-launcher-title">
+        <span class="mm-launcher-handle" aria-hidden="true"></span>
         <div class="mm-launcher-head">
             <strong id="mm-launcher-title" class="mm-launcher-title">{{#str}}featurestitle, theme_material{{/str}}</strong>
             <a class="mm-launcher-page" href="{{pageurl}}">{{#str}}featuresopenpage, theme_material{{/str}}</a>
+            <button type="button" class="mm-launcher-close" data-features-close aria-label="{{#str}}featuresclose, theme_material{{/str}}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
         </div>
         <div class="mm-launcher-search">
-            <label class="visually-hidden" for="mm-launcher-q">{{#str}}featuresfind, theme_material{{/str}}</label>
-            <input type="search" id="mm-launcher-q" class="form-control" data-features-query
-                   placeholder="{{#str}}featuresfind, theme_material{{/str}}" autocomplete="off">
-            <button type="button" class="btn mm-launcher-regex" data-features-regex aria-pressed="false"
-                    title="{{#str}}useregex, theme_material{{/str}}"><span aria-hidden="true">.*</span>
-                <span class="visually-hidden">{{#str}}useregex, theme_material{{/str}}</span></button>
+            <div class="mm-launcher-field">
+                <span class="mm-launcher-field-icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zM16 16l4 4"/></svg>
+                </span>
+                <label class="visually-hidden" for="mm-launcher-q">{{#str}}featuresfind, theme_material{{/str}}</label>
+                <input type="search" id="mm-launcher-q" class="mm-launcher-input" data-features-query data-md-regex="1" data-md-no-regex
+                       placeholder="{{#str}}featuresfind, theme_material{{/str}}" autocomplete="off">
+                <button type="button" class="mm-launcher-regex-toggle" data-features-regex aria-pressed="false"
+                        title="{{#str}}useregex, theme_material{{/str}}">
+                    <span class="mm-launcher-regex-disc" aria-hidden="true">.*</span>
+                    <span class="visually-hidden">{{#str}}useregex, theme_material{{/str}}</span>
+                </button>
+            </div>
         </div>
         <p class="mm-launcher-invalid" data-features-invalid role="alert" hidden>{{#str}}featuresbadpattern, theme_material{{/str}}</p>
         <div class="mm-launcher-chips" role="group" aria-label="{{#str}}featuresgroups, theme_material{{/str}}">
             <button type="button" class="mm-chip" data-features-chip="" aria-pressed="true">{{#str}}featuresall, theme_material{{/str}}</button>
             {{#chips}}<button type="button" class="mm-chip" data-features-chip="{{key}}" aria-pressed="false">{{label}}</button>{{/chips}}
         </div>
-        <div class="mm-launcher-body" data-features-body>
-            {{> theme_material/features_list }}
-            <p class="mm-launcher-empty" data-features-empty hidden>{{#str}}featuresnone, theme_material{{/str}}</p>
+        <div class="mm-launcher-scroll">
+            <div class="mm-launcher-body" data-features-body>
+                {{> theme_material/features_list }}
+                <p class="mm-launcher-empty" data-features-empty hidden>{{#str}}featuresnone, theme_material{{/str}}</p>
+            </div>
+            <div class="mm-launcher-fade" aria-hidden="true"></div>
         </div>
         <span class="visually-hidden" role="status" data-features-status></span>
     </div>

@@ -1,1 +1,159 @@
-// Reserved for the topbar work; see design/canvas.
+// Slim top bar, following design/canvas/project/TopBar.dc.html.
+// With the navigation rail on screen (html[data-mm-rail], 768px and wider) Boost's fixed navbar becomes a 72px
+// bar on the page surface: title on the left, the command palette trigger as a floating pill search in the
+// centre, and icon buttons on the right. The rail carries the main destinations, so the primary links step back;
+// every other destination stays reachable from the display menu and the features launcher.
+
+$mm-topbar-height: 72px;
+
+@media (min-width: 768px) {
+    html[data-mm-rail] body {
+        --navbar-height: #{$mm-topbar-height};
+        #page.drawers { margin-top: $mm-topbar-height; }
+
+        .navbar.fixed-top {
+            height: $mm-topbar-height;
+            min-height: $mm-topbar-height;
+            padding: 0;
+            border: 0 !important;
+            border-radius: 0 !important;
+            background: var(--md-sys-color-surface) !important;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            box-shadow: none !important;
+
+            .navbar-content {
+                height: $mm-topbar-height;
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: 8px;
+                padding: 0 16px 0 32px;
+            }
+
+            // Title: the site name, in the Title type style.
+            .navbar-brand {
+                flex: 0 1 auto;
+                min-width: 0;
+                margin: 0 !important;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: var(--md-sys-color-on-surface);
+                font-size: 1.25rem;
+                font-weight: 650;
+                line-height: 1.3;
+                letter-spacing: 0;
+                .logo { display: none; }
+            }
+
+            // The rail now carries these.
+            .primary-navigation { display: none !important; }
+
+            #usernavigation {
+                height: auto;
+                margin-inline-start: auto;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                .divider { display: none; }
+                // Icon buttons first: display settings, then notifications, then everything else.
+                > * { order: 5; }
+                > .mm-display { order: 1; }
+                > .popover-region-notifications, > #nav-notification-popover-container { order: 2; }
+            }
+
+            // Icon buttons: 48px circles in the variant colour.
+            .mm-display-toggle,
+            .mm-launcher-toggle,
+            .popover-region .nav-link,
+            .popover-region-toggle {
+                width: 48px;
+                height: 48px;
+                min-width: 48px;
+                min-height: 48px;
+                padding: 0;
+                display: grid;
+                place-items: center;
+                border: 0;
+                border-radius: 50%;
+                background: transparent;
+                color: var(--md-sys-color-on-surface-variant);
+                &:hover { background: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface); }
+                &:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+            }
+            .mm-launcher-toggle[aria-expanded="true"] {
+                background: var(--md-sys-color-primary);
+                color: var(--md-sys-color-on-primary);
+            }
+            .popover-region { position: relative; }
+            .popover-region .count-container {
+                position: absolute;
+                top: 8px;
+                inset-inline-end: 8px;
+                min-width: 16px;
+                height: 16px;
+                padding: 0 4px;
+                border-radius: 8px;
+                background: var(--md-sys-color-error);
+                color: var(--md-sys-color-on-error);
+                font-size: .6875rem;
+                font-weight: 700;
+                line-height: 16px;
+            }
+        }
+    }
+}
+
+// Floating pill search: centred in the bar when there is room, otherwise a compact pill in the icon row.
+@media (min-width: 768px) {
+    html[data-mm-rail] body .navbar.fixed-top .md-palette-trigger {
+        order: 0;
+        flex: 0 1 240px;
+        height: 48px;
+        margin: 0 8px 0 0;
+        padding: 0 12px 0 16px;
+        gap: 12px;
+        justify-content: flex-start;
+        border-radius: 999px;
+        background: var(--md-sys-color-surface-container-high);
+        color: var(--md-sys-color-on-surface-variant);
+        font-size: 1rem;
+        text-align: start;
+        &:hover { background: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface); }
+        &:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+        svg { flex: none; width: 24px; height: 24px; }
+        > span:not(:first-child) { flex: 1; min-width: 0; text-align: start; }
+        kbd {
+            flex: none;
+            height: 28px;
+            padding: 0 8px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 8px;
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            font-family: inherit;
+            font-size: .75rem;
+            font-weight: 650;
+            opacity: 1;
+        }
+    }
+}
+@media (min-width: 1200px) {
+    html[data-mm-rail] body .navbar.fixed-top .md-palette-trigger {
+        position: absolute;
+        top: 8px;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        flex: none;
+        width: clamp(280px, calc(100vw - 96px - 700px), 560px);
+        height: 56px;
+        margin: 0;
+        padding: 0 12px 0 20px;
+    }
+    html[data-mm-rail] body.dir-rtl .navbar.fixed-top .md-palette-trigger { transform: translateX(50%); }
+}
+
+@media (forced-colors: active) {
+    html[data-mm-rail] body .navbar.fixed-top .md-palette-trigger { border: 1px solid CanvasText; }
+}

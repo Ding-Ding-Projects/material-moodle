@@ -58,6 +58,60 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Primary navigation nodes the launcher does not already list, such as links added by plugins.
+     *
+     * The rail carries the main destinations on wide screens and the primary links are hidden there, so every
+     * other node must stay reachable from the launcher.
+     *
+     * @param array[] $groups Groups already in the launcher.
+     * @return array[] Launcher items.
+     */
+    private function launcher_more_items(array $groups): array {
+        $covered = ['home', 'myhome', 'mycourses', 'siteadminnode'];
+        $listed = [];
+        foreach ($groups as $group) {
+            foreach ($group['items'] as $item) {
+                $listed[$item['where']] = true;
+            }
+        }
+        $primary = $this->page->primarynav ?? null;
+        if (!$primary || empty($primary->children)) {
+            return [];
+        }
+        $items = [];
+        foreach ($primary->children as $node) {
+            if (in_array((string) $node->key, $covered, true) || !$node->display || $node->hidden) {
+                continue;
+            }
+            $action = $node->action();
+            if (!($action instanceof \moodle_url)) {
+                continue;
+            }
+            try {
+                $where = $action->out_as_local_url(false);
+            } catch (\moodle_exception $e) {
+                $where = $action->out(false);
+            }
+            if (isset($listed[$where])) {
+                continue;
+            }
+            $listed[$where] = true;
+            $items[] = [
+                'group' => 'more',
+                'key' => 'more-' . clean_param((string) $node->key, PARAM_ALPHANUMEXT),
+                'label' => format_string((string) $node->text),
+                'desc' => '',
+                'icon' => 'M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z',
+                'where' => $where,
+                'url' => $action->out(false),
+                'off' => false,
+                'enableurl' => '',
+            ];
+        }
+        return $items;
+    }
+
+    /**
      * Put the features launcher in front of the other toolbar items.
      *
      * @return string
@@ -71,6 +125,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $groups = \theme_material\features::groups($course);
         if (!$groups) {
             return $output;
+        }
+        $more = $this->launcher_more_items($groups);
+        if ($more) {
+            $groups[] = [
+                'key' => 'more',
+                'id' => 'mm-features-more',
+                'label' => get_string('featuregroup_more', 'theme_material'),
+                'intro' => get_string('featuregroupintro_more', 'theme_material'),
+                'count' => count($more),
+                'items' => $more,
+            ];
         }
         $context = [
             'groups' => $groups,

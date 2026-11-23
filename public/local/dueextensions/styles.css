@@ -26,6 +26,8 @@
 .mm-ext-odds-tails { background: var(--md-sys-color-surface-container-highest, #e3e1ea); }
 .mm-ext-dialog {
     width: min(480px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
     border: 0;
     border-radius: 28px;
     padding: 24px;
@@ -89,7 +91,13 @@
 
 /* Golden prize: a dim sum from the public catalog. */
 .mm-ext-dish { margin: 12px auto 0; max-width: 260px; text-align: center; }
-.mm-ext-dish img { width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 0 4px #e0a800; }
+.mm-ext-dish img {
+    width: 100%; height: auto; max-height: min(200px, 28dvh); object-fit: cover;
+    border-radius: 20px; box-shadow: 0 0 0 4px #e0a800;
+}
+/* With a dish on show, the stage gives up some height so the whole dialog fits. */
+.mm-ext-dialog:has(.mm-ext-dish:not([hidden])) .mm-ext-stage { min-height: 150px; }
+.mm-ext-dialog .mm-ext-actions { position: sticky; bottom: -24px; padding-bottom: 4px; background: inherit; }
 .mm-ext-dish figcaption { margin-top: 8px; font-weight: 650; }
 
 html[data-md-motion="off"] .mm-ext-coin.is-flipping, html[data-md-motion="off"] .mm-ext-die.is-landed { animation: none; }

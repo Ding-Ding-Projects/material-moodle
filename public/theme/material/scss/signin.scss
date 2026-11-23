@@ -1,1 +1,200 @@
-// Reserved for the signin work; see design/canvas.
+// Sign-in page, following design/canvas/project/SignIn.dc.html and SignInPhone.dc.html.
+// Left: a flat primary brand panel with onPrimary text and nothing decorative behind the text.
+// Right: a 440px form card. Every field keeps its icon in its own 24px slot so text never overlaps it.
+
+body.pagelayout-login {
+    // Left brand panel.
+    #page .login-layout-left {
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        padding: 0;
+    }
+    .material-login-panel {
+        padding: 64px;
+        gap: 48px;
+        color: var(--md-sys-color-on-primary);
+    }
+    .material-login-brand { gap: 16px; font-size: 1.25rem; font-weight: 650; line-height: 1.3; }
+    .material-login-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: var(--md-sys-color-surface);
+        color: var(--md-sys-color-primary);
+    }
+    .material-login-copy { margin-top: auto; }
+    .material-login-heading {
+        max-width: 12ch;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 800;
+        font-stretch: 118%;
+        line-height: 1.02;
+        letter-spacing: -.02em;
+        color: var(--md-sys-color-on-primary);
+    }
+    .material-login-text {
+        max-width: 26rem;
+        font-size: 1.125rem;
+        line-height: 1.55;
+        opacity: 1;
+        color: var(--md-sys-color-on-primary);
+    }
+    .material-login-instructions { max-width: 32rem; color: var(--md-sys-color-on-primary); a { color: inherit; } }
+    .material-login-chips li {
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 12px;
+        border-radius: 10px;
+        background: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+        font-size: .875rem;
+        font-weight: 600;
+    }
+
+    // Right form card.
+    .login-layout-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+        background: var(--md-sys-color-surface);
+    }
+    .login-layout-right-content { width: 100%; max-width: 440px; margin: auto; }
+    .login-container {
+        width: 100%;
+        max-width: 440px;
+        padding: 32px;
+        border-radius: 28px;
+        background: var(--md-sys-color-surface-container-low);
+        .loginform > h1 {
+            margin: 0 0 4px;
+            font-size: 2rem;
+            font-weight: 750;
+            font-stretch: 112%;
+            line-height: 1.1;
+        }
+        .loginform > p { margin-bottom: 24px !important; }
+        .form-label { margin-bottom: 6px; font-size: .875rem; font-weight: 600; letter-spacing: .01em; }
+    }
+
+    // Fields: one 56px tonal row, icon slot first, then the text, then the password toggle.
+    .login-container .login-form .login-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 56px;
+        box-sizing: border-box;
+        padding: 0;
+        border-radius: 16px;
+        background: var(--md-sys-color-surface-container-highest);
+        &:focus-within { box-shadow: inset 0 -2px 0 var(--md-sys-color-primary); }
+
+        .login-input-icon {
+            position: static;
+            inset: auto;
+            transform: none;
+            z-index: auto;
+            flex: none;
+            width: 24px;
+            height: 24px;
+            margin: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--md-sys-color-on-surface-variant);
+            pointer-events: none;
+            img, svg, .icon {
+                width: 24px;
+                height: 24px;
+                margin: 0;
+                color: inherit;
+            }
+        }
+
+        .form-control {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 100%;
+            padding: 0 16px 0 0 !important;
+            padding-inline-start: 0 !important;
+            padding-inline-end: 16px !important;
+            border: 0;
+            border-radius: 0;
+            background: transparent !important;
+            box-shadow: none !important;
+            color: var(--md-sys-color-on-surface);
+            font-size: 1rem;
+            outline: none;
+            &::placeholder { color: var(--md-sys-color-on-surface-variant); opacity: 1; }
+        }
+
+        // The password field is wrapped by Moodle so the toggle button sits inside the same row.
+        .toggle-sensitive-wrapper {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 100%;
+            flex-wrap: nowrap;
+            align-items: center;
+            .toggle-sensitive-btn {
+                width: 48px;
+                height: 48px;
+                margin-inline-end: 4px;
+                flex: none;
+                padding: 0;
+                display: grid;
+                place-items: center;
+                border: 0 !important;
+                border-radius: 50%;
+                background: transparent !important;
+                color: var(--md-sys-color-on-surface-variant);
+                &:hover { background: var(--md-sys-color-surface-container-high) !important; }
+                &:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: -3px; box-shadow: none; }
+            }
+        }
+    }
+
+    // Buttons.
+    .login-container {
+        #loginbtn, .md-passkey-btn {
+            width: 100%;
+            height: 56px;
+            min-height: 56px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: .01em;
+            transition: transform .2s cubic-bezier(.2, 0, 0, 1.3);
+            &:active { transform: scale(.98); }
+            &:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+        }
+        .login-identityprovider-btn {
+            min-height: 56px;
+            border-radius: 999px;
+            border: 1px solid var(--md-sys-color-outline);
+            background: transparent;
+            color: var(--md-sys-color-on-surface);
+            font-weight: 600;
+        }
+        .login-separator { color: var(--md-sys-color-on-surface-variant); }
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    body.pagelayout-login .login-container {
+        #loginbtn, .md-passkey-btn { transition: none; &:active { transform: none; } }
+    }
+}
+
+// Below 992px the brand panel is hidden by Boost, so the form fills the screen.
+@media (max-width: 991.98px) {
+    body.pagelayout-login {
+        .login-layout-right { padding: 16px; align-items: flex-start; }
+        .login-container { padding: 24px 20px; }
+    }
+}
+@media (forced-colors: active) {
+    body.pagelayout-login .login-container .login-form .login-input-wrapper { border: 1px solid CanvasText; }
+}

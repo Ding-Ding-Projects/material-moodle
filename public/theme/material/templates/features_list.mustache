@@ -29,12 +29,12 @@
                 </span>
                 <span class="mm-feature-text">
                     <span class="mm-feature-label">{{label}}</span>
-                    {{#page}}<span class="mm-feature-desc">{{desc}}</span>
-                    <span class="mm-feature-where">{{where}}</span>{{/page}}
-                    {{#off}}<span class="mm-feature-off">{{#str}}featureoff, theme_material{{/str}}</span>{{/off}}
+                    {{#desc}}<span class="mm-feature-desc">{{desc}}</span>{{/desc}}
+                    {{#page}}<span class="mm-feature-where">{{where}}</span>{{/page}}
+                    {{#off}}<span class="mm-feature-off"><span class="mm-feature-badge">{{#str}}featureoffshort, theme_material{{/str}}</span>{{#page}} {{#str}}featureoff, theme_material{{/str}}{{/page}}</span>{{/off}}
                 </span>
             {{^off}}</a>{{/off}}
-            {{#off}}</div>{{#enableurl}}<a class="mm-feature-enable" href="{{enableurl}}">{{#str}}featureturnon, theme_material, {{label}}{{/str}}</a>{{/enableurl}}{{/off}}
+            {{#off}}</div>{{#enableurl}}<a class="mm-feature-enable" href="{{enableurl}}" aria-label="{{#str}}featureturnon, theme_material, {{label}}{{/str}}">{{#str}}featureturnonshort, theme_material{{/str}}</a>{{/enableurl}}{{/off}}
         </li>
         {{/items}}
     </ul>
