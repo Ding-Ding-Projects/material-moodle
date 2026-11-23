@@ -45,6 +45,10 @@
 - The installed deployer (from the built installer) ran its Save and finish later step and then its read-only
   connection test against the owner's server with an SSH key: it reported the server's Debian 13 and Docker
   29.6.1, with no page errors.
+- The installed deployer deployed through its own window: after Save and finish later it filled the Server page,
+  deployed to a fresh throwaway SSH and Docker server, finished all six steps and showed "Your site is live" with
+  healthy containers. The states, dark mode and course workspace tests passed on that copy, which was deleted
+  afterwards. The owner chose to keep their live site's hand setup rather than hand it to the deployer.
 - Page selectors checked on a running site: the dashboard bento targeted a `blocks-column` region and the timeline
   tile a `timeline-course-image` class, neither of which exists in Moodle 6. They now target `#block-region-content`
   and `.courseicon`; the gap between dashboard blocks measures 16px at 1440 and 390 pixels, every timeline event
