@@ -63,7 +63,7 @@ define([], function() {
         var css = getComputedStyle(document.documentElement);
         var colours = ['primary', 'tertiary', 'success', 'secondary-container', 'error', 'primary-container']
             .map(function(role) {
-                return css.getPropertyValue('--md-sys-color-' + role).trim() || '#8B5000';
+                return css.getPropertyValue('--md-sys-color-' + role).trim() || '#3D5BD9';
             });
         var count = settings.level === 'dramatic' ? 64 : 28;
         for (var i = 0; i < count; i++) {
