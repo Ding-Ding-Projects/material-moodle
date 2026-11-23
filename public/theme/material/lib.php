@@ -143,10 +143,8 @@ function theme_material_pluginfile($course, $cm, $context, $filearea, $args, $fo
  * @return array
  */
 function theme_material_user_preferences(): array {
-    $permission = function (stdClass $user, stdClass $preferenceuser): bool {
-        global $USER;
-        return !empty($USER->id) && (int) $USER->id === (int) $preferenceuser->id;
-    };
+    // Moodle calls this with ($user, $preferencename); only people editing their own layout may save it.
+    $permission = [\core_user::class, 'is_current_user'];
     return [
         'theme_material_workspace' => [
             'type' => PARAM_ALPHA,

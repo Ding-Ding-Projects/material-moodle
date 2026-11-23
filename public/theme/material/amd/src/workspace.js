@@ -104,7 +104,7 @@ define(['core/ajax', 'theme_material/vendor-dockview'], function(Ajax, Dockview)
             var calls = Ajax.call([{
                 methodname: 'core_user_set_user_preferences',
                 args: {preferences: [{name: name, value: value, userid: config.userid}]}
-            }], true, false);
+            }]);
             if (calls[0] && calls[0].catch) {
                 calls[0].catch(function() {
                     return null;
@@ -498,7 +498,8 @@ define(['core/ajax', 'theme_material/vendor-dockview'], function(Ajax, Dockview)
         input.setAttribute('role', 'combobox');
         input.setAttribute('aria-controls', id + '-list');
         input.setAttribute('aria-expanded', 'true');
-        input.setAttribute('aria-autocomplete', 'list');
+        // No aria-autocomplete: Boost's page-wide combobox key handler (document, capture phase) acts on
+        // autocomplete comboboxes and expects its own option markup. This field handles its own keys.
         var list = el('ul', 'mm-ws-results');
         list.id = id + '-list';
         list.setAttribute('role', 'listbox');
