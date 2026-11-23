@@ -23,6 +23,13 @@ behaviour together with what exists today.
 | [Right-click menu](right-click-menu.md) | In progress |
 | [Copy buttons](copy-buttons.md) | Available |
 
+## Classroom tools
+
+| Article | Status |
+| --- | --- |
+| [Due date extensions](due-date-extensions.md) | Available |
+| Bathroom pass | In progress |
+
 ## Signing in
 
 | Article | Status |

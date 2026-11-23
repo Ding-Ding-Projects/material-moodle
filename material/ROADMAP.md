@@ -17,6 +17,9 @@ A box is ticked only when the item is implemented and inspectable in the reposit
 - [ ] Sign-in fields: icons cover the start of the placeholder text; move icons into their own slot
 - [ ] dockview workspaces for course pages and the desktop deployer, with the existing tab features layered on top (`dockview-workspace`)
 - [ ] Exercise the rich-text editor after the TinyMCE 8.10.2 update on a running site
+- [x] Due date extensions: allowance per period (3 per month by default, up to unlimited), instant, dice, coin and wheel rules decided on the server, kept-denial zero grade with revoke, wheel deductions through a grade penalty plugin, teacher rules and log (checked on a test site)
+- [ ] Due date extensions: golden coin path with a live dim sum photo, verified end to end with the bathroom pass
+- [ ] Bathroom pass: passes per period, leave and back with Home Assistant webhooks, never refused, golden chance for the coin
 
 ## Phase 1: core plugins (web app)
 
