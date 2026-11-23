@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Navigation rail</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.mm-rail a:focus-visible,.mm-rail button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
+</style>
+</helmet>
+<nav class="mm-rail" aria-label="Main" style="width:96px;height:{{height}}px;box-sizing:border-box;padding:24px 0;display:flex;flex-direction:column;align-items:center;gap:0;font-family:'Roboto Flex',system-ui,sans-serif;background:{{c.low}};color:{{c.onSurfaceVariant}}">
+  <a href="#" aria-label="Riverside College home" style="width:48px;height:48px;border-radius:14px;background:{{c.primary}};color:{{c.onPrimary}};display:grid;place-items:center">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5M22 9v6"></path></svg>
+  </a>
+  <button type="button" aria-label="New" style="margin-top:24px;width:56px;height:56px;border:0;border-radius:16px;background:{{c.primaryContainer}};color:{{c.onPrimaryContainer}};display:grid;place-items:center">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+  </button>
+  <div style="margin-top:32px;display:flex;flex-direction:column;gap:16px;align-items:center">
+    <sc-for list="{{items}}" as="it" hint-placeholder-count="6">
+      <a href="#" aria-current="{{it.current}}" style="width:80px;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{it.fg}}">
+        <span style="width:56px;height:32px;border-radius:16px;background:{{it.pill}};color:{{it.iconFg}};display:grid;place-items:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.d}}"></path></svg>
+        </span>
+        <span style="font-size:12px;font-weight:{{it.weight}};letter-spacing:.01em">{{it.label}}</span>
+      </a>
+    </sc-for>
+  </div>
+  <div style="flex:1"></div>
+  <a href="#" aria-label="Settings" aria-current="{{settingsCurrent}}" style="width:56px;height:32px;border-radius:16px;background:{{settingsPill}};color:{{c.onSurfaceVariant}};display:grid;place-items:center">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>
+  </a>
+  <a href="#" aria-label="Your profile" style="margin-top:16px;width:40px;height:40px;border-radius:50%;background:{{c.tertiaryContainer}};color:{{c.onTertiaryContainer}};display:grid;place-items:center;text-decoration:none;font-size:14px;font-weight:700;box-shadow:{{avatarRing}}">{{initials}}</a>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["home","courses","calendar","grades","messages","everything","settings","profile","none"],"default":"home","section":"Rail"},"initials":{"editor":"text","default":"MC","section":"Rail"},"height":{"editor":"int","default":900,"section":"Rail"},"accent":{"editor":"color","default":"#3D5BD9","options":["#3D5BD9","#A23F6A","#1F7A4D","#8B5000"],"section":"Theme"},"dark":{"editor":"boolean","default":false,"section":"Theme"},"motion":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":96,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const accent = this.props.accent ?? '#3D5BD9';
+    const active = this.props.active ?? 'home';
+    const c = dark
+      ? { primary:'#B8C3FF', onPrimary:'#002388', primaryContainer:'#2440BF', onPrimaryContainer:'#DDE1FF', secondaryContainer:'#42455A', onSecondaryContainer:'#DEE1F9', tertiaryContainer:'#842653', onTertiaryContainer:'#FFD9E3', low:'#1B1B21', onSurface:'#E4E1E9', onSurfaceVariant:'#C6C5D0' }
+      : { primary:accent, onPrimary:'#FFFFFF', primaryContainer:'#DDE1FF', onPrimaryContainer:'#001454', secondaryContainer:'#DEE1F9', onSecondaryContainer:'#171B2C', tertiaryContainer:'#FFD9E3', onTertiaryContainer:'#3E0021', low:'#F5F2FB', onSurface:'#1B1B21', onSurfaceVariant:'#45464F' };
+    const list = [
+      ['home','Home','M4 11l8-7 8 7v9h-5v-6H9v6H4z'],
+      ['courses','Courses','M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5'],
+      ['calendar','Calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['grades','Grades','M4 20V10M10 20V4M16 20v-8M22 20H2'],
+      ['messages','Messages','M4 5h16v11H8l-4 4z'],
+      ['everything','Everything','M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z']
+    ];
+    const items = list.map(([k, label, d]) => {
+      const on = active === k;
+      return { label, d, current: on ? 'page' : 'false', pill: on ? c.secondaryContainer : 'transparent', iconFg: on ? c.onSecondaryContainer : c.onSurfaceVariant, fg: on ? c.onSurface : c.onSurfaceVariant, weight: on ? 700 : 500 };
+    });
+    return { c, items, height: this.props.height ?? 900, initials: this.props.initials ?? 'MC',
+      settingsCurrent: active === 'settings' ? 'page' : 'false', settingsPill: active === 'settings' ? c.secondaryContainer : 'transparent',
+      avatarRing: active === 'profile' ? '0 0 0 3px ' + c.primary : 'none' };
+  }
+}
+</script>
+</body>
+</html>

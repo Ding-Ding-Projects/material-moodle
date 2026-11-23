@@ -333,6 +333,33 @@
       "page": "foundations",
       "is_interactive": true,
       "radius": 16
+    },
+    "Rail.dc.html": {
+      "x": 0,
+      "y": 1020,
+      "w": 96,
+      "h": 900,
+      "title": "Shared navigation rail",
+      "page": "foundations",
+      "radius": 8
+    },
+    "TopBar.dc.html": {
+      "x": 176,
+      "y": 1020,
+      "w": 1344,
+      "h": 72,
+      "title": "Shared top bar",
+      "page": "foundations",
+      "radius": 8
+    },
+    "PhoneNav.dc.html": {
+      "x": 176,
+      "y": 1172,
+      "w": 390,
+      "h": 80,
+      "title": "Phone: shared bottom navigation",
+      "page": "foundations",
+      "radius": 8
     }
   },
   "order": [
@@ -364,7 +391,10 @@
     "SignInPhone.dc.html",
     "States.dc.html",
     "StatesPhone.dc.html",
-    "Foundations.dc.html"
+    "Foundations.dc.html",
+    "Rail.dc.html",
+    "TopBar.dc.html",
+    "PhoneNav.dc.html"
   ],
   "notes": {
     "title-learning": {
@@ -661,6 +691,30 @@
       "w": 340,
       "fill": "blue",
       "text": "Colour roles, type scale, shapes and core controls that every page uses. Switch light and dark on the board; the accent Tweak recolours primary. Spec: design/canvas/DESIGN-SPEC.md.",
+      "page": "foundations"
+    },
+    "n-Raildchtml": {
+      "x": 0,
+      "y": 1960,
+      "w": 340,
+      "fill": "purple",
+      "text": "The one navigation rail every desktop board imports, so the rail can never drift between pages. Try its active, initials and height Tweaks.",
+      "page": "foundations"
+    },
+    "n-TopBardchtml": {
+      "x": 1560,
+      "y": 1020,
+      "w": 340,
+      "fill": "purple",
+      "text": "The one top bar every desktop board imports: page title, floating pill search with its keyboard shortcut, display settings, notifications and help.",
+      "page": "foundations"
+    },
+    "n-PhoneNavdchtml": {
+      "x": 606,
+      "y": 1172,
+      "w": 340,
+      "fill": "purple",
+      "text": "The one bottom navigation every phone board imports, with five destinations and 48 pixel targets.",
       "page": "foundations"
     }
   },
